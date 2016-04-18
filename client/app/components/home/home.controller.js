@@ -1,9 +1,9 @@
 
 class HomeController {
   constructor() {
-    this.greeting = 'HomeController!';
+      	this.greeting = 'HomeController!';
   }
-
+  
 }
 
 export {HomeController};

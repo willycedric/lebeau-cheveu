@@ -1,0 +1,19 @@
+.carousel-inner > .active{
+
+}
+.carousel-inner >.next,
+.carousel-inner > .prev{
+
+}
+.carousel-caption{
+}
+.carousel-indicators
+ .active{
+ 	background-color: #5A0000;
+ 	border:1px solid #5A0000;
+ 	border-radius: 15px;
+}
+.carousel-indicators li{
+	background-color: #FAFAFA;
+	border-radius: 15px;
+}

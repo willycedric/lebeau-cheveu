@@ -17,6 +17,7 @@ var paths = {
   js: 'client/app/**/*!(.spec.js).js',
   styl: ['client/app/**/*.css', 'client/style/**/*.css'],
   toCopy: ['client/index.html'],
+  uiTemplate:['client/app/**/*.template.html'],
   html: ['client/index.html', 'client/app/**/*.html'],
   dest: 'dist',
   blankTemplates: 'templates/component/*.**'
@@ -59,11 +60,20 @@ gulp.task('copy', function() {
 });
 
 /*
+  Simple task to copy UI templates files to dist folder
+*/
+gulp.task('templateCopy', function(){
+  return gulp.src(paths.uiTemplate,{base: 'client/app/ui-templates'})
+          .pipe(gulp.dest(paths.dest));
+});
+
+/*
 task to watch files for changes and call build and copy tasks
  */
 gulp.task('watch', function() {
   gulp.watch(paths.app, ['build', browser.reload]);
   gulp.watch(paths.toCopy, ['copy', browser.reload]);
+  gulp.watch(paths.uiTemplate, ['templateCopy', browser.reload]);
 });
 
 gulp.task('component', function(){
@@ -88,5 +98,5 @@ gulp.task('component', function(){
 
 
 gulp.task('default', function(done) {
-  sync('build', 'copy', 'serve', 'watch', done)
+  sync('build', 'copy', 'templateCopy','serve', 'watch', done)
 });

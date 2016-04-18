@@ -1,0 +1,14 @@
+<section class="banniere">
+  <div style="height: 305spx">
+  <uib-carousel active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
+      <uib-slide template-url="slide.template.html"ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
+      <div class="carousel-caption">
+          <!-- <h4>Slide {{slide.id}}</h4> -->
+          <p>{{slide.text}}</p>
+      </div>
+      <img ng-src="{{slide.image}}" style="margin:auto;">
+    </uib-slide>
+  </uib-carousel>
+  </div>
+  </div>
+</section>
