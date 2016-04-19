@@ -5,12 +5,12 @@
             <div id="nav-header">
                     <div id="nav-logo">
                       <span ui-sref="home">
-                       <a ui-sref="home">Lebeaucheveu</a>
+                       <a ui-sref="home">{{vm.menuItems[0]}}</a>
                       </span>                    
                     </div><!-- end #nav-logo -->
                    <div id="nav-login-header">                      
                         <span ui-sref="home">
-                         <a ui-sref="home">Lebeaucheveu</a>
+                         <a ui-sref="home">{{vm.menuItems[0]}}</a>
                         </span>
                         <span ui-sref="login" id="login-icon">
                           <a ui-sref="login"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
@@ -19,27 +19,27 @@
             </div><!-- end #nav-header -->
             
             <ul class="menu">
-                <li id="nav-catalog" class="menuItem">
+                <li id="nav-catalog" ui-sref-active="menuSelected" class="menuItem">
                   <span ui-sref="catalog">
-                    <a ui-sref="catalog"><i class="fa fa-book" aria-hidden="true"></i>Catalogue</a>
+                    <a ui-sref="catalog"><i class="fa fa-book" aria-hidden="true"></i>{{vm.menuItems[1]}}</a>
                   </span>
                 </li><!-- end #nav-catalog -->
 
-                <li id="nav-blog" class="menuItem">
+                <li id="nav-blog" ui-sref-active="menuSelected" class="menuItem">
                   <span ui-sref="blog">
-                    <a ui-sref="blog"><i class="fa fa-commenting-o" aria-hidden="true"></i>Blog</a>
+                    <a ui-sref="blog"><i class="fa fa-commenting-o" aria-hidden="true"></i>{{vm.menuItems[2]}}</a>
                   </span>
                 </li><!-- end #nav-blog -->
 
-                <li id="nav-shop" class="menuItem">
+                <li id="nav-shop" ui-sref-active="menuSelected" class="menuItem">
                   <span ui-sref="shop">
-                    <a ui-sref="shop"><i class="fa fa-cart-plus" aria-hidden="true"></i>Magasin</a>
+                    <a ui-sref="shop"><i class="fa fa-cart-plus" aria-hidden="true"></i>{{vm.menuItems[3]}}</a>
                   </span>
                 </li><!-- end #nav-shop -->
 
-                 <li id="nav-login" class="menuItem">
+                 <li id="nav-login" ui-sref-active="menuSelected" class="menuItem">
                   <span ui-sref="banniere">
-                    <a ui-sref="banniere"><i class="fa fa-sign-in" aria-hidden="true"></i>Connexion/inscription</a>
+                    <a ui-sref="banniere"><i class="fa fa-sign-in" aria-hidden="true"></i>{{vm.menuItems[4]}}</a>
                   </span>
                 </li><!-- end #nav-connection -->
             </ul> <!-- end .menu -->
