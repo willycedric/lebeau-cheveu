@@ -1,13 +1,9 @@
-/**
-	*Represents the home page component
-	* @constructor
-*/
-
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
+import 'bootstrap/dist/css/bootstrap.css';
+import carousel from 'angular-ui-bootstrap/src/carousel';
 import {homeDirective} from './home.directive';
 
-export const home = angular.module('home', [uiRouter])
+export const home = angular.module('home', [carousel])
   .config(($stateProvider,$urlRouterProvider) => {
   	$urlRouterProvider.otherwise('/home');
     $stateProvider.state('home', {
@@ -15,5 +11,7 @@ export const home = angular.module('home', [uiRouter])
       template: '<home></home>'
     })
   })
+  
   .directive('home',homeDirective);
 
+  

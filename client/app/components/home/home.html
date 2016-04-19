@@ -1,3 +1,27 @@
 <section class="home">
-  <h1>Hey from {{ vm.greeting }}</h1>
+
+  <div style="">
+      <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
+          <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
+            <div class="carousel-caption">
+                <!-- <h4>Slide {{slide.id}}</h4> -->
+                <p>{{slide.text}}</p>
+            </div>
+            <img class='carousel-img' ng-src="{{slide.image}}" style="margin:auto;width:100%;height:45Opx;">
+        </uib-slide>
+      </uib-carousel>
+  </div>
+  <div id="searchBar">
+    <form novalidate class="search-form">
+
+        <input type="text" placeholder="{{vm.localionPlaceholder}}" size="64">
+        <select name="hairdress-type">
+          <option value="disbled selected">{{vm.hairdressTypePlaceholder}}</option>
+          <option ng-repeat=" hairdressType in vm.hairdressTypes" value="{{hairdressType}}">{{hairdressType}}</option>
+        </selected>
+    </form>
+
+  </div>
+
+ 
 </section>

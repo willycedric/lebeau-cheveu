@@ -1,0 +1,29 @@
+
+
+
+
+.carousel-caption{
+	top: 0;
+    left: 50%;
+   	width:50%;
+    margin-top:20px;
+    bottom: auto;
+    font-size:24px;
+    font-style: italic;;
+    font-family: Quicksand,Serif;
+}
+.carousel-indicators
+ .active{
+ 	background-color: #5A0000;
+ 	border:1px solid #5A0000;
+ 	border-radius: 15px;
+}
+.carousel-indicators li{
+	background-color: #FAFAFA;
+	border-radius: 15px;
+}
+
+#searchBar{
+    top:0;
+    margin-left: 5px;
+}
