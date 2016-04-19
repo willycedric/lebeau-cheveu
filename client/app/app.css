@@ -12,7 +12,6 @@
         margin:0px;
     }
     nav #nav-header{
-        /*border-bottom: solid 3px rgb(70,0,0);*/
         margin: 0 auto;
         width:93.75%; /* 900/960 */
     }
@@ -35,7 +34,7 @@
 
   .topMenu {
           width: 90%; /*960*/
-          margin:auto;
+          margin:0 auto;
     }
 
         .topMenu a {
@@ -52,6 +51,7 @@
             list-style-type: none;
             overflow: hidden;
             padding: 0 10px;
+            width: 25%; /* 225/900 */ 
             -ms-word-break: break-all;
             word-break: break-all;
             *display: inline; 
@@ -64,18 +64,18 @@
             text-align: center;
             width: 93.75%; /* 900/960 */
         }
-     .topMenu .menu  li.menuItem a {
+     .topMenu .menu li.menuItem a {
             color: #fafafa;
             display: block;
             font-size: 14px;
             font-family:Quicksand;
             font-weight: normal;
-            height: 40px;
+           /* height: 40px;*/
             line-height: 40px;
             margin: 0;
             padding: 0 0 0 20px;
             text-transform: uppercase;
-        }
+      }
     .topMenu .menu li.menuSelected a {
             background-color: #fafafa;
             color: #515151;
@@ -85,8 +85,6 @@
             border: 1px solid #fafafa;
             border-radius:5px 5px 0 0;
     }
-
-
 
 @media screen and (max-width: 768px){
 
