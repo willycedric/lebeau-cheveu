@@ -18,6 +18,8 @@
     #nav-logo{
         margin: 0 auto;
         width:77.77777778%; /* 700/900 */
+        
+        font-size: 1.8em;
         text-align: center;
     }
 
@@ -25,7 +27,7 @@
         text-decoration: none;
         color:#fafafa;
         font-size:1.8em; /* 24/16 */
-        font-family: 'Inconsolata',serif ;   /*word-spacing: 0.5em;*/
+        font-family: 'Playfair Display', serif;
     }
 
     #nav-login-header{
@@ -77,12 +79,12 @@
             text-transform: uppercase;
       }
     .topMenu .menu li.menuSelected a {
-            background-color: #fafafa;
+            background-color: #faece8;
             color: #515151;
             font-weight: bold;
             margin: 0 0 0 0px;
             padding: 0 0 0 0px;
-            border: 1px solid #fafafa;
+            border: 1px solid ##faece8;
             border-radius:5px 5px 0 0;
     }
 

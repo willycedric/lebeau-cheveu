@@ -15,23 +15,23 @@ class HomeController {
 	      image: 'http://lorempixel.com/' + newWidth + '/400',
 	      text: ['Un style toujours dans l\'air du temps à des coûts défiants toutes concurences ...',
 	      		 'Pas besoin de vous déplacer ni de prévoir du temps pour vos chercher le nécessaires pours vos coiffures ...',
-	      		 ,'Leboncheveu est le choix gagnant de nombreuses femmes ...','Nos coiffeuses vous donnerons toujours le meilleur d\'elle même ...',
-	      		 'Profiter de la tranquilité et du confort en vous faisant coiffer chez vous et à moindre coût ..'][slides.length%6],
+	      		 ,'Leboncheveu est le choix gagnant de nombreuses femmes ...','Nos coiffeuses vous donneront toujours le meilleur d\'elles mêmes ...',
+	      		 'Profiter de la tranquilité et du confort en vous faisant coiffer chez vous et à moindre coût ..'][slides.length%5],
 	      id: currIndex++
 	    });
 	  };
 
-	  for (let i = 0; i < 6; i++) {
+	  for (let i = 0; i < 1; i++) {
 	    this.addSlide();
 	  }
 
 
 	  //search bar logic
-	  this.localionPlaceholder ="ville ou département";
-	  this.hairdressTypePlaceholder="Type de coiffure";
+	  this.localionPlaceholder ="Ville ou département".toUpperCase();
+	  this.hairdressTypePlaceholder="Type de coiffure".toUpperCase();
 	  this.hairdressTypes = ['Tresse 1','Tissage 1','Tresse 2','Tissage 2'];
-
-	  // Date picker configuration
+	 
+ 	  // Date picker configuration
 	  this.today = () =>{
 	  	this.dt = new Date();
 	  };
@@ -69,19 +69,14 @@ class HomeController {
 
 	  this.toggleMin();
 
-	   this.open1 = ()=> {
+	   this.open = ()=> {
 	    this.popup1.opened = true;
 	  };
-
-	  this.open2 = ()=> {
-	    this.popup2.opened = true;
-	  };
-
 
 	  this.setDate = (year, month,day) =>{
 	  	this.dt = new Date(year, month, day);
 	  }
-	  this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+	  this.formats = ['dd/MM/yyyy', 'shortDate'];
 	  this.format = this.formats[0];
 	  this.altInputFormats = ['M!/d!/yyyy'];
 
@@ -89,9 +84,6 @@ class HomeController {
 	    opened: false
 	  };
 
-	  this.popup2 = {
-	    opened: false
-	  };
 
 	  const tomorrow = new Date();
 	  tomorrow.setDate(tomorrow.getDate() + 1);

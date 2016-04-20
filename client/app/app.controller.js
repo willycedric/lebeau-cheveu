@@ -1,7 +1,7 @@
 
 class AppController {
 	constructor(){
-		this.menuItems = ['Leboncheveu','catalogue','Blog','Magasin','Connexion/Inscription'];
+		this.menuItems = ['Lebeaucheveu','catalogue','Blog','Magasin','Connexion/Inscription'];
 	}
 }
 

@@ -50,5 +50,46 @@
   <main>
     <div ui-view></div>
   </main><!-- end main -->
-  <footer></footer>
+  <footer>
+    <div id="bottom-menu">
+      <div id="legal-issues">
+          <ul>
+            <li>
+              <span ui-sref="user-guide">
+                <a ui-sref="user-guide">{{vm.userGuide}}</a>>
+              </span>
+            </li>
+            <li>
+              <span ui-sref="user-tems">
+                <a ui-sref="user-terms">{{vm.userTerms}}</a>>
+              </span>
+            </li>
+            <li>
+              <span ui-sref="news-letter">
+                <a ui-sref="news-letter">{{vm.NewsLetter}}</a>>
+              </span>
+            </li>
+          </ul>
+      </div><!-- end #menu-bottom -->
+      <div id="social-network">
+          <ul>
+            <li>
+              <span ui-sref="facebook">
+                <a ui-sref="facebook"><i class="fa fa-facebook-official" aria-hidden="tue"></i></a>
+              </span>
+            </li>
+            <li>
+              <span ui-sref="instagram">
+                <a ui-sref="instagram"><i class="fa fa-instagram" aria-hidden="tue"></i></a>
+              </span>
+            </li>
+            <li>
+              <span ui-sref="twitter">
+                <a ui-sref="twitter"><i class="fa fa-twitter-square" aria-hidden="tue"></i></a>
+              </span>
+            </li>
+          </ul>
+      </div>
+    </div><!--end #social-network -->
+  </footer>
 </div>
