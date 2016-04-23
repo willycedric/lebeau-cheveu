@@ -25,6 +25,7 @@ import {catalog} from './components/catalog/catalog';
 import {shop} from './components/shop/shop';
 import {login} from './components/login/login';
 import {blog} from './components/blog/blog';
+import {shared} from './shared/shared';
 
 
 
@@ -46,5 +47,6 @@ angular.module('app', [
   shop.name,
   login.name,
   blog.name,
+  shared.name,
 ])
 .directive('app', appDirective);

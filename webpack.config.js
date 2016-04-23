@@ -18,7 +18,9 @@ module.exports = {
       { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.(woff|woff2|eot|ttf|svg)$/, loader:'url'},
       { test: /\.(png|jpg|jpeg)$/, loader: 'file' },
-      { test: /\.js$/, loader: 'babel?stage=1', exclude: [/client\/lib/, /node_modules/, /\.spec\.js/] }
+      { test: /\.xml$/, loader: 'xml-loader' },
+      { test: /\.json$/, loader: 'json-loader' },
+      { test: /\.js$/, loader: 'babel?stage=1', exclude: [/client\/lib/, /node_modules/,/server/,/\.spec\.js/] }
     ]
   },
 

@@ -7,6 +7,7 @@ var path    = require('path');
 var yargs   = require('yargs').argv;
 var tpl     = require('gulp-template');
 var rename  = require('gulp-rename');
+var fs = require('fs');
 
 /*
 map of paths for using with the tasks below
@@ -28,13 +29,14 @@ var resolveToComponents = function(glob){
   glob = glob || '';
   return path.join('client', 'app/components', glob); // app/components/{glob}
 };
-
+//parse all files to find TODO instructions and then
+//log them to the console
 gulp.task('todo', function() {
   return gulp.src(paths.js)
     .pipe(todo({silent: false, verbose: true}));
 });
 
-gulp.task('build', ['todo'], function() {
+gulp.task('build', ['label'], function() {
   return gulp.src(paths.entry)
     .pipe(webpack(require('./webpack.config')))
     .pipe(gulp.dest(paths.dest));
@@ -66,6 +68,24 @@ gulp.task('templateCopy', function(){
   return gulp.src(paths.uiTemplate,{base: 'client/app/ui-templates'})
           .pipe(gulp.dest(paths.dest));
 });
+/**
+ * 
+ */
+gulp.task('label',function(){
+    var label =require('./server/labelLoader');//return a promise object
+    label.then(function(data){
+        try{
+          fs.writeFile('labels.json',JSON.stringify(data), function(err){
+            if(err) throw err;
+          });
+        }catch(err){
+          console.err(err);
+        }
+    })
+    .catch(function(error){
+      console.error(error);
+    });
+});
 
 /*
 task to watch files for changes and call build and copy tasks
@@ -95,7 +115,6 @@ gulp.task('component', function(){
     }))
     .pipe(gulp.dest(destPath));
 });
-
 
 gulp.task('default', function(done) {
   sync('build', 'copy', 'templateCopy','serve', 'watch', done)

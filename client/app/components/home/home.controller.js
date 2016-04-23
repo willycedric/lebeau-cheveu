@@ -21,7 +21,7 @@ class HomeController {
 	    });
 	  };
 
-	  for (let i = 0; i < 1; i++) {
+	  for (let i = 0; i < 5; i++) {
 	    this.addSlide();
 	  }
 
