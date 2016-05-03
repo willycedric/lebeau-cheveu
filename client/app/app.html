@@ -2,36 +2,23 @@
   <header>
     <nav id='cssmenu'>
         <div class="logo">
-          <span ui-sref="home">
                  <a ui-sref="home">Lebeaucheveu</a>
-          </span> 
         </div>
         <div id="head-mobile"></div>
         <div class="button"></div>
         <ul>
-        <li class='active'><a href='#'>Lebeaucheveu</a></li>
-        <li>
-          <span ui-sref="home">
-                 <a ui-sref="home">Lebeaucheveu</a>
-          </span> 
-        </li>
-        <li>
-          <span ui-sref="catalog">
-              <a ui-sref="catalog"><i class="fa fa-book" aria-hidden="true"></i>Catalogue</a>
-          </span>
-        </li>
-        <li>
-          <span ui-sref="blog">
-            <a ui-sref="blog"><i class="fa fa-commenting-o" aria-hidden="true"></i>Blog</a>
-          </span>
-        </li>
-        <li>
-          <span ui-sref="shop">
-              <a ui-sref="shop"><i class="fa fa-cart-plus" aria-hidden="true"></i>{{vm.menuItems[3]}}</a>
-          </span>
-        </li>
-        <li><a href='#'>GALLERY</a></li>
-        <li><a href='#'>CONTACT</a></li>
+          <li ui-sref-active="active" class="active">            
+                <a ui-sref="catalog"><i class="fa fa-book" aria-hidden="true"></i>Catalogue</a>
+          </li>
+          <li ui-sref-active="active" class="active">
+              <a ui-sref="blog"><i class="fa fa-commenting-o" aria-hidden="true"></i>Blog</a>
+          </li>
+          <li ui-sref-active="active" class="active">
+                <a ui-sref="shop"><i class="fa fa-cart-plus" aria-hidden="true"></i>Magasin</a>
+          </li>
+          <li ui-sref-active="active" class="active">
+              <a ui-sref="login"><i class="fa fa-sign-in" aria-hidden="true"></i>Connexion/Inscription</a>
+          </li>
         </ul>
     </nav>
   </header>
