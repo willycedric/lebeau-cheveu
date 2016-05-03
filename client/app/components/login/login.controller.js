@@ -1,4 +1,3 @@
-
 class LoginController {
   constructor() {
     this.greeting = 'LoginController!';

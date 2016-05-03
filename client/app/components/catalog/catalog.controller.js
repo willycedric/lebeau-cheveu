@@ -1,4 +1,3 @@
-
 class CatalogController {
   constructor() {
     this.greeting = 'CatalogController!';

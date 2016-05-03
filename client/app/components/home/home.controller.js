@@ -1,7 +1,8 @@
-
+import labels from '../../../../labels.json';
 class HomeController {
   constructor() {
-
+  		//labels
+  		this.labels=labels;
 		//Carousel logic
 	  this.myInterval = 5000;
 	  this.noWrapSlides = false;
@@ -13,12 +14,12 @@ class HomeController {
 	    const newWidth = 1280 + slides.length + 1;
 	    slides.push({
 	      image: 'http://lorempixel.com/' + newWidth + '/400',
-	      text: ['Un style toujours dans l\'air du temps à des coûts défiants toutes concurences ...',
+	      text: ['Un style toujours dans l\'air du temps à des coûts défiants toutes concurrences ...',
 	      		 'Pas besoin de vous déplacer ni de prévoir du temps pour vos chercher le nécessaires pours vos coiffures ...',
-	      		 ,'Leboncheveu est le choix gagnant de nombreuses femmes ...','Nos coiffeuses vous donneront toujours le meilleur d\'elles mêmes ...',
+	      		 ,'Lebeaucheveu est le choix gagnant de nombreuses femmes ...','Nos coiffeuses vous donneront toujours le meilleur d\'elles mêmes ...',
 	      		 'Profiter de la tranquilité et du confort en vous faisant coiffer chez vous et à moindre coût ..'][slides.length%5],
 	      id: currIndex++
-	    });
+	    }); 
 	  };
 
 	  for (let i = 0; i < 5; i++) {

@@ -72,7 +72,7 @@ gulp.task('templateCopy', function(){
  * 
  */
 gulp.task('label',function(){
-    var label =require('./server/labelLoader');//return a promise object
+    var label =require('./label/labelLoader');//return a promise object
     label.then(function(data){
         try{
           fs.writeFile('labels.json',JSON.stringify(data), function(err){

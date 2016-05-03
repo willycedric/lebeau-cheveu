@@ -1,13 +1,28 @@
 import labels from '../../labels.json';
 class AppController {
 	constructor(){
-		this.menuItems = ['Lebeaucheveu','catalogue','Blog','Magasin','Connexion/Inscription'];
-		this.footerMenuItems={
-			L_W_USER_GUIDE:'Guide d\'utilisateur',
-			L_W_USER_TERMS:'Termes d\'utilisation',
-			L_W_NEWS_LETTERS:'News Letter'
-		};	
-		this.labels =labels;
+		this.labels =labels; //Label.init;
 	}
 }
+var Label = (function(){
+	var toggle=true;
+	var toggleLanguage = function(){
+		var language;
+		if(toggle){
+			language = labels.french;
+		}else{
+			language = labels.english
+		}
+		toggle=!toggle;
+		debugger;
+		return language;
+	};
+
+	var init = function(){
+		return toggleLanguage;
+	};
+	return{
+		init:init
+	};
+})();
 export {AppController};

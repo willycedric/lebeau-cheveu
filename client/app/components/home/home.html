@@ -7,14 +7,14 @@
                 <span >
                   <i class="glyphicon glyphicon-map-marker click-me"></i>
                 </span>
-              <input type="text" placeholder="{{vm.localionPlaceholder}}" size="38">    
+              <input type="text" placeholder="{{vm.labels.english.L_W_SEARCH_LOCATION_PLACEHOLDER|uppercase}}" size="38">    
           </li>    
           <li id="hairdress-type">
                 <span >
                  <i class="glyphicon glyphicon-heart click-me"></i>
                 </span>
               <select name="hairdress-type">
-                <option value="disbled selected">{{vm.hairdressTypePlaceholder}}</option>
+                <option value="disbled selected">{{vm.labels.english.L_W_SEARCH_HAIRCUT_TYPE_PLACEHOLDER|uppercase}}</option>
                 <option ng-repeat=" hairdressType in vm.hairdressTypes" value="{{hairdressType}}">{{hairdressType}}</option>
               </select>
           </li>

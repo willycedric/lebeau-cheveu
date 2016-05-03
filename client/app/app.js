@@ -13,6 +13,7 @@ import {appDirective} from './app.directive';
 // Note that the actual value are just strings except angular itself
 // because that's how angular decided to export
 // their auxillary modules
+import 'jquery';
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';

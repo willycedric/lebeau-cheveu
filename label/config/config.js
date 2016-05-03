@@ -1,5 +1,3 @@
-
-
 /**
  * [config description]
  * Label file options
@@ -8,7 +6,7 @@
 const config ={
 	informations:{
 		filePath:__dirname+'/',
-		fileName:"GENERAL_LABELS_WEB_V110_SRSxx.xlsx",
+		fileName:"GENERAL_LABELS_WEB_V1_SRSxx.xlsx",
 		fileVersion:"1.0"
 	}
 };

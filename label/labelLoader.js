@@ -14,12 +14,5 @@ module.exports =labelWorkbook.xlsx.readFile(options.informations.filePath+option
 });
 
 
-// label.then(function(data){
-//         console.log(data.french.L_W_TERMS_OF_USE);
-//     })
-//     .catch(function(error){
-//       console.error(error);
-//     });
-
 
 

@@ -17,6 +17,7 @@
     "bootstrap": "^3.3.6",
     "exceljs": "*",
     "jeet": "^6.1.2",
+    "jquery": "^2.2.3",
     "json-loader": "^0.5.4",
     "lodash": "^3.10.0",
     "normalize.css": "^3.0.3",

@@ -1,4 +1,3 @@
-
 class ShopController {
   constructor() {
     this.greeting = 'ShopController!';

@@ -96,6 +96,7 @@ li.uib-button-bar{
 }
 form{
     width:93.75%; /* 900/960 */
+    margin:0 auto;
 }
    form ul {
             
@@ -117,7 +118,7 @@ form{
         }  
 
           li#location-field {
-                width:43.44444444444444%; /*400/900*/
+                width:44.44444444444444%; /*400/900*/
                 margin: 0 auto;
                 text-align: center;
             }
@@ -181,14 +182,13 @@ input[type="text"],textarea{
        -moz-appearance: none;
             appearance: none;
 }
-
 #hairdress-type select:focus {
      outline: none;
 }
 
 /* Not working yet */
-#hairdress-type select option:hover,
-#hairdress-type select option:checked{
+hairdress-type select option:hover,
+hairdress-type select option:checked{
     margin:40px;
     background-color:#faece8;
     color:rgb(147,41,38);
@@ -233,7 +233,7 @@ li #search-button:hover{
 .click-me:hover{
     cursor:pointer;
     color:#faece8;
-    border-radius: 50%;
+    border-radius: 45%;
     width:40px;
     height: 40px;
     display: inline-block;
