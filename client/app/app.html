@@ -1,7 +1,7 @@
 <div id="app">
   <header>
     <nav id='cssmenu'>
-        <div class="logo">
+        <div class="logo active" ui-sref-active="active">
                  <a ui-sref="home">Lebeaucheveu</a>
         </div>
         <div id="head-mobile"></div>
@@ -12,6 +12,9 @@
           </li>
           <li ui-sref-active="active" class="active">
               <a ui-sref="blog"><i class="fa fa-commenting-o" aria-hidden="true"></i>Blog</a>
+          </li>
+          <li ui-sref-active="active" class="active">
+                <a ui-sref="galeria"><i class="fa fa-picture-o" aria-hidden="true"></i>Galerie</a>
           </li>
           <li ui-sref-active="active" class="active">
                 <a ui-sref="shop"><i class="fa fa-cart-plus" aria-hidden="true"></i>Magasin</a>
@@ -50,19 +53,13 @@
       <div id="social-network">
           <ul>
             <li>
-              <span ui-sref="facebook">
                 <a ui-sref="facebook"><i class="fa fa-facebook-official" aria-hidden="tue"></i></a>
-              </span>
             </li>
             <li>
-              <span ui-sref="instagram">
                 <a ui-sref="instagram"><i class="fa fa-instagram" aria-hidden="tue"></i></a>
-              </span>
             </li>
             <li>
-              <span ui-sref="twitter">
                 <a ui-sref="twitter"><i class="fa fa-twitter-square" aria-hidden="tue"></i></a>
-              </span>
             </li>
           </ul>
       </div><!--end #social-network -->

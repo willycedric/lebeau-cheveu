@@ -1,38 +1,40 @@
 *{margin:0;padding:0;text-decoration:none}
-body{background:#555;}
-header{position:relative;width:100%;background:#333;}
-.logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#6DDB07;float:left;width:15%}
-.logo a{color:#6DDB07; text-decoration: none;}
-nav{position:relative;width:980px;margin:0 auto;}
+body{background:#5a0000;}
+header{position:relative;width:100%;background:#5a0000;}
+footer{position:relative;width:100%;background:#5a0000;}
+.logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#fafafa;float:left;width:30%;padding:0;}
+.logo a{color:#fafafa; text-decoration: none;}
+nav{position:relative;width:100%;margin:0 auto;} /*980*/
 #cssmenu,#cssmenu ul,#cssmenu ul li,#cssmenu ul li a,#cssmenu #head-mobile{border:0;list-style:none;line-height:1;display:block;position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 #cssmenu:after,#cssmenu > ul:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0}
 #cssmenu #head-mobile{display:none}
-#cssmenu{font-family:sans-serif;background:#333}
-#cssmenu > ul > li{float:left}
+#cssmenu ul{ width:90%; margin:0 auto;}
+#cssmenu{font-family:sans-serif;background:#5a0000;width:100%; margin:0 auto;padding:10px;text-align: center;padding-bottom: 0;}
+#cssmenu > ul > li{float:left;}
 #cssmenu > ul > li > a{padding:17px;font-size:12px;letter-spacing:1px;text-decoration:none;color:#ddd;font-weight:700;}
-#cssmenu > ul > li:hover > a,#cssmenu ul li.active a{color:#fff}
-#cssmenu > ul > li:hover,#cssmenu ul li.active:hover,#cssmenu ul li.active,#cssmenu ul li.has-sub.active:hover{background:#448D00!important;-webkit-transition:background .3s ease;-ms-transition:background .3s ease;transition:background .3s ease;}
+#cssmenu > ul > li:hover > a,#cssmenu ul li.active a{color:#515151}
+#cssmenu > ul > li:hover,#cssmenu ul li.active:hover,#cssmenu ul li.active,#cssmenu ul li.has-sub.active:hover{ background-color: #faece8;color:#515151;font-weight: bold;margin: 0 0 0 0px;padding: 0 0 0 0px;border: 1px solid #faece8;border-radius:3px 3px 0 0;-webkit-transition:background .3s ease;-ms-transition:background .3s ease;transition:background .3s ease;}
 #cssmenu > ul > li.has-sub > a{padding-right:30px}
 #cssmenu > ul > li.has-sub > a:after{position:absolute;top:22px;right:11px;width:8px;height:2px;display:block;background:#ddd;content:''}
 #cssmenu > ul > li.has-sub > a:before{position:absolute;top:19px;right:14px;display:block;width:2px;height:8px;background:#ddd;content:'';-webkit-transition:all .25s ease;-ms-transition:all .25s ease;transition:all .25s ease}
 #cssmenu > ul > li.has-sub:hover > a:before{top:23px;height:0}
 #cssmenu ul ul{position:absolute;left:-9999px}
-#cssmenu ul ul li{height:0;-webkit-transition:all .25s ease;-ms-transition:all .25s ease;background:#333;transition:all .25s ease}
+#cssmenu ul ul li{height:0;-webkit-transition:all .25s ease;-ms-transition:all .25s ease;background:#5a0000;transition:all .25s ease}
 #cssmenu ul ul li:hover{}
 #cssmenu li:hover > ul{left:auto}
 #cssmenu li:hover > ul > li{height:35px}
 #cssmenu ul ul ul{margin-left:100%;top:0}
 #cssmenu ul ul li a{border-bottom:1px solid rgba(150,150,150,0.15);padding:11px 15px;width:170px;font-size:12px;text-decoration:none;color:#ddd;font-weight:400;}
 #cssmenu ul ul li:last-child > a,#cssmenu ul ul li.last-item > a{border-bottom:0}
-#cssmenu ul ul li:hover > a,#cssmenu ul ul li a:hover{color:#fff}
+#cssmenu ul ul li:hover > a,#cssmenu ul ul li a:hover{color:#515151}
 #cssmenu ul ul li.has-sub > a:after{position:absolute;top:16px;right:11px;width:8px;height:2px;display:block;background:#ddd;content:''}
 #cssmenu ul ul li.has-sub > a:before{position:absolute;top:13px;right:14px;display:block;width:2px;height:8px;background:#ddd;content:'';-webkit-transition:all .25s ease;-ms-transition:all .25s ease;transition:all .25s ease}
 #cssmenu ul ul > li.has-sub:hover > a:before{top:17px;height:0}
-#cssmenu ul ul li.has-sub:hover,#cssmenu ul li.has-sub ul li.has-sub ul li:hover{background:#363636;}
-#cssmenu ul ul ul li.active a{border-left:1px solid #333}
-#cssmenu > ul > li.has-sub > ul > li.active > a,#cssmenu > ul ul > li.has-sub > ul > li.active> a{border-top:1px solid #333}
+#cssmenu ul ul li.has-sub:hover,#cssmenu ul li.has-sub ul li.has-sub ul li:hover{background:#faece8;}
+#cssmenu ul ul ul li.active a{border-left:1px solid #5a0000}
+#cssmenu > ul > li.has-sub > ul > li.active > a,#cssmenu > ul ul > li.has-sub > ul > li.active> a{border-top:1px solid #5a0000}
 
-@media screen and (max-width:700px){
+@media screen and (max-width:914px){
 .logo{position:absolute;top:0;left: 0;width:100%;height:46px;text-align:center;padding:10px 0 0 0 ;float:none; text-decoration: none;}
 .logo a{text-decoration: none;}
 .logo2{display:none}
@@ -40,16 +42,16 @@ nav{width:100%;}
 #cssmenu{width:100%}
 #cssmenu ul{width:100%;display:none}
 #cssmenu ul li{width:100%;border-top:1px solid #444}
-#cssmenu ul li:hover{background:#363636;}
+#cssmenu ul li:hover{background:#faece8;}
 #cssmenu ul ul li,#cssmenu li:hover > ul > li{height:auto}
 #cssmenu ul li a,#cssmenu ul ul li a{width:100%;border-bottom:0}
 #cssmenu > ul > li{float:none}
 #cssmenu ul ul li a{padding-left:25px}
-#cssmenu ul ul li{background:#333!important;}
-#cssmenu ul ul li:hover{background:#363636!important}
+#cssmenu ul ul li{background:#5a0000!important;}
+#cssmenu ul ul li:hover{background:#faece8!important}
 #cssmenu ul ul ul li a{padding-left:35px}
 #cssmenu ul ul li a{color:#ddd;background:none}
-#cssmenu ul ul li:hover > a,#cssmenu ul ul li.active > a{color:#fff}
+#cssmenu ul ul li:hover > a,#cssmenu ul ul li.active > a{color:#515151}
 #cssmenu ul ul,#cssmenu ul ul ul{position:relative;left:0;width:100%;margin:0;text-align:left}
 #cssmenu > ul > li.has-sub > a:after,#cssmenu > ul > li.has-sub > a:before,#cssmenu ul ul > li.has-sub > a:after,#cssmenu ul ul > li.has-sub > a:before{display:none}
 #cssmenu #head-mobile{display:block;padding:23px;color:#ddd;font-size:12px;font-weight:700}
