@@ -1,3 +1,13 @@
 <section class="login">
-  <h1>Hey from {{ vm.greeting }}</h1>
+  <div class="container">
+    <div class="header"><h1>Login</h1></div>
+        <form  novalidate class="login">
+            <input type="email" ng-model ="vm.user.email" placeholder="email" />
+            <input type="password" ng-model ="vm.user.password" placeholder="Password" />
+            <input type="submit" ng-click = "vm.login(vm.user)" value="Login" />
+        </form>
+        <pre> user = {{vm.user.email | json}} </pre>
+    </div> <!-- end .header -->
+   </div> <!-- end .container -->
+   <input type="submit" ng-click="vm.getMe()" value="get me"/>
 </section>

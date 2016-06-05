@@ -1,0 +1,57 @@
+@import url("http://fonts.googleapis.com/css?family=Merriweather:300,700|Raleway:200,600");
+
+html {
+    background: #888;
+    font-family: "Merriweather", sans-serif;
+    font-weight: 200;
+}
+
+.container {
+    width: 420px;
+    margin: 0 auto;
+    background: #f4f0e5;
+    box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75); 
+    -webkit-box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75); 
+}
+
+h1 {
+    font-weight: 300;   
+}
+
+.header h1 {
+    padding: 20px 0;
+    text-align:center;
+    background: #546e7a;
+    color: #fff;
+}
+
+form {
+   padding: 6%; 
+}
+
+input {
+    display: block;
+    padding: 10px 0;
+    width: 100%;
+    margin-bottom: 10px;
+    -webkit-transition: background 1s ease;
+    -moz-transition: background 1s ease;
+    -o-transition: background 1s ease;
+    -ms-transition: background 1s ease;
+    transition: background 1s ease;
+}
+   
+input[type="submit"]{
+    background: #546e7a;
+    color: #fff;
+    border: 0;
+    padding: 15px 0;
+    margin-top: 20px;
+}
+
+input:focus {
+    background: #374247;
+    color: #fff;
+    outline-width: 0;
+}
