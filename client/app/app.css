@@ -1,5 +1,5 @@
 *{margin:0;padding:0;text-decoration:none}
-body { background-color:#959595;} /*5a0000*/
+body { background-color:#faece8;} /*5a0000*/
 
 #app .logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#fafafa;float:left;width:30%;padding:0;}
 #app .logo a{color:#fafafa; text-decoration: none;}
@@ -35,7 +35,7 @@ body { background-color:#959595;} /*5a0000*/
 #cssmenu > ul > li.has-sub > ul > li.active > a,#cssmenu > ul ul > li.has-sub > ul > li.active> a{border-top:1px solid #5a0000}
 
 /* Footer */
-.page-bottom{background:#5a0000;padding:30px;}
+.page-bottom{background-color:#5a0000;padding:10px;}
 #social-networks, #legal-issues ul {margin: 0;padding: 0;list-style-type: none;}
 #social-networks ul li {display:inline;}
 #legal-issues ul li a { text-decoration: none; color:#fafafa; text-align: left;}

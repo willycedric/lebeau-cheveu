@@ -41,19 +41,19 @@
 /* set the color of the date button in the date picker */
 .home .btn-default {
     color: #333;
-    background-color: #faece8;
+    background-color: #EAEAEA;
     border-color: #ccc;
 }
 /* update the default color of the element which are on the 
     top and left side of the date picker 
 */
 .home .text-center{
-    background-color: #faece8;
+    background-color: #EAEAEA;
 }
 
 /* updapte the background-color of the date picker*/
 .home .uib-datepicker-popup.dropdown-menu{
-    background-color: #faece8;
+    background-color: #EAEAEA;
 }
 /*Set the size and position properties of the 
     date picker button in the date picker 
@@ -91,7 +91,7 @@
 #search-form{
     width:100%;
     margin:0 auto;
-    background-color:#faece8;
+    background-color:#EAEAEA;
     padding:10px;
 }
 .home form{
@@ -151,7 +151,7 @@
 .home input[type="text"] {
   padding: 10px;
   line-height:15px;
-  border: solid 1px #faece8;
+  border: solid 1px #EAEAEA;
   transition: box-shadow 0.3s, border 0.3s;
   outline:none;
 }
@@ -161,22 +161,22 @@
   outline:none;
 }
 .home input[type="text"],textarea{
-    background-color:#faece8;
+    background-color:#EAEAEA;
 }
 /* select tag */
 
 #hairdress-type{
-    border:1px solid #faece8;
+    border:1px solid #EAEAEA;
     border-radius:0px;
     overflow: hidden;
-    background-color: #faece8;
+    background-color: #EAEAEA;
 }
 #hairdress-type select {
     padding: 10px;
     line-height: 15px;
     border: none;
     box-shadow: none;
-    background-color:#faece8;
+    background-color:#EAEAEA;
     background-image: none;
     -webkit-appearance: none;
        -moz-appearance: none;
@@ -190,7 +190,7 @@
 hairdress-type select option:hover,
 hairdress-type select option:checked{
     margin:40px;
-    background-color:#faece8;
+    background-color:#EAEAEA;
     color:rgb(147,41,38);
     text-align:center;
     text-shadow:0 1px 0 rgba(0,0,0,0.4);
@@ -215,7 +215,7 @@ hairdress-type select option:checked{
 
 /** custom search button **/
 li #search-button i{
-    color:#faece8;
+    color:#EAEAEA;
 }
 li #search-button{
     border-radius: 50%;
@@ -227,18 +227,21 @@ li #search-button{
 
 li #search-button:hover{
     cursor:pointer;
-    border: solid 1px #faece8;;
+    border: solid 1px #EAEAEA;;
     box-shadow: 0 0 3px 1px #932926;
 }
 .click-me:hover{
     cursor:pointer;
-    color:#faece8;
+    color:#EAEAEA;
     border-radius: 45%;
     width:40px;
     height: 40px;
     display: inline-block;
     background-color:#932926;
-    border: solid 1px #faece8;
+    border: solid 1px #EAEAEA;
     box-shadow: 0 0 0 1px #932926
 }
+
+/*Middle */
+.middle{background-color:#EAEAEA; color:#333; padding:10px;}
 
