@@ -1,12 +1,11 @@
-@import url("http://fonts.googleapis.com/css?family=Merriweather:300,700|Raleway:200,600");
 
-html {
+.login html {
     background: #888;
     font-family: "Merriweather", sans-serif;
     font-weight: 200;
 }
 
-.container {
+.log{
     width: 420px;
     margin: 0 auto;
     background: #f4f0e5;
@@ -15,7 +14,7 @@ html {
     -webkit-box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75); 
 }
 
-h1 {
+.login h1 {
     font-weight: 300;   
 }
 
@@ -26,11 +25,11 @@ h1 {
     color: #fff;
 }
 
-form {
+.login form {
    padding: 6%; 
 }
 
-input {
+.login input {
     display: block;
     padding: 10px 0;
     width: 100%;
@@ -42,7 +41,7 @@ input {
     transition: background 1s ease;
 }
    
-input[type="submit"]{
+.login input[type="submit"]{
     background: #546e7a;
     color: #fff;
     border: 0;
@@ -50,7 +49,7 @@ input[type="submit"]{
     margin-top: 20px;
 }
 
-input:focus {
+.login input:focus {
     background: #374247;
     color: #fff;
     outline-width: 0;

@@ -1,10 +1,9 @@
 *{margin:0;padding:0;text-decoration:none}
-body{background:#5a0000;}
-header{position:relative;width:100%;background:#5a0000;}
-footer{position:relative;width:100%;background:#5a0000;}
-.logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#fafafa;float:left;width:30%;padding:0;}
-.logo a{color:#fafafa; text-decoration: none;}
-nav{position:relative;width:100%;margin:0 auto;} /*980*/
+body { background:#333;} /*5a0000*/
+
+#app .logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#fafafa;float:left;width:30%;padding:0;}
+#app .logo a{color:#fafafa; text-decoration: none;}
+/*#app nav{position:relative;width:100%;margin:0 auto;} /*980*/
 #cssmenu,#cssmenu ul,#cssmenu ul li,#cssmenu ul li a,#cssmenu #head-mobile{border:0;list-style:none;line-height:1;display:block;position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 #cssmenu:after,#cssmenu > ul:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0}
 #cssmenu #head-mobile{display:none}
@@ -33,6 +32,17 @@ nav{position:relative;width:100%;margin:0 auto;} /*980*/
 #cssmenu ul ul li.has-sub:hover,#cssmenu ul li.has-sub ul li.has-sub ul li:hover{background:#faece8;}
 #cssmenu ul ul ul li.active a{border-left:1px solid #5a0000}
 #cssmenu > ul > li.has-sub > ul > li.active > a,#cssmenu > ul ul > li.has-sub > ul > li.active> a{border-top:1px solid #5a0000}
+
+/* Footer */
+footer{position:absolute;width:90%; margin:0 auto;  bottom:0; left:0; right:0;}
+#social-networks, #legal-issues ul {margin: 0;padding: 0;list-style-type: none;}
+#social-networks ul li {display:inline;}
+#legal-issues ul li a { text-decoration: none; color:#fafafa; text-align: left;}
+#social-networks ul li a { text-decoration: none; color:#fafafa;}
+#legal-issues ul li a { text-decoration: none; color:#fafafa;}
+#social-networks ul li a { text-decoration: none; color:#fafafa;}
+#legal-issues ul li { text-align: left;}
+
 
 @media screen and (max-width:914px){
 .logo{position:absolute;top:0;left: 0;width:100%;height:46px;text-align:center;padding:10px 0 0 0 ;float:none; text-decoration: none;}

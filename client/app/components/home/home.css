@@ -47,7 +47,7 @@ li.uib-button-bar{
 /* update the default color of the element which are on the 
     top and left side of the date picker 
 */
-.text-center{
+.home .text-center{
     background-color: #faece8;
 }
 

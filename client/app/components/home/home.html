@@ -1,40 +1,42 @@
 <section class="home">
-  <div id="search-form">
-      <form  novalidate>
-        <ul>
+    <div class="row">
+      <div id="search-form">
+          <form  novalidate>
+            <ul>
 
-          <li  id="location-field">
-                <span >
-                  <i class="glyphicon glyphicon-map-marker click-me"></i>
+              <li  id="location-field">
+                    <span >
+                      <i class="glyphicon glyphicon-map-marker click-me"></i>
+                    </span>
+                  <input type="text" placeholder="{{vm.labels.english.L_W_SEARCH_LOCATION_PLACEHOLDER|uppercase}}" size="38">    
+              </li>    
+              <li id="hairdress-type">
+                    <span >
+                     <i class="glyphicon glyphicon-heart click-me"></i>
+                    </span>
+                  <select name="hairdress-type">
+                    <option value="disbled selected">{{vm.labels.english.L_W_SEARCH_HAIRCUT_TYPE_PLACEHOLDER|uppercase}}</option>
+                    <option ng-repeat=" hairdressType in vm.hairdressTypes" value="{{hairdressType}}">{{hairdressType}}</option>
+                  </select>
+              </li>
+              <li id="date-wished">
+
+                 <span ng-click="vm.open()">
+                    <i class="glyphicon glyphicon-calendar click-me"></i>
+                 </span>
+                  <input type="text" ng-click="vm.open()" placeholder="Date" class="date-picker" uib-datepicker-popup="{{vm.format}}" ng-model="vm.dt" is-open="vm.popup1.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" />
+              </li>
+              <li >
+                <span id="search-button">
+                  <i class="glyphicon glyphicon-search"></i>
                 </span>
-              <input type="text" placeholder="{{vm.labels.english.L_W_SEARCH_LOCATION_PLACEHOLDER|uppercase}}" size="38">    
-          </li>    
-          <li id="hairdress-type">
-                <span >
-                 <i class="glyphicon glyphicon-heart click-me"></i>
-                </span>
-              <select name="hairdress-type">
-                <option value="disbled selected">{{vm.labels.english.L_W_SEARCH_HAIRCUT_TYPE_PLACEHOLDER|uppercase}}</option>
-                <option ng-repeat=" hairdressType in vm.hairdressTypes" value="{{hairdressType}}">{{hairdressType}}</option>
-              </select>
-          </li>
-          <li id="date-wished">
+              </li>  
+            </ul> 
+          </form> <!-- end form -->
+      </div>
+    </div>
 
-             <span ng-click="vm.open()">
-                <i class="glyphicon glyphicon-calendar click-me"></i>
-             </span>
-              <input type="text" ng-click="vm.open()" placeholder="Date" class="date-picker" uib-datepicker-popup="{{vm.format}}" ng-model="vm.dt" is-open="vm.popup1.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" />
-          </li>
-          <li >
-            <span id="search-button">
-              <i class="glyphicon glyphicon-search"></i>
-            </span>
-          </li>  
-        </ul> 
-      </form> <!-- end form -->
-  </div>
-
-  <div class="row">
+    <div class="row">
       <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
           <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
             <div class="carousel-caption">
@@ -43,5 +45,5 @@
             <img class='carousel-img' ng-src="{{slide.image}}" style="margin:auto;width:100%;height:45Opx;">
         </uib-slide>
       </uib-carousel>
-  </div>        <!-- end carousel -->
+    </div>        <!-- end carousel -->
 </section> 

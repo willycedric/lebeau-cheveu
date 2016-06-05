@@ -1,69 +1,80 @@
 <div id="app">
-  <header>
-    <nav id='cssmenu'>
-        <div class="logo active" ui-sref-active="active">
-                 <a ui-sref="home">Lebeaucheveu</a>
-        </div>
-        <div id="head-mobile"></div>
-        <div class="button"></div>
-        <ul>
-          <li ui-sref-active="active" class="active">            
-                <a ui-sref="catalog"><i class="fa fa-book" aria-hidden="true"></i>Catalogue</a>
-          </li>
-          <li ui-sref-active="active" class="active">
-              <a ui-sref="blog"><i class="fa fa-commenting-o" aria-hidden="true"></i>Blog</a>
-          </li>
-          <li ui-sref-active="active" class="active">
-                <a ui-sref="galeria"><i class="fa fa-picture-o" aria-hidden="true"></i>Galerie</a>
-          </li>
-          <li ui-sref-active="active" class="active">
-                <a ui-sref="shop"><i class="fa fa-cart-plus" aria-hidden="true"></i>Magasin</a>
-          </li>
-          <li ui-sref-active="active" class="active">
-              <a ui-sref="login"><i class="fa fa-sign-in" aria-hidden="true"></i>Connexion/Inscription</a>
-          </li>
-        </ul>
-    </nav>
-  </header>
-  <main class="main">
-    <div ui-view></div>
-  </main><!-- end main -->
-  <footer>
-    <div id="row-container">
-     <div id="footer-container">
-      <div id="legal-issues">
-          <ul>
-            <li>
-              <span ui-sref="user-guide">
-                <a ui-sref="user-guide">{{vm.labels.english.L_W_USER_GUIDE}}</a>
-              </span>
-            </li>
-            <li>
-              <span ui-sref="user-tems">
-                <a ui-sref="user-terms">{{vm.labels.english.L_W_TERMS_OF_USE}}</a>
-              </span>
-            </li>
-            <li>
-              <span ui-sref="news-letter">
-                <a ui-sref="news-letter">{{vm.labels.english.L_W_NEWS_LETTER}}</a>
-              </span>
-            </li>
-          </ul>
-      </div><!-- end #menu-bottom -->
-      <div id="social-network">
-          <ul>
-            <li>
-                <a ui-sref="facebook"><i class="fa fa-facebook-official" aria-hidden="tue"></i></a>
-            </li>
-            <li>
-                <a ui-sref="instagram"><i class="fa fa-instagram" aria-hidden="tue"></i></a>
-            </li>
-            <li>
-                <a ui-sref="twitter"><i class="fa fa-twitter-square" aria-hidden="tue"></i></a>
-            </li>
-          </ul>
-      </div><!--end #social-network -->
-    </div><!-- end row-container -->  
-    </div><!--end #footer-container -->
-  </footer>
+  <div class="container">
+      <div class="row">
+        <header>
+         
+            <nav id='cssmenu'>
+                <div class="logo active" ui-sref-active="active">
+                         <a ui-sref="home">Lebeaucheveu</a>
+                </div>
+                <div id="head-mobile"></div>
+                <div class="button"></div>
+                <ul>
+                  <li ui-sref-active="active" class="active">            
+                        <a ui-sref="catalog"><i class="fa fa-book" aria-hidden="true"></i>Catalogue</a>
+                  </li>
+                  <li ui-sref-active="active" class="active">
+                      <a ui-sref="blog"><i class="fa fa-commenting-o" aria-hidden="true"></i>Blog</a>
+                  </li>
+                  <li ui-sref-active="active" class="active">
+                        <a ui-sref="galeria"><i class="fa fa-picture-o" aria-hidden="true"></i>Galerie</a>
+                  </li>
+                  <li ui-sref-active="active" class="active">
+                        <a ui-sref="shop"><i class="fa fa-cart-plus" aria-hidden="true"></i>Magasin</a>
+                  </li>
+                  <li ui-sref-active="active" class="active">
+                      <a ui-sref="login"><i class="fa fa-sign-in" aria-hidden="true"></i>Connexion/Inscription</a>
+                  </li>
+                </ul>
+            </nav>
+        </header>
+      </div> <!-- end .row header -->
+      <div class="row">
+         <main class="main">
+          <div ui-view></div>
+        </main><!-- end main -->
+      </div> <!-- end .row main -->
+   
+    <!--[ footer ] -->
+    <div class="row">
+      <footer>
+          <div class="col-md-6 col-lg-6 col-xs-6">
+            <div id="legal-issues">
+               <ul class="text-center">
+                <li>
+                  
+                    <a href="#">{{vm.labels.english.L_W_USER_GUIDE}}</a>
+                 
+                </li>
+                <li>
+                 
+                    <a href="#">{{vm.labels.english.L_W_TERMS_OF_USE}}</a>
+                  
+                </li>
+                <li>
+                  
+                    <a href="#">{{vm.labels.english.L_W_NEWS_LETTER}}</a>
+                
+                </li>
+              </ul>
+           </div><!-- end #legal-issues -->
+          </div>
+          <div class="col-md-6 col-lg-6 col-xs-6">
+            <div id="social-networks">
+             <ul class="text-center">
+                <li>
+                    <a href="#"><i class="fa fa-facebook-official" aria-hidden="tue"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="tue"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-twitter-square" aria-hidden="tue"></i></a>
+                </li>
+             </ul>
+            </div> <!-- end #social-network --> 
+          </div>         
+      </footer>
+    </div>  <!-- end .row footer -->
+  </div> <!-- end .container -->
 </div>
