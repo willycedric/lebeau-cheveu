@@ -1,9 +1,7 @@
 <div id="app">
-  <div class="container">
-      <div class="row">
-        <header>
-         
-            <nav id='cssmenu'>
+  <div class="container"> 
+    <div class="row">
+            <div id='cssmenu'>
                 <div class="logo active" ui-sref-active="active">
                          <a ui-sref="home">Lebeaucheveu</a>
                 </div>
@@ -26,55 +24,57 @@
                       <a ui-sref="login"><i class="fa fa-sign-in" aria-hidden="true"></i>Connexion/Inscription</a>
                   </li>
                 </ul>
-            </nav>
-        </header>
-      </div> <!-- end .row header -->
-      <div class="row">
-         <main class="main">
+            </div>
+    </div>
+  </div>
+  <div class="container">
+       <main class="main">
           <div ui-view></div>
-        </main><!-- end main -->
-      </div> <!-- end .row main -->
+       </main><!-- end main -->
+  </div>
+
    
     <!--[ footer ] -->
-    <div class="row">
-      <footer>
-          <div class="col-md-6 col-lg-6 col-xs-6">
-            <div id="legal-issues">
-               <ul class="text-center">
-                <li>
-                  
-                    <a href="#">{{vm.labels.english.L_W_USER_GUIDE}}</a>
-                 
-                </li>
-                <li>
-                 
-                    <a href="#">{{vm.labels.english.L_W_TERMS_OF_USE}}</a>
-                  
-                </li>
-                <li>
-                  
-                    <a href="#">{{vm.labels.english.L_W_NEWS_LETTER}}</a>
-                
-                </li>
-              </ul>
-           </div><!-- end #legal-issues -->
-          </div>
-          <div class="col-md-6 col-lg-6 col-xs-6">
-            <div id="social-networks">
-             <ul class="text-center">
-                <li>
-                    <a href="#"><i class="fa fa-facebook-official" aria-hidden="tue"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-instagram" aria-hidden="tue"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-twitter-square" aria-hidden="tue"></i></a>
-                </li>
-             </ul>
-            </div> <!-- end #social-network --> 
-          </div>         
-      </footer>
-    </div>  <!-- end .row footer -->
-  </div> <!-- end .container -->
+    <div class="container">
+      <div class="row page-bottom">
+        <div id="page-bottom">
+              <div class="col-md-6 col-lg-6 col-xs-6">
+                <div id="legal-issues">
+                   <ul class="text-center">
+                    <li>
+                      
+                        <a href="#">{{vm.labels.english.L_W_USER_GUIDE}}</a>
+                     
+                    </li>
+                    <li>
+                     
+                        <a href="#">{{vm.labels.english.L_W_TERMS_OF_USE}}</a>
+                      
+                    </li>
+                    <li>
+                      
+                        <a href="#">{{vm.labels.english.L_W_NEWS_LETTER}}</a>
+                    
+                    </li>
+                  </ul>
+               </div><!-- end #legal-issues -->
+              </div>
+              <div class="col-md-6 col-lg-6 col-xs-6">
+                <div id="social-networks">
+                 <ul class="text-center">
+                    <li>
+                        <a href="#"><i class="fa fa-facebook-official" aria-hidden="tue"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="tue"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-twitter-square" aria-hidden="tue"></i></a>
+                    </li>
+                 </ul>
+                </div> <!-- end #social-network --> 
+              </div>         
+        </div>
+      </div>  <!-- end .row footer -->
+    </div> <!-- end .container -->
 </div>

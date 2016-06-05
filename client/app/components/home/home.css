@@ -1,5 +1,5 @@
 /* ****** carousel customization ****/
-.carousel-caption{
+.home .carousel-caption{
 	top: 0;
     left: 50%;
    	width:50%;
@@ -9,13 +9,13 @@
     font-style: italic;;
     font-family: Quicksand,Serif;
 }
-.carousel-indicators
+.home .carousel-indicators
  .active{
  	background-color: #5A0000;
  	border:1px solid #5A0000;
  	border-radius: 15px;
 }
-.carousel-indicators li{
+.home .carousel-indicators li{
 	background-color: #fafafa;
 	border-radius: 15px;
 }
@@ -23,23 +23,23 @@
 
 /* Hidding all the control button ship with the date picker 
 */
-li.uib-button-bar{
+.home li.uib-button-bar{
     display:none;
 }
 /* background color of the active date (the date selected )
 */
-.btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
+.home .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
     color: #fafafa;
     background-color:#932926;
    /* border-color: #269abc;*/
 }
 /*Color of th selected date (active date )*/
-.text-info{
+.home .text-info{
     /*color:#31708f; */
     color:#fafafa;
 }
 /* set the color of the date button in the date picker */
-.btn-default {
+.home .btn-default {
     color: #333;
     background-color: #faece8;
     border-color: #ccc;
@@ -52,20 +52,20 @@ li.uib-button-bar{
 }
 
 /* updapte the background-color of the date picker*/
-.uib-datepicker-popup.dropdown-menu{
+.home .uib-datepicker-popup.dropdown-menu{
     background-color: #faece8;
 }
 /*Set the size and position properties of the 
     date picker button in the date picker 
 */
-.btn-sm, .btn-group-sm > .btn {
+.home .btn-sm, .btn-group-sm > .btn {
     padding: 5px 10px;
     font-size: 12px;
     line-height: 1.5;
     border-radius: 3px;
 }
 /*pop picker properties --> (TODO: max-width =808 overiding the min-width property) */
-.dropdown-menu {
+.home .dropdown-menu {
     position: absolute;
     top: 100%;
     left: 0;
@@ -94,11 +94,11 @@ li.uib-button-bar{
     background-color:#faece8;
     padding:10px;
 }
-form{
+.home form{
     width:93.75%; /* 900/960 */
     margin:0 auto;
 }
-   form ul {
+.home   form ul {
             
             display: table;
             margin: 0 auto;
@@ -106,7 +106,7 @@ form{
             text-align: center;
             
         }
-        form ul li {
+.home        form ul li {
             display: table-cell;
             list-style-type: none;
             overflow: hidden;
@@ -117,25 +117,25 @@ form{
             *display: inline; 
         }  
 
-          li#location-field {
+.home        li#location-field {
                 width:44.44444444444444%; /*400/900*/
                 margin: 0 auto;
                 text-align: center;
             }
 
-             li #hairdress-type{
+ .home            li #hairdress-type{
                 width:16.66666666666667%;/*150/900*/
                 margin-left: 25px;
                 margin:0 auto;   
             }
 
-            li #date-wished{
+ .home           li #date-wished{
                  width:16.66666666666667%;/*150/900*/
                  margin-left: 25px;
                 
             }
 
-            form span i{
+  .home          form span i{
                 font-size:1.4em;
                 color:#932926;
                 font-weight: 300;
@@ -143,24 +143,24 @@ form{
                 padding:10px;
                 line-height: 24px;
             }
-            li.uib-button-bar{
+ .home           li.uib-button-bar{
                 display:none;
             }
 /* custom form field setting */
 /*input tag */
-input[type="text"] {
+.home input[type="text"] {
   padding: 10px;
   line-height:15px;
   border: solid 1px #faece8;
   transition: box-shadow 0.3s, border 0.3s;
   outline:none;
 }
-input[type="text"]:focus{
+.home input[type="text"]:focus{
   border: solid 1px #707070;
   box-shadow: 0 0 5px 1px #932926;
   outline:none;
 }
-input[type="text"],textarea{
+.home input[type="text"],textarea{
     background-color:#faece8;
 }
 /* select tag */

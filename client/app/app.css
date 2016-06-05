@@ -1,14 +1,15 @@
 *{margin:0;padding:0;text-decoration:none}
-body { background:#333;} /*5a0000*/
+body { background-color:#959595;} /*5a0000*/
 
 #app .logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#fafafa;float:left;width:30%;padding:0;}
 #app .logo a{color:#fafafa; text-decoration: none;}
-/*#app nav{position:relative;width:100%;margin:0 auto;} /*980*/
-#cssmenu,#cssmenu ul,#cssmenu ul li,#cssmenu ul li a,#cssmenu #head-mobile{border:0;list-style:none;line-height:1;display:block;position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+#app nav{position:relative;width:100%;margin:0 auto;} /*980*/
+#cssmenu,#cssmenu ul,#cssmenu ul li,#cssmenu ul li a,#cssmenu #head-mobile{border:0;list-style:none;line-height:1;display:block;margin:0;position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 #cssmenu:after,#cssmenu > ul:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0}
 #cssmenu #head-mobile{display:none}
-#cssmenu ul{ width:90%; margin:0 auto;}
-#cssmenu{font-family:sans-serif;background:#5a0000;width:100%; margin:0 auto;padding:10px;text-align: center;padding-bottom: 0;}
+#cssmenu ul{ width:100%; }
+#cssmenu{font-family:sans-serif;background:#5a0000;padding:10px;text-align: center;padding-bottom: 0;}
+
 #cssmenu > ul > li{float:left;}
 #cssmenu > ul > li > a{padding:17px;font-size:12px;letter-spacing:1px;text-decoration:none;color:#ddd;font-weight:700;}
 #cssmenu > ul > li:hover > a,#cssmenu ul li.active a{color:#515151}
@@ -34,7 +35,7 @@ body { background:#333;} /*5a0000*/
 #cssmenu > ul > li.has-sub > ul > li.active > a,#cssmenu > ul ul > li.has-sub > ul > li.active> a{border-top:1px solid #5a0000}
 
 /* Footer */
-footer{position:absolute;width:90%; margin:0 auto;  bottom:0; left:0; right:0;}
+.page-bottom{background:#5a0000;padding:30px;}
 #social-networks, #legal-issues ul {margin: 0;padding: 0;list-style-type: none;}
 #social-networks ul li {display:inline;}
 #legal-issues ul li a { text-decoration: none; color:#fafafa; text-align: left;}
