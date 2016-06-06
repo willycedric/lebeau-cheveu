@@ -1,5 +1,5 @@
 *{margin:0;padding:0;text-decoration:none}
-body { background-color:#faece8;} /*5a0000*/
+body { background-color:#5a0000;} /*5a0000*/
 
 #app .logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#fafafa;float:left;width:30%;padding:0;}
 #app .logo a{color:#fafafa; text-decoration: none;}
@@ -11,7 +11,7 @@ body { background-color:#faece8;} /*5a0000*/
 #cssmenu{font-family:sans-serif;background:#5a0000;padding:10px;text-align: center;padding-bottom: 0;}
 
 #cssmenu > ul > li{float:left;}
-#cssmenu > ul > li > a{padding:17px;font-size:12px;letter-spacing:1px;text-decoration:none;color:#ddd;font-weight:700;}
+#cssmenu > ul > li > a{padding:17px;font-size:12px;letter-spacing:1px;text-decoration:none;color:#fafafa;font-weight:700;}
 #cssmenu > ul > li:hover > a,#cssmenu ul li.active a{color:#515151}
 #cssmenu > ul > li:hover,#cssmenu ul li.active:hover,#cssmenu ul li.active,#cssmenu ul li.has-sub.active:hover{ background-color: #faece8;color:#515151;font-weight: bold;margin: 0 0 0 0px;padding: 0 0 0 0px;border: 1px solid #faece8;border-radius:3px 3px 0 0;-webkit-transition:background .3s ease;-ms-transition:background .3s ease;transition:background .3s ease;}
 #cssmenu > ul > li.has-sub > a{padding-right:30px}

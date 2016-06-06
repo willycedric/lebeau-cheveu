@@ -41,19 +41,19 @@
 /* set the color of the date button in the date picker */
 .home .btn-default {
     color: #333;
-    background-color: #EAEAEA;
+    background-color: #faece8;
     border-color: #ccc;
 }
 /* update the default color of the element which are on the 
     top and left side of the date picker 
 */
 .home .text-center{
-    background-color: #EAEAEA;
+    background-color: #faece8;
 }
 
 /* updapte the background-color of the date picker*/
 .home .uib-datepicker-popup.dropdown-menu{
-    background-color: #EAEAEA;
+    background-color: #faece8;
 }
 /*Set the size and position properties of the 
     date picker button in the date picker 
@@ -88,54 +88,25 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
 /****** form customization ********/
-#search-form{
-    width:100%;
-    margin:0 auto;
-    background-color:#EAEAEA;
-    padding:10px;
+#lg-search-form{
+    background-color:#faece8;
+    padding: 5px;
 }
-.home form{
-    width:93.75%; /* 900/960 */
-    margin:0 auto;
+
+#xs-search-form{
+    background-color: #faece8;
+    padding:5px;
 }
-.home   form ul {
-            
-            display: table;
-            margin: 0 auto;
-            padding: 5px 0 0 0;
-            text-align: center;
-            
-        }
-.home        form ul li {
-            display: table-cell;
-            list-style-type: none;
-            overflow: hidden;
-            padding: 0 15px;
-            margin-left:15px;
-            -ms-word-break: break-all;
-            word-break: break-all;
-            *display: inline; 
-        }  
+#xs-search-form .panel-title > a, .panel-title > small, .panel-title > .small, .panel-title > small > a, .panel-title > .small > a {
+    color: inherit;
+    text-decoration: none;
+}
 
-.home        li#location-field {
-                width:44.44444444444444%; /*400/900*/
-                margin: 0 auto;
-                text-align: center;
-            }
+#xs-search-form .panel-group .panel-heading + .panel-collapse > .panel-body, .panel-group .panel-heading + .panel-collapse > .list-group {
+    border-top: 0px solid #ddd;
+}
 
- .home            li #hairdress-type{
-                width:16.66666666666667%;/*150/900*/
-                margin-left: 25px;
-                margin:0 auto;   
-            }
-
- .home           li #date-wished{
-                 width:16.66666666666667%;/*150/900*/
-                 margin-left: 25px;
-                
-            }
-
-  .home          form span i{
+  .home form span i{
                 font-size:1.4em;
                 color:#932926;
                 font-weight: 300;
@@ -143,7 +114,7 @@
                 padding:10px;
                 line-height: 24px;
             }
- .home           li.uib-button-bar{
+ .home  li.uib-button-bar{
                 display:none;
             }
 /* custom form field setting */
@@ -151,7 +122,7 @@
 .home input[type="text"] {
   padding: 10px;
   line-height:15px;
-  border: solid 1px #EAEAEA;
+  border: solid 1px #faece8;
   transition: box-shadow 0.3s, border 0.3s;
   outline:none;
 }
@@ -161,87 +132,85 @@
   outline:none;
 }
 .home input[type="text"],textarea{
-    background-color:#EAEAEA;
+    background-color:#faece8;
+    text-align:center;
 }
 /* select tag */
-
-#hairdress-type{
-    border:1px solid #EAEAEA;
-    border-radius:0px;
-    overflow: hidden;
-    background-color: #EAEAEA;
-}
-#hairdress-type select {
-    padding: 10px;
-    line-height: 15px;
-    border: none;
-    box-shadow: none;
-    background-color:#EAEAEA;
-    background-image: none;
-    -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
-}
-#hairdress-type select:focus {
-     outline: none;
+.home select.input-lg {
+    text-align: center;
+    background-color: #faece8;
 }
 
-/* Not working yet */
-hairdress-type select option:hover,
-hairdress-type select option:checked{
-    margin:40px;
-    background-color:#EAEAEA;
-    color:rgb(147,41,38);
-    text-align:center;
-    text-shadow:0 1px 0 rgba(0,0,0,0.4);
+.home select.input-sm{
+    text-align: center;
+    background-color: #faece8;
 }
+
+.home select.input-md {
+    text-align: center;
+    background-color: #faece8;
+}
+
+.home select.input-xs{
+    text-align: center;
+    background-color: #faece8;
+}
+
 
 /* input placeholder */
 ::-webkit-input-placeholder {
    color: #333;
+   text-align: center;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   color: #333;  
+   color: #333; 
+   text-align: center;
+ 
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-   color: #333;  
+   color: #333;
+   text-align: center;
+  
 }
 
 :-ms-input-placeholder {  
    color: #333; 
+   text-align: center;
+
 }
 
 /** custom search button **/
-li #search-button i{
-    color:#EAEAEA;
+ #search-button i{
+    color:#faece8;
 }
-li #search-button{
+ #search-button{
     border-radius: 50%;
     width:40px;
     height: 40px;
     display: inline-block;
     background-color:#932926
 }
-
-li #search-button:hover{
+ #search-button:hover{
     cursor:pointer;
-    border: solid 1px #EAEAEA;;
+    border: solid 1px #faece8;;
     box-shadow: 0 0 3px 1px #932926;
 }
 .click-me:hover{
     cursor:pointer;
-    color:#EAEAEA;
+    color:#faece8;
     border-radius: 45%;
     width:40px;
     height: 40px;
     display: inline-block;
     background-color:#932926;
-    border: solid 1px #EAEAEA;
+    border: solid 1px #faece8;
     box-shadow: 0 0 0 1px #932926
 }
 
 /*Middle */
-.middle{background-color:#EAEAEA; color:#333; padding:10px;}
+.middle{background-color:#faece8; color:#333; padding:10px;}
+
+
 
