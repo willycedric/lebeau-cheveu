@@ -1,6 +1,7 @@
 
 import 'normalize.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 import {appDirective} from './app.directive';
 
 import angular from 'angular';
