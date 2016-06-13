@@ -156,6 +156,10 @@
     background-color: #faece8;
 }
 
+ img{
+     display: none;
+}
+
 
 /* input placeholder */
 ::-webkit-input-placeholder {
