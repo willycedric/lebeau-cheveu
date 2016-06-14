@@ -10,4 +10,43 @@
     </div> <!-- end .header -->
    </div> <!-- end .container -->
    <input type="submit" ng-click="vm.getMe()" value="get me"/>
+   <hr/>
+   <!-- SIGNUP -->
+   <h3>Signup </h3>
+   <form name="userForm"  novalidate>      
+            <!-- FIRST NAME -->
+            <div class="form-group" ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine }">
+                <label>FIRST Name</label>
+                <input type="text" name="firstName" class="form-control" ng-model="user.firstName"   required>
+            <p ng-show="userForm.firstName.$invalid && !userForm.firstName.$pristine" class="help-block">You first name is required.</p>
+            </div>
+            <!-- LAST NAME -->
+            <div class="form-group" ng-class="{ 'has-error' : userForm.lastName.$invalid && !userForm.lastName.$pristine }">
+                <label>LAST Name</label>
+                <input type="text" name="lastName" class="form-control" ng-model="user.lastName"   required>
+            <p ng-show="userForm.lastName.$invalid && !userForm.lastName.$pristine" class="help-block">You last name is required.</p>
+            </div> 
+            <!-- USER NAME -->
+            <div class="form-group" ng-class="{ 'has-error' : userForm.userName.$invalid && !userForm.userName.$pristine }">
+                <label>USER Name</label>
+                <input type="text" name="userName" class="form-control" ng-model="user.userName"   required>
+            <p ng-show="userForm.userName.$invalid && !userForm.userName.$pristine" class="help-block">You user name is required.</p>
+            </div>        
+            <!-- EMAIL  -->
+            <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <label>Email</label>
+                <input type="text" name="email" class="form-control" ng-model="user.email" required>
+                <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">The email is required.</p>
+            </div>
+            <!-- PASSWORD -->
+            <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" ng-model="user.password" required>
+                <p ng-show="userForm.password.$invalid && !userForm.password.$pristine" class="help-block">The password is required.</p>
+            </div> 
+            <div class="text-center">      
+              <button type="submit" class="btn btn-primary"  ng-click="vm.addUser(user,userForm)" ng-disabled="userForm.$invalid">Signup</button>
+              <button  type="reset" class="btn btn-primary"  data-dismiss="modal">Cancel</button>
+           </div>
+      </form> <!-- end form -->
 </section>

@@ -29,7 +29,24 @@ class LoginController {
             console.error(err);
         });
     };
-  }
+
+    this.addUser = (data, userForm)=>{
+        if(userForm.$valid){
+            console.log(JSON.stringify(data));
+            $http({
+                url:'http://localhost:3000/api/users',
+                method:'POST',
+                data:data
+            })
+            .then( (response)=>{
+                console.log(JSON.stringify(response.data));
+            },(err)=>{
+                console.error(err);
+            });
+        }
+    };
+
+  }//End constructor
 
 }
 
