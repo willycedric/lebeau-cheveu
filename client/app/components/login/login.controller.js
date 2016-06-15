@@ -46,6 +46,20 @@ class LoginController {
         }
     };
 
+    this.logout = () =>{
+            console.log("Inside the logout function ");
+            $http({
+                url:"http://localhost:3000/api/users/logout",
+                method:'GET'
+            })
+            .then((response)=>{
+                console.log("User logout successfull");
+            }, (err)=>{
+                console.error(err);
+            })
+
+    };
+
   }//End constructor
 
 }

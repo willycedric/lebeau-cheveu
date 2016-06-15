@@ -54,3 +54,7 @@
     color: #fff;
     outline-width: 0;
 }
+.login a {
+    text-decoration: none;
+    color:#333;
+}
