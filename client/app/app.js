@@ -29,5 +29,5 @@ angular.module('app', [
   blog.name,
   shared.name,
   galeria.name
-])
+  ])
 .directive('app', appDirective);
