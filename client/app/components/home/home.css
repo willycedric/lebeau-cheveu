@@ -41,49 +41,5 @@
 
 
 /** Css for the search part of this component */
-.home li.uib-button-bar{
-    display:none;
-}
-/* background color of the active date (the date selected )
-*/
-.home .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
-    color: #fafafa;
-    background-color:#932926;
-   /* border-color: #269abc;*/
-}
-/*Color of th selected date (active date )*/
-.home .text-info{
-    /*color:#31708f; */
-    color:#fafafa;
-}
-/* set the color of the date button in the date picker */
-.home .btn-default {
-    color: #333;
-    background-color: #faece8;
-    border-color: #ccc;
-}
-/* update the default color of the element which are on the 
-    top and left side of the date picker 
-*/
-.home .text-center{
-    background-color: #faece8;
-}
-
-/* updapte the background-color of the date picker*/
-.home .uib-datepicker-popup.dropdown-menu{
-    background-color: #faece8;
-}
-/*Set the size and position properties of the 
-    date picker button in the date picker 
-*/
-.home .btn-sm, .btn-group-sm > .btn {
-    padding: 5px 10px;
-    font-size: 12px;
-    line-height: 1.5;
-    border-radius: 3px;
-}
-
-/* custom form field setting */
-/*input tag */
 .home path { transition: .6s fill; fill:#6dc3bb; }
 .home path:hover { fill:#22aa22;}
