@@ -15,6 +15,7 @@ import {shop} from './components/shop/shop';
 import {login} from './components/login/login';
 import {blog} from './components/blog/blog';
 import {galeria} from './components/galeria/galeria';
+import {map} from './components/map/map';
 import {shared} from './shared/shared';
 
 
@@ -28,6 +29,7 @@ angular.module('app', [
   login.name,
   blog.name,
   shared.name,
-  galeria.name
+  galeria.name,
+  map.name
   ])
 .directive('app', appDirective);
