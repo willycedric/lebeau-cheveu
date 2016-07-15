@@ -1,6 +1,6 @@
 import labels from '../../../../labels.json';
 class HomeController {
-  constructor() {
+  constructor(Map) {
   		//labels
   		this.labels=labels;
 		//Carousel logic
@@ -11,9 +11,9 @@ class HomeController {
 	  let currIndex = 0;
 
 	  this.addSlide = function() {
-	    const newWidth = 1280 + slides.length + 1;
+	    const newWidth = 900 + slides.length + 1;
 	    slides.push({
-	      image: 'http://lorempixel.com/' + newWidth + '/400',
+	      image: 'http://lorempixel.com/' + newWidth + '/1214',
 	      text: ['Un style toujours dans l\'air du temps à des coûts défiants toutes concurrences ...',
 	      		 'Pas besoin de vous déplacer ni de prévoir du temps pour vos chercher le nécessaires pours vos coiffures ...',
 	      		 ,'Lebeaucheveu est le choix gagnant de nombreuses femmes ...','Nos coiffeuses vous donneront toujours le meilleur d\'elles mêmes ...',
@@ -118,10 +118,31 @@ class HomeController {
 
 	    return '';
 	  }
+	  //Map part of the controller
+	  //css properties
+			this.mapstroke=Map.cssProperties.mapstroke;
+			this.mapstroke_width=Map.cssProperties.mapstroke_width;
+			this.mapWidth=Map.cssProperties.mapWidth;
+			this.mapHeight=Map.cssProperties.mapHeight;
 
-	}
+			//Map svg details
+			this.zonePaths = Map.paths;
+			//Object used to construct the map
+			this.obj = [];
+
+			//Bundle all the map properties in a unique array 
+			for(var zone in Map.zonePaths){
+				this.obj.push(Map.zonePaths[zone]);
+			}
+
+			this.displayRegionName = (name)=>{
+				this.name = name;
+			}
+
+	}; //End constructor 
 }
 
+HomeController.$inject=['Map']
 export {HomeController};
 
 

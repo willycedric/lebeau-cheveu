@@ -1,128 +1,137 @@
 <section class="home">
-    <div id="lg-search-form" class="row">
-          <form  novalidate class="form-horizontal hidden-xs" role="form"> 
-            <div class="col-sm-1 col-md-1 col-lg-1 text-center">
-                  <span id="search-button">
-                      <i class="glyphicon glyphicon-map-marker"></i>
-                  </span>
-            </div>
-            <div class="col-sm-3 col-lg-3 col-md-3">
-              <div class="form-group">               
-                  <input type="text" class="form-control input-lg input-sm input-md" id="location-field" placeholder="{{vm.labels.english.L_W_SEARCH_LOCATION_PLACEHOLDER|uppercase}}">              
-              </div>
-            </div>
-            <div class="col-sm-1 cold-md-1 cold-ld-1 text-center">
-                  <span id="search-button">
-                      <i class="glyphicon glyphicon-heart"></i>
-                  </span>
-            </div>
-            <div class="col-sm-3 col-lg-3 col-md-3 ">
-              <div class="form-group">                  
-                  <select name="hairdress-type" class="form-control input-lg input-sm input-md">
-                    <option value="disbled selected">{{vm.labels.english.L_W_SEARCH_HAIRCUT_TYPE_PLACEHOLDER|uppercase}}</option>
-                    <option ng-repeat=" hairdressType in vm.hairdressTypes" value="{{hairdressType}}">{{hairdressType}}</option>
-                  </select>
-              </div>
-            </div>          
-            <div class="col-sm-1 cold-md-1 cold-ld-1 text-center">
-                  <span id="search-button">
-                      <i class="glyphicon glyphicon-calendar"></i>
-                  </span>
-            </div>
-            <div class="col-sm-2 col-lg-2 col-md-2">
-              <div class="form-group">                                 
-                   <input type="text"  class="form-control input-lg input-sm input-md" ng-click="vm.open()" placeholder="Date" class="date-picker" uib-datepicker-popup="{{vm.format}}" ng-model="vm.dt" is-open="vm.popup1.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" />               
-              </div>
-            </div>
-            
-            <div class="col-sm-1 col-lg-1 col-md-1 text-center">
-              <div class="form-group">
-                <span id="search-button">
-                    <i class="glyphicon glyphicon-search"></i>
-                </span>
-              </div>
-            </div>
-          </form>
-    </div>
-    <div class="row" id="xs-search-form">
-      <form novalidate rel="form" class="visible-xs">
-        <!-- [xs-screen display]-->
-            <div class=" text-center visible-xs">
-              <div class="panel-group">
-                <div class="panel-heading">
-                  <h5 class="panel-title">
-                    <a data-toggle="collapse" href="#search">search</a>
-                  </h5>
-                </div>
-                <div id="search" class="panel-collapse collapse">
-                  <div class="panel-body">
-                        <!-- xs screen  location-->
-                    <div class="col-xs-12">
-                      <div class="form-group">               
-                          <input type="text" class="form-control input-xs" id="location-field" placeholder="{{vm.labels.english.L_W_SEARCH_LOCATION_PLACEHOLDER|uppercase}}">              
-                      </div>
-                    </div>
-                    <!-- xs screen  hairdress type-->
-                    <div class=" col-xs-12">
-                      <div class="form-group">
-                          <select name="hairdress-type" class="form-control input-xs">
-                            <option value="disbled selected">{{vm.labels.english.L_W_SEARCH_HAIRCUT_TYPE_PLACEHOLDER|uppercase}}</option>
-                            <option ng-repeat=" hairdressType in vm.hairdressTypes" value="{{hairdressType}}">{{hairdressType}}</option>
-                          </select>
-                      </div>
-                    </div>
-                   <!-- xs-screen  date-->
-                    <div class="col-xs-12">
-                      <div class="form-group">               
-                           <input type="text"  class="form-control input-xs" ng-click="vm.open()" placeholder="Date" class="date-picker" uib-datepicker-popup="{{vm.format}}" ng-model="vm.dt" is-open="vm.popup1.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" />               
-                      </div>
-                    </div>
-                    <!-- xs-screen submit button-->
-                    <div class="col-xs-12 ">
-                      <div class="form-group">
-                        <label for="search-button">
-                          <span id="search-button">
-                            <i class="glyphicon glyphicon-search"></i>
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-                  </div><!-- end .panel-body-->
-            </div> <!-- end #search-form -->        
-          </div>
-        </div> <!-- end [xs-screen display]-->
-      </form> 
-    </div>
-    <div class="row">
-      <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
+  <div class="banner">
+    <div class="container">
+      <div class="col-md-6">
+        <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
           <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
             <div class="carousel-caption">
                 <p>{{slide.text}}</p>
             </div>
-             <img class='carousel-img' ng-src="{{slide.image}}" style="margin:0 auto;width:100%;height:45Opx;">
-        </uib-slide>
-      </uib-carousel>
-    </div>        <!-- end carousel -->
-  <!--[Middle]-->
-  <div class="row middle"> <!-- lastest pictures uploaded by hairdressers -->
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+             <img class='carousel-img' ng-src="{{slide.image}}" class="img-responsive"/>
+          </uib-slide>
+      </uib-carousel> <!-- end carousel -->
+    </div>
+    <div class="col-md-6 banner-text">
+      <div class="ban">
+        <h3>Trouver une coiffeuse </h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>      
+    </div> 
+    </div>  <!-- end container -->      
+</div>
+<!-- end banner -->
+<div class="search">
+  <div class="container">
+    <div class="col-md-6 map">
+      <svg  version="1.1" id="Calque_1" xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width=300 height=300 viewBox="0 0 300 300" overflow="visible" enable-background="new 0 0 300 300" xml:space="preserve">   
+        <a  ng-repeat="zone in vm.zonePaths track by $index" xlink:href="{{zone.url}}" ng-mouseover="vm.displayRegionName(zone.title)" ng-mouseleave="vm.name =''">
+          <path id="{{zone.title}}"title="{{zone.title}}" d="{{vm.obj[$index]}}" stroke="{{vm.mapstroke}}" stroke-width="{{vm.mapstroke_width}}"/>
+        </a>    
+      </svg>
+      {{vm.name}}
+    </div><!-- end map -->
+    <div class="col-md-6 search">
+      <!-- search details -->
+          <div id="lg-search-form" class="row">
+            <form  novalidate class="form-horizontal hidden-xs" role="form"> 
+              <div class="col-sm-1 col-md-1 col-lg-1 text-center">
+                    <span id="search-button">
+                        <i class="glyphicon glyphicon-map-marker"></i>
+                    </span>
+              </div>
+              <div class="col-sm-3 col-lg-3 col-md-3">
+                <div class="form-group">               
+                    <input type="text" class="form-control input-lg input-sm input-md" id="location-field" placeholder="{{vm.labels.english.L_W_SEARCH_LOCATION_PLACEHOLDER|uppercase}}">              
+                </div>
+              </div>
+              <div class="col-sm-1 cold-md-1 cold-ld-1 text-center">
+                    <span id="search-button">
+                        <i class="glyphicon glyphicon-heart"></i>
+                    </span>
+              </div>
+              <div class="col-sm-3 col-lg-3 col-md-3 ">
+                <div class="form-group">                  
+                    <select name="hairdress-type" class="form-control input-lg input-sm input-md">
+                      <option value="disbled selected">{{vm.labels.english.L_W_SEARCH_HAIRCUT_TYPE_PLACEHOLDER|uppercase}}</option>
+                      <option ng-repeat=" hairdressType in vm.hairdressTypes" value="{{hairdressType}}">{{hairdressType}}</option>
+                    </select>
+                </div>
+              </div>          
+              <div class="col-sm-1 cold-md-1 cold-ld-1 text-center">
+                    <span id="search-button">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </span>
+              </div>
+              <div class="col-sm-2 col-lg-2 col-md-2">
+                <div class="form-group">                                 
+                     <input type="text"  class="form-control input-lg input-sm input-md" ng-click="vm.open()" placeholder="Date" class="date-picker" uib-datepicker-popup="{{vm.format}}" ng-model="vm.dt" is-open="vm.popup1.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" />               
+                </div>
+              </div>
+              
+              <div class="col-sm-1 col-lg-1 col-md-1 text-center">
+                <div class="form-group">
+                  <span id="search-button">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </span>
+                </div>
+              </div>
+            </form>
+        </div>
+        <div class="row" id="xs-search-form">
+          <form novalidate rel="form" class="visible-xs">
+            <!-- [xs-screen display]-->
+                <div class=" text-center visible-xs">
+                  <div class="panel-group">
+                    <div class="panel-heading">
+                      <h5 class="panel-title">
+                        <a data-toggle="collapse" href="#search">search</a>
+                      </h5>
+                    </div>
+                    <div id="search" class="panel-collapse collapse">
+                      <div class="panel-body">
+                            <!-- xs screen  location-->
+                        <div class="col-xs-12">
+                          <div class="form-group">               
+                              <input type="text" class="form-control input-xs" id="location-field" placeholder="{{vm.labels.english.L_W_SEARCH_LOCATION_PLACEHOLDER|uppercase}}">              
+                          </div>
+                        </div>
+                        <!-- xs screen  hairdress type-->
+                        <div class=" col-xs-12">
+                          <div class="form-group">
+                              <select name="hairdress-type" class="form-control input-xs">
+                                <option value="disbled selected">{{vm.labels.english.L_W_SEARCH_HAIRCUT_TYPE_PLACEHOLDER|uppercase}}</option>
+                                <option ng-repeat=" hairdressType in vm.hairdressTypes" value="{{hairdressType}}">{{hairdressType}}</option>
+                              </select>
+                          </div>
+                        </div>
+                       <!-- xs-screen  date-->
+                        <div class="col-xs-12">
+                          <div class="form-group">               
+                               <input type="text"  class="form-control input-xs" ng-click="vm.open()" placeholder="Date" class="date-picker" uib-datepicker-popup="{{vm.format}}" ng-model="vm.dt" is-open="vm.popup1.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" />               
+                          </div>
+                        </div>
+                        <!-- xs-screen submit button-->
+                        <div class="col-xs-12 ">
+                          <div class="form-group">
+                            <label for="search-button">
+                              <span id="search-button">
+                                <i class="glyphicon glyphicon-search"></i>
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                      </div><!-- end .panel-body-->
+                </div> <!-- end #search-form -->        
+              </div>
+            </div> <!-- end [xs-screen display]-->
+          </form> 
+        </div>
+        <!-- end search details -->
+    </div> <!-- end search -->
   </div>
-  <!-- end [Middle] -->
 </section> 

@@ -1,19 +1,19 @@
 *{margin:0;padding:0;text-decoration:none}
-body { background-color:#5a0000;} /*5a0000*/
+/*body { background-color:#5a0000;} *//*5a0000*/
 
 #app .logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#fafafa;float:left;width:30%;padding:0;}
-#app .logo a{color:#fafafa; text-decoration: none;}
+#app .logo a{color:#fafafa; text-decoration: none;font-family: 'Oregano', cursive;font-size:2.5em; text-transform: capitalize;font-weight:700;}
 #app nav{position:relative;width:100%;margin:0 auto;} /*980*/
 #cssmenu,#cssmenu ul,#cssmenu ul li,#cssmenu ul li a,#cssmenu #head-mobile{border:0;list-style:none;line-height:1;display:block;margin:0;position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 #cssmenu:after,#cssmenu > ul:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0}
 #cssmenu #head-mobile{display:none}
 #cssmenu ul{ width:100%; }
-#cssmenu{font-family:sans-serif;background:#5a0000;padding:10px;text-align: center;padding-bottom: 0;}
+#cssmenu{font-family:'Oregano', cursive,sans-serif;background:#6dc3bb;padding:10px;text-align: center;padding-bottom: 0;height:100px;}
 
 #cssmenu > ul > li{float:left;}
-#cssmenu > ul > li > a{padding:17px;font-size:12px;letter-spacing:1px;text-decoration:none;color:#fafafa;font-weight:700;}
+#cssmenu > ul > li > a{padding:17px;font-size:1.5em;letter-spacing:1px;text-decoration:none;color:#fafafa;font-weight:700;}
 #cssmenu > ul > li:hover > a,#cssmenu ul li.active a{color:#515151}
-#cssmenu > ul > li:hover,#cssmenu ul li.active:hover,#cssmenu ul li.active,#cssmenu ul li.has-sub.active:hover{ background-color: #faece8;color:#515151;font-weight: bold;margin: 0 0 0 0px;padding: 0 0 0 0px;border: 1px solid #faece8;border-radius:3px 3px 0 0;-webkit-transition:background .3s ease;-ms-transition:background .3s ease;transition:background .3s ease;}
+#cssmenu > ul > li:hover,#cssmenu ul li.active:hover,#cssmenu ul li.active,#cssmenu ul li.has-sub.active:hover{ background-color: #fafafa;color:#515151;font-weight: bold;margin: 0 0 0 0px;padding: 0 0 0 0px;border: 1px solid #fafafa;border-radius:0px 0px 0 0;-webkit-transition:background .3s ease;-ms-transition:background .3s ease;transition:background .3s ease;}
 #cssmenu > ul > li.has-sub > a{padding-right:30px}
 #cssmenu > ul > li.has-sub > a:after{position:absolute;top:22px;right:11px;width:8px;height:2px;display:block;background:#ddd;content:''}
 #cssmenu > ul > li.has-sub > a:before{position:absolute;top:19px;right:14px;display:block;width:2px;height:8px;background:#ddd;content:'';-webkit-transition:all .25s ease;-ms-transition:all .25s ease;transition:all .25s ease}
@@ -35,7 +35,7 @@ body { background-color:#5a0000;} /*5a0000*/
 #cssmenu > ul > li.has-sub > ul > li.active > a,#cssmenu > ul ul > li.has-sub > ul > li.active> a{border-top:1px solid #5a0000}
 
 /* Footer */
-.page-bottom{background-color:#5a0000;padding:10px;}
+.page-bottom{background-color:#6dc3bb;padding:10px;}
 #social-networks, #legal-issues ul {margin: 0;padding: 0;list-style-type: none;}
 #social-networks ul li {display:inline;}
 #legal-issues ul li a { text-decoration: none; color:#fafafa; text-align: left;}
@@ -45,7 +45,7 @@ body { background-color:#5a0000;} /*5a0000*/
 #legal-issues ul li { text-align: left;}
 
 
-@media screen and (max-width:914px){
+@media screen and (max-width:1150px){
 .logo{position:absolute;top:0;left: 0;width:100%;height:46px;text-align:center;padding:10px 0 0 0 ;float:none; text-decoration: none;}
 .logo a{text-decoration: none;}
 .logo2{display:none}
@@ -58,11 +58,11 @@ nav{width:100%;}
 #cssmenu ul li a,#cssmenu ul ul li a{width:100%;border-bottom:0}
 #cssmenu > ul > li{float:none}
 #cssmenu ul ul li a{padding-left:25px}
-#cssmenu ul ul li{background:#5a0000!important;}
+#cssmenu ul ul li{background:#fafafa!important;}
 #cssmenu ul ul li:hover{background:#faece8!important}
 #cssmenu ul ul ul li a{padding-left:35px}
 #cssmenu ul ul li a{color:#ddd;background:none}
-#cssmenu ul ul li:hover > a,#cssmenu ul ul li.active > a{color:#515151}
+#cssmenu ul ul li:hover > a,#cssmenu ul ul li.active > a{color:#fafafa}
 #cssmenu ul ul,#cssmenu ul ul ul{position:relative;left:0;width:100%;margin:0;text-align:left}
 #cssmenu > ul > li.has-sub > a:after,#cssmenu > ul > li.has-sub > a:before,#cssmenu ul ul > li.has-sub > a:after,#cssmenu ul ul > li.has-sub > a:before{display:none}
 #cssmenu #head-mobile{display:block;padding:23px;color:#ddd;font-size:12px;font-weight:700}
