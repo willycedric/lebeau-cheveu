@@ -1,3 +1,7 @@
+#banner{
+   margin-top:1em;
+    text-align: center;
+}
 /* ****** carousel customization ****/
 .home .carousel-caption{
 	top: 0;
@@ -23,23 +27,96 @@
 .home img{
     vertical-align: middle;
 }
+
+
 /**Css for the second part of the grid next to the carroussel **/
 .home .banner-text {
     width: 40%;
-    margin-top: 20em;
+    margin-top: 15em;
     padding: 0;
 }
 .home .ban {
     float:left;
     width:85%;
-    margin-left:6em;
+  /*  margin-left:2em;*/
 }
 .home h1, .home h2, .home h3{
-    font-size:1.5em;
     font-family:  'Oregano', cursive,Quicksand,Serif;
 }
+.home h3{
+    font-size: 2.5em;
+}
 
+#social-icons {
+    margin-top: 2em;
+    float: right;
+    width: 15%;
+
+}
+#social-icons  i {
+    margin-top:1em;
+    color:#fafafa;
+}
+
+#social-icons a{
+    border-radius: 50%;
+    width:3em;
+    height: 3em;
+    display: inline-block;
+    background-color:#333;
+    text-align: center;
+    margin-top:1em;
+}
+#social-icons a:hover{
+    background-color:#6dc3bb;
+}
 
 /** Css for the search part of this component */
+#search{
+    margin: 0 -20px;
+    padding: 4em 0;
+    background-color: #fafaf7;
+    text-align: center;
+}
+
 .home path { transition: .6s fill; fill:#6dc3bb; }
 .home path:hover { fill:#22aa22;}
+.home .mapSvg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.home .banner-search {
+    width: 40%;
+    margin-top: 20em;
+    padding: 0;
+}
+.home input[type="text"] {
+    width: 79%;
+    padding: 12px;
+    font-size: 15px;
+    text-align: left;
+    font-weight: 400;
+    border: 1px solid #333;
+    outline: none;
+    margin: 0px 0px 0 0;
+}
+.home input[type="submit"] {
+    background: #76CEBE;
+    cursor: pointer;
+    border: 0;
+    color: #fff;
+    font-weight: 400;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding: 0.88em;
+    text-align: center;
+    webkit-appearance: none;
+    outline: none;
+    width: 20%;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}

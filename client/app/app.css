@@ -1,6 +1,7 @@
 *{margin:0;padding:0;text-decoration:none}
 /*body { background-color:#5a0000;} *//*5a0000*/
 
+
 #app .logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#fafafa;float:left;width:30%;padding:0;}
 #app .logo a{color:#fafafa; text-decoration: none;font-family: 'Oregano', cursive;font-size:2.5em; text-transform: capitalize;font-weight:700;}
 #app nav{position:relative;width:100%;margin:0 auto;} /*980*/

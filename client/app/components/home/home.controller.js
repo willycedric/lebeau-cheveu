@@ -13,7 +13,7 @@ class HomeController {
 	  this.addSlide = function() {
 	    const newWidth = 900 + slides.length + 1;
 	    slides.push({
-	      image: 'http://lorempixel.com/' + newWidth + '/1214',
+	      image: 'http://lorempicsum.com/simpsons/' + newWidth + '/1100/2',
 	      text: ['Un style toujours dans l\'air du temps à des coûts défiants toutes concurrences ...',
 	      		 'Pas besoin de vous déplacer ni de prévoir du temps pour vos chercher le nécessaires pours vos coiffures ...',
 	      		 ,'Lebeaucheveu est le choix gagnant de nombreuses femmes ...','Nos coiffeuses vous donneront toujours le meilleur d\'elles mêmes ...',
