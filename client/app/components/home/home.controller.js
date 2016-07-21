@@ -1,6 +1,7 @@
 import labels from '../../../../labels.json';
 class HomeController {
   constructor(Map) {
+
   		//labels
   		this.labels=labels;
 		//Carousel logic
@@ -142,7 +143,7 @@ class HomeController {
 	}; //End constructor 
 }
 
-HomeController.$inject=['Map']
+HomeController.$inject=['Map'];
 export {HomeController};
 
 

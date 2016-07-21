@@ -1,12 +1,15 @@
 class LoginController {
-  constructor($http,API,$window) {
+  constructor($http,API,$window,User) {
     var self = this;
     self.token=null;
     self.url=`${API.url}`;
-    self.user={email:"w@game.fr",password:"root"};
-
+    
+    /**
+     * [description]
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
+     */
    self.login = (data)=>{
-     console.log(self.user);
     	$http({
     		data,
     		url:self.url+'/api/users/me',
@@ -14,7 +17,8 @@ class LoginController {
     	}).then(function loginSuccessCallBack(response){
             if(response.data.status =="ok"){              
                 $http.defaults.headers.common['Authorization'] = 'JWT '+ response.data.token;
-                self.user= response.data.user;
+                User.pushUser(response.data.user);
+                User.setLogged(true);
                 $window.location.href=`${API.home}`;
             }else{
                 console.log("There must be some errors during the authentication process");
@@ -25,23 +29,29 @@ class LoginController {
     	});
     };
 
-
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     self.me = () =>{
         $http({
             url:self.url+'/api/users/me',
             method:'GET'
         }).then(function getMeSuccessCallBack(response){
-         self.user = response.data; 
+         //self.user = response.data;
+         //User.addUser(response.data);
          console.log(JSON.stringify(self.user));        
         }, function getMeErrorCallBack(err){
             console.error(err);
         });
     };
-
-
-
     
-
+    /**
+     * [description]
+     * @param  {[type]} data     [description]
+     * @param  {[type]} userForm [description]
+     * @return {[type]}          [description]
+     */
     self.addUser = (data, userForm)=>{
         if(userForm.$valid){
             console.log(JSON.stringify(data));
@@ -58,6 +68,10 @@ class LoginController {
         }
     };
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     self.logout = () =>{
             $http({
                 url:self.url+'/api/users/logout',
@@ -65,6 +79,8 @@ class LoginController {
             })
             .then((response)=>{
                 $http.defaults.headers.common['Authorization'] = '';
+                User.pushUser({});
+                $window.location.href=`${API.home}`;
             }, (err)=>{
                 console.error(err);
             })
@@ -72,14 +88,9 @@ class LoginController {
 
   }//End constructor
 
-  setUser(user){
-    self.user=user;
-  }
-
-
 }
 
-LoginController.$inject = ['$http','API','$window'];
+LoginController.$inject = ['$http','API','$window','User'];
 
 export {LoginController};
 

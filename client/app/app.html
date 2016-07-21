@@ -20,8 +20,11 @@
                   <li ui-sref-active="active" class="active">
                         <a ui-sref="shop"><i class="fa fa-cart-plus" aria-hidden="true"></i>Magasin</a>
                   </li>
-                  <li ui-sref-active="active" class="active">
+                  <li ng-if="!vm.logged" ui-sref-active="active" class="active">
                       <a ui-sref="login"><i class="fa fa-sign-in" aria-hidden="true"></i>Connexion/Inscription</a>
+                  </li>
+                  <li ng-if="vm.logged" ui-sref-active="active" class="active">
+                      <a ui-sref="logout"><i class="fa fa-sign-in" aria-hidden="true"></i>Logout</a>
                   </li>
                 </ul>
             </div>

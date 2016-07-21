@@ -1,7 +1,9 @@
 import labels from '../../labels.json';
 class AppController {
-	constructor(){
+	constructor(User){
 		this.labels =labels; //Label.init;
+		this.logged = User.getLogged();
+		console.log("App ", User.getUser(), User.getLogged());
 	}
 }
 var Label = (function(){
@@ -25,4 +27,5 @@ var Label = (function(){
 		init:init
 	};
 })();
+AppController.$inject=['User'];
 export {AppController};
