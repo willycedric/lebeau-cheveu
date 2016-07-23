@@ -36,7 +36,7 @@ gulp.task('todo', function() {
     .pipe(todo({silent: false, verbose: true}));
 });
 
-gulp.task('build', ['label'], function() {
+gulp.task('build', ['label','images'], function() {
   return gulp.src(paths.entry)
     .pipe(webpack(require('./webpack.config')))
     .pipe(gulp.dest(paths.dest));
@@ -96,6 +96,17 @@ gulp.task('watch', function() {
   gulp.watch(paths.uiTemplate, ['templateCopy', browser.reload]);
 });
 
+gulp.task('images', function(){
+  console.log('cloudinary info', require('./util/config/config').cloudinary);
+});
+
+/**
+ * [use to create new angular component]
+ * @param  {[type]} ){                      var    cap                            [description]
+ * @param  {[type]} parentPath [description]
+ * @param  {[type]} name);                   return gulp.src(paths.blankTemplates)                 .pipe(tpl({      name: name,      upCaseName: cap(name)    }))    .pipe(rename(function(path){      path.basename [description]
+ * @return {[type]}            [description]
+ */
 gulp.task('component', function(){
   var cap = function(val){
     return val.charAt(0).toUpperCase() + val.slice(1);
