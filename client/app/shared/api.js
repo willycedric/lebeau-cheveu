@@ -1,4 +1,4 @@
 export const api = {
-  url: 'http://localhost:3000',
+  url: 'https://pacific-taiga-58505.herokuapp.com',
   home:'http://localhost:4500/#/profile'
 };

@@ -1,7 +1,6 @@
 class LoginController {
-  constructor($http,API,$window,User) {
+  constructor($http,API,$window,$q,Auth,$state) {
     var self = this;
-    self.token=null;
     self.url=`${API.url}`;
     
     /**
@@ -10,29 +9,15 @@ class LoginController {
      * @return {[type]}      [description]
      */
    self.login = (data)=>{
-    	$http({
-    		data,
-    		url:self.url+'/api/users/me',
-    		method:'POST'
-    	}).then(function loginSuccessCallBack(response){
-            if(response.data.status =="ok"){              
-                $http.defaults.headers.common['Authorization'] = 'JWT '+ response.data.token;
-                User.pushUser(response.data.user);
-                User.setLogged(true);
-                $window.location.href=`${API.home}`;
-            }else{
-                console.log("There must be some errors during the authentication process");
-            }
-            //console.log("token: ",response.data);  
-    	}, function loginErrorCallBack(err){
-    		console.error(err);
-    	});
+    	Auth.login(data.email,data.password)
+            .then(function loginControllerSuccess(data){
+                $state.go('profile',{},{reload:true});
+            },function loginControllerError(err){
+                console.error(err);
+            });        
     };
 
-    /**
-     * [description]
-     * @return {[type]} [description]
-     */
+    /*
     self.me = () =>{
         $http({
             url:self.url+'/api/users/me',
@@ -45,7 +30,8 @@ class LoginController {
             console.error(err);
         });
     };
-    
+    */
+   
     /**
      * [description]
      * @param  {[type]} data     [description]
@@ -73,24 +59,14 @@ class LoginController {
      * @return {[type]} [description]
      */
     self.logout = () =>{
-            $http({
-                url:self.url+'/api/users/logout',
-                method:'GET'
-            })
-            .then((response)=>{
-                $http.defaults.headers.common['Authorization'] = '';
-                User.pushUser({});
-                $window.location.href=`${API.home}`;
-            }, (err)=>{
-                console.error(err);
-            })
+           Auth.logout();
     };
 
   }//End constructor
 
 }
 
-LoginController.$inject = ['$http','API','$window','User'];
+LoginController.$inject = ['$http','API','$window','$q','Auth','$state'];
 
 export {LoginController};
 
