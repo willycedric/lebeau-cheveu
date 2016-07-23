@@ -7,3 +7,4 @@ sever/config
 data
 frontEnd.sublime-project
 frontEnd.sublime-workspace
+node_modules
