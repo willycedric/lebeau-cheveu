@@ -97,7 +97,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('images', function(){
-  console.log('cloudinary info', require('./util/config/config').cloudinary);
+  console.log('cloudinary info', require('./utils/config/config').cloudinary);
 });
 
 /**
