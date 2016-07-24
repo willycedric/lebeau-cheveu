@@ -1,4 +1,7 @@
 import labels from '../../../../labels.json';
+import images from '../../../../images.json';
+
+
 class HomeController {
   constructor(Map) {
 
@@ -11,10 +14,10 @@ class HomeController {
 	  const slides = this.slides = [];
 	  let currIndex = 0;
 
-	  this.addSlide = function() {
+	  this.addSlide = function(i) {
 	    const newWidth = 900 + slides.length + 1;
 	    slides.push({
-	      image: 'http://lorempicsum.com/simpsons/' + newWidth + '/1100/2',
+	      image: images[i].url,
 	      text: ['Un style toujours dans l\'air du temps à des coûts défiants toutes concurrences ...',
 	      		 'Pas besoin de vous déplacer ni de prévoir du temps pour vos chercher le nécessaires pours vos coiffures ...',
 	      		 ,'Lebeaucheveu est le choix gagnant de nombreuses femmes ...','Nos coiffeuses vous donneront toujours le meilleur d\'elles mêmes ...',
@@ -23,8 +26,8 @@ class HomeController {
 	    }); 
 	  };
 
-	  for (let i = 0; i < 5; i++) {
-	    this.addSlide();
+	  for (let i = 0; i < 3; i++) {
+	    this.addSlide(i);
 	  }
 
 

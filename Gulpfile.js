@@ -8,6 +8,7 @@ var yargs   = require('yargs').argv;
 var tpl     = require('gulp-template');
 var rename  = require('gulp-rename');
 var fs = require('fs');
+var cloudinary = require('cloudinary');
 
 /*
 map of paths for using with the tasks below
@@ -36,7 +37,7 @@ gulp.task('todo', function() {
     .pipe(todo({silent: false, verbose: true}));
 });
 
-gulp.task('build', ['label','images'], function() {
+gulp.task('build', ['label'], function() {
   return gulp.src(paths.entry)
     .pipe(webpack(require('./webpack.config')))
     .pipe(gulp.dest(paths.dest));
@@ -97,7 +98,28 @@ gulp.task('watch', function() {
 });
 
 gulp.task('images', function(){
-  console.log('cloudinary info', require('./util/config/config').cloudinary);
+  var images=['banner5.jpg','banner4.jpg','banner7.jpg'];
+   var imagesDetails=[];
+   images.forEach(function(elt){
+      require('./utils/uploadImages')(elt)
+       .then(function success (result){
+        imagesDetails.push({
+          url:result.secure_url,
+          width:result.width,
+          height:result.height
+        });
+        try{
+              fs.writeFile('images.json',JSON.stringify(imagesDetails), function(err){
+                if(err) throw err;
+              });
+            }catch(err){
+              console.err(err);
+            }
+       }, function error(err){
+        console.error(err);
+       });
+   });  
+   
 });
 
 /**
