@@ -1,8 +1,9 @@
-#banner{
-   margin-top:1em;
+.home .banner{
+   margin-top:10em;
     text-align: center;
 }
 /* ****** carousel customization ****/
+
 .home .carousel-caption{
 	top: 0;
     left: 50%;
@@ -50,7 +51,7 @@
 #social-icons {
     margin-top: 2em;
     float: right;
-    width: 15%;
+    width: 10%;
 
 }
 #social-icons  i {

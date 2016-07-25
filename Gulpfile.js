@@ -98,7 +98,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('images', function(){
-  var images=['banner5.jpg','banner4.jpg','banner7.jpg'];
+  var images=['banner5.jpg','banner4.jpg','banner7.jpg','banner9.jpg','banner10.jpg'];
    var imagesDetails=[];
    images.forEach(function(elt){
       require('./utils/uploadImages')(elt)

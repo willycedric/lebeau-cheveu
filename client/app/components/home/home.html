@@ -1,58 +1,99 @@
 <section class="home">
   <div id="banner">
-      <div class="container">
-        <div class="col-md-6">
-          <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
-            <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
-              <div class="carousel-caption">
-                  <p>{{slide.text}}</p>
-              </div>
-               <img class='carousel-img' ng-src="{{slide.image}}" class="img-responsive"/>
-            </uib-slide>
-        </uib-carousel> <!-- end carousel -->
-      </div>
-      <div class="col-md-6 banner-text">
-        <div class="ban">
-          <h3>Trouver une coiffeuse </h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
-        </div> 
-        <div id="social-icons"> 
+      <div class="container hidden-xs">
+        <div class="row">
+            <div class="col-md-6">
+                <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
+                  <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
+                    <div class="carousel-caption">
+                        <p>{{slide.text}}</p>
+                    </div>
+                     <img class='carousel-img' ng-src="{{slide.image}}" class="img-responsive"/>
+                  </uib-slide>
+              </uib-carousel> <!-- end carousel -->
+            </div>
+            <div class=" col-md-6 ">
+              <div class="row banner">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-9">
+                  <h3>Trouver une coiffeuse </h3>
+                  <p >Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                      consequat.</p>
+                  </div>              
+                  <div id="social-icons" class="col-md-2"> 
+                     <a href="#">
+                        <i class=" fa fa-facebook" aria-hidden="tue"></i>
+                     </a>
+                     <a href="#">
+                      <i class=" fa fa-twitter" aria-hidden="tue"></i>
+                     </a>  
+                     <a href="#">
+                        <i class=" fa fa-instagram" aria-hidden="tue"></i>
+                     </a>           
+                 </div> <!-- end social-icons -->
+
+              </div><!-- end row -->
+              
+          </div> 
+          <div class="clearfix">
+          </div>
+        </div><!-- end row -->        
+      </div>  <!-- end container hidden-xs -->     
+      <div class="container visible-xs">
+        <div class="row">
+          <div class="col-xs-12">
+              <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
+                <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
+                  <div class="carousel-caption">
+                      <p>{{slide.text}}</p>
+                  </div>
+                   <img class='carousel-img' ng-src="{{slide.image}}" class="img-responsive"/>
+                </uib-slide>
+            </uib-carousel> <!-- end carousel -->
+          </div>
+        </div><!-- end row -->
+        <div class="row">
+          <div class="ban banner-text col-xs-6">
+            <h3>Trouver une coiffeuse </h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat.
+          </div> 
+          <div id="social-icons" class="col-xs-6"> 
+               <a href="#">
+                <i class=" fa fa-facebook" aria-hidden="tue"></i>
+              </a>
              <a href="#">
-              <i class=" fa fa-facebook" aria-hidden="tue"></i>
-            </a>
-           <a href="#">
-            <i class=" fa fa-twitter" aria-hidden="tue"></i>
-          </a>  
-          <a href="#">
-            <i class=" fa fa-instagram" aria-hidden="tue"></i>
-          </a>           
-        </div> <!-- end social-icons -->
-        <div class="clearfix">
-        </div>
+              <i class=" fa fa-twitter" aria-hidden="tue"></i>
+            </a>  
+            <a href="#">
+              <i class=" fa fa-instagram" aria-hidden="tue"></i>
+            </a>           
+          </div> <!-- end social-icons -->
+        </div>  <!-- end row -->
       </div>  <!-- end container -->      
+  </div><!-- end banner -->
+
+  <div id="search">
+    <div class="container">
+      <h3> Trouver une coiffeuse près de chez vous </h3>
+        <div class="col-md-6 map">
+          <svg  version="1.1" id="Calque_1" xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width=300 height=300 viewBox="0 0 300 300" overflow="visible" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" enable-background="new 0 0 300 300" xml:space="preserve" class="mapSvg">   
+            <a  ng-repeat="zone in vm.zonePaths track by $index" xlink:href="{{zone.url}}" ng-mouseover="vm.displayRegionName(zone.title)" ng-mouseleave="vm.name =''">
+              <path id="{{zone.title}}"title="{{zone.title}}" d="{{vm.obj[$index]}}" stroke="{{vm.mapstroke}}" stroke-width="{{vm.mapstroke_width}}"/>
+            </a>    
+          </svg>
+          {{vm.name}}
+        </div><!-- end map -->
+        <div class="col-md-6 banner-search">
+            <form>
+                <input type="text" placeholder="code postal" required="">
+                <input type="submit" name="search">
+            </form>
+        </div>    
+    </div> <!-- end search -->
   </div>
-</div>
-<!-- end banner -->
-<div id="search">
-  <div class="container">
-    <h3> Trouver une coiffeuse près de chez vous </h3>
-      <div class="col-md-6 map">
-        <svg  version="1.1" id="Calque_1" xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width=300 height=300 viewBox="0 0 300 300" overflow="visible" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" enable-background="new 0 0 300 300" xml:space="preserve" class="mapSvg">   
-          <a  ng-repeat="zone in vm.zonePaths track by $index" xlink:href="{{zone.url}}" ng-mouseover="vm.displayRegionName(zone.title)" ng-mouseleave="vm.name =''">
-            <path id="{{zone.title}}"title="{{zone.title}}" d="{{vm.obj[$index]}}" stroke="{{vm.mapstroke}}" stroke-width="{{vm.mapstroke_width}}"/>
-          </a>    
-        </svg>
-        {{vm.name}}
-      </div><!-- end map -->
-      <div class="col-md-6 banner-search">
-          <form>
-              <input type="text" placeholder="code postal" required="">
-              <input type="submit" name="search">
-          </form>
-      </div>    
-  </div> <!-- end search -->
-</div>
 </section> 
