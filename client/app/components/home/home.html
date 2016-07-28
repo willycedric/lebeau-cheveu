@@ -15,13 +15,17 @@
             <div class=" col-md-6 ">
               <div class="row banner">
                   <div class="col-md-1"></div>
-                  <div class="col-md-9">
-                  <h3>Trouver une coiffeuse </h3>
-                  <p >Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                      consequat.</p>
-                  </div>              
+                  <div class="col-md-6">
+                  <div class="content">
+                    <div class="visible">
+                        <ul>
+                          <li ng-repeat ="slide in vm.slides  track by slide.id" index="slide.id">{{slide.text}}
+                          </li>
+                        </ul>
+                    </div> <!-- end .visible -->
+                  </div><!-- end .content -->
+                  </div><!-- end col-md-9 -->
+                  <div class="col-md-3"></div>            
                   <div id="social-icons" class="col-md-2"> 
                      <a href="#">
                         <i class=" fa fa-facebook" aria-hidden="tue"></i>
@@ -47,7 +51,7 @@
               <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
                 <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
                   <div class="carousel-caption">
-                      <p>{{slide.text}}</p>
+                      <!-- <p>{{slide.text}}</p> -->
                   </div>
                    <img class='carousel-img' ng-src="{{slide.image}}" class="img-responsive"/>
                 </uib-slide>
@@ -55,14 +59,19 @@
           </div>
         </div><!-- end row -->
         <div class="row">
-          <div class="col-xs-8">
-            <h3>Trouver une coiffeuse </h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.
+          <div class="col-xs-11" style="float:left;">
+            <div class="content-xs">
+              <div class="display-xs">
+                  <ul>
+                    <li ng-repeat ="slide in vm.slides  track by slide.id" index="slide.id">{{slide.text}}
+                    </li>
+                  </ul>
+              </div> <!-- end .visible -->
+            </div><!-- end .content -->
           </div> 
-          <div id="social-icons" class="col-xs-4"> 
+          
+        <div class="col-xs-1">
+          <div id="social-icons" style="float:right;"> 
                <a href="#">
                 <i class=" fa fa-facebook" aria-hidden="tue"></i>
               </a>
@@ -73,7 +82,7 @@
               <i class=" fa fa-instagram" aria-hidden="tue"></i>
             </a>           
           </div> <!-- end social-icons -->
-        </div>  <!-- end row -->
+        </div> <!-- end row -->
       </div>  <!-- end container-fluid -->      
   </div><!-- end banner -->
 

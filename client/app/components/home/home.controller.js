@@ -5,19 +5,19 @@ import images from '../../../../images.json';
 class HomeController {
   constructor(Map) {
 
+  	this.nbImages = images.length;
   		//labels
   		this.labels=labels;
 		//Carousel logic
-	  this.myInterval = 5000;
+	  this.myInterval = 7000;
 	  this.noWrapSlides = false;
 	  this.active = 0;
 	  const slides = this.slides = [];
 	  let currIndex = 0;
 	  this.text=['Un style toujours dans l\'air du temps à des coûts défiants toutes concurrences ...'
-	  			 ,'Pas besoin de vous déplacer ni de prévoir du temps  pours vos coiffures ...'
+	  			 ,'Pas besoin de vous déplacer ni de prévoir du temps  pour vos coiffures ...'
 	      		 ,'Lebeaucheveu est le choix gagnant de nombreuses femmes ...'
 	      		 ,'Nos coiffeuses vous donneront toujours le meilleur d\'elles mêmes ...'
-	      		 ,'Profiter de la tranquilité et du confort en vous faisant coiffer chez vous et à moindre coût ..'
 	      		 ];
 
 	  this.addSlide = function(i) {
@@ -28,9 +28,8 @@ class HomeController {
 	    }); 
 	  };
 
-	  for (let i = 0; i < 5; i++) {
+	  for (let i = 0; i < this.nbImages; i++) {
 	    this.addSlide(i);
-	    console.log("text ",i," ", this.text[i]);
 	  }
 
 	  //Map part of the controller
