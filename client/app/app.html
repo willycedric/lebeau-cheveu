@@ -20,7 +20,10 @@
                   <li ui-sref-active="active" class="active">
                         <a ui-sref="shop"><i class="fa fa-cart-plus" aria-hidden="true"></i>Magasin</a>
                   </li>
-                  <li ui-sref-active="active" class="active">
+                  <li ng-show="vm.toggle" ui-sref-active="active" class="active">
+                      <a ui-sref="profile"><i class="fa fa-user" aria-hidden="true"></i>{{vm.username}}</a>
+                  </li>
+                  <li ng-show="!vm.toggle" ui-sref-active="active" class="active">
                       <a ui-sref="login"><i class="fa fa-sign-in" aria-hidden="true"></i>Connexion/Inscription</a>
                   </li>
                 </ul>

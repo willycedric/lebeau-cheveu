@@ -1,5 +1,5 @@
 class LoginController {
-  constructor($http,API,$window,$q,Auth,$state) {
+  constructor($http,API,$window,$q,Auth,$state,$rootScope) {
     var self = this;
     self.url=`${API.url}`;
     
@@ -11,33 +11,13 @@ class LoginController {
    self.login = (data)=>{
     	Auth.login(data.email,data.password)
             .then(function loginControllerSuccess(data){
-                $state.go('profile',{},{reload:true});
+                $rootScope.$broadcast('connectionStatechanged',{data:data.user});
+                $state.go('home',null,{reload:true});                
             },function loginControllerError(err){
                 console.error(err);
             });        
     };
-
-    /*
-    self.me = () =>{
-        $http({
-            url:self.url+'/api/users/me',
-            method:'GET'
-        }).then(function getMeSuccessCallBack(response){
-         //self.user = response.data;
-         //User.addUser(response.data);
-         console.log(JSON.stringify(self.user));        
-        }, function getMeErrorCallBack(err){
-            console.error(err);
-        });
-    };
-    */
    
-    /**
-     * [description]
-     * @param  {[type]} data     [description]
-     * @param  {[type]} userForm [description]
-     * @return {[type]}          [description]
-     */
     self.addUser = (data, userForm)=>{
         if(userForm.$valid){
             console.log(JSON.stringify(data));
@@ -54,19 +34,13 @@ class LoginController {
         }
     };
 
-    /**
-     * [description]
-     * @return {[type]} [description]
-     */
-    self.logout = () =>{
-           Auth.logout();
-    };
+    
 
   }//End constructor
 
 }
 
-LoginController.$inject = ['$http','API','$window','$q','Auth','$state'];
+LoginController.$inject = ['$http','API','$window','$q','Auth','$state','$rootScope'];
 
 export {LoginController};
 
