@@ -17,15 +17,6 @@ class ProfileController {
                     console.error(err);
             });
     };
-
-    this.getMe = () =>{
-        Auth.me()
-        .then(function getMeSuccessCallback(response){
-            console.log(response.data);
-        }, function getMeFailureCallback(err){
-            console.error(err);
-        })
-    };
     
 
 };//end constructor;

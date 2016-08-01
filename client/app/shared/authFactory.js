@@ -1,11 +1,12 @@
 const authFactory = ($http, $window,$q,API) =>{
 	let userInfo={};
 
+  
   /**
-   * [description]
-   * @param  {[type]} email    [description]
-   * @param  {[type]} password [description]
-   * @return {[type]}          [description]
+   * [login the registered user and saved the jwtToken in the local storage]
+   * @param  {[string]} email    [user email]
+   * @param  {[string]} password [user password]
+   
    */
 	const login = (email,password) =>{
   			var deferred = $q.defer();
@@ -17,8 +18,8 @@ const authFactory = ($http, $window,$q,API) =>{
   							user:response.data.user
   						};
   						//set the Authorization header to all the future http request
-  						$http.defaults.headers.common['Authorization'] = 'JWT '+response.data.token;
-  						$window.sessionStorage["user"] = JSON.stringify(userInfo);
+  						//$http.defaults.headers.common['Authorization'] = 'JWT '+response.data.token;
+  						//$window.sessionStorage["user"] = JSON.stringify(userInfo);
   						deferred.resolve(userInfo);
   					}else{
   						deferred.reject(new Error("There are some issues with user login"));
@@ -30,8 +31,8 @@ const authFactory = ($http, $window,$q,API) =>{
 	};
 
   /**
-   * [description]
-   * @return {[type]} [description]
+   * [logout the connected user]
+   *
    */
 	const logout = () =>{
     var deferred = $q.defer();
@@ -67,25 +68,28 @@ const authFactory = ($http, $window,$q,API) =>{
 
 	};
 
+  /**
+   * [register a user with valid informations]
+   * @param  {[user's object]} user [user'email and password]
+   * @return {[http promise]}      [http promise which will be resolved in the user profile controller]
+   */
   const register = (user)=>{
     return $http.post(`${API.homeUrl}`+'/api/users',user);
   }
 
-
+  /**
+   * [Test function used to see if the connected user can retrieve his informations from the remote server ]
+   * @return {[type]} [description]
+   */
 	const getUserInfo = ()=>{
 		return userInfo;
 	};
 
-	const dire = (name)=>{
-		console.log('dire ', name);
-	}
 	return {
 		login,
 		getUserInfo,
 		logout,
-		dire,
-    register,
-    me
+    register
 	};
 	
 };
