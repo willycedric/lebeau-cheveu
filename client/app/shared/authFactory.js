@@ -1,6 +1,12 @@
 const authFactory = ($http, $window,$q,API) =>{
 	let userInfo={};
 
+  /**
+   * [description]
+   * @param  {[type]} email    [description]
+   * @param  {[type]} password [description]
+   * @return {[type]}          [description]
+   */
 	const login = (email,password) =>{
   			var deferred = $q.defer();
   			$http.post(`${API.homeUrl}`+'/api/users/me',{email:email,password:password})
@@ -23,9 +29,13 @@ const authFactory = ($http, $window,$q,API) =>{
 			return deferred.promise;
 	};
 
+  /**
+   * [description]
+   * @return {[type]} [description]
+   */
 	const logout = () =>{
     var deferred = $q.defer();
-		 return $http({
+		 return $http({ 
                 url:`${API.homeUrl}`+'/api/users/logout',
                 method:'GET',
                 headers:{
@@ -57,6 +67,11 @@ const authFactory = ($http, $window,$q,API) =>{
 
 	};
 
+  const register = (user)=>{
+    return $http.post(`${API.homeUrl}`+'/api/users',user);
+  }
+
+
 	const getUserInfo = ()=>{
 		return userInfo;
 	};
@@ -68,7 +83,9 @@ const authFactory = ($http, $window,$q,API) =>{
 		login,
 		getUserInfo,
 		logout,
-		dire
+		dire,
+    register,
+    me
 	};
 	
 };

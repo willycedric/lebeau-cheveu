@@ -34,6 +34,20 @@ class LoginController {
         }
     };
 
+    self.register = (user)=>{
+            console.log(JSON.stringify(user));
+            Auth.register(user)
+            .then(function registerSuccessCallback(response){
+                console.log('user successfully registered');
+            },function registerFailureCallback(err){
+                console.error(err);
+            });
+    };
+
+    self.logInFacebook = () =>{
+        $http.get(`${API.homeUrl}`+'/api/users/auth/facebook');
+    }
+
     
 
   }//End constructor
