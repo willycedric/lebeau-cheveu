@@ -1,0 +1,17 @@
+.error .title {
+	color:#E6E9EA;
+	text-align:center; }
+
+.error .sub-heading {
+	font-size: 1.5rem;
+	text-align:center;
+	color: #FFFB81;
+	margin: 10px 0; }
+
+.error hr.hr-style-404 {
+    border: 0;
+    height: 1px;
+	width: 150px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.65), rgba(0, 0, 0, 0)); }
+.error .redirect-style-404{
+	color: #ffffff; }
