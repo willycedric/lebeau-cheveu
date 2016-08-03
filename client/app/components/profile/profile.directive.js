@@ -8,6 +8,7 @@ export const profileDirective = ()=> {
 	 	controller,
 	 	controllerAs:'vm',
 	 	restrict:'E',
-	 	replace:true
+	 	replace:true,
+	 	data: { transition: 'slide-in'}
 	 };
 };

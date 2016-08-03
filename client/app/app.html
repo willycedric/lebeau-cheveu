@@ -9,7 +9,7 @@
                 <div class="button"></div>
                 <ul>
                   <li ui-sref-active="active" class="active">            
-                        <a ui-sref="catalog"><i class="fa fa-book" aria-hidden="true"></i>Catalogue</a>
+                        <a class="a-link" ui-sref="catalog"><i class="fa fa-book" aria-hidden="true"></i>Catalogue</a>
                   </li>
                   <li ui-sref-active="active" class="active">
                       <a ui-sref="blog"><i class="fa fa-commenting-o" aria-hidden="true"></i>Blog</a>
@@ -29,10 +29,10 @@
                 </ul>
             </div>
     </div>
-  </div>
+  </div><!-- end container-fluid -->
   <div class="container-fluid">
        <main class="main">
-          <div ui-view></div>
+          <div ui-view id="view" ng-class="vm.transition"></div>
        </main><!-- end main -->
   </div>
   <div class="container-fluid">       

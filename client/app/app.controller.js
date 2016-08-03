@@ -5,6 +5,7 @@ class AppController {
 		this.labels =labels; //Label.init
 		this.toggle=false;
 		this.username="";
+		this.transition = 'slide-in';
 		$scope.this=this;	
 		//keep the profile menu displayed on page reload
 		if($window.sessionStorage['user']){

@@ -8,6 +8,8 @@ export const blogDirective = ()=> {
 	 	controller,
 	 	controllerAs:'vm',
 	 	restrict:'E',
-	 	replace:true
+	 	scope: {},
+	 	replace:true,
+	 	data: { transition: 'slide-in'}
 	 };
 };

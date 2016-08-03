@@ -1,7 +1,15 @@
-const authFactory = ($http, $window,$q,API) =>{
+const authFactory = ($http, $window,$q,API,AuthToken) =>{
 	let userInfo={};
 
-  
+  /**
+   * [register a user with valid informations]
+   * @param  {[user's object]} user [user'email and password]
+   * @return {[http promise]}      [http promise which will be resolved in the user profile controller]
+   */
+  const register = (user)=>{
+    return $http.post(`${API.homeUrl}`+'/api/users',user);
+  }
+
   /**
    * [login the registered user and saved the jwtToken in the local storage]
    * @param  {[string]} email    [user email]
@@ -17,9 +25,7 @@ const authFactory = ($http, $window,$q,API) =>{
   							accessToken:response.data.token,
   							user:response.data.user
   						};
-  						//set the Authorization header to all the future http request
-  						//$http.defaults.headers.common['Authorization'] = 'JWT '+response.data.token;
-  						//$window.sessionStorage["user"] = JSON.stringify(userInfo);
+              console.log('Token '+JSON.stringify(AuthToken.parseToken(AuthToken.getToken())));
   						deferred.resolve(userInfo);
   					}else{
   						deferred.reject(new Error("There are some issues with user login"));
@@ -30,32 +36,24 @@ const authFactory = ($http, $window,$q,API) =>{
 			return deferred.promise;
 	};
 
+  
+
   /**
    * [logout the connected user]
-   *
    */
 	const logout = () =>{
     var deferred = $q.defer();
 		 return $http({ 
                 url:`${API.homeUrl}`+'/api/users/logout',
                 method:'GET',
-                headers:{
-                  'Authorization':'JWT '+JSON.parse($window.sessionStorage["user"]).accessToken
-                }
             })
             .then( function logoutSuccessCallback(response){
-
               if(response.data.message ==="OK"){
                   //clean the http Authorization header
                   $http.defaults.headers.common['Authorization'] = '';
-                  //clean the userInfo object
-                  userInfo={
-                    empty:"empty"
-                  };
+                
                   //clean the session object
-                  delete $window.sessionStorage["user"];
-                  //redirect to the home page
-                  //$window.location.href=`${API.home}`;
+                  AuthToken.deleteToken();
                   deferred.resolve(userInfo);
               }else{
                 deferred.reject(new Error("There are some issues with user logout"));
@@ -67,16 +65,6 @@ const authFactory = ($http, $window,$q,API) =>{
             return deferred.promise;
 
 	};
-
-  /**
-   * [register a user with valid informations]
-   * @param  {[user's object]} user [user'email and password]
-   * @return {[http promise]}      [http promise which will be resolved in the user profile controller]
-   */
-  const register = (user)=>{
-    return $http.post(`${API.homeUrl}`+'/api/users',user);
-  }
-
   /**
    * [Test function used to see if the connected user can retrieve his informations from the remote server ]
    * @return {[type]} [description]
@@ -94,6 +82,6 @@ const authFactory = ($http, $window,$q,API) =>{
 	
 };
 
-authFactory.$inject = ['$http','$window','$q','API'];
+authFactory.$inject = ['$http','$window','$q','API','AuthToken'];
 
 export {authFactory};

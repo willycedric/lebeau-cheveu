@@ -27,6 +27,7 @@ export const loginDirective = ()=> {
     		$(this).addClass('active');
     	});
     },
-    replace: true
+    replace: true,
+    data: { transition: 'slide-in'}
   };
 };
