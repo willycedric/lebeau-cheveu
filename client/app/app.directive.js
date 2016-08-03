@@ -26,26 +26,30 @@ $.fn.menumaker = function(options) {
    sticky: false
  }, options);
  return this.each(function() {
+
+ 	if($(this).find("cssmenu").hasClass("has-sub")){
+ 		console.log("oh yeah");
+ 	}
  	
  	var self;
- 	
+ 	$(this).find("dropdown").removeClass("has-sub");
    $(this).find(".button").on('click', function(){
    	self= $(this);
      $(this).toggleClass('menu-opened');
      var mainmenu = $(this).next('ul');
      if (mainmenu.hasClass('open')) { 
        mainmenu.slideToggle().removeClass('open');
-       console.log('dans le if');
+      
      }
      else {
-     	console.log('dans le else');
+     	
        mainmenu.slideToggle().addClass('open');
        
-       mainmenu.find("li").on('click',function(){
-       		console.log("in the loop");
+      /* mainmenu.find("li").on('click',function(){
+       		
    	 		self.removeClass('menu-opened');
    	 		mainmenu.fadeOut(100);
-   	 	});
+   	 	});*/
        if (settings.format === "dropdown") {
          mainmenu.find('ul').show();
          console.log('dans le if du else');

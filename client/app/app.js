@@ -16,6 +16,7 @@ import {blog} from './components/blog/blog';
 import {galeria} from './components/galeria/galeria';
 import {profile} from './components/profile/profile';
 import {error} from './components/error/error';
+import {cart} from './components/cart/cart';
 import {shared} from './shared/shared';
 
 angular.module('app', [
@@ -30,6 +31,7 @@ angular.module('app', [
   shared.name,
   galeria.name,
   profile.name,
-  error.name
+  error.name,
+  cart.name
   ])
 .directive('app', appDirective);

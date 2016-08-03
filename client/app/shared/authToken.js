@@ -5,7 +5,7 @@ const AuthToken = ($window) =>{
    * @param  {[type]} token [token received from the server]
    */
   const saveToken = (token)=>{
-    $window.sessionStorage.setItem('jwtToken',token);
+    $window.localStorage.setItem('jwtToken',token);
   };
 
   /**
@@ -13,14 +13,14 @@ const AuthToken = ($window) =>{
    * @return {[string]} [token received in the server response and saved in the sessionStorage]
    */
   const getToken = () =>{
-    return $window.sessionStorage['jwtToken'];
+    return $window.localStorage['jwtToken'];
   };
 
   /**
    * [delete the user token on logout]
    */
   const deleteToken = () =>{
-  	$window.sessionStorage.removeItem("jwtToken");
+  	$window.localStorage.removeItem("jwtToken");
   }
   /**
    * [parse the token receivede from the server in order to obtain user's information]
