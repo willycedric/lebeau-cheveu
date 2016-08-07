@@ -43,7 +43,7 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
    */
 	const logout = () =>{
     var deferred = $q.defer();
-		 return $http({ 
+		$http({ 
                 url:`${API.homeUrl}`+'/api/users/logout',
                 method:'GET',
             })
@@ -73,11 +73,23 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
 		return userInfo;
 	};
 
+  const passwordForgot = (email)=>{
+    var deferred = $q.defer();
+    $http.post(`${API.homeUrl}`+'/api/users/forgot',{email:email})
+            .then(function forgotSuccessCallback(response){
+                deferred.resolve(response);
+            }, function forgotErrorCallback(err){
+              deferred.reject(err);
+            });
+            return deferred.promise;
+  };
+
 	return {
 		login,
 		getUserInfo,
 		logout,
-    register
+    register,
+    passwordForgot
 	};
 	
 };

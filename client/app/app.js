@@ -17,6 +17,7 @@ import {galeria} from './components/galeria/galeria';
 import {profile} from './components/profile/profile';
 import {error} from './components/error/error';
 import {cart} from './components/cart/cart';
+import {forgot} from './components/forgot/forgot';
 import {shared} from './shared/shared';
 
 angular.module('app', [
@@ -32,6 +33,7 @@ angular.module('app', [
   galeria.name,
   profile.name,
   error.name,
-  cart.name
+  cart.name,
+  forgot.name
   ])
 .directive('app', appDirective);

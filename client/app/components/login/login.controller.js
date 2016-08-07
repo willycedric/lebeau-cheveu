@@ -47,6 +47,9 @@ class LoginController {
     self.logInFacebook = () =>{
         $http.get(`${API.homeUrl}`+'/api/users/auth/facebook');
     }
+    self.passwordForgot = () =>{
+        $state.go('forgot');
+    };
 
     
 
