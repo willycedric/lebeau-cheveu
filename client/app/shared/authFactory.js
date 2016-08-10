@@ -84,12 +84,37 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
             return deferred.promise;
   };
 
+  const resetPassword = (token) =>{
+    var deferred = $q.defer();
+    $http.post(`${API.homeUrl}`+'/api/users/reset',{token:token})
+    .then(function resetPasswordSuccessCallback(response){
+        deferred.resolve(response);
+    }, function resetPasswordFailureCallback(err){
+        deferred.reject(err);
+    });
+    return deferred.promise;
+  };
+
+  const updatePassword = (user)=>{
+    console.log(JSON.stringify(user));
+    var deferred = $q.defer();
+    $http.post(`${API.homeUrl}`+'/api/users/updatePassword',{token:user.passwordToken,password:user.password})
+    .then(function updatePasswordSuccessCallback(response){
+          deferred.resolve(response);
+    },function updatePasswordFailureCallback(err){
+        defered.reject(err);
+    });
+    return deferred.promise;
+  }
+
 	return {
 		login,
 		getUserInfo,
 		logout,
     register,
-    passwordForgot
+    passwordForgot,
+    resetPassword,
+    updatePassword
 	};
 	
 };

@@ -5,7 +5,7 @@ import {forgotDirective} from './forgot.directive';
 export const forgot = angular.module('forgot', [uiRouter])
   .config(($stateProvider) => {
     $stateProvider.state('forgot', {
-      url: '/forgot',
+      url: '/forgot/:token',
       template: '<forgot></forgot>'
     })
   })
