@@ -25,7 +25,7 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
   							accessToken:response.data.token,
   							user:response.data.user
   						};
-              console.log('Token '+JSON.stringify(AuthToken.parseToken(AuthToken.getToken())));
+              //console.log('Token '+JSON.stringify(AuthToken.parseToken(AuthToken.getToken())));
   						deferred.resolve(userInfo);
   					}else{
   						deferred.reject(new Error("There are some issues with user login"));

@@ -20,6 +20,9 @@ describe('Catalog', ()=>{
     // checking to see if it registers certain things and what not
     // test for best practices with naming too
     // test for routing
+    it('Should have an appropriate name', ()=>{
+      expect(catalog.name).to.equal('catalog');
+    });
   });
 
   describe('Controller', ()=>{

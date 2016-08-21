@@ -20,6 +20,9 @@ describe('Profile', ()=>{
     // checking to see if it registers certain things and what not
     // test for best practices with naming too
     // test for routing
+    it('Should have an appropriate name', ()=>{
+      expect(profile.name).to.equal('profile');
+    });
   });
 
   describe('Controller', ()=>{

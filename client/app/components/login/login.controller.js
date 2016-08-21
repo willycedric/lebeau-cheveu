@@ -1,7 +1,10 @@
 class LoginController {
   constructor($http,API,$window,$q,Auth,$state,$rootScope) {
     var self = this;
-    self.url=`${API.url}`;
+
+    //facebook authentication route
+    self.facebookUrl = `${API.homeUrl}`+'/api/users/auth/facebook';//http://localhost:3000/api/users/auth/facebook
+   
     
     /**
      * [description]
@@ -18,22 +21,6 @@ class LoginController {
             });        
     };
    
-    self.addUser = (data, userForm)=>{
-        if(userForm.$valid){
-            console.log(JSON.stringify(data));
-            $http({
-                url:self.url+'/api/users',
-                method:'POST',
-                data:data
-            })
-            .then( (response)=>{
-                console.log(JSON.stringify(response.data));
-            },(err)=>{
-                console.error(err);
-            });
-        }
-    };
-
     self.register = (user)=>{
             console.log(JSON.stringify(user));
             Auth.register(user)

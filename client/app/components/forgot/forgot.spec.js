@@ -20,15 +20,47 @@ describe('Forgot', ()=>{
     // checking to see if it registers certain things and what not
     // test for best practices with naming too
     // test for routing
+    it('Should have an appropriate name', ()=>{
+      expect(forgot.name).to.equal('forgot');
+    });
   });
 
   describe('Controller', ()=>{
-    // test your controller here
 
-    it('should have a name property [REMOVE]', ()=>{ // erase me if you remove this.name from the controller
+
+    it('should have a name property isUser', ()=>{ 
       let controller = makeController();
+      expect(controller).to.have.property('isUser');
+    });
 
-      expect(controller).to.have.property('greeting');
+    it('should have a name property isError', ()=>{ 
+      let controller = makeController();
+      expect(controller).to.have.property('isError');
+    });
+
+    it('should have a name property errorMessage', ()=>{ 
+      let controller = makeController();
+      expect(controller).to.have.property('errorMessage');
+    });
+
+    it('should have a name property user', ()=>{ 
+      let controller = makeController();
+      expect(controller).to.have.property('user');
+    });
+
+    it('should have a name property updatePassword', ()=>{ 
+      let controller = makeController();
+      expect(controller).to.have.property('updatePassword');
+    });
+
+    it('should have a name property passwordReset', ()=>{ 
+      let controller = makeController();
+      expect(controller).to.have.property('passwordReset');
+    });
+
+    it('should have a name property resetPassword', ()=>{ 
+      let controller = makeController();
+      expect(controller).to.have.property('resetPassword');
     });
   });
 

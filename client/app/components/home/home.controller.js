@@ -3,12 +3,12 @@ import images from '../../../../images.json';
 
 
 class HomeController {
-  constructor(Map) {
+  constructor(Map,$stateParams,AuthToken,$rootScope) {
 
   	this.nbImages = images.length;
   		//labels
-  		this.labels=labels;
-		//Carousel logic
+	 this.labels=labels;
+	 //Carousel logic
 	  this.myInterval = 7000;
 	  this.noWrapSlides = false;
 	  this.active = 0;
@@ -53,10 +53,22 @@ class HomeController {
 				this.name = name;
 			}
 
+	   //If a user is connected throught oauth, the token is retrieved from the url
+	    //a save in the localStorage 
+		if($stateParams.token){   	  	
+			AuthToken.saveToken($stateParams.token);//Saved the token in the localStorage
+			var data={
+				user:{					
+					    userName:AuthToken.parseToken($stateParams.token).name								
+				}
+			};
+			$rootScope.$broadcast('connectionStatechanged',{data:data.user});
+	    }
+
 	}; //End constructor 
 }
 
-HomeController.$inject=['Map'];
+HomeController.$inject=['Map','$stateParams','AuthToken','$rootScope'];
 export {HomeController};
 
 

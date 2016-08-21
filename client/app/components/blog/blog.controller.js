@@ -1,7 +1,8 @@
 class BlogController {
   constructor() {
   	//labels
-    this.greeting = 'BlogController!';
+    this.firstName="Willy";
+    this.lastName="Dongmo";
   }
 
 }

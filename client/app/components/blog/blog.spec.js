@@ -5,11 +5,13 @@ import template from './blog.html';
 
 describe('Blog', ()=>{
   let $rootScope,
+  $compile,
   makeController;
 
   beforeEach(window.module(blog.name));
-  beforeEach(inject((_$rootScope_)=>{
+  beforeEach(inject((_$rootScope_,_$compile_)=>{
     $rootScope = _$rootScope_;
+    $compile = _$compile_;
     makeController = ()=>{
       return new BlogController();
     };
@@ -20,15 +22,23 @@ describe('Blog', ()=>{
     // checking to see if it registers certain things and what not
     // test for best practices with naming too
     // test for routing
+    it('should have an appropriate name', () =>{
+      expect(blog.name).to.equal('blog');
+    });
   });
 
   describe('Controller', ()=>{
     // test your controller here
 
-    it('should have a name property [REMOVE]', ()=>{ // erase me if you remove this.name from the controller
+    it('should have a lastName property', ()=>{ // erase me if you remove this.name from the controller
       let controller = makeController();
 
-      expect(controller).to.have.property('greeting');
+      expect(controller).to.have.property('lastName');
+    });
+    it('should have a firstName property', ()=>{ // erase me if you remove this.name from the controller
+      let controller = makeController();
+
+      expect(controller).to.have.property('firstName');
     });
   });
 
@@ -36,8 +46,8 @@ describe('Blog', ()=>{
     // test the template
     // use Regexes to test that you are using the right bindings {{  }}
 
-    it('should have name in template [REMOVE]', ()=>{
-      expect(template).to.match(/{{\s?vm\.greeting\s?}}/g);
+    it('should have firstName in template', ()=>{
+      expect(template).to.match(/{{\s?vm\.firstName\s?}}/g);
     });
   });
 
@@ -57,5 +67,13 @@ describe('Blog', ()=>{
       it('should use the right controller', ()=>{
         expect(directive.controller).to.equal(BlogController);
       });
+      
+      it('Should match the template',()=>{
+          let element = $compile('<blog/>')($rootScope);
+          $rootScope.$digest();
+          expect(element.html()).to.contain('Hello Willy');
+      });
+      
+
   });
 });

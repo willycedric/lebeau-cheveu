@@ -15,8 +15,7 @@ class AppController {
 		}else{
 			this.toggle=false;
 		}
-		$scope.$on('connectionStatechanged',function(evt,user){		
-				
+		$scope.$on('connectionStatechanged',function(evt,user){				
 			if(user){			
 				$scope.this.toggle=true;
 				$scope.this.username=user.data.userName;
@@ -34,6 +33,8 @@ class AppController {
                     console.error(err);
             });
         };
+
+        
 		
 	};//end constructor
 }
