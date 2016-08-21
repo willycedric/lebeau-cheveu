@@ -1,7 +1,11 @@
 *{margin:0;padding:0;text-decoration:none}
 /*body { background-color:#6DC3BB;} *//*6DC3BB*/
-
-
+.main{
+    height:100vh;
+}
+#app{
+    height:100%;
+}
 #app .logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#fafafa;float:left;width:30%;padding:0;}
 #app .logo a{color:#fafafa; text-decoration: none;font-family: 'Oregano', cursive;font-size:2.5em; text-transform: capitalize;font-weight:700;}
 #app nav{position:relative;width:100%;margin:0 auto;} /*980*/
@@ -61,7 +65,7 @@
 	color:#fafafa;
 }
 /* Footer */
-.page-bottom{background-color:#6dc3bb;padding:10px;}
+.page-bottom{background-color:#6dc3bb;padding:10px;display:none;}
 #social-networks, #legal-issues ul {margin: 0;padding: 0;list-style-type: none;}
 #social-networks ul li {display:inline;}
 #legal-issues ul li a { text-decoration: none; color:#fafafa; text-align: left;}

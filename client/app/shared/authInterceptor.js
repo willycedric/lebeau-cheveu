@@ -34,19 +34,19 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$window)=>{
 			switch(rejection.status){
 				case 401:
 					$rootScope.$broadcast('onUauthorizedRequestEvent',{code:401});
-					$window.location.href=`${API.error}`;
+					$window.location.href=`${API.dev.error}`;
 				break;
 				case 400:
 					$rootScope.$broadcast('onBadRequestEvent',{code:400});
-					$window.location.href=`${API.error}`;
+					$window.location.href=`${API.dev.error}`;
 				break;
 				case 403:
 					$rootScope.$broadcast('onForbidenRequestEvent',{code:403});
-					$window.location.href=`${API.error}`;
+					$window.location.href=`${API.dev.error}`;
 				break;
 				case 404:
 					$rootScope.$broadcast('onContentNotFoudEvent',{code:404});
-					$window.location.href=`${API.error}`;
+					$window.location.href=`${API.dev.error}`;
 				break;
 				case 500:
 					$rootScope.$broadcast('onInternalServerErrorEvent',{code:500});
