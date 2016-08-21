@@ -3,8 +3,7 @@ class LoginController {
     var self = this;
 
     //facebook authentication route
-    self.facebookUrl = `${API.homeUrl}`+'/api/users/auth/facebook';//http://localhost:3000/api/users/auth/facebook
-   
+    self.facebookUrl = `${API.dev.homeUrl}`+'/api/users/auth/facebook';
     
     /**
      * [description]
@@ -31,9 +30,6 @@ class LoginController {
             });
     };
 
-    self.logInFacebook = () =>{
-        $http.get(`${API.homeUrl}`+'/api/users/auth/facebook');
-    }
     self.passwordForgot = () =>{
         $state.go('forgot');
     };

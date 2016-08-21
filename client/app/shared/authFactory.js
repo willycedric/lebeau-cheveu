@@ -1,13 +1,13 @@
 const authFactory = ($http, $window,$q,API,AuthToken) =>{
 	let userInfo={};
-
+  let apiUrl=`${API.dev.homeUrl}`;
   /**
    * [register a user with valid informations]
    * @param  {[user's object]} user [user'email and password]
    * @return {[http promise]}      [http promise which will be resolved in the user profile controller]
    */
   const register = (user)=>{
-    return $http.post(`${API.homeUrl}`+'/api/users',user);
+    return $http.post(apiUrl+'/api/users',user);
   }
 
   /**
@@ -18,7 +18,7 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
    */
 	const login = (email,password) =>{
   			var deferred = $q.defer();
-  			$http.post(`${API.homeUrl}`+'/api/users/me',{email:email,password:password})
+  			$http.post(apiUrl+'/api/users/me',{email:email,password:password})
   				.then(function loginSuccessCallBack(response){
   					if(response.data.status=="ok"){
   						userInfo={
@@ -44,7 +44,7 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
 	const logout = () =>{
     var deferred = $q.defer();
 		$http({ 
-                url:`${API.homeUrl}`+'/api/users/logout',
+                url:apiUrl+'/api/users/logout',
                 method:'GET',
             })
             .then( function logoutSuccessCallback(response){
@@ -75,7 +75,7 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
 
   const passwordForgot = (email)=>{
     var deferred = $q.defer();
-    $http.post(`${API.homeUrl}`+'/api/users/forgot',{email:email})
+    $http.post(apiUrl+'/api/users/forgot',{email:email})
             .then(function forgotSuccessCallback(response){
                 deferred.resolve(response);
             }, function forgotErrorCallback(err){
@@ -86,7 +86,7 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
 
   const resetPassword = (token) =>{
     var deferred = $q.defer();
-    $http.post(`${API.homeUrl}`+'/api/users/reset',{token:token})
+    $http.post(apiUrl+'/api/users/reset',{token:token})
     .then(function resetPasswordSuccessCallback(response){
         deferred.resolve(response);
     }, function resetPasswordFailureCallback(err){
@@ -98,7 +98,7 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
   const updatePassword = (user)=>{
     console.log(JSON.stringify(user));
     var deferred = $q.defer();
-    $http.post(`${API.homeUrl}`+'/api/users/updatePassword',{token:user.passwordToken,password:user.password})
+    $http.post(apiUrl+'/api/users/updatePassword',{token:user.passwordToken,password:user.password})
     .then(function updatePasswordSuccessCallback(response){
           deferred.resolve(response);
     },function updatePasswordFailureCallback(err){

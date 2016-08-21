@@ -28,7 +28,7 @@ class AppController {
     		Auth.logout()
             .then(function logoutControllerSuccessCallback(response){   
                 $rootScope.$broadcast('connectionStatechanged',null);           
-                $window.location.href=`${API.home}`;
+                $window.location.href=`${API.dev.home}`;
             },function logoutControllerErrorCallback(err){
                     console.error(err);
             });

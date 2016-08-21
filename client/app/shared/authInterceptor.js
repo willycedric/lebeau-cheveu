@@ -1,5 +1,5 @@
 const AuthInterceptor = (AuthToken,API,$q,$rootScope,$window)=>{
-
+	let apiUrl=`${API.dev.homeUrl}`;
 	return {
 		/**
 		 * [response function of the interceptor, take the token send by the server and  pass it to the AuthToken service]
@@ -7,7 +7,7 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$window)=>{
 		 * @return {[object]}     [server response]
 		 */
 		response: function(res){
-			if(res.config.url.indexOf(`${API.homeUrl}`+'/api/users') === 0 && res.data.token){
+			if(res.config.url.indexOf(apiUrl+'/api/users') === 0 && res.data.token){
 				AuthToken.saveToken(res.data.token);
 			}
 			return res;
@@ -20,7 +20,7 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$window)=>{
 		 */
 		request:function(config){
 			var token = AuthToken.getToken();
-			if(config.url.indexOf(`${API.homeUrl}`+'/api/users') === 0 && token){
+			if(config.url.indexOf(apiUrl+'/api/users') === 0 && token){
 				config.headers.Authorization='JWT '+token;
 			}
 			return config;
