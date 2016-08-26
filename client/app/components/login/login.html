@@ -27,17 +27,20 @@
           </p> 
           <div class="">
               <div class="col-lg-12">
-                <form role="form" style="display: block;">
-                  <div class="">
-                    <input type="text" name="email" id="email"  ng-model ="user.email" tabindex="1" class="form-control" placeholder="email" value="">
+                <form role="login" name="loginForm" novalidate style="display: block;">
+                  <div ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
+                    <input type="text" name="email" id="email"  ng-model ="vm.user.email" tabindex="1" class="form-control" placeholder="email" value="" required>
+                    <!-- in case of an error the message below is displayed as part of the list of message errors -->
+                    <p ng-show="loginForm.email.$invalid && !loginForm.email.$pristine" class="help-block">Email est requis </p>
                   </div>
-                  <div class="form-group">
-                    <input type="password" name="password" id="password" ng-model="user.password" tabindex="2" class="form-control" placeholder="mot de passe">
+                  <div class="form-group" ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }" >
+                    <input type="password" name="password" id="password" ng-model="vm.user.password" tabindex="2" class="form-control" placeholder="mot de passe">
+                    <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine" class="help-block">Le mot de passe est requis </p>
                   </div>                 
                   <div class="form-group push-tiny--top">
                     <div class="row">
                       <div class="">
-                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Se connecter" ng-click="vm.login(user)">
+                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Se connecter" ng-click="vm.login(vm.user,loginForm)">
                       </div>
                     </div>
                   </div>
