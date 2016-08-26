@@ -3,7 +3,7 @@ import images from '../../../../images.json';
 
 
 class HomeController {
-  constructor(Map,$stateParams,AuthToken,$rootScope) {
+  constructor(Map,$stateParams,AuthToken,$rootScope,Auth) {
 
   	this.nbImages = images.length;
   		//labels
@@ -59,7 +59,8 @@ class HomeController {
 			AuthToken.saveToken($stateParams.token);//Saved the token in the localStorage
 			var data={
 				user:{					
-					    userName:AuthToken.parseToken($stateParams.token).name								
+					    userName:AuthToken.parseToken($stateParams.token).name,
+					    role:AuthToken.parseToken($stateParams.token).role							
 				}
 			};
 			$rootScope.$broadcast('connectionStatechanged',{data:data.user});
@@ -68,7 +69,7 @@ class HomeController {
 	}; //End constructor 
 }
 
-HomeController.$inject=['Map','$stateParams','AuthToken','$rootScope'];
+HomeController.$inject=['Map','$stateParams','AuthToken','$rootScope','Auth'];
 export {HomeController};
 
 

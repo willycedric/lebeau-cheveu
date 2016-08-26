@@ -9,6 +9,8 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$window)=>{
 		response: function(res){
 			if(res.config.url.indexOf(apiUrl+'/api/users') === 0 && res.data.token){
 				AuthToken.saveToken(res.data.token);
+				//redirect the user to the home page after login
+				$window.location.href=`${API.dev.home}`
 			}
 			return res;
 		},

@@ -13,8 +13,9 @@ import {catalog} from './components/catalog/catalog';
 import {shop} from './components/shop/shop';
 import {login} from './components/login/login';
 import {blog} from './components/blog/blog';
-import {galeria} from './components/galeria/galeria';
-import {profile} from './components/profile/profile';
+import {customer} from './components/customer/customer';
+import {hairdresser} from './components/hairdresser/hairdresser';
+import {admin} from './components/admin/admin';
 import {error} from './components/error/error';
 import {cart} from './components/cart/cart';
 import {forgot} from './components/forgot/forgot';
@@ -30,8 +31,9 @@ angular.module('app', [
   login.name,
   blog.name,
   shared.name,
-  galeria.name,
-  profile.name,
+  admin.name,
+  customer.name,
+  hairdresser.name,
   error.name,
   cart.name,
   forgot.name

@@ -2,45 +2,46 @@
   <div class="container">
         <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <div class="panel panel-login">
-          <div class="panel-heading">
-            <div class="row">
-              <div class="col-xs-6">
-                <a href="#" class="active" id="login-form-link">Connexion</a>
-              </div>
-              <div class="col-xs-6">
-                <a href="#" id="register-form-link">Inscription</a>
-              </div>
-            </div>
-            <hr>
+        <div class=" "><!-- panel panel-login -->
+          <div class="row">
+            <div class="col-xs-6 col-xs-offset-4 push-tiny--top push-tiny--bottom" id="lebeaucheveu-logo" >
+             <img class='img-responsive img-circle' src='https://res.cloudinary.com/hgtagghpz/image/upload/v1472061902/ou9pckcukodbxjtuy4op.png' alt="logo"/> 
+            </div>           
           </div>
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-lg-12">
-                <form id="login-form" role="form" style="display: block;">
-                  <div class="form-group">
-                    <input type="text" name="email" id="email"  ng-model ="user.email" tabindex="1" class="form-control" placeholder="email" value="">
-                  </div>
-                  <div class="form-group">
-                    <input type="password" name="password" id="password" ng-model="user.password" tabindex="2" class="form-control" placeholder="mot de passe">
-                  </div>
-                 <!--  <div class="form-group text-center">
-                    <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
-                    <label for="remember"> Remember Me</label>
-                  </div> -->
-                  <div class="form-group text-center">
+     
+          <div class="row" id="login-form">
+            <!-- Login with facebook -->
+                 <p class="background-line push--top push--bottom">
+                    <span> Connectez vous via facebook </span>
+                </p>            
+                <div class="">
                       <a class="button-facebook" href="{{vm.facebookUrl}}" >
                         <span class="fa fa-facebook"></span>
                          Se connecter avec facebook
                       </a>                   
+               </div>       
+            
+          <!-- Login with local credentials -->
+          <p class="background-line push--top push--bottom">
+                    <span> Ou avec votre email </span>
+          </p> 
+          <div class="">
+              <div class="col-lg-12">
+                <form role="form" style="display: block;">
+                  <div class="">
+                    <input type="text" name="email" id="email"  ng-model ="user.email" tabindex="1" class="form-control" placeholder="email" value="">
                   </div>
                   <div class="form-group">
+                    <input type="password" name="password" id="password" ng-model="user.password" tabindex="2" class="form-control" placeholder="mot de passe">
+                  </div>                 
+                  <div class="form-group push-tiny--top">
                     <div class="row">
-                      <div class="col-sm-6 col-sm-offset-3">
+                      <div class="">
                         <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Se connecter" ng-click="vm.login(user)">
                       </div>
                     </div>
                   </div>
+                  <hr>
                   <div class="form-group">
                     <div class="row">
                       <div class="col-lg-12">
@@ -51,31 +52,49 @@
                     </div>
                   </div>
                 </form>
-                <form id="register-form" role="form" style="display: none;">
-                  <div class="form-group">
+                <div class="text-center">
+                  Vous n'avez pas de compte? <a href="#" id="register-form-link">Inscription</a>              
+                </div>
+              </div><!-- end col-lg-12 -->
+            </div><!-- end panel-body  -->  
+            </div><!-- end  row with login-form id -->
+            <div class="">              
+             <div class="row">
+
+              <div class="col-lg-12" >
+                <form role="form" id="register-form"  style="display: none;">
+                 <p class="background-line push--top push--bottom">
+                    <span> Bienvenue sur Lebeaucheveu </span>
+                </p>
+                  <div class="">
                     <input type="text" name="username" ng-model="user.userName" id="userame" tabindex="1" class="form-control" placeholder="Username" value="">
                   </div>
-                  <div class="form-group">
+                  <div class="">
                     <input type="email" name="email" id="email"  ng-model="user.email" tabindex="1" class="form-control" placeholder="Email Address" value="">
                   </div>
-                  <div class="form-group">
+                  <div class="">
                     <input type="password" name="password" id="password" ng-model="user.password" tabindex="2" class="form-control" placeholder="Password">
                   </div>
                   <div class="form-group">
                     <input type="password" name="confirm-password" id="confirm-password" ng-model="user.password2" tabindex="2" class="form-control" placeholder="Confirm Password">
                   </div>
-                  <div class="form-group">
+                  <div class="form-group push-tiny--top">
                     <div class="row">
-                      <div class="col-sm-6 col-sm-offset-3">
+                      <!-- <div class="col-sm-6 col-sm-offset-3"> -->
+                      <div class="">
                         <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="S'inscrire" ng-click="vm.register(user)">
                       </div>
                     </div>
                   </div>
+                  <hr/>
+                  <div class="text-center">
+                    Se connecter? <a ng-click="vm.goToLogin()" id="login-form-link">Connexion</a>              
+                  </div>
                 </form>
-              </div>
-            </div>
-          </div>
-        </div>
+              </div><!-- end col-lg-12 -->
+            </div><!-- end target row -->
+          </div><!-- end panel-body -->
+        </div><!-- end panel-login -->
       </div>
     </div>
   </div>  

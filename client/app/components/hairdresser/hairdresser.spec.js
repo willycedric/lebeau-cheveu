@@ -1,17 +1,17 @@
-import {profile} from './profile'
-import {ProfileController} from './profile.controller';
-import {profileDirective} from './profile.directive';
-import template from './profile.html';
+import {hairdresser} from './hairdresser'
+import {HairdresserController} from './hairdresser.controller';
+import {hairdresserDirective} from './hairdresser.directive';
+import template from './hairdresser.html';
 
-describe('Profile', ()=>{
+describe('Hairdresser', ()=>{
   let $rootScope,
   makeController;
 
-  beforeEach(window.module(profile.name));
+  beforeEach(window.module(hairdresser.name));
   beforeEach(inject((_$rootScope_)=>{
     $rootScope = _$rootScope_;
     makeController = ()=>{
-      return new ProfileController();
+      return new HairdresserController();
     };
   }));
 
@@ -20,9 +20,6 @@ describe('Profile', ()=>{
     // checking to see if it registers certain things and what not
     // test for best practices with naming too
     // test for routing
-    it('Should have an appropriate name', ()=>{
-      expect(profile.name).to.equal('profile');
-    });
   });
 
   describe('Controller', ()=>{
@@ -47,7 +44,7 @@ describe('Profile', ()=>{
 
   describe('Directive', ()=>{
       // test the component/directive itself
-      let directive = profileDirective();
+      let directive = hairdresserDirective();
 
       it('should use the right template',()=>{
         expect(directive.template).to.equal(template);
@@ -58,7 +55,7 @@ describe('Profile', ()=>{
       });
 
       it('should use the right controller', ()=>{
-        expect(directive.controller).to.equal(ProfileController);
+        expect(directive.controller).to.equal(HairdresserController);
       });
   });
 });

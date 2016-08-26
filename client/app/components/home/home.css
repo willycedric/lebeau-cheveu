@@ -2,6 +2,7 @@
    margin-top:15em;
     text-align: center;
 }
+
 /* ****** carousel customization ****/
 
 .home .carousel-caption{
@@ -12,12 +13,15 @@
     bottom: auto;
     font-size:24px;
     font-style: italic;;
-    font-family: 'Oregano', cursive,Quicksand,Serif;
+    font-family: 'Helvetica Neu';
+}
+home .carousel-caption p {
+  font-family: 'Helvetica Neu';
 }
 .home .carousel-indicators
  .active{
- 	background-color: #6dc3bb;
- 	border:1px solid #6dc3bb;
+ 	background-color: #02DBAA;
+ 	border:1px solid #02DBAA;
  	border-radius: 15px;
 }
 .home .carousel-indicators li{
@@ -42,7 +46,7 @@
   /*  margin-left:2em;*/
 }
 .home h1, .home h2, .home h3{
-    font-family:  'Oregano', cursive,Quicksand,Serif;
+    font-family:'Helvetica Neu';
 }
 .home h3{
     font-size: 2.5em;
@@ -63,7 +67,7 @@
     margin-top:1em;
 }
 #social-icons a:hover{
-    background-color:#6dc3bb;
+    background-color:#02DBAA;
 }
 
 /** Css for the search part of this component */
@@ -74,7 +78,7 @@
     text-align: center;
 }
 
-.home path { transition: .6s fill; fill:#6dc3bb; }
+.home path { transition: .6s fill; fill:#02DBAA; }
 .home path:hover { fill:#22aa22;}
 .home .mapSvg {
     display: block;
@@ -95,14 +99,16 @@
     border: 1px solid #333;
     outline: none;
     margin: 0px 0px 0 0;
+    font-family: 'Helvetica Neu';
 }
 .home input[type="submit"] {
-    background: #76CEBE;
+    background: #02DBAA;
     cursor: pointer;
     border: 0;
     color: #fff;
     font-weight: 400;
     font-size: 15px;
+    font-family: 'Helvetica Neu';
     text-transform: uppercase;
     padding: 0.88em;
     text-align: center;
@@ -139,6 +145,7 @@
   height:80px;
    width:500px;
   margin:0 auto;
+  font-family: 'Helvetica Neu';
 
    &:before {
     content:'"';

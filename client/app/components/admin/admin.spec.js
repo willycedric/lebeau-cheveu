@@ -1,17 +1,17 @@
-import {galeria} from './galeria'
-import {GaleriaController} from './galeria.controller';
-import {galeriaDirective} from './galeria.directive';
-import template from './galeria.html';
+import {admin} from './admin'
+import {AdminController} from './admin.controller';
+import {adminDirective} from './admin.directive';
+import template from './admin.html';
 
-describe('Galeria', ()=>{
+describe('Admin', ()=>{
   let $rootScope,
   makeController;
 
-  beforeEach(window.module(galeria.name));
+  beforeEach(window.module(admin.name));
   beforeEach(inject((_$rootScope_)=>{
     $rootScope = _$rootScope_;
     makeController = ()=>{
-      return new GaleriaController();
+      return new AdminController();
     };
   }));
 
@@ -20,9 +20,6 @@ describe('Galeria', ()=>{
     // checking to see if it registers certain things and what not
     // test for best practices with naming too
     // test for routing
-    it('Should have an appropriate name', ()=>{
-      expect(galeria.name).to.equal('galeria');
-    });
   });
 
   describe('Controller', ()=>{
@@ -47,7 +44,7 @@ describe('Galeria', ()=>{
 
   describe('Directive', ()=>{
       // test the component/directive itself
-      let directive = galeriaDirective();
+      let directive = adminDirective();
 
       it('should use the right template',()=>{
         expect(directive.template).to.equal(template);
@@ -58,7 +55,7 @@ describe('Galeria', ()=>{
       });
 
       it('should use the right controller', ()=>{
-        expect(directive.controller).to.equal(GaleriaController);
+        expect(directive.controller).to.equal(AdminController);
       });
   });
 });

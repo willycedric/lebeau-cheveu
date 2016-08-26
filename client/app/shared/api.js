@@ -1,8 +1,8 @@
 export const api = {
 	dev:{
-		homeUrl:'http://localhost:3000',
-		home:'http://localhost:4500/#/home',
-		error:'http://localhost:4500/#/error'
+		homeUrl:'http://192.168.0.10:3000',
+		home:'http://192.168.0.10:4500/#/home',
+		error:'http://192.168.0.10:4500/#/error'
 
 	},
 	test:{

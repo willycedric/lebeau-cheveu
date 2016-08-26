@@ -14,7 +14,7 @@ class LoginController {
     	Auth.login(data.email,data.password)
             .then(function loginControllerSuccess(data){
                 $rootScope.$broadcast('connectionStatechanged',{data:data.user});
-                $state.go('home',null,{reload:true});                
+                //$state.go('home',null,{reload:true});   
             },function loginControllerError(err){
                 console.error(err);
             });        
@@ -34,7 +34,11 @@ class LoginController {
         $state.go('forgot');
     };
 
-    
+    self.goToLogin = () =>{
+      $state.go('login',null,{reload:true});
+    }
+
+   
 
   }//End constructor
 

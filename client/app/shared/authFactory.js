@@ -106,6 +106,20 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
     });
     return deferred.promise;
   }
+  /**
+   * [Get the profile information of the connected user]
+   * @return {User} [Object with the connected user's information]
+   */
+  const getProfile = () =>{
+    var deferred = $q.defer();
+    $http.get(apiUrl+'/api/users/me')
+    .then(function getProfileSuccessCallback(response){
+        deferred.resolve(response.data);
+    }, function getProfileErrorCallback(err){
+        deferred.reject(err);
+    });
+    return deferred.promise;
+  };
 
 	return {
 		login,
@@ -114,7 +128,8 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
     register,
     passwordForgot,
     resetPassword,
-    updatePassword
+    updatePassword,
+    getProfile
 	};
 	
 };

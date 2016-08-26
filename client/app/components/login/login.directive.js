@@ -12,6 +12,7 @@ export const loginDirective = ()=> {
     scope: {},
     link: function(scope, elt, atts){
     	$(elt).find('#login-form-link').click(function(evt){
+            console.log('from');
     		evt.preventDefault();
     		$(elt).find("#login-form").delay(100).fadeIn(100);
     		$(elt).find("#register-form").fadeOut(100);
@@ -20,6 +21,7 @@ export const loginDirective = ()=> {
     	});
 
     	$(elt).find('#register-form-link').click(function(evt){
+            console.log('from register')
     		evt.preventDefault();
     		$(elt).find("#register-form").delay(100).fadeIn(100);
     		$(elt).find("#login-form").fadeOut(100);
