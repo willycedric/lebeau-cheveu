@@ -10,14 +10,20 @@ class LoginController {
      * @param  {[type]} data [description]
      * @return {[type]}      [description]
      */
-   self.login = (data)=>{
-    	Auth.login(data.email,data.password)
-            .then(function loginControllerSuccess(data){
-                $rootScope.$broadcast('connectionStatechanged',{data:data.user});
-                //$state.go('home',null,{reload:true});   
-            },function loginControllerError(err){
-                console.error(err);
-            });        
+   self.login = (data,loginForm)=>{
+      if(loginForm.$valid){
+        console.log('email ', loginForm.email);
+        $state.go('login',null,{reload:true});
+       /* Auth.login(data.email,data.password)
+              .then(function loginControllerSuccess(data){
+                  $rootScope.$broadcast('connectionStatechanged',{data:data.user});
+                  //$state.go('home',null,{reload:true});   
+              },function loginControllerError(err){
+                  console.error(err);
+              }); */
+      }else{
+        console.error('The form is not valid');
+      }    	       
     };
    
     self.register = (user)=>{
