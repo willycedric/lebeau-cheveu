@@ -1,6 +1,7 @@
 import './app.css';
 import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import Slideout from  'slideout/dist/slideout.js'
 import template from './app.html';
 import {AppController as controller} from './app.controller';
 
@@ -15,6 +16,17 @@ export const appDirective = ()=> {
     	$(elt).find('#cssmenu').menumaker({
    			format: "multitoggle"
 		});
+    var panel=document.getElementById('panel'),
+    menu =document.getElementById('menu');
+    var slideout = new Slideout({
+      'panel':panel,
+      'menu': menu,
+      'padding': 256,
+      'tolerance': 70
+    });
+    $(elt).find(".toggle-button").on('click', function() {
+        slideout.toggle();
+      });
     },
     replace: true
   };

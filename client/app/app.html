@@ -1,84 +1,12 @@
-<div id="app">
-  <div class="container-fluid"> 
-    <div class="row">
-            <div id='cssmenu'>
-                <div class="logo active" ui-sref-active="active">
-                         <a ui-sref="home" style='font-family:Lobster'>Lebeaucheveu</a>
-                </div>
-                <div id="head-mobile"></div>
-                <div class="button"></div>
-                <!-- <div class="menu-sublink"> -->
-                    <ul>
-                      <li ui-sref-active="active" class="active">            
-                            <a class="a-link" ui-sref="catalog"><i class="fa fa-book" aria-hidden="true"></i>Catalogue</a>
-                      </li>
-                      <li ui-sref-active="active" class="active">
-                          <a ui-sref="blog"><i class="fa fa-commenting-o" aria-hidden="true"></i>Blog</a>
-                      </li>
-                     <!--  <li ui-sref-active="active" class="active">
-                            <a ui-sref="galeria"><i class="fa fa-picture-o" aria-hidden="true"></i>Galerie</a>
-                      </li> -->
-                      <li ui-sref-active="active" class="active">
-                            <a ui-sref="shop"><i class="fa fa-cart-plus" aria-hidden="true"></i>Magasin</a>
-                      </li>
-                      <li ng-show="vm.toggle" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>{{vm.username}} <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li ng-show="vm.isCustomer"><a ui-sref="customer"><i class="fa fa-user"></i> Profil</a></li>
-                                <li ng-show="vm.isAdmin"><a ui-sref="admin"><i class="fa fa-user"></i> Profil</a></li>
-                                <li ng-show="vm.isHairdresser"><a ui-sref="hairdresser"><i class="fa fa-user"></i> Profil</a></li>
-                                <li><a ui-sref="cart"><i class="fa fa-shopping-cart"></i> Achats</a></li>
-                                <li class="divider"></li>
-                                <li><a ng-click="vm.logout()"><i class="fa fa-power-off"></i> Deconnexion</a></li>
-                            </ul>
-                        </li>
-                      <li ng-show="!vm.toggle" ui-sref-active="active" class="active">
-                          <a ui-sref="login"><i class="fa fa-sign-in" aria-hidden="true"></i>Connexion</a>
-                      </li>
-                    </ul>
-                 <!-- </div> --><!-- end menu-sublink -->                
-            </div>
-    </div>
-  </div><!-- end container-fluid -->
-  <div class="container-fluid">
-       <main class="main">
-          <div ui-view id="view" ng-class="vm.transition"></div>
-       </main><!-- end main -->
+
+ <div id="app">
+    <nav id="menu">
+      <h2>Menu</h2>
+    </nav>
+    <main id="panel">
+      <header>
+        <button class="toggle-button">☰</button>
+      </header>   
+        <div ui-view id="view" ng-class="vm.transition"></div>       
+    </main>
   </div>
-  <div class="container-fluid">       
-      <!--[ footer ] -->  
-      <div class="row page-bottom">
-              <div class="col-md-6 col-lg-6 col-xs-6">
-                <div id="legal-issues">
-                   <ul class="text-center">
-                    <li>                      
-                        <a href="#">{{vm.labels.english.L_W_USER_GUIDE}}</a>                     
-                    </li>
-                    <li>                     
-                        <a href="#">{{vm.labels.english.L_W_TERMS_OF_USE}}</a>                      
-                    </li>
-                    <li>                      
-                        <a href="#">{{vm.labels.english.L_W_NEWS_LETTER}}</a>                    
-                    </li>
-                  </ul>
-               </div><!-- end #legal-issues -->
-              </div>
-              <div class="col-md-6 col-lg-6 col-xs-6">
-                <div id="social-networks">
-                 <ul class="text-center">
-                    <li>
-                        <a href="#"><i class="fa fa-facebook-official" aria-hidden="tue"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-instagram" aria-hidden="tue"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-twitter-square" aria-hidden="tue"></i></a>
-                    </li>
-                 </ul>
-                </div> <!-- end #social-network --> 
-              </div>         
-      </div>  <!-- end .row footer -->
-      <!-- end [ footer ] -->
- </div> <!-- end .container-fluid -->
-</div>
