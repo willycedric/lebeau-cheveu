@@ -8,18 +8,31 @@ body {
 #app{
     height:100%;
 }
-#app .logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#fafafa;float:left;width:30%;padding:0;}
-#app .logo a{color:#fafafa; text-decoration: none;font-family:Lobster, cursive;font-size:2.5em; text-transform: capitalize;font-weight:700;}
+#app .logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#fafafa;float:left;width:45%;padding:0;}
+#app .logo a{color:#581f1f; text-decoration: none;font-family:Lobster, cursive;font-size:2em; text-transform: capitalize;font-weight:700;}
 #app nav{position:relative;width:100%;margin:0 auto;} /*980*/
 #cssmenu,#cssmenu ul,#cssmenu ul li,#cssmenu ul li a,#cssmenu #head-mobile{font-family: 'Helvetica Neu',Helvetica,sans-serif;border:0;list-style:none;line-height:1;display:block;margin:0;position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 #cssmenu:after,#cssmenu > ul:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0}
 #cssmenu #head-mobile{display:none}
 #cssmenu ul{ width:100%; }
-#cssmenu{font-family:Lobster, cursive,sans-serif;background:#02DBAA;padding:10px;text-align: center;padding-bottom: 0;}
+#cssmenu{font-family:Lobster, cursive,sans-serif;background:#fff;padding:4px;text-align: center;padding-bottom: 0;border-bottom: 1px solid purple;box-shadow: 1px 1px 5px #888888; margin-bottom: 10px;}
 
 #cssmenu > ul > li{float:left;}
-#cssmenu > ul > li > a{padding:17px;font-size:1.5em;letter-spacing:1px;text-decoration:none;color:#fafafa;font-weight:700;font-family: 'Helvetica Neu',Helvetica,sans-serif;}
-#cssmenu > ul > li:hover > a,#cssmenu ul li.active a{color:#515151}
+#cssmenu > ul > li > a {
+    padding: 17px;
+    font-size: 1.1em;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #581f1f;
+    font-weight: 700;
+    font-family: 'Helvetica Neu',Helvetica,sans-serif;
+}
+#cssmenu > ul > li:hover > a,#cssmenu ul li.active a{
+    color: #a94442;
+    background: #ddd;
+    border-radius: 4px 4px 0 0;
+}
 #cssmenu > ul > li:hover,#cssmenu ul li.active:hover,#cssmenu ul li.active,#cssmenu ul li.has-sub.active:hover{ background-color: #fafafa;color:#515151;font-weight: bold;margin: 0 0 0 0px;padding: 0 0 0 0px;border: 1px solid #fafafa;border-radius:0px 0px 0 0;-webkit-transition:background .3s ease;-ms-transition:background .3s ease;transition:background .3s ease;}
 #cssmenu > ul > li.has-sub > a{padding-right:30px}
 /*#cssmenu > ul > li.has-sub > a:after{position:absolute;top:22px;right:11px;width:8px;height:2px;display:block;background:#fafafa;content:''}
