@@ -30,13 +30,12 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
   					}else{
   						deferred.reject(new Error("There are some issues with user login"));
   					}
-  				}, function loginErrorCallBack(err){
+  				}, function loginFailureCallBack(err){
   						deferred.reject(err);
   				});
 			return deferred.promise;
 	};
-
-  
+ 
 
   /**
    * [logout the connected user]
@@ -121,6 +120,30 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
     return deferred.promise;
   };
 
+  /**
+   * function used to ask the API about the availability of a username
+   * @param  {[String]} username [username entered]
+   * @return {[boolean]}          [available or not]
+   */
+ const isUsernameAvailable = (username)=>{
+    var deferred =$q.defer();
+    $http.post(apiUrl+'/api/users/isAvailable',{username:username})
+      .then(function isUsernameAvailableSuccessCallback(response){
+
+        if(response.data.isAvailable){
+             deferred.resolve()
+           }else{
+            deferred.reject();
+           }
+          
+         
+          
+      }, function isUsernameAvailableFailureCallback(err){
+          deferred.reject(err);
+      });
+      return deferred.promise;
+ };
+
 	return {
 		login,
 		getUserInfo,
@@ -129,7 +152,8 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
     passwordForgot,
     resetPassword,
     updatePassword,
-    getProfile
+    getProfile,
+    isUsernameAvailable
 	};
 	
 };

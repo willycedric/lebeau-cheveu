@@ -52,10 +52,10 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$window)=>{
 				break;
 				case 500:
 					$rootScope.$broadcast('onInternalServerErrorEvent',{code:500});
-					$window.location.href=`${API.error}`;
+					$window.location.href=`${API.dev.error}`;
 				break;
 				default:
-					$window.location.href=`${API.error}`;
+					$window.location.href=`${API.dev.error}`;
 				break;
 			}
 			return $q.reject(rejection);

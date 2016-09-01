@@ -89,11 +89,9 @@
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
-.login .form-control:hover {
-   border: 1px solid #3c763d;
-}
+
 .login .btn-login {
-    background-color:#02DBAA;
+    background-color:#a94442;
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -102,7 +100,7 @@
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #02DBAA;
+    border-color:#a94442;
     opacity:1;
     width:100%;
     height:57px;
@@ -120,7 +118,7 @@
     color: #fff;
     /*background-color: #22AA22;
     border-color:  #22AA22;*/
-    opacity:0.6;
+    opacity:0.8;
 }
 
 .login .forgot-password {
@@ -136,7 +134,7 @@
 }
 
 .login .btn-register {
-    background-color: #02DBAA;
+    background-color: #a94442;
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -145,7 +143,7 @@
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #02DBAA;
+    border-color: #a94442;
     opacity:1;
     transition: all 0.3s ease;
     width:100%;
@@ -156,7 +154,7 @@
     color: #fff;
    /* background-color:#22AA22;
     border-color: #22AA22;*/
-    opacity:1;
+    opacity:0.8;
     transition: all 0.3s ease;
 }
 
@@ -186,8 +184,8 @@
     height:57px;
 
 }
- button-facebook:hover{
-    opacity:0.6;
+.button-facebook:hover{
+    opacity:0.8;
     background-color: #4267B2;
     transition: all 0.3s ease;
 }
@@ -241,5 +239,18 @@
 }
 .login a >i{
     border-right: 1px solid black;
+}
+.login .lebeaucheveu-logo-text{
+    margin-left: 10px;
+    padding: 20px;
+    letter-spacing: 1px;
+    font-weight: bolder;
+    text-transform: uppercase;
+    font-family: "Helvetica Neu";
+    color: #000;
+}
+
+.login .label-displayed{
+    display:none;
 }
 

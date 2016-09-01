@@ -1,8 +1,8 @@
 export const api = {
 	dev:{
-		homeUrl:'localhost:3000',
-		home:'localhost:4500/#/home',
-		error:'localhost:4500/#/error'
+		homeUrl:'http://localhost:3000',
+		home:'http://localhost:4500/#/home',
+		error:'http://localhost:4500/#/error'
 	},
 	test:{
 		homeUrl:'https://lebeaucheveu-bachend.herokuapp.com',

@@ -6,13 +6,6 @@ class CustomerController {
     if(token){
         this.userName= AuthToken.parseToken(token).name;
     } 
-Access.hasRole('Client')
-.then(function(response){
-	console.log('Response ',response);
-}, function (reason){
-	console.log('Failure ',reason);
-});    
-
 };//end constructor;
 }
 CustomerController.$inject =['AuthToken','$stateParams','Access'];
