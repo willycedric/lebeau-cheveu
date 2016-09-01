@@ -12,6 +12,14 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$window)=>{
 				//redirect the user to the home page after login
 				$window.location.href=`${API.dev.home}`
 			}
+			if(res.config.url.indexOf(apiUrl+'/api/users')===0 && res.status===200 && res.data.isRegistered){
+				//redirect to the home page after successfull registration
+				//$window.location.href=`${API.dev.home}`;
+				console.log('From the interceptor ', 'message is about to be broadcast');
+				$rootScope.$broadcast('successfullRegistration', {isSuccessfullRegistration:true});
+			}else{
+					console.log('Error during the registration process');	
+			}
 			return res;
 		},
 		/**
@@ -36,6 +44,12 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$window)=>{
 			switch(rejection.status){
 				case 401:
 					$rootScope.$broadcast('onUauthorizedRequestEvent',{code:401});
+					$window.location.href=`${API.dev.error}`;
+				break;
+				case 301:
+
+					$rootScope.$broadcast('alreadyRegistered',{code:301});
+					console.log('The event is fired');
 					$window.location.href=`${API.dev.error}`;
 				break;
 				case 400:

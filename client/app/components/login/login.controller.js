@@ -1,10 +1,20 @@
 class LoginController {
-  constructor($http,API,$window,$q,Auth,$state,$rootScope) {
+  constructor($http,API,$window,$q,Auth,$state,$rootScope,$scope) {
     var self = this;
 
     //facebook authentication route
     self.facebookUrl = 'http://'+`${API.dev.homeUrl}`+'/api/users/auth/facebook';
-    
+    //toggle the display of the registration successfull message
+    self.isSuccessfullRegistration=false;
+    //toggle the display of the connexion successfull message
+    self.isSuccessfullLogin =false;
+    $rootScope.$on('successfullRegistration',function(evt,isSuccessfullRegistration){
+      console.log('From loginController ','Message is received');
+      if(isSuccessfullRegistration){
+        self.isSuccessfullRegistration=true;
+      }
+    });
+
     /**
      * [description]
      * @param  {[type]} data [description]
@@ -20,7 +30,7 @@ class LoginController {
                   $rootScope.$broadcast('connectionStatechanged',{data:data.user});
                   //$state.go('home',null,{reload:true});   
               },function loginControllerError(err){
-                  console.error(err);
+                  //console.error(err);
               }); 
       }else{
         console.error('The login form is not valid');
@@ -30,9 +40,11 @@ class LoginController {
             if(registerForm.$valid){ 
                 Auth.register(user)
                       .then(function registerSuccessCallback(response){
-                          console.log('user successfully registered');
+                          if(response.status===200){
+                            console.log('User is successfully registered');
+                          }
                       },function registerFailureCallback(err){
-                          console.error(err);
+                          //console.error(err);
                       }); //End Auth factory
             }
             
@@ -52,7 +64,7 @@ class LoginController {
 
 }
 
-LoginController.$inject = ['$http','API','$window','$q','Auth','$state','$rootScope'];
+LoginController.$inject = ['$http','API','$window','$q','Auth','$state','$rootScope','$scope'];
 
 export {LoginController};
 

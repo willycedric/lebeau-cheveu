@@ -1,14 +1,14 @@
 class ErrorController {
-  constructor($scope) {
+  constructor($rootScope) {
   		
-  		$scope.$on('onUnauthorizedRequestEvent', function(evt,status){
-  			console.log('unauthorized request detected',status.code);
+  		$rootScope.$on('alreadyRegistered', function(evt,status){
+  			console.log('user already Registered',status);
   		});
    
   }
 
 }
-ErrorController.$inject = ['$scope'];
+ErrorController.$inject = ['$rootScope'];
 export {ErrorController};
 
 
