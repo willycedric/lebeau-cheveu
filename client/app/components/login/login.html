@@ -1,5 +1,5 @@
 <section class="login">
-  <div class="container">
+  <div class="container" ng-hide='vm.isSuccessfullRegistration || vm.isSuccessfullLogin'>
         <div class="row">
         <!--   <a class="btn btn-block btn-social btn-facebook">
         <i class="fa fa-facebook"></i> Sign in with Facebook
@@ -8,7 +8,6 @@
         <div class=" "><!-- panel panel-login -->
           <div class="row">
             <div class="col-xs-6 col-xs-offset-4 push-tiny--top push-tiny--bottom" >
-             <!-- <img class='img-responsive img-circle' src='https://res.cloudinary.com/hgtagghpz/image/upload/v1472061902/ou9pckcukodbxjtuy4op.png' alt="logo"/>  -->
                <span class="lebeaucheveu-logo-text text-center"> Lebeaucheveu</span>
             </div>           
           </div>
@@ -138,8 +137,22 @@
   </div> 
   <div class="container" id="successfull-registration" ng-show="vm.isSuccessfullRegistration">
        <div class="row">
-          <p> Successfull registration </p>
-      </div> 
+         <div class="col-md-6 col-md-offset-3">
+            <div class="row">
+              <div class="col-xs-6 col-xs-offset-4 push-tiny--top push-tiny--bottom" >
+                 <span class="text-center text-success">Bienvenue sur Lebeaucheveu</span>
+              </div> <!-- end .col -->          
+          </div><!-- end .row -->  
+          <hr>
+          <div class="row">             
+                  <p class='lebeaucheveu-logo-text'> Lebeaucheveu se veut être une palteforme de reférence pour la coiffure à domicile. Dès votre connection vous aurez accès à de nombreux
+                    profile de coiffeuses/coiffeurs, offrant de nombreuse prestations. Nous mettons aussi à votre disposition de nombreux produits qui vous 
+                    aiderons à donner vie, à vos styles les plus fous.<br/>
+                  </p> 
+                  <span class='login-link text-center'>Se connecter </span>
+          </div> <!-- end .row -->      
+         </div><!-- end .col --> 
+      </div> <!-- end .row -->
   </div>
   <div class="container" id="successfull-login" ng-show="vm.isSuccessfullLogin">
       <div class="row">
