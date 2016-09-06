@@ -1,5 +1,6 @@
 import './app.css';
 import $ from 'jquery';
+import Slideout from 'slideout/dist/slideout.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import template from './app.html';
 import {AppController as controller} from './app.controller';
@@ -14,7 +15,9 @@ export const appDirective = ()=> {
     link: function(scope, elt, atts){
     	$(elt).find('#cssmenu').menumaker({
    			format: "multitoggle"
-		});
+		});   
+      $(elt).find('#menu').hide();
+      $(elt).find('.toggle-button').hide();     
     },
     replace: true
   };
@@ -26,6 +29,7 @@ $.fn.menumaker = function(options) {
    sticky: false
  }, options);
  return this.each(function() {
+
 
  	if($(this).find("cssmenu").hasClass("has-sub")){
  		console.log("oh yeah");
@@ -42,8 +46,9 @@ $.fn.menumaker = function(options) {
       
      }
      else {
+              
      	
-       mainmenu.slideToggle().addClass('open');
+       //mainmenu.slideToggle().addClass('open');
        
       /* mainmenu.find("li").on('click',function(){
        		
@@ -74,11 +79,24 @@ $.fn.menumaker = function(options) {
    if (settings.sticky === true) cssmenu.css('position', 'fixed');
  var resizeFix = function() {
   var mediasize = 700;
-     if ($( window ).width() > mediasize) {
+     if ($( window ).width() > mediasize){
        cssmenu.find('ul').show();
+
      }
      if ($(window).width() <= mediasize) {
-       cssmenu.find('ul').hide().removeClass('open');
+       cssmenu.hide();
+       var slideout = new Slideout({
+          'panel': document.getElementById('panel'),
+          'menu': document.getElementById('menu'),
+          'padding': 256,
+          'tolerance': 70
+        });
+       document.querySelector('.toggle-button').addEventListener('click', function() {
+          slideout.toggle();
+        });       
+      $(elt).find('.toggle-button').show();
+     
+       //cssmenu.find('ul').hide().removeClass('open');
      }
    };
    resizeFix();

@@ -1,13 +1,13 @@
 .login {
     margin-top: 0;
-    font-family:  "Helvetica Neu";
+    font-family:  "Helvetica";
     font-weight: 400;
 }
 .login a {
     text-decoration: none;
     color:#333;
     font-size: 18px;
-    font-family: "Helvetica Neu";
+    font-family: "Helvetica";
 }
 .login a:hover{
     cursor:pointer;
@@ -24,14 +24,14 @@
     background-color: #fff;
     border-color: #fff;
     text-align:center;
-    font-family: "Helvetica Neu";
+    font-family: "Helvetica";
 }
 .login.panel-login>.panel-heading a{
     text-decoration: none;
     color: #666;
     font-weight: bold;
     font-size: 15px;
-    font-family: "Helvetica Neu";
+    font-family: "Helvetica";
     -webkit-transition: all 0.1s linear;
     -moz-transition: all 0.1s linear;
     transition: all 0.1s linear;
@@ -75,7 +75,7 @@
     height: 50px;
     padding: 6px 12px;
     font-size: 14px;
-    font-family: "Helvetica Neu";
+    font-family: "Helvetica";
     line-height: 1.42857143;
     color: #555;
     background-color: #fff;
@@ -95,7 +95,7 @@
     outline: none;
     color: #fff;
     font-size: 14px;
-    font-family: "Helvetica Neu";
+    font-family: "Helvetica";
     height: auto;
     font-weight: normal;
     padding: 14px 0;
@@ -138,7 +138,7 @@
     outline: none;
     color: #fff;
     font-size: 14px;
-    font-family: "Helvetica Neu";
+    font-family: "Helvetica";
     height: auto;
     font-weight: normal;
     padding: 14px 0;
@@ -162,13 +162,13 @@
 .login .facebook-intro{
     color: #333;
     font-size: 18px;
-    font-family: "Helvetica Neu";
+    font-family: "Helvetica";
 }
 .button-facebook{
     color:white !important;
     font-weight: bold;/*arrière plan de couleur implique généralement texte un peu plus gras */
     /*border-radius: 4px;*/
-    font-family: "Helvetica Neu";
+    font-family: "Helvetica";
     padding:10px 15px;
     background-color: #4267B2;
     opacity: 1;
@@ -235,21 +235,43 @@
 .text-input{
     height: 50px;
     color: black;
-    font-family: "Helvetica Neu";
+    font-family: "Helvetica";
 }
 .login a >i{
     border-right: 1px solid black;
 }
 .login .lebeaucheveu-logo-text{
-    margin-left: 10px;
+    display: flex;
+    align-items: center;
     padding: 20px;
     letter-spacing: 1px;
     font-weight: bolder;
     text-transform: uppercase;
-    font-family: "Helvetica Neu";
+    font-family: "Helvetica";
     color: #000;
 }
 
+.login .message-registration-success {
+    margin-top: 20px;
+    font-size: 1.5em;
+    letter-spacing: 0.2px;
+    font-family: 'Helvetica';
+    white-space: nowrap;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+}
+
+.login .login-link{
+    color:#000;
+    font-weight: bolder;
+    text-transform: capitalize;
+    opacity:0.8;
+}
+.login .login-link:hover{
+    opacity:1;
+    cursor:pointer;
+}
 .login .label-displayed{
     display:none;
 }

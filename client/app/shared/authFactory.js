@@ -16,9 +16,9 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
    * @param  {[string]} password [user password]
    
    */
-	const login = (email,password) =>{
+	const login = (username,password) =>{
   			var deferred = $q.defer();
-  			$http.post(apiUrl+'/api/users/me',{email:email,password:password})
+  			$http.post(apiUrl+'/api/users/me',{userName:username,password:password})
   				.then(function loginSuccessCallBack(response){
   					if(response.data.status=="ok"){
   						userInfo={
@@ -129,15 +129,30 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
     var deferred =$q.defer();
     $http.post(apiUrl+'/api/users/isAvailable',{username:username})
       .then(function isUsernameAvailableSuccessCallback(response){
-
         if(response.data.isAvailable){
              deferred.resolve()
            }else{
             deferred.reject();
-           }
-          
-         
-          
+           }                  
+      }, function isUsernameAvailableFailureCallback(err){
+          deferred.reject(err);
+      });
+      return deferred.promise;
+ };
+/**
+   * function used to ask the API about the existence of a username
+   * @param  {[String]} username [username entered]
+   * @return {[boolean]}          [available or not]
+ */
+ const isUsernameExist = (username)=>{
+    var deferred =$q.defer();
+    $http.post(apiUrl+'/api/users/isAvailable',{username:username})
+      .then(function isUsernameAvailableSuccessCallback(response){
+        if(response.data.isAvailable){
+             deferred.reject()
+           }else{
+            deferred.resolve();
+           }                  
       }, function isUsernameAvailableFailureCallback(err){
           deferred.reject(err);
       });
@@ -153,7 +168,8 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
     resetPassword,
     updatePassword,
     getProfile,
-    isUsernameAvailable
+    isUsernameAvailable,
+    isUsernameExist
 	};
 	
 };

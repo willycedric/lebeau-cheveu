@@ -1,6 +1,6 @@
 <div id="app">
   <div class="container-fluid"> 
-    <div class="row">
+    <div class="row" >
             <div id='cssmenu'>
                 <div class="active logo" ui-sref-active="active">
                        <a ui-sref="home" style='font-family:Lobster'> <span class="lebeaucheveu-logo"></span></a>
@@ -31,7 +31,7 @@
                                 <li ng-show="vm.isHairdresser"><a ui-sref="hairdresser"><i class="fa fa-user"></i> Profil</a></li>
                                 <li><a ui-sref="cart"><i class="fa fa-shopping-cart"></i> Achats</a></li>
                                 <li class="divider"></li>
-                                <li><a ng-click="vm.logout()"><i class="fa fa-power-off"></i> Deconnexion</a></li>
+                                <li><a class="logout-link" ng-click="vm.logout()"><i class="fa fa-power-off"></i> Deconnexion</a></li>
                             </ul>
                         </li>
                       <li ng-show="!vm.toggle" ui-sref-active="active" class="active">
@@ -39,11 +39,21 @@
                       </li>
                     </ul>
                  <!-- </div> --><!-- end menu-sublink -->                
-            </div>
+            </div><!-- end cssmenu -->
     </div>
+    <div class="row">
+        <nav id="menu">
+          <header>
+            <h2>Menu</h2>
+          </header>
+        </nav>
+    </div> <!-- end nav row -->
   </div><!-- end container-fluid -->
+  
+
   <div class="container-fluid">
-       <main class="main">
+       <main class="main" id="panel">
+          <button class="toggle-button">☰</button>
           <div ui-view id="view" ng-class="vm.transition"></div>
        </main><!-- end main -->
   </div>

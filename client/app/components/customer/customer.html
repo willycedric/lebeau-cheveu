@@ -1,3 +1,57 @@
 <section class="customer">
-  <h1>logged customer: {{ vm.userName }}</h1>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-offset-1 col-sm-3 col-lg-3">		
+				<div id="customer-id-card" class="content-widget">
+					<div class="row">
+						<div ng-show='vm.photoUrl' class="col-xs-offset-4 col-xs-4">
+							<div class="image-proe">
+								<img class='img-responsive img-circle' src='{{vm.photoUrl}}'/>
+							</div>
+						</div>
+						<div ng-hide='vm.photoUrl' class="col-xs-offset-4 col-xs-4">
+							<div class="image-profile">								
+							</div>
+						</div>
+					</div>					
+					<ul>						
+						<li><span class="customer-name">{{ vm.lastName }} {{vm.firstName}}</li>					
+					</ul> 
+				</div>		<!-- end .customer-id-card -->
+				<div class="left-menu">
+					<div class="customer-menu">
+						<ul>
+							<li class="menu-item"> <a ng-click="vm.showlistOfLastOrder()"> résumé</a></li>
+							<li class="menu-item"><a ng-click="vm.showMyAccount()">Mes informations </a></li>
+						</ul>
+					</div> <!-- end .customer-menu -->
+				</div>		<!-- 	end .left-menu -->	
+			</div><!-- col-sm-offset-1 col-sm-3 col-lg-3 -->
+			<div class=" col-sm-8 col-lg-7 customer-page-content">
+				<!-- last products viewed -->
+				<div id="last-product-viewed " class="content-widget">
+					<div class="widget-title">
+						<h3> derniers produits consultés</h3>
+					</div>
+					<ul>
+						<li><product></product></li>
+						<li><product></product></li>
+						<li><product></product></li>
+					</ul>						
+				</div> <!-- end .last-product-viewed -->
+				<!-- last hairdressers contacted -->
+				<div id="last-hairdresser-contacted" class="content-widget">
+					<div class="widget-title">
+						<h3> derniers coiffeuses consultés</h3>
+					</div>
+					<ul>
+						<li class='hairdresser-item'><span>Lorem ipsum dolor sit amet, consectetur adipisicing</span></li>
+						<li class='hairdresser-item'><span>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></li>
+						<li class='hairdresser-item'><span>csdedonsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</span></li>
+					</ul>	
+				</div>	<!-- end .last-hairdresser-contacted	 -->	
+			</div><!-- end .customer-page-content -->
+		</div> <!-- end top row -->
+	</div> <!-- end top container -->
+  
 </section>

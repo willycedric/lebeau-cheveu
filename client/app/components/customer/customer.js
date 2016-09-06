@@ -1,7 +1,8 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import {customerDirective} from './customer.directive';
-
+import './product.css';
+import template from './product.html';
 export const customer = angular.module('customer', [uiRouter])
   .config(($stateProvider) => {
     $stateProvider.state('customer', {
@@ -12,5 +13,12 @@ export const customer = angular.module('customer', [uiRouter])
       }
     })
   })
-  .directive('customer',customerDirective);
+  .directive('customer',customerDirective)
+  .directive('product', ()=>{
+    return{
+      restrict:'E',
+      template,
+      replace:true,
+    };
+  });
 

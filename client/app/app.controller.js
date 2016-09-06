@@ -41,7 +41,7 @@ class AppController {
 				$scope.this.toggle=true;
 				$scope.this.username=user.data.userName;
 				//Toggle the right profile link in the menu based on the user role 
-				console.log(JSON.stringify(user.data));
+				//console.log(JSON.stringify(user.data));
 				switch(user.data.role){
 					case 0:
 						$scope.this.isAdmin=true;

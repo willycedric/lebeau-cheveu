@@ -15,9 +15,9 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$window)=>{
 			if(res.config.url.indexOf(apiUrl+'/api/users')===0 && res.status===200 && res.data.isRegistered){
 				//redirect to the home page after successfull registration
 				//$window.location.href=`${API.dev.home}`;
-				console.log('From the interceptor ', 'message is about to be broadcast');
+				//console.log('From the interceptor ', 'message is about to be broadcast');
 				$rootScope.$broadcast('successfullRegistration', {isSuccessfullRegistration:true});
-			}else{
+			}else if (res.config.url.indexOf(apiUrl+'/api/users')===0 && res.status===200 && !res.data.isRegistered){
 					console.log('Error during the registration process');	
 			}
 			return res;
