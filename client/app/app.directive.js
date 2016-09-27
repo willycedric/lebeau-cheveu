@@ -14,7 +14,8 @@ export const appDirective = ()=> {
     scope: {},
     link: function(scope, elt, atts){
     	$(elt).find('#cssmenu').menumaker({
-   			format: "multitoggle"
+   			format: "multitoggle",
+        element:elt
 		});   
       $(elt).find('#menu').hide();
       $(elt).find('.toggle-button').hide();     
@@ -94,7 +95,8 @@ $.fn.menumaker = function(options) {
        document.querySelector('.toggle-button').addEventListener('click', function() {
           slideout.toggle();
         });       
-      $(elt).find('.toggle-button').show();
+      //$(elt).find('.toggle-button').show();
+      settings.element.find('.toggle-button').show();
      
        //cssmenu.find('ul').hide().removeClass('open');
      }
