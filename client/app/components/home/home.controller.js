@@ -4,8 +4,8 @@ import images from '../../../../images.json';
 
 class HomeController {
   constructor(Map,$stateParams,AuthToken,$rootScope,Auth) {
-
-  	this.nbImages = images.length;
+  	this.url ="http://res.cloudinary.com/hgtagghpz/image/upload/v1469680583/ad9thuvcppgddha4myrp.jpg";
+  	this.nbImages = 3;//images.length;
   		//labels
 	 this.labels=labels;
 	 //Carousel logic
@@ -21,8 +21,9 @@ class HomeController {
 	      		 ];
 
 	  this.addSlide = function(i) {
+	  	const newWidth = 1280 + slides.length + 1;
 	    slides.push({
-	      image: images[i].url,
+	      image: "http://placekitten.com/1900/600",//images[i].url,
 	      text: this.text[i],
 	      id: currIndex++
 	    }); 

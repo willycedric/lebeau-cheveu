@@ -1,10 +1,15 @@
 .home .banner{
-   margin-top:15em;
+   /*margin-top:15em;*/
     text-align: center;
 }
 
 /* ****** carousel customization ****/
-
+.home .container-fluide {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 0;
+  padding-left: 0;
+}
 .home .carousel-caption{
 	top: 0;
     left: 50%;
@@ -31,6 +36,7 @@ home .carousel-caption p {
 
 .home img{
     vertical-align: middle;
+    width:100%;
 }
 
 

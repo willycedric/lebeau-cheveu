@@ -1,43 +1,49 @@
 <div id="app">
   <div class="container-fluid"> 
     <div class="row" >
-            <div id='cssmenu'>
+            <div id='cssmenu'>         
                 <div class="active logo" ui-sref-active="active">
                        <a ui-sref="home" style='font-family:Lobster'> <span class="lebeaucheveu-logo"></span></a>
-                         <a ui-sref="home" style='font-family:Lobster'>Lebeaucheveu</a>
-              
+                         <a ui-sref="home" style='font-family:Lobster'>Lebeaucheveu</a>              
                 </div>
+
+                <div class="col-sm-4 col-lg-5" style="z-index: 11;">
+                  <span class="search-icon"></span>
+                  <form>
+                    <div class="form-group">
+                      <label class="sr-only" for="location">customer location</label>
+                      <input type="text" class="form-control" id="location" name="location"  autocomplete="off" placeholder="Où?">
+                    </div>
+                  </form>
+                </div>                
                 <div id="head-mobile"></div>
                 <div class="button"></div>
-                <!-- <div class="menu-sublink"> -->
-                    <ul>
-                      <li ui-sref-active="active" class="active">            
-                            <a class="a-link" ui-sref="catalog"><i class="fa fa-book" aria-hidden="true"></i>Catalogue</a>
+                <!-- <div class="menu-sublink"> -->              
+                   <ul>
+                      <li ui-sref-active="active" class="active become-hairdresser">            
+                            <a class="a-link" ui-sref="catalog"><!-- <i class="fa fa-book" aria-hidden="true"></i> -->Proposez vos services</a>
                       </li>
                       <li ui-sref-active="active" class="active">
-                          <a ui-sref="blog"><i class="fa fa-commenting-o" aria-hidden="true"></i>Blog</a>
+                          <a ui-sref="blog"><!-- <i class="fa fa-commenting-o" aria-hidden="true"></i> -->Blog</a>
                       </li>
-                     <!--  <li ui-sref-active="active" class="active">
-                            <a ui-sref="galeria"><i class="fa fa-picture-o" aria-hidden="true"></i>Galerie</a>
-                      </li> -->
-                      <li ui-sref-active="active" class="active">
+                      <!-- <li ui-sref-active="active" class="active">
                             <a ui-sref="shop"><i class="fa fa-cart-plus" aria-hidden="true"></i>Magasin</a>
-                      </li>
+                      </li> -->
                       <li ng-show="vm.toggle" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>{{vm.username}} <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><!-- <i class="fa fa-user"></i> -->{{vm.username}} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li ng-show="vm.isCustomer"><a ui-sref="customer"><i class="fa fa-user"></i> Profil</a></li>
-                                <li ng-show="vm.isAdmin"><a ui-sref="admin"><i class="fa fa-user"></i> Profil</a></li>
-                                <li ng-show="vm.isHairdresser"><a ui-sref="hairdresser"><i class="fa fa-user"></i> Profil</a></li>
-                                <li><a ui-sref="cart"><i class="fa fa-shopping-cart"></i> Achats</a></li>
+                                <li ng-show="vm.isCustomer"><a ui-sref="customer"><!-- <i class="fa fa-user"></i>  -->Profil</a></li>
+                                <li ng-show="vm.isAdmin"><a ui-sref="admin"><!-- <i class="fa fa-user"></i> --> Profil</a></li>
+                                <li ng-show="vm.isHairdresser"><a ui-sref="hairdresser"><!-- <i class="fa fa-user"></i>  -->Profil</a></li>
+                                <li><a ui-sref="cart"><!-- <i class="fa fa-shopping-cart"></i> --> Achats</a></li>
                                 <li class="divider"></li>
-                                <li><a class="logout-link" ng-click="vm.logout()"><i class="fa fa-power-off"></i> Deconnexion</a></li>
+                                <li><a class="logout-link" ng-click="vm.logout()"><!-- <i class="fa fa-power-off"></i> --> Deconnexion</a></li>
                             </ul>
                         </li>
                       <li ng-show="!vm.toggle" ui-sref-active="active" class="active">
-                          <a ui-sref="login"><i class="fa fa-sign-in" aria-hidden="true"></i>Connexion</a>
+                          <a ui-sref="login"><!-- <i class="fa fa-sign-in" aria-hidden="true"> --></i>Connexion</a>
                       </li>
-                    </ul>
+                    </ul>         
                  <!-- </div> --><!-- end menu-sublink -->                
             </div><!-- end cssmenu -->
     </div>

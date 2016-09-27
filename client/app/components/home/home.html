@@ -1,132 +1,61 @@
-<section class="home">
-  <div id="banner">
-      <div class="container hidden-xs">
-        <div class="row">
-            <div class="col-md-6">
-                <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
-                  <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
-                    <div class="carousel-caption">
-                        <p>{{slide.text}}</p>
-                    </div>
-                     <img class='carousel-img' ng-src="{{slide.image}}" class="img-responsive"/>
-                  </uib-slide>
-              </uib-carousel> <!-- end carousel -->
+<div class="home">
+   <section id="carousel">
+    <div class="container-fulide">
+      <div id="carousel-example" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-example" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-example" data-slide-to="1"></li>
+          <li data-target="#carousel-example" data-slide-to="2"></li>
+        </ol>
+
+        <div class="carousel-inner">
+          <div class="item active">
+            <a href="#"><img  class='img-responsive' src="http://placekitten.com/1900/600" /></a>
+            <div class="carousel-caption">
+              <p>Just Kitten Around 1</p>
             </div>
-            <div class=" col-md-6 ">
-              <div class="row banner">
-                  <div class="col-md-1"></div>
-                  <div class="col-md-6">
-                  <div class="content">
-                    <div class="visible">
-                        <ul>
-                          <li ng-repeat ="slide in vm.slides  track by slide.id" index="slide.id">{{slide.text}}
-                          </li>
-                        </ul>
-                    </div> <!-- end .visible -->
-                  </div><!-- end .content -->
-                  </div><!-- end col-md-9 -->
-                  <div class="col-md-3"></div>            
-                  <div id="social-icons" class="col-md-2"> 
-                     <a href="#">
-                        <i class=" fa fa-facebook" aria-hidden="tue"></i>
-                     </a>
-                     <a href="#">
-                      <i class=" fa fa-twitter" aria-hidden="tue"></i>
-                     </a>  
-                     <a href="#">
-                        <i class=" fa fa-instagram" aria-hidden="tue"></i>
-                     </a>           
-                 </div> <!-- end social-icons -->
-
-              </div><!-- end row -->
-              
-          </div> 
-          <div class="clearfix">
           </div>
-        </div><!-- end row -->        
-      </div>  <!-- end container hidden-xs -->     
-      <div class="container-fluid visible-xs">
-        <div class="row">
-          <div class="col-xs-12">
-              <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
-                <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
-                  <div class="carousel-caption">
-                      <!-- <p>{{slide.text}}</p> -->
-                  </div>
-                   <img class='carousel-img' ng-src="{{slide.image}}" class="img-responsive"/>
-                </uib-slide>
-            </uib-carousel> <!-- end carousel -->
+          <div class="item">
+            <a href="#"><img class='img-responsive' src="http://placekitten.com/1900/600" /></a>
+            <div class="carousel-caption">
+              <p>Just Kitten Around 2</p>
+            </div>
           </div>
-        </div><!-- end row -->
-        <div class="row">
-          <div class="col-xs-11" style="float:left;">
-            <div class="content-xs">
-              <div class="display-xs">
-                  <ul>
-                    <li ng-repeat ="slide in vm.slides  track by slide.id" index="slide.id">{{slide.text}}
-                    </li>
-                  </ul>
-              </div> <!-- end .visible -->
-            </div><!-- end .content -->
-          </div> 
-          
-        <div class="col-xs-1">
-          <div id="social-icons" style="float:right;"> 
-               <a href="#">
-                <i class=" fa fa-facebook" aria-hidden="tue"></i>
-              </a>
-             <a href="#">
-              <i class=" fa fa-twitter" aria-hidden="tue"></i>
-            </a>  
-            <a href="#">
-              <i class=" fa fa-instagram" aria-hidden="tue"></i>
-            </a>           
-          </div> <!-- end social-icons -->
-        </div> <!-- end row -->
-      </div>  <!-- end container-fluid -->      
-  </div><!-- end banner -->
+          <div class="item">
+            <a href="#"><img  class='img-responsive' src="http://placekitten.com/1900/600" /></a>
+            <div class="carousel-caption">
+              <p>Just Kitten Around 3</p>
+            </div>
+          </div>
+        </div> <!-- .carousel-inner -->
 
-  <div id="search" class="hidden-xs">
-    <div class="container ">
-      <h3> Trouver une coiffeuse près de chez vous </h3>
-        <div class="col-md-6 map">
-          <svg  version="1.1" id="Calque_1" xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width=300 height=300 viewBox="0 0 300 300" overflow="visible" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" enable-background="new 0 0 300 300" xml:space="preserve" class="mapSvg">   
-            <a  ng-repeat="zone in vm.zonePaths track by $index" xlink:href="{{zone.url}}" ng-mouseover="vm.displayRegionName(zone.title)" ng-mouseleave="vm.name =''">
-              <path id="{{zone.title}}"title="{{zone.title}}" d="{{vm.obj[$index]}}" stroke="{{vm.mapstroke}}" stroke-width="{{vm.mapstroke_width}}"/>
-            </a>    
-          </svg>
-          {{vm.name}}
-        </div><!-- end map -->
-        <div class="col-md-6 banner-search">
-            <form>
-                <input type="text" placeholder="code postal" required="">
-                <input type="submit" value="valider" name="search">
-            </form>
-        </div>    
-    </div> <!-- end container -->
-  </div><!-- end #search hidden-xs -->
-
-  <div id="search" class="visible-xs">
-    <div class="container-fluid ">
+        <a class="left carousel-control" href="#carousel-example" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+      </div> <!-- #carousel-example -->
+    </div><!-- .container-fluide -->   
+    <form>
+      <input type ="text" style="z-index:11" placeholder:"où?">
+    </form>  
+   </section> <!-- #carousel -->
+   <section id="last-hairdresser" style="background:#EDEFED">
+    <div class="container">
       <div class="row">
-            <div class="col-xs-12">
-                <h3> Trouver une coiffeuse près de chez vous </h3>
-                <div class="map">
-                  <svg  version="1.1" id="Calque_1" xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width=300 height=300 viewBox="0 0 300 300" overflow="visible" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" enable-background="new 0 0 300 300" xml:space="preserve" class="mapSvg">   
-                    <a  ng-repeat="zone in vm.zonePaths track by $index" xlink:href="{{zone.url}}" ng-mouseover="vm.displayRegionName(zone.title)" ng-mouseleave="vm.name =''">
-                      <path id="{{zone.title}}"title="{{zone.title}}" d="{{vm.obj[$index]}}" stroke="{{vm.mapstroke}}" stroke-width="{{vm.mapstroke_width}}"/>
-                    </a>    
-                  </svg>
-                  {{vm.name}}
-                </div><!-- end map -->
-            </div><!-- end col-xs-12 -->            
-      </div><!-- end .row -->
-      <div class="row">           
-              <form>             
-                  <input type="text" class="col-xs-6" style="width:40% margin:0 auto;" placeholder="code postal" required="">
-                  <input type="submit" value="valider" class="col-xs-6" name="search">                  
-              </form>           
-      </div>           
-    </div> <!-- end container fluid -->
-  </div> <!-- end #search -->
-</section> 
+        <h3 style="text-align:center"> Nos dernières coiffeuses</h3>
+        <div class="col-sm-4 col-xs-12">
+          <simple-card url={{vm.url}} name="nouvelle coiffeuse" description="je suis une nouvelle coiffeuse"></simple-card>
+        </div> 
+        <div class="col-sm-4 col-xs-12">
+          <simple-card url={{vm.url}} name="nouvelle coiffeuse" description="je suis une nouvelle coiffeuse"></simple-card>
+        </div> 
+        <div class="col-sm-4 col-xs-12">
+          <simple-card url={{vm.url}} name="nouvelle coiffeuse" description="je suis une nouvelle coiffeuse"></simple-card>
+        </div>  
+      </div> <!-- .row -->
+    </div> <!-- .container-->
+  </section>
+      
+</div> 

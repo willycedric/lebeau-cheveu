@@ -2,9 +2,7 @@
 body {
   font-family: 'Helvetica Neu', Helvetica, sans-serif;
 } *//*6DC3BB*/
-.main{
-    height:100vh;
-}
+
 #app{
     height:100%;
 }
@@ -17,25 +15,73 @@ body {
   padding:23px;
 }
 
+#app .container-fluid {
+    padding: 0;
+}
 
-#app .logo{top:21px;position:relative;z-index:123;padding:10px;float:left;width:45%;padding:0;}
-#app .logo a{color:#581f1f; text-decoration: none;font-family:Lobster, cursive;font-size:1em; text-transform: capitalize;font-weight:700;}
+/** seach form on the top menu  */
+#app input[name="location"]{
+   height: auto;
+   width:80%;
+   font-family: Circular,"Helvetica Neu",Helvetica;
+    padding: 19.5px 0 19.5px 48px;
+    border: 0;
+    outline: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    
+}
+#app .form-group {
+    margin:0;
+}
+#app .search-icon {
+    
+}
+#app .search-icon{
+    position: absolute;
+    top: 5px;
+    left: 16px;
+    z-index: 1;
+    background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CiAgICA8cGF0aCBzdHlsZT0iZmlsbDpncmV5IiBkPSJNMTUuNSAgMTRoLS43OWwtLjI4LS4yN0MxNS40MSAxMi41OSAxNiAxMS4xMSAxNiA5LjUgMTYgNS45MSAxMy4wOSAzIDkuNSAzUzMgNS45MSAzIDkuNSA1LjkxIDE2IDkuNSAxNmMxLjYxIDAgMy4wOS0uNTkgNC4yMy0xLjU3bC4yNy4yOHYuNzlsNSA0Ljk5TDIwLjQ5IDE5bC00Ljk5LTV6bS02IDBDNy4wMSAxNCA1IDExLjk5IDUgOS41UzcuMDEgNSA5LjUgNSAxNCA3LjAxIDE0IDkuNSAxMS45OSAxNCA5LjUgMTR6Ii8+Cjwvc3ZnPg==) no-repeat center center;
+    padding:24px;
+}
+/* chrome placeholder */
+#app ::-webkit-input-placeholder {
+ /*  text-align: center;*/
+}
+/*firefox placeholder */
+/* Firefox 19+ */
+#app s::-moz-placeholder {
+   text-align: center;
+}
+#app .become-hairdresser{
+    border:solid #581f1f 1px;
+    border-radius: 4px;
+}
+#app .become-hairdresser:hover{
+   border:solid #581f1f 1px;
+    border-radius: 4px;
+    padding:0;
+}
+#app .logo{top:21px;position:relative;z-index:123;padding:10px;float:left;padding:0;left:30px; margin-right: 50px;}
+#app .logo a{color:#581f1f; text-decoration: none;font-family:Lobster, cursive;font-size:1em; text-transform: capitalize;/*font-weight:700;*/}
 #app nav{position:relative;width:100%;margin:0 auto;} /*980*/
 #cssmenu,#cssmenu ul,#cssmenu ul li,#cssmenu ul li a,#cssmenu #head-mobile{font-family: 'Helvetica Neu',Helvetica,sans-serif;border:0;list-style:none;line-height:1;display:block;margin:0;position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 #cssmenu:after,#cssmenu > ul:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0}
 #cssmenu #head-mobile{display:none}
-#cssmenu ul{ width:100%; }
-#cssmenu{font-family:Lobster, cursive,sans-serif;background:#f7f7fa;padding:4px;text-align: center;padding-bottom: 0;border-bottom: 2px solid #581f1f;box-shadow: 2px 2px 5px #888888; margin-bottom: 10px;}
+#cssmenu ul{ width:100%;}
+#cssmenu{font-family:Circular,"Helvetica Neu",Helvetica,cursive,sans-serif;background:#fff;padding:4px;text-align: center;padding-bottom: 0;box-shadow: 2px 2px 5px #888888;}
 
 #cssmenu > ul > li{float:left;}
 #cssmenu > ul > li > a {
     padding: 17px;
-    font-size: 1.1em;
+    font-size: 1.0em;
     border-radius: 4px;
     letter-spacing: 1px;
     text-decoration: none;
     color: #581f1f;
-    font-weight: 700;
+  /*  font-weight: 700;*/
     font-family: 'Helvetica Neu',Helvetica,sans-serif;
 }
 #cssmenu > ul > li:hover > a,#cssmenu ul li.active a{
@@ -50,7 +96,7 @@ body {
 #cssmenu > ul > li.has-sub:hover > a:before{top:23px;height:0}
 #cssmenu ul ul{position:absolute;left:-9999px}
 #cssmenu ul ul li{height:0;-webkit-transition:all .25s ease;-ms-transition:all .25s ease;background:#fafafa;transition:all .25s ease}
-#cssmenu li:hover > ul{left:auto}
+#cssmenu li:hover > ul{left:0;}
 #cssmenu li:hover > ul > li{height:35px}
 #cssmenu ul ul ul{margin-left:100%;top:0}
 #cssmenu ul ul li a{border-bottom:1px solid rgba(150,150,150,0.15);padding:11px 15px;font-size:12px;text-decoration:none;color:#fafafa;font-weight:400;}
@@ -191,4 +237,14 @@ nav{width:100%;}
 #cssmenu .submenu-button.submenu-opened:before{display:none}
 #cssmenu ul ul ul li.active a{border-left:none}
 #cssmenu > ul > li.has-sub > ul > li.active > a,#cssmenu > ul ul > li.has-sub > ul > li.active > a{border-top:none}
+}
+
+@media screen and (min-width: 1300px){
+    #app .logo{
+        left:30px;
+        margin-right: 50px;
+    }
+    #cssmenu ul {
+        right:-350px;
+    }
 }

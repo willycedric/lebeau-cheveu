@@ -9,6 +9,9 @@ export const homeDirective = ()=> {
 	 	controllerAs:'vm',
 	 	restrict:'E',
 	 	scope: {},
+	    link: function(scope, elt, atts){
+	    	
+	    },
 	 	replace:true,
 	 	data: { transition: 'slide-in'}
 	 };
