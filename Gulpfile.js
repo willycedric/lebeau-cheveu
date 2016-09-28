@@ -97,8 +97,8 @@ gulp.task('watch', function() {
   gulp.watch(paths.uiTemplate, ['templateCopy', browser.reload]);
 });
 
-gulp.task('images', function(){
-  var images=['banner5.jpg','banner4.jpg','banner9.jpg','banner10.jpg'];
+gulp.task('images', function(){s
+  var images=['1-1900X600.jpg','3-1900X600.jpg','2-1900X600.png'];
    var imagesDetails=[];
    images.forEach(function(elt){
       require('./utils/uploadImages')(elt)

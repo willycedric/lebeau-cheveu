@@ -10,21 +10,23 @@
   padding-right: 0;
   padding-left: 0;
 }
+
 .home .carousel-caption{
 	top: 0;
     left: 50%;
    	width:50%;
     margin-top:20px;
     bottom: auto;
+    text-align:center;
     font-size:24px;
-    font-style: italic;;
-    font-family: 'Helvetica Neu';
+    font-style: italic;
 }
-home .carousel-caption p {
+.home .carousel-caption p {
   font-family: 'Helvetica Neu';
 }
 .home .carousel-indicators
- .active{
+ /*.active*/{
+  display:none;
  	background-color: #02DBAA;
  	border:1px solid #02DBAA;
  	border-radius: 15px;
@@ -37,6 +39,7 @@ home .carousel-caption p {
 .home img{
     vertical-align: middle;
     width:100%;
+    height:100%;
 }
 
 
@@ -96,16 +99,32 @@ home .carousel-caption p {
     margin-top: 20em;
     padding: 0;
 }
-.home input[type="text"] {
+/*.home input[type="text"] {
     width: 79%;
     padding: 12px;
+    -webkit-padding-after: 15px;
+    -webkit-padding-before: 15px;
+    -webkit-padding-start: 15px;
+    -webkit-padding-end: 15px;
     font-size: 15px;
     text-align: left;
     font-weight: 400;
-    border: 1px solid #333;
+    border: 1px solid blue;
     outline: none;
     margin: 0px 0px 0 0;
     font-family: 'Helvetica Neu';
+}*/
+input[type=text]{
+   height: 50px;
+   width:268px !important;
+   font-family:"Helvetica Neu",Helvetica;
+    padding: 10px 0 10px 48px;
+    border: solid 0px transparent;
+    outline: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin:-1px;
 }
 .home input[type="submit"] {
     background: #02DBAA;
@@ -210,6 +229,109 @@ home .carousel-caption p {
   line-height:40px;
   margin:0;
 }
+
+.home .btn-search-lbc {
+  color: white;
+ /* margin-left:22%;*/
+  padding: 16.5px 48px;
+ /* border-radius: 4px;*/
+  font-weight: bold;
+  background: #790303;
+  transition: background 0.3s ease;
+}
+.home .btn-lbc {
+  color: white;
+  margin-left:22%;
+  padding: 12px 35px;
+  border-radius: 4px;
+  font-weight: bold;
+  background: #790303;
+  transition: background 0.3s ease;
+}
+
+.home .btn-lbc:hover, .home .btn-search-lbc:hover{
+  opacity: 1;
+  background: #a94442;
+  text-decoration: none;
+  color: white;
+}
+.home .overlay {  
+  position:absolute;
+  z-index:12;
+  top:50%;
+  left:0;
+  width:100%;
+  text-align:center;
+}
+ /*input[type=text]{
+   height: auto;
+   width:100%;
+   font-family:"Helvetica Neu",Helvetica;
+    padding: 19.5px 0 19.5px 48px;
+    border: solid 0px transparent;
+    outline: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin:-1px;
+}*/
+
+
+
+.home .btn{
+  border: solid 0px transparent;
+}
+.btn:hover{
+   border: solid 0px transparent;
+}
+
+.home .form-lbc{
+  margin:auto;
+  width:80%;
+}
+
+.hero-footer {
+    background-color: #000;
+    background-color: rgba(0,0,0,0.6);
+   /* bottom: 0;*/
+    left: 0;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    position: absolute;
+    right: 0;
+    margin:0;
+}
+
+.form-control{
+  border-radius:0;
+}
+
+.home select {
+  /* background: transparent;*/
+   border: none;
+   font-size: 14px;
+   height: 29px;
+   padding: 5px; /* If you add too much padding here, the options won't show in IE */
+   width: 268px;
+  margin: -2px;   
+  height: 50px;
+  text-align: center;
+}
+
+.home .no-rounder{
+   -webkit-border-radius:0;
+   -moz-border-radius: 0;
+   -ms-border-radius:0;
+   -o-border-radius:0;
+   border-radius: 0;
+}
+
+.home .section-start{
+  margin-top:30px;
+}
+
+
+
 
 @keyframes opacity {
   0%, 100%   {opacity:0;}

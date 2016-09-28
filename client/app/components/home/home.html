@@ -1,22 +1,47 @@
 <div class="home">
-   <section id="carousel">
-    <div class="container-fulide">     
-         <div class="row">
-          <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
-              <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
-                <div class="carousel-caption">
-                    <p>{{slide.text}}</p>
+  <section class="overlay">
+    <div class="row">
+          <div class="hero-footer hidden-xs">  
+              <form class="form-inline form-lbc">
+                <div class="form-group">
+                  <label for="exampleInputName2" class="sr-only">Name</label>
+                  <input type="text" class="form-control" id="exampleInputName2" placeholder="Où?" name="name">
                 </div>
-                 <img class='carousel-img' ng-src="{{slide.image}}" style="margin:0 auto;width:100%;height:45Opx;">
+                <div class="form-group">
+                  <select id="haircut-type" name="haircut" class="no-rounder">
+                  <option value="rasta">Rasta</option>
+                  <option value="lox">Lox</option>
+                  <option value="vanille">Vanille</option>
+                  </select>
+                </div>
+                <a href="#" class="btn-search-lbc">Rechercher</a>
+              </form>
+          </div> <!--  .hero-footer -->
+    </div><!-- .row-->    
+  </section> <!-- .overlay --> 
+   <section id="carousel">
+    <div class="container-fulid">          
+        <div class="row carouse">
+          <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" on-carousel-change="vm.onSlideChanged(nextSlide, direction,nextIndex)"no-wrap="vm.noWrapSlides">
+              <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
+                <div class="carousel-caption col-xs-12">
+                    <p >{{slide.text}}</p>
+               </div> <!-- .carousel-caption -->
+                 <img class='carousel-img' ng-src="{{slide.image}}"  class="img-responsive" >
             </uib-slide>
           </uib-carousel>
         </div>        <!-- .row -->
     </div><!-- .container-fluide -->   
    </section> <!-- #carousel -->
-   <section id="last-hairdresser" style="background:#EDEFED">
+
+   <section id="last-hairdresser" class="section-start" style="background:#EDEFED">
     <div class="container">
+       <div class="row">
+        <div class="col-xs-12">
+            <h4 style="text-align:center"> Dernières coiffeuses inscrites</h4>
+        </div>
+      </div> <!-- .row -->
       <div class="row">
-        <h3 style="text-align:center"> Nos dernières coiffeuses</h3>
         <div class="col-sm-4 col-xs-12">
           <simple-card url={{vm.url}} name="nouvelle coiffeuse" description="je suis une nouvelle coiffeuse"></simple-card>
         </div> 
@@ -27,7 +52,198 @@
           <simple-card url={{vm.url}} name="nouvelle coiffeuse" description="je suis une nouvelle coiffeuse"></simple-card>
         </div>  
       </div> <!-- .row -->
+      <div class="row">
+        <div class="col-sm-offset-4 col-sm-4 col-xs-12">          
+                 <a href="#" class="btn-lbc">Voir toutes les coiffeuses</a>
+        </div>
+      </div> <!-- .row -->         
     </div> <!-- .container-->
   </section>
-      
+  <section id="motivation" class="section-start">
+    <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+              <h4 style="text-align:center"> Rejoignez nous !</h4>
+          </div>
+        </div> <!-- .row -->
+        <div class="row hidden-xs">
+            <div class="col-sm-6">            
+                      <img src="http://equalizersoccer.com/wp-content/uploads/2014/11/USATSI_8101145_168380843_lowres.jpg"/>                              
+            </div>  
+            <div class="col-sm-4">
+              <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>      
+        </div> <!-- .row .hidden-xs -->
+        <div class="row visible-xs">
+          <div class="col-xs-12">
+              <img src="http://equalizersoccer.com/wp-content/uploads/2014/11/USATSI_8101145_168380843_lowres.jpg"/>    
+          </div>
+          <div class="col-xs-12">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div> <!-- .row .visible-xs -->
+    </div> <!-- .container -->     
+  </section> <!-- #motivation -->
+  <section id="haircuts-example" class="section-start">
+    <div class="container">
+        <div class="row">
+        <div class="col-xs-12">
+            <h4 style="text-align:center">  dernières créations</h4>
+        </div>
+      </div> <!-- .row -->
+      <div class="row">
+        <div class="col-xs-12 col-sm-4">
+          <card-with-user url={{vm.url}} user={{vm.userProfile}}></card-with-user>
+          </div>
+        <div class="col-xs-12 col-sm-4">
+          <card-with-user url={{vm.url}} user={{vm.userProfile}}></card-with-user>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <card-with-user url={{vm.url}} user={{vm.userProfile}}></card-with-user>
+        </div>
+      </div> <!-- .row -->
+      <div class="row">
+        <div class="col-xs-12 col-sm-4">
+          <card-with-user url={{vm.url}} user={{vm.userProfile}}></card-with-user>
+          </div>
+        <div class="col-xs-12 col-sm-4">
+          <card-with-user url={{vm.url}} user={{vm.userProfile}}></card-with-user>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <card-with-user url={{vm.url}} user={{vm.userProfile}}></card-with-user>
+        </div>
+      </div><!-- .row -->    
+    </div><!-- .container -->    
+  </section> <!-- #haircuts-example -->  
+  <section id="about-us" class="section-start">
+    <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+              <h4 style="text-align:center"> Des clients satisfaits </h4>
+          </div>
+        </div> <!-- .row -->
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+      </div><!-- .row -->
+    </div> <!-- .container -->
+  </section>
+  <footer id="legal-notice" class="section-start">
+    <div class="container hidden-xs">
+      <div class="row">
+        <div class="col-xs-12">
+          <h4 style="text-align:center">Mention légales</h4>
+        </div>
+      </div> <!-- .row -->
+      <div class="row">
+        <div class="col-sm-3">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+        <div class="col-sm-3">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+        <div class="col-sm-3">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+        <div class="col-sm-3">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+      </div>
+    </div> <!-- .container .hidden-xs -->
+    <div class="container visible-xs">
+      <div class="row">
+          <div class="col-xs-12">
+              <h4 style="text-align:center;">Mentions légales </h4>
+          </div>
+      </div> <!-- .row -->
+      <div class="row">
+        <div class="col-xs-6">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+        <div class="col-xs-6">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+      </div><!-- .row -->
+       <div class="row">
+        <div class="col-xs-6">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+        <div class="col-xs-6">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+      </div><!-- .row -->
+    </div><!-- .container .visible-xs -->
+  </footer>
 </div> 

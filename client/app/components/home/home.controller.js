@@ -3,7 +3,7 @@ import images from '../../../../images.json';
 
 
 class HomeController {
-  constructor(Map,$stateParams,AuthToken,$rootScope,Auth) {
+  constructor($stateParams,AuthToken,$rootScope,Auth) {
   	this.url ="http://res.cloudinary.com/hgtagghpz/image/upload/v1469680583/ad9thuvcppgddha4myrp.jpg";
   	this.nbImages = 3;//images.length;
   		//labels
@@ -23,7 +23,7 @@ class HomeController {
 	  this.addSlide = function(i) {
 	  	const newWidth = 1280 + slides.length + 1;
 	    slides.push({
-	      image: "http://placekitten.com/1900/600",//images[i].url,
+	      image:images[i].url,
 	      text: this.text[i],
 	      id: currIndex++
 	    }); 
@@ -33,26 +33,10 @@ class HomeController {
 	    this.addSlide(i);
 	  }
 
-	  //Map part of the controller
-	  //css properties
-			this.mapstroke=Map.cssProperties.mapstroke;
-			this.mapstroke_width=Map.cssProperties.mapstroke_width;
-			this.mapWidth=Map.cssProperties.mapWidth;
-			this.mapHeight=Map.cssProperties.mapHeight;
+	  this.onSlideChanged = function (nextSlide, direction, nextIndex) {
+		    console.log("slide changed: ",nextIndex);
+	  }
 
-			//Map svg details
-			this.zonePaths = Map.paths;
-			//Object used to construct the map
-			this.obj = [];
-
-			//Bundle all the map properties in a unique array 
-			for(var zone in Map.zonePaths){
-				this.obj.push(Map.zonePaths[zone]);
-			}
-
-			this.displayRegionName = (name)=>{
-				this.name = name;
-			}
 
 	   //If a user is connected throught oauth, the token is retrieved from the url
 	    //a save in the localStorage 
@@ -70,7 +54,7 @@ class HomeController {
 	}; //End constructor 
 }
 
-HomeController.$inject=['Map','$stateParams','AuthToken','$rootScope','Auth'];
+HomeController.$inject=['$stateParams','AuthToken','$rootScope','Auth'];
 export {HomeController};
 
 

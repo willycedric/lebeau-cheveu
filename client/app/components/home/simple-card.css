@@ -4,6 +4,7 @@
   background-size: cover !important;
   color: white;
   position: relative;
+  margin-bottom: 20px;
 }
 .card-star{
   background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggc3R5bGU9ImZpbGw6I0ZCREMyOSIgZD0iTTExLjk5IDJDNi40NyAyIDIgNi40OCAyIDEyczQuNDcgMTAgOS45OSAxMEMxNy41MiAyMiAyMiAxNy41MiAyMiAxMlMxNy41MiAyIDExLjk5IDJ6bTQuMjQgMTZMMTIgMTUuNDUgNy43NyAxOGwxLjEyLTQuODEtMy43My0zLjIzIDQuOTItLjQyTDEyIDVsMS45MiA0LjUzIDQuOTIuNDItMy43MyAzLjIzTDE2LjIzIDE4eiIvPgo8L3N2Zz4=) no-repeat center center;
@@ -32,4 +33,9 @@
 }
 .card-link:hover{
   opacity: 0.1;
+}
+.card-user {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
