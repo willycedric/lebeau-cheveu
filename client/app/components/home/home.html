@@ -1,45 +1,17 @@
 <div class="home">
    <section id="carousel">
-    <div class="container-fulide">
-      <div id="carousel-example" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carousel-example" data-slide-to="0" class="active"></li>
-          <li data-target="#carousel-example" data-slide-to="1"></li>
-          <li data-target="#carousel-example" data-slide-to="2"></li>
-        </ol>
-
-        <div class="carousel-inner">
-          <div class="item active">
-            <a href="#"><img  class='img-responsive' src="http://placekitten.com/1900/600" /></a>
-            <div class="carousel-caption">
-              <p>Just Kitten Around 1</p>
-            </div>
-          </div>
-          <div class="item">
-            <a href="#"><img class='img-responsive' src="http://placekitten.com/1900/600" /></a>
-            <div class="carousel-caption">
-              <p>Just Kitten Around 2</p>
-            </div>
-          </div>
-          <div class="item">
-            <a href="#"><img  class='img-responsive' src="http://placekitten.com/1900/600" /></a>
-            <div class="carousel-caption">
-              <p>Just Kitten Around 3</p>
-            </div>
-          </div>
-        </div> <!-- .carousel-inner -->
-
-        <a class="left carousel-control" href="#carousel-example" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-      </div> <!-- #carousel-example -->
+    <div class="container-fulide">     
+         <div class="row">
+          <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
+              <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
+                <div class="carousel-caption">
+                    <p>{{slide.text}}</p>
+                </div>
+                 <img class='carousel-img' ng-src="{{slide.image}}" style="margin:0 auto;width:100%;height:45Opx;">
+            </uib-slide>
+          </uib-carousel>
+        </div>        <!-- .row -->
     </div><!-- .container-fluide -->   
-    <form>
-      <input type ="text" style="z-index:11" placeholder:"où?">
-    </form>  
    </section> <!-- #carousel -->
    <section id="last-hairdresser" style="background:#EDEFED">
     <div class="container">
