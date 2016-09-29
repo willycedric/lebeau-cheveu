@@ -11,8 +11,6 @@ export const joinDirective = ()=> {
 	 	restrict:'E', 
 	 	scope:{},
         link: function(scope, elt, atts){
-	    	$(elt).find('.banner').height();
-	    	console.log($('.banner').innerHeight(), $('.banner').height());
 	    },
 	 	replace:true,
 	 	data: { transition: 'slide-in'}
