@@ -11,9 +11,7 @@ export const homeDirective = ()=> {
 	 	restrict:'E',
 	 	scope: {},
 	    link: function(scope, elt, atts){
-	    	//var overlayHeight = $(elt).find('.overlay').innerHeight();
-	    	//$(elt).find('.overlay').height($(elt).find('.hero-footer').height() +this.innerHeight());
-	    	
+	    	//console.log("value entered: ",$(elt).find('.location').val());
 	    },
 	 	replace:true,
 	 	data: { transition: 'slide-in'}

@@ -7,6 +7,7 @@ import {AuthInterceptor} from './authInterceptor';
 import {AuthToken} from './authToken';
 import {UserProfile} from './userProfile';
 import {Access} from './Access';
+import {locationFactory} from './locationFactory';
 import angular from 'angular';
 
 
@@ -20,6 +21,7 @@ export const shared = angular.module('shared', [])
   .factory('AuthInterceptor',AuthInterceptor)
   .factory('UserProfile',UserProfile)
   .factory('Access',Access)
+  .factory('Location',locationFactory)
   .config(function($httpProvider){
   	$httpProvider.interceptors.push(AuthInterceptor);
   });

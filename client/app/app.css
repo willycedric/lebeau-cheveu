@@ -70,7 +70,7 @@ body {
 #cssmenu,#cssmenu ul,#cssmenu ul li,#cssmenu ul li a,#cssmenu #head-mobile{font-family: 'Helvetica Neu',Helvetica,sans-serif;border:0;list-style:none;line-height:1;display:block;margin:0;position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 #cssmenu:after,#cssmenu > ul:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0}
 #cssmenu #head-mobile{display:none}
-#cssmenu ul{ width:100%;}
+#cssmenu ul{ width:100%;right:-600px;}
 #cssmenu{font-family:Circular,"Helvetica Neu",Helvetica,cursive,sans-serif;background:#fff;padding:4px;text-align: center;padding-bottom: 0;box-shadow: 2px 2px 5px #888888;}
 
 #cssmenu > ul > li{float:left;}
@@ -205,7 +205,7 @@ nav{width:100%;}
 }
 #cssmenu > ul > li.has-sub > a:after{position:absolute;top:22px;right:11px;width:8px;height:2px;display:block;background:#fafafa;content:''}
 #cssmenu > ul > li.has-sub > a:before{position:absolute;top:19px;right:14px;display:block;width:2px;height:8px;background:#fafafa;content:'';-webkit-transition:all .25s ease;-ms-transition:all .25s ease;transition:all .25s ease}
-#cssmenu{width:100%;}
+#cssmenu{width:100%}
 #cssmenu ul{width:100%;display:none;background-color:#fafafa;z-index: 100;}
 #cssmenu ul li{width:100%;border-top:1px solid #444}
 #cssmenu ul li:hover{background:#fafafa;color:#333;}
@@ -245,6 +245,6 @@ nav{width:100%;}
         margin-right: 50px;
     }
     #cssmenu ul {
-        right:-350px;
+        right:-1200px;
     }
 }

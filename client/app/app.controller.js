@@ -1,9 +1,13 @@
 import labels from '../../labels.json';
 class AppController {
-	constructor($window,$scope,API,Auth,AuthToken,$rootScope){
+	constructor(Location,$window,$scope,API,Auth,AuthToken,$rootScope){
 		this.$scope=$scope;
 		this.labels =labels; //Label.init
 		this.toggle=false;
+		//retrieve Location function from the Location factory
+		this.getLocation = Location.getLocation;
+		//contain the user selected town
+		this.asyncSelected=undefined
 		//User displayed in the menu
 		this.username="";
 		//Use to trigger the view transition animation
@@ -77,5 +81,5 @@ class AppController {
 	};//end constructor
 }
 
-AppController.$inject=['$window','$scope','API','Auth','AuthToken','$rootScope'];
+AppController.$inject=['Location','$window','$scope','API','Auth','AuthToken','$rootScope'];
 export {AppController};

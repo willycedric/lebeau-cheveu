@@ -1,5 +1,6 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
+import uiBootstrap from 'angular-ui-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import carousel from 'angular-ui-bootstrap/src/carousel';
 import datepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup';

@@ -3,11 +3,18 @@ import images from '../../../../images.json';
 
 
 class HomeController {
-  constructor($stateParams,AuthToken,$rootScope,Auth) {
+  constructor(Location,$stateParams,AuthToken,$rootScope,Auth) {
   	this.url ="http://res.cloudinary.com/hgtagghpz/image/upload/v1469680583/ad9thuvcppgddha4myrp.jpg";
   	this.nbImages = 3;//images.length;
   		//labels
 	 this.labels=labels;
+
+	 //List of availables towns
+	 this.towns = Location.towns;
+	 this.getLocation = Location.getLocation;
+	 this.asyncSelected=undefined;
+	 //selected town
+	 this.selected=undefined;
 	 //Carousel logic
 	  this.myInterval = 7000;
 	  this.noWrapSlides = false;
@@ -34,7 +41,7 @@ class HomeController {
 	  }
 
 	  this.onSlideChanged = function (nextSlide, direction, nextIndex) {
-		    console.log("slide changed: ",nextIndex);
+		    //console.log("slide changed: ",nextIndex);
 	  }
 
 
@@ -54,7 +61,7 @@ class HomeController {
 	}; //End constructor 
 }
 
-HomeController.$inject=['$stateParams','AuthToken','$rootScope','Auth'];
+HomeController.$inject=['Location','$stateParams','AuthToken','$rootScope','Auth'];
 export {HomeController};
 
 

@@ -97,7 +97,7 @@ gulp.task('watch', function() {
   gulp.watch(paths.uiTemplate, ['templateCopy', browser.reload]);
 });
 
-gulp.task('images', function(){s
+gulp.task('images', function(){
   var images=['1-1900X600.jpg','3-1900X600.jpg','2-1900X600.png'];
    var imagesDetails=[];
    images.forEach(function(elt){

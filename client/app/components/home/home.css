@@ -12,11 +12,11 @@
 }
 
 .home .carousel-caption{
-	top: 0;
+	/*top: 0;
     left: 50%;
    	width:50%;
     margin-top:20px;
-    bottom: auto;
+    bottom: auto;*/
     text-align:center;
     font-size:24px;
     font-style: italic;
@@ -38,8 +38,6 @@
 
 .home img{
     vertical-align: middle;
-    width:100%;
-    height:100%;
 }
 
 
@@ -126,6 +124,17 @@ input[type=text]{
     box-sizing: border-box;
     margin:-1px;
 }
+input[name="location-xs"]{
+   font-family:"Helvetica Neu",Helvetica;
+    padding: 10px 0 10px 48px;
+    border: solid 0px transparent;
+    outline: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-left:-1px;
+    left:0;
+}
 .home input[type="submit"] {
     background: #02DBAA;
     cursor: pointer;
@@ -171,25 +180,6 @@ input[type=text]{
    width:500px;
   margin:0 auto;
   font-family: 'Helvetica Neu';
-
-   &:before {
-    content:'"';
-    left: 0;
-    line-height:40px;
-  }
-  &:after {
-    content:'"';
-    position:absolute;
-    right: 0;
-    line-height:40px;
-  }
-  &:after, &:before {
-    position:absolute;
-    top:0;
-    color:#f00;
-    font-size:42px;
-    animation:2s linear 0s normal none infinite opacity;
-  }
 }
 
 .home .content-xs {
@@ -221,7 +211,7 @@ input[type=text]{
   padding-left:45px;
   text-align:center;
   list-style:none;
-  animation:30s linear 0s normal none infinite change;
+  /*animation:30s linear 0s normal none infinite change;*/
 }
 
 
@@ -258,7 +248,7 @@ input[type=text]{
 .home .overlay {  
   position:absolute;
   z-index:12;
-  top:50%;
+ /* top:50%;*/
   left:0;
   width:100%;
   text-align:center;
@@ -331,18 +321,37 @@ input[type=text]{
 }
 
 
-
-
-@keyframes opacity {
-  0%, 100%   {opacity:0;}
-  50%  {opacity:1;}
+.left {
+  float: left;
+  margin-right: 1em;
 }
 
-@keyframes change {
-  0%, 12%, 100%   {transform:translateY(0);}
-  17%,29%  {transform:translateY(-25%);}
-  34%,46%  {transform:translateY(-50%);}
-  51%,63%  {transform:translateY(-75%);}
-  68%,80%  {transform:translateY(-50%);}
-  85%,97%  {transform:translateY(-25%);}
+.right {
+  float: right;
+  margin-left: 1em;
+}
+
+.home .avatar-circle {
+  width: 80px;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border: white 1px solid;
+}
+.home .quote{
+  font-size: 2em;
+}
+.home .icon-search-lbc{
+    background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CiAgICA8cGF0aCBzdHlsZT0iZmlsbDpncmV5IiBkPSJNMTUuNSAgMTRoLS43OWwtLjI4LS4yN0MxNS40MSAxMi41OSAxNiAxMS4xMSAxNiA5LjUgMTYgNS45MSAxMy4wOSAzIDkuNSAzUzMgNS45MSAzIDkuNSA1LjkxIDE2IDkuNSAxNmMxLjYxIDAgMy4wOS0uNTkgNC4yMy0xLjU3bC4yNy4yOHYuNzlsNSA0Ljk5TDIwLjQ5IDE5bC00Ljk5LTV6bS02IDBDNy4wMSAxNCA1IDExLjk5IDUgOS41UzcuMDEgNSA5LjUgNSAxNCA3LjAxIDE0IDkuNSAxMS45OSAxNCA5LjUgMTR6Ii8+Cjwvc3ZnPg==) no-repeat center center;
+    padding:25px;
+    position: absolute;
+    top: 18px;
+    margin: -19px;
+}
+
+.home .dropdown-menu > .active > a, .home .dropdown-menu > .active > a:hover, .home .dropdown-menu > .active > a:focus {
+    color: #333;
+    text-decoration: none;
+    text-align: center;
+    background-color: #fff;
+    outline: 0;
 }

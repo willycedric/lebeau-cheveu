@@ -8,5 +8,6 @@ export const api = {
 		homeUrl:'https://lebeaucheveu-bachend.herokuapp.com',
 		home:'https://lebeaucheveu.herokuapp.com/#/home',
 		error:'https://lebeaucheveu.herokuapp.com/#/error'
-	}
+	},
+	location:'//maps.googleapis.com/maps/api/geocode/json'
 };
