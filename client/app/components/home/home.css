@@ -112,7 +112,7 @@
     margin: 0px 0px 0 0;
     font-family: 'Helvetica Neu';
 }*/
-input[type=text]{
+input[name="location-xs"]{
    height: 50px;
    width:268px !important;
    font-family:"Helvetica Neu",Helvetica;

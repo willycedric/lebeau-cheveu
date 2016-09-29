@@ -70,7 +70,7 @@ body {
 #cssmenu,#cssmenu ul,#cssmenu ul li,#cssmenu ul li a,#cssmenu #head-mobile{font-family: 'Helvetica Neu',Helvetica,sans-serif;border:0;list-style:none;line-height:1;display:block;margin:0;position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 #cssmenu:after,#cssmenu > ul:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0}
 #cssmenu #head-mobile{display:none}
-#cssmenu ul{ width:100%;right:-600px;}
+#cssmenu ul{ width:100%;right:-500px;}
 #cssmenu{font-family:Circular,"Helvetica Neu",Helvetica,cursive,sans-serif;background:#fff;padding:4px;text-align: center;padding-bottom: 0;box-shadow: 2px 2px 5px #888888;}
 
 #cssmenu > ul > li{float:left;}

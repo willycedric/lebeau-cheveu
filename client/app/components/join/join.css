@@ -1,0 +1,10 @@
+.section {
+	dispplay:block;
+}
+
+
+@media screen and (min-width: 1300px){
+	.banner .next-section{
+		margin-top: 250px;
+	}
+}

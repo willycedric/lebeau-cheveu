@@ -19,6 +19,7 @@ import {admin} from './components/admin/admin';
 import {error} from './components/error/error';
 import {cart} from './components/cart/cart';
 import {forgot} from './components/forgot/forgot';
+import {join} from './components/join/join';
 import {shared} from './shared/shared';
 
 angular.module('app', [
@@ -36,6 +37,7 @@ angular.module('app', [
   hairdresser.name,
   error.name,
   cart.name,
-  forgot.name
+  forgot.name,
+  join.name
   ])
 .directive('app', appDirective);
