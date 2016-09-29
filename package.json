@@ -16,6 +16,7 @@
     "angular-ui-router": "^0.2.15",
     "bootstrap": "^3.3.6",
     "cloudinary": "^1.4.1",
+    "slideout": "^0.1.12",
     "exceljs": "*",
     "gulp": "^3.9.1",
     "jeet": "^6.1.2",
