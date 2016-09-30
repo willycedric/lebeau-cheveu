@@ -4,7 +4,7 @@ import images from '../../../../images.json';
 
 class HomeController {
   constructor(Location,$stateParams,AuthToken,$rootScope,Auth) {
-  	this.url ="http://res.cloudinary.com/hgtagghpz/image/upload/v1469680583/ad9thuvcppgddha4myrp.jpg";
+  	this.url ="http://res.cloudinary.com/hgtagghpz/image/upload/v1475226327/banner10_fdlxry.jpg";
   	this.nbImages = 3;//images.length;
   		//labels
 	 this.labels=labels;
