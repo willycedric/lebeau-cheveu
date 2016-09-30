@@ -1,0 +1,22 @@
+.showhairdresserprofile{
+	margin-top:50px;
+}
+
+.showhairdresserprofile .content-widget{
+   min-height: 0em;
+    border: none;
+    background-color: #fafafa; /*rgba(238,238,238,0.50);*/
+    padding: 10px;
+    margin:10px;
+    width:100%;
+    vertical-align: middle;
+    -ms-word-break: break-all;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-size: 1em;
+    font-family: Helvetica;
+    -moz-box-shadow: 0px 4px 4px -4px #888;
+    -webkit-box-shadow: 0px 4px 4px -4px #888;
+    box-shadow: 0px 4px 4px -4px #888;
+}

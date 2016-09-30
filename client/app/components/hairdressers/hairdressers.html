@@ -1,0 +1,11 @@
+<section class="hairdressers">
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-sm-4 col-xs-6" ng-repeat="hairdresser in vm.hairdressers">
+				<hairdresser-card  url = {{vm.url}} id={{hairdresser._id}} description= {{hairdresser.userName}}></hairdresser-card>
+			</div>
+		</div><!-- .row -->
+	</div> <!-- .container -->
+</section>

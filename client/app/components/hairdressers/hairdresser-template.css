@@ -1,0 +1,59 @@
+
+/*linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),*/
+.hairdressers .card {
+  height: 250px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  background-size: cover !important;
+  color: white;
+  position: relative;
+  text-align: center;
+}
+.hairdressers .card-category {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.hairdressers .card-description {
+  position: absolute;
+  bottom: 10px;
+ /* left: 10px;*/
+}
+.hairdressers .card-description h2 {
+  font-size: 24px;
+}
+.hairdressers .card-description p {
+  font-size: 13px;
+  }
+.hairdressers .card-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index:2;
+  background: black;
+  opacity: 0;
+}
+.hairdressers .card-link:hover{
+  opacity: 0.1;
+}
+.hairdressers .content-widget{
+   min-height: 0em;
+    border: none;
+    background-color: #f7f7fa; /*rgba(238,238,238,0.50);*/
+    padding: 10px;
+    margin:10px;
+    width:100%;
+    vertical-align: middle;
+    -ms-word-break: break-all;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-size: 1em;
+    font-family: Helvetica;
+    -moz-box-shadow: 0px 4px 4px -4px #888;
+    -webkit-box-shadow: 0px 4px 4px -4px #888;
+    box-shadow: 0px 4px 4px -4px #888;
+}
