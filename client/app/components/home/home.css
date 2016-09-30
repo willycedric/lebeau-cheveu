@@ -238,6 +238,9 @@ input[name="location-xs"]{
   background: #790303;
   transition: background 0.3s ease;
 }
+.home a, .home a:hover,.home a:active,.home a:focus{
+  text-decoration: none;
+}
 
 .home .btn-lbc:hover, .home .btn-search-lbc:hover{
   opacity: 1;
@@ -249,23 +252,11 @@ input[name="location-xs"]{
   position:absolute;
   z-index:12;
  /* top:50%;*/
+ /*bottom:0;*/
   left:0;
   width:100%;
   text-align:center;
 }
- /*input[type=text]{
-   height: auto;
-   width:100%;
-   font-family:"Helvetica Neu",Helvetica;
-    padding: 19.5px 0 19.5px 48px;
-    border: solid 0px transparent;
-    outline: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    margin:-1px;
-}*/
-
 
 
 .home .btn{
@@ -355,3 +346,4 @@ input[name="location-xs"]{
     background-color: #fff;
     outline: 0;
 }
+

@@ -159,6 +159,29 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
       return deferred.promise;
  };
 
+const getAllHairdressers = () =>{
+  var deferred = $q.defer();
+  $http.get(apiUrl+'/api/users/hairdressers')
+  .then(function getAllHairdressersSuccessCallback (response){
+      deferred.resolve(response.data);
+  }, function getAllHairdressersFailureCallback(err){
+      deferred.reject(err);
+  });
+  return deferred.promise;
+};
+
+const getHairdresserById = (id)=>{
+    var deferred = $q.defer();
+    $http.get(apiUrl+'/api/users/hairdressers'+'/'+id)
+    .then(function getHairdresserByIdSuccessCallback(response){
+        deferred.resolve(response.data);
+    },function getHairdresserByIdFailureCallback(err){
+      deferred.reject(err);
+    });
+    return deferred.promise;
+
+}
+
 	return {
 		login,
 		getUserInfo,
@@ -169,7 +192,9 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
     updatePassword,
     getProfile,
     isUsernameAvailable,
-    isUsernameExist
+    isUsernameExist,
+    getAllHairdressers,
+    getHairdresserById
 	};
 	
 };

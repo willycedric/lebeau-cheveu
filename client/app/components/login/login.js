@@ -17,7 +17,8 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
   		require:'ngModel',
   		restrict:'A',
   		link:function(scope,element,attrs,ngModel){
-  			var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  			//var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var re=/^[a-z]$/;
   			ngModel.$validators.email = (value)=>{
   				return !value || re.test(value);
   			};

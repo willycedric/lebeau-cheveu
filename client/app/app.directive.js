@@ -13,12 +13,12 @@ export const appDirective = ()=> {
     restrict: 'E',
     scope: {},
     link: function(scope, elt, atts){
-    	$(elt).find('#cssmenu').menumaker({
-   			format: "multitoggle",
-        element:elt
-		});   
-      $(elt).find('#menu').hide();
-      $(elt).find('.toggle-button').hide();     
+      	$(elt).find('#cssmenu').menumaker({
+     			format: "multitoggle",
+          element:elt
+  		});   
+        $(elt).find('#menu').hide();
+        $(elt).find('.toggle-button').hide();
     },
     replace: true
   };
