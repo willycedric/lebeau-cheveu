@@ -7,6 +7,12 @@
   color: white;
   position: relative;
   text-align: center;
+  transform:scale(0.9);
+  transition: all .2s ease-in-out;
+ 
+}
+.hairdressers .card:hover{
+  transform: scale(1);
 }
 .hairdressers .card-category {
   position: absolute;

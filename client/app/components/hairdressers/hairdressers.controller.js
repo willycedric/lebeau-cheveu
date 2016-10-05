@@ -2,14 +2,29 @@ class HairdressersController {
   constructor(Auth,$scope) {
     //this.url = "http://res.cloudinary.com/hgtagghpz/image/upload/v1475178147/placeholder_uavhxj.png";
   	$scope.this = this;
-   Auth.getAllHairdressers()
+    $scope.this.hairdresserList=new Array();
+
+   Auth.getAllHairdressers(0)
    .then(function HairdressersControllerSuccessCallback (response){
-   		//console.log(response);
-   		$scope.this.hairdressers = response;
-      //console.log($scope.this.hairdressers[0]._id);
+      response.map((hairdresser)=>{
+          $scope.this.hairdresserList.push(hairdresser);
+      });    
    }, function HairdressersControllerFailureCallback (err){
    		console.error(err);
    });
+
+   this.loadMore = () =>{
+    var numberOfAlreadyDisplayed = $scope.this.hairdresserList.length;
+
+     Auth.getAllHairdressers(numberOfAlreadyDisplayed)
+       .then(function HairdressersControllerSuccessCallback (response){
+         response.map((hairdresser)=>{
+            $scope.this.hairdresserList.push(hairdresser);
+        });
+       }, function HairdressersControllerFailureCallback (err){
+          console.error(err);
+       });
+   };
   
   }//end constructor
 

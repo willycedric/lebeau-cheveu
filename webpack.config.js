@@ -15,7 +15,8 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.html$/, loader: 'raw' },
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
+       { test: /\.css$/, loader: 'style-loader!css-loader' },
+      { test: /\.scss$/,loaders: ["style", "css", "sass"]},
       { test: /\.(woff|woff2|eot|ttf|svg)$/, loader:'url'},
       { test: /\.(png|jpg|jpeg)$/, loader: 'file' },
       { test: /\.xml$/, loader: 'xml-loader' },
@@ -26,5 +27,8 @@ module.exports = {
 
   stylus: {
     use: [require('jeet')(), require('rupture')()]
+  },
+  sassLoader: {
+    includePaths: [require('path').resolve(__dirname, "./client/style/sass")]
   }
 };

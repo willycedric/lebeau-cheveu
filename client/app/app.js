@@ -22,6 +22,8 @@ import {forgot} from './components/forgot/forgot';
 import {join} from './components/join/join';
 import {hairdressers} from './components/hairdressers/hairdressers';
 import {showhairdresserprofile} from './components/showhairdresserprofile/showhairdresserprofile';
+import {hairdresserLogbookDirective} from './components/hairdresserLogbook/hairdresserLogbook.directive';
+import {hairdresserProfileCardDirective} from './components/hairdresserProfileCard/hairdresserProfileCard.directive';
 import {shared} from './shared/shared';
 
 angular.module('app', [
@@ -44,4 +46,6 @@ angular.module('app', [
   hairdressers.name,
   showhairdresserprofile.name
   ])
-.directive('app', appDirective);
+.directive('app', appDirective)
+.directive('hairdresserLogbook',hairdresserLogbookDirective)
+.directive('hairdresserProfileCard',hairdresserProfileCardDirective);

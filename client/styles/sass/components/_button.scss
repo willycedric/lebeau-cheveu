@@ -1,0 +1,12 @@
+@import "../helpers/mixin";
+
+.button-default-lbc{
+ 	&:hover{
+ 		color:white;
+ 		opacity: 1;
+	    background: #a94442;
+ 	}
+ 	&:hover,&:active,&:focus{
+ 		 text-decoration: none;
+ 	}
+}

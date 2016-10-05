@@ -1,11 +1,15 @@
 <section class="hairdressers">
 	<div class="container">
-
 		<div class="row">
-
-			<div class="col-sm-4 col-xs-6" ng-repeat="hairdresser in vm.hairdressers">
+			<div class="col-sm-4 col-xs-6" ng-repeat="hairdresser in vm.hairdresserList">
 				<hairdresser-card  url = {{vm.url}} id={{hairdresser._id}} description= {{hairdresser.userName}}></hairdresser-card>
 			</div>
 		</div><!-- .row -->
+	
 	</div> <!-- .container -->
+	<div classs="row">
+		<div style="margin-top:10px;margin-bottom:10px" class="col-sm-offset-4 col-lg-offset-4 col-lg-6 col-sm-4 col-xs-12">
+			<a ng-click="vm.loadMore()" class="btn-lbc">Plus de coiffeuses</a>
+		</div>
+	</div>
 </section>

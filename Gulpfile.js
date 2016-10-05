@@ -15,14 +15,15 @@ map of paths for using with the tasks below
  */
 var paths = {
   entry: 'client/app/app.js',
-  app: ['client/app/**/*.{js,css,html}', 'client/styles/**/*.css'],
+  app: ['client/app/**/*.{js,css,html,scss}', 'client/styles/**/*.css','client/styles/sass/**/*.{scss,css}'],
   js: 'client/app/**/*!(.spec.js).js',
   styl: ['client/app/**/*.css', 'client/style/**/*.css'],
   toCopy: ['client/index.html'],
   uiTemplate:['client/app/**/*.template.html'],
   html: ['client/index.html', 'client/app/**/*.html'],
   dest: 'dist',
-  blankTemplates: 'templates/component/*.**'
+  blankTemplates: 'templates/component/*.**',
+  customDirectiveTempaltes:'templates/directive/*.**'
 };
 
 // helper funciton
@@ -30,6 +31,7 @@ var resolveToComponents = function(glob){
   glob = glob || '';
   return path.join('client', 'app/components', glob); // app/components/{glob}
 };
+
 //parse all files to find TODO instructions and then
 //log them to the console
 gulp.task('todo', function() {
@@ -148,7 +150,30 @@ gulp.task('component', function(){
     }))
     .pipe(gulp.dest(destPath));
 });
+/**
+ * Create a custom angular directive template
+ * @param  {[type]} ){                  var    cap            [description]
+ * @param  {[type]} name);               return gulp.src(path. customDirectiveTempaltes)      .pipe(tpl({        name:name,        upCaseName:cap(name)      }))      .pipe(rename(function(path){        path.basename [description]
+ * @return {[type]}        [description]
+ */
+gulp.task('directive', function(){
+  var cap = function(val){
+    return val.charAt(0).toUpperCase() +val.slice(1);
+  };
+  var name = yargs.name;
+  var parentPath = yargs.parent || '';
+  var destPath = path.join(resolveToComponents()+parentPath,name);
 
+  return gulp.src(paths.customDirectiveTempaltes)
+      .pipe(tpl({
+        name:name,
+        upCaseName:cap(name)
+      }))
+      .pipe(rename(function(path){
+        path.basename = path.basename.replace('component',name);
+      }))
+      .pipe(gulp.dest(destPath));
+});
 gulp.task('default', function(done) {
-  sync('build', 'copy', 'templateCopy','serve', 'watch', done)
+  sync('build', 'copy','serve', 'watch', done)
 });

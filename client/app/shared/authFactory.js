@@ -159,9 +159,9 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
       return deferred.promise;
  };
 
-const getAllHairdressers = () =>{
+const getAllHairdressers = (alreadyDisplayed) =>{
   var deferred = $q.defer();
-  $http.get(apiUrl+'/api/users/hairdressers')
+  $http.get(apiUrl+'/api/users/hairdressers?alreadyDisplayed='+alreadyDisplayed.toString())
   .then(function getAllHairdressersSuccessCallback (response){
       deferred.resolve(response.data);
   }, function getAllHairdressersFailureCallback(err){

@@ -9,6 +9,7 @@ import simpleCard from './simple-card.html';
 import cardWithUser from './card-with-user.html';
 import './simple-card.css';
 import $ from 'jquery';
+import './home.scss';
 
 export const home = angular.module('home', [uiRouter,carousel,datepickerPopup])
   .config(($stateProvider,$urlRouterProvider) => {

@@ -1,0 +1,6 @@
+@import "../../styles/sass/main";
+
+.button-default-lbc{
+	@include button-lbc;
+	margin-left:22%;
+}

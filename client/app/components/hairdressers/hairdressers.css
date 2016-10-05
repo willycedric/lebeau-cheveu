@@ -1,3 +1,22 @@
+.hairdressers{
+	margin-top:20px;
+}
+.hairdressers .btn-lbc {
+  color: white;
+  margin-left:22%;
+  padding: 12px 35px;
+  border-radius: 4px;
+  font-weight: bold;
+  background: #790303;
+  transition: background 0.3s ease;
+}
+.hairdressers .btn-lbc:hover, .home .btn-search-lbc:hover{
+  opacity: 1;
+  background: #a94442;
+  text-decoration: none;
+  color: white;
+  cursor:pointer;
+}
 
 @media screen and (min-width: 1300px){
 	.hairdressers .card{

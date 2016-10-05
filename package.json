@@ -1,7 +1,7 @@
 {
   "name": "le-beaucheveu-web-app",
   "version": "1.0.0",
-  "description": "",
+  "description": " hairdressers web app",
   "main": "index.js",
   "scripts": {
     "start": "gulp",
@@ -51,8 +51,10 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.2.5",
     "node-libs-browser": "^0.5.2",
+    "node-sass": "^3.10.1",
     "raw-loader": "^0.5.1",
     "run-sequence": "^1.1.1",
+    "sass-loader": "^4.0.2",
     "style-loader": "^0.12.3",
     "stylus-loader": "^1.2.1",
     "url-loader": "^0.5.7",

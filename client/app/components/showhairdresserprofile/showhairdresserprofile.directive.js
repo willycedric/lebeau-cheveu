@@ -1,4 +1,5 @@
 import './showhairdresserprofile.css';
+import './showhairdresserprofile.scss';
 import {ShowhairdresserprofileController as controller} from './showhairdresserprofile.controller';
 import template from './showhairdresserprofile.html';
 import $ from 'jquery';
@@ -11,7 +12,6 @@ export const showhairdresserprofileDirective = ()=> {
 	 	restrict:'E',
 	 	scope:{},
 	 	link: function(scope, elt, atts){
-         	//location.hash="#/showhairdresserprofile/";
    		 },
 	 	replace:true,
 	 	data: { transition: 'slide-in'}
