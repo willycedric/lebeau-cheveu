@@ -17,7 +17,37 @@ export const home = angular.module('home', [uiRouter,carousel,datepickerPopup])
       url: '/home/:token',
       template: '<home></home>'
     })
-  })  
+  .state('home.login',{
+      url:'/login',
+      onEnter:function($uibModal,$state){
+        var $ctrl = this;
+        $ctrl.items = ['item1', 'item2', 'item3'];
+        $ctrl.animationsEnabled = true;
+        var modalInstance = $uibModal.open({
+        animation: $ctrl.animationsEnabled,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        template: '<login></login>',
+        controller: 'ModalInstanceCtrl',
+        controllerAs: 'vm',
+        size: 'lg',
+        resolve: {
+          items: function () {
+            return $ctrl.items;
+          }
+        }
+      });
+      modalInstance.result.then(function (selectedItem) {
+        $ctrl.selected = selectedItem;
+        $state.go('^');
+      }, function () {
+        console.log('Modal dismissed at: ' + new Date());
+        $state.go('^');
+      });
+
+      }//end On enter
+    })
+  })
   .directive('home',homeDirective)
   .directive('simpleCard', ()=>{
     return{

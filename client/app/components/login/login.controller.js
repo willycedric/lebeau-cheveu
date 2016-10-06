@@ -21,7 +21,7 @@ class LoginController {
      * @return {[type]}      [Form object used for validation purpose]
      */
    self.login = (data,loginForm)=>{
-      //console.log('User data ', JSON.stringify(data));
+      console.log('User data ', JSON.stringify(data));
       //The form must be valid in order to be send to the API
       if(loginForm.$valid){
         //console.log('email ', loginForm.email);

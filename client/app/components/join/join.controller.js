@@ -18,7 +18,7 @@ class JoinController {
       templateUrl: 'join.html',
       controller: 'ModalInstanceCtrl',
       controllerAs: 'vm',
-      size: 'lg',
+      size: 'sm',
       resolve: {
         items: function () {
           return $ctrl.items;
