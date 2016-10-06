@@ -3,7 +3,7 @@ import uiRouter from 'angular-ui-router';
 import {joinDirective} from './join.directive';
 import bannerHidden from './banner-hidden-xs.html';
 import bannerVisible from './banner-visible-xs.html';
-
+import {ModalInstanceCtrl} from './modalCtrl';
 import './banner.css';
 
 export const join = angular.module('join', [uiRouter])
@@ -13,6 +13,7 @@ export const join = angular.module('join', [uiRouter])
       template: '<join></join>'
     })
   })
+  .controller('ModalInstanceCtrl',ModalInstanceCtrl)
   .directive('join',joinDirective)
   .directive('joinBannerHidden', () =>{
     return{
@@ -21,7 +22,13 @@ export const join = angular.module('join', [uiRouter])
       scope:{
         url:'@',
         user:'@',
-        description:'@'
+        description:'@',
+        loginModal:'&'
+      },
+      link:function(scope,elt, attrs){
+        scope.launch = function(){
+          scope.loginModal()();
+        }
       },
       replace:true,
     };
@@ -33,7 +40,13 @@ export const join = angular.module('join', [uiRouter])
       scope:{
         url:'@',
         user:'@',
-        description:'@'
+        description:'@',
+         loginModal:'&'
+      },
+      link:function(scope,elt,attrs){
+        scope.launch = function(){
+          scope.loginModal()();
+        }
       },
       replace:true,
     };
