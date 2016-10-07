@@ -27,7 +27,7 @@ export const join = angular.module('join', [uiRouter,$uibModal])
         template: '<login></login>',
         controller: 'ModalInstanceCtrl',
         controllerAs: 'vm',
-        size: 'lg',
+        size: 'sm',
         resolve: {
           items: function () {
             return $ctrl.items;

@@ -30,7 +30,7 @@ export const home = angular.module('home', [uiRouter,carousel,datepickerPopup])
         template: '<login></login>',
         controller: 'ModalInstanceCtrl',
         controllerAs: 'vm',
-        size: 'lg',
+        size: 'sm',
         resolve: {
           items: function () {
             return $ctrl.items;
