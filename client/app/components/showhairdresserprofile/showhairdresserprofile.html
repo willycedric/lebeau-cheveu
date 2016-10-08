@@ -3,7 +3,7 @@
   	<div class="container">
   		<div class="row">
 			<div class="col-sm-4 col-lg-3 col-xs-4 ">
-	  			<hairdresser-profile-card url="{{vm.hairdresser.picture}}" name ="{{vm.hairdresser.userName}}" type="{{vm.hairdresser.type}}"></hairdresser-profile-card>
+	  			<hairdresser-profile-card url="{{vm.hairdresser.picture}}" name ="{{vm.hairdresser.userName}}" type="{{vm.hairdresser.customerType | customerTypeFilter}}"></hairdresser-profile-card>
 	  		</div>
 	  		<div class=" col-sm-offset-2 col-lg-offset-3 col-lg-6 col-xs-offset-2 col-sm-6 col-xs-6 description">
 	  			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -24,7 +24,33 @@
   <section id="carousel" class="content-widget">
   </section><!-- carousel -->
   <section id="logbook" class="content-widget">
-  	<hairdresser-logbook data = "{{vm.hairdresser.logbook}}"></hairdresser-logbook>
+  <!-- 	<hairdresser-logbook days = "vm.days" hours = "vm.openingHourList" times = "vm.times"></hairdresser-logbook> -->
+  <div class="container">
+	  <div class="row">
+	        <div id="no-more-tables">
+	            <table class="col-sm-offset-2 col-sm-8 table-bordered table-striped table-condensed cf">               
+	        		<thead class="cf">
+	        			<tr>
+	        				<th class="hearder-label"  >Horaire</th>
+	                        <th class="hearder-label" ng-repeat="d in vm.days">{{d|date :'EEE'}}</th>
+	        			</tr>
+	        		</thead>
+	        		<tbody>
+	        			<tr ng-repeat="t in vm.times[0][0][0].slotType track by $index">
+	                        <td class="cell-hour">{{vm.openingHourList[$index]}}</td>
+	        				<td data-title="Monday" ng-click = "vm.rowClicked(t)" >{{t|displayHairdresserStatut}}</td>
+	        				<td data-title="Tuesday" ng-click="vm.rowClicked(vm.times[1][0][0].slotType[$index])" >{{vm.times[1][0][0].slotType[$index]|displayHairdresserStatut}}</td>
+	        				<td data-title="Wednesday" ng-click="vm.rowClicked(vm.times[2][0][0].slotType[$index])">{{vm.times[2][0][0].slotType[$index]|displayHairdresserStatut}}</td>
+	        				<td data-title="Thursday" ng-click="vm.rowClicked(vm.times[3][0][0].slotType[$index])"  >{{vm.times[3][0][0].slotType[$index]|displayHairdresserStatut}}</td>
+	        				<td data-title="Friday" ng-click="vm.rowClicked(vm.times[4][0][0].slotType[$index])"  >{{vm.times[4][0][0].slotType[$index]|displayHairdresserStatut}}</td>
+	        				<td data-title="Satruday" ng-click="vm.rowClicked(vm.times[5][0][0].slotType[$index])" >{{vm.times[5][0][0].slotType[$index]|displayHairdresserStatut}}</td>
+	        				<td data-title="Sunday" ng-click="vm.rowClicked(vm.times[6][0][0].slotType[$index])"  >{{vm.times[6][0][0].slotType[$index]|displayHairdresserStatut}}</td>
+	        			</tr>                  
+	        		</tbody>
+	        	</table>
+	        </div>
+	    </div> <!-- .row -->
+    </div> <!-- .container -->
   </section>
   <section id="performance-advice" class="content-widget">
   	<div class="container">

@@ -1,0 +1,90 @@
+@mixin button-lbc ($color:white,$radius:4px,$color-background:#790303){
+  color: $color;
+  padding: 12px 35px;
+  border-radius: $radius;
+  font-weight: bold;
+  background: $color-background;
+  transition: background 0.3s ease;
+}
+
+@mixin transition($time){
+  transition: $time;
+  -webkit-transition: $time;
+  -moz-transition: $time;
+  -o-transition: $time;
+}
+
+@mixin transform-style($style){
+   transform-style: $style;
+  -moz-transform-style: $style;
+  -o-transform-style: $style;
+  -ms-transform-style: $style;
+  -webkit-transform-style: $style;
+}
+
+@mixin backface-visibility($visibility:hidden) { //Add an argument
+  backface-visibility: $visibility;
+  -webkit-backface-visibility: $visibility;
+  -moz-backface-visibility: $visibility;
+  -ms-backface-visibility: $visibility;
+  -o-backface-visibility: $visibility;
+}
+
+@mixin stripes($direction, $width-percent, $stripe-color, $stripe-background: #FFF) {
+  background: repeating-linear-gradient(
+    $direction,
+    $stripe-background,
+    $stripe-background ($width-percent - 1),
+    $stripe-color 1%,
+    $stripe-background $width-percent
+  );
+}
+
+@mixin transform($transformation) {
+  transform: $transformation;
+  -webkit-transform: $transformation;
+  -moz-transform: $transformation;
+  -ms-transform: $transformation;
+  -o-transform: $transformation;  
+}
+
+
+@mixin stripes($direction, $width-percent, $stripe-color, $stripe-background: #FFF) {
+  background: repeating-linear-gradient(
+    $direction,
+    $stripe-background,
+    $stripe-background ($width-percent - 1),
+    $stripe-color 1%,
+    $stripe-background $width-percent
+  );
+}
+
+@mixin transform($transformation) {
+  transform: $transformation;
+  -webkit-transform: $transformation;
+  -moz-transform: $transformation;
+  -ms-transform: $transformation;
+  -o-transform: $transformation;  
+}
+
+@mixin photo-content($file) {
+  content: url(#{$file}.jpg); 
+  object-fit: cover;
+}
+
+
+@mixin backface-visibility($visibility:hidden) {
+  backface-visibility: $visibility;
+  -webkit-backface-visibility: $visibility;
+  -moz-backface-visibility: $visibility;
+  -ms-backface-visibility: $visibility;
+  -o-backface-visibility: $visibility;
+}
+
+@mixin transform-style($style){
+   transform-style: $style;
+  -moz-transform-style: $style;
+  -o-transform-style: $style;
+  -ms-transform-style: $style;
+  -webkit-transform-style: $style;
+}
