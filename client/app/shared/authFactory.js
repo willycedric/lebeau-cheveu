@@ -1,5 +1,5 @@
 const authFactory = ($http, $window,$q,API,AuthToken) =>{
-	let userInfo={};
+  let userInfo={};
   let apiUrl=`${API.dev.homeUrl}`;
   /**
    * [register a user with valid informations]
@@ -16,33 +16,33 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
    * @param  {[string]} password [user password]
    
    */
-	const login = (username,password) =>{
-  			var deferred = $q.defer();
-  			$http.post(apiUrl+'/api/users/me',{userName:username,password:password})
-  				.then(function loginSuccessCallBack(response){
-  					if(response.data.status=="ok"){
-  						userInfo={
-  							accessToken:response.data.token,
-  							user:response.data.user
-  						};
+  const login = (username,password) =>{
+        var deferred = $q.defer();
+        $http.post(apiUrl+'/api/users/me',{userName:username,password:password})
+          .then(function loginSuccessCallBack(response){
+            if(response.data.status=="ok"){
+              userInfo={
+                accessToken:response.data.token,
+                user:response.data.user
+              };
               //console.log('Token '+JSON.stringify(AuthToken.parseToken(AuthToken.getToken())));
-  						deferred.resolve(userInfo);
-  					}else{
-  						deferred.reject(new Error("There are some issues with user login"));
-  					}
-  				}, function loginFailureCallBack(err){
-  						deferred.reject(err);
-  				});
-			return deferred.promise;
-	};
+              deferred.resolve(userInfo);
+            }else{
+              deferred.reject(new Error("There are some issues with user login"));
+            }
+          }, function loginFailureCallBack(err){
+              deferred.reject(err);
+          });
+      return deferred.promise;
+  };
  
 
   /**
    * [logout the connected user]
    */
-	const logout = () =>{
+  const logout = () =>{
     var deferred = $q.defer();
-		$http({ 
+    $http({ 
                 url:apiUrl+'/api/users/logout',
                 method:'GET',
             })
@@ -57,20 +57,20 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
               }else{
                 deferred.reject(new Error("There are some issues with user logout"));
               }
-            	
+              
             },function logoutErrorCallback (err){
                deferred.reject(err);
             });
             return deferred.promise;
 
-	};
+  };
   /**
    * [Test function used to see if the connected user can retrieve his informations from the remote server ]
    * @return {[type]} [description]
    */
-	const getUserInfo = ()=>{
-		return userInfo;
-	};
+  const getUserInfo = ()=>{
+    return userInfo;
+  };
 
   const passwordForgot = (email)=>{
     var deferred = $q.defer();
@@ -159,9 +159,9 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
       return deferred.promise;
  };
 
-const getAllHairdressers = () =>{
+const getAllHairdressers = (alreadyDisplayed) =>{
   var deferred = $q.defer();
-  $http.get(apiUrl+'/api/users/hairdressers')
+  $http.get(apiUrl+'/api/users/hairdressers?alreadyDisplayed='+alreadyDisplayed.toString())
   .then(function getAllHairdressersSuccessCallback (response){
       deferred.resolve(response.data);
   }, function getAllHairdressersFailureCallback(err){
@@ -182,10 +182,10 @@ const getHairdresserById = (id)=>{
 
 }
 
-	return {
-		login,
-		getUserInfo,
-		logout,
+  return {
+    login,
+    getUserInfo,
+    logout,
     register,
     passwordForgot,
     resetPassword,
@@ -195,8 +195,8 @@ const getHairdresserById = (id)=>{
     isUsernameExist,
     getAllHairdressers,
     getHairdresserById
-	};
-	
+  };
+  
 };
 
 authFactory.$inject = ['$http','$window','$q','API','AuthToken'];
