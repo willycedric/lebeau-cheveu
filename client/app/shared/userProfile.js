@@ -1,8 +1,11 @@
 const UserProfile = (Auth) => {
 	let userProfile = {};
-
+	/**
+	 * [description]
+	 * @return {[type]} [description]
+	 */
 	const fetchUserProfile = () =>{
-		return Auth.getProfile().then(function fetchUserProfileSuccessCallback(data){
+		return Auth.getProfile('/api/users/me').then(function fetchUserProfileSuccessCallback(data){
 			//Making sure that the userProfile is always empty.
 			for (var prop in userProfile){
 				if(userProfile.hasOwnProperty(prop)){

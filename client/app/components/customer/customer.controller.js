@@ -14,7 +14,7 @@ class CustomerController {
      */	
 	 refreshCustomerProfile (self,token){
 	    		if(token){  
-	    			this.Auth.getProfile()
+	    			this.Auth.getProfile('/api/users/me')
 		    		.then(function customerControllerGetProfileSuccess (data){		    			
 		    			self.lastName= data.lastName;		    			
 		    			self.firstName=data.firstName;

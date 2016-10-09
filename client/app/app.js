@@ -45,3 +45,4 @@ angular.module('app', [
   showhairdresserprofile.name
   ])
 .directive('app', appDirective);
+

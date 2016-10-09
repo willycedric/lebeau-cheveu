@@ -9,7 +9,7 @@ class ForgotController {
      * @param  {[user.email]} user.email [user's email]
      */
     this.passwordReset =(user)=>{
-    	Auth.passwordForgot(user.email)
+    	Auth.passwordForgot('/api/users/forgot',user.email)
     	.then( function forgotControllerSuccessCallbalck(response){
     			console.log(response)
     	}, function forgotControllerErrorCallbalck(err){
@@ -22,7 +22,7 @@ class ForgotController {
 
       if(user.password === user.passwordConfirmation){
         user.passwordToken=$stateParams.token;
-         Auth.updatePassword(user)
+         Auth.updatePassword('/api/users/updatePassword',user)
         .then(function updatePasswordControllerSuccessCallback(response){
             console.log(response.data.message);
         },function updatePasswordControllerFailureCallback(err){
@@ -39,7 +39,7 @@ class ForgotController {
      * @param  {[string]} token [reset token generate by the server]
      */
     this.resetPassword = (token,vm) =>{
-      Auth.resetPassword(token)
+      Auth.resetPassword('/api/users/reset',token)
       .then(function resetPasswordControllerSuccessCallback(response){
           if(response.data.error){
               vm.isError=true;

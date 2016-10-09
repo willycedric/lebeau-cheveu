@@ -1,4 +1,4 @@
-const authFactory = ($http, $window,$q,API,AuthToken) =>{
+const authFactory = ($http, $window,$q,API,AuthToken,$log) =>{
   let userInfo={};
   let apiUrl=`${API.dev.homeUrl}`;
   /**
@@ -6,8 +6,8 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
    * @param  {[user's object]} user [user'email and password]
    * @return {[http promise]}      [http promise which will be resolved in the user profile controller]
    */
-  const register = (user)=>{
-    return $http.post(apiUrl+'/api/users',user);
+  const register = (route,user)=>{
+    return $http.post(apiUrl+route,user);
   }
 
   /**
@@ -16,9 +16,9 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
    * @param  {[string]} password [user password]
    
    */
-  const login = (username,password) =>{
+  const login = (route,username,password) =>{
         var deferred = $q.defer();
-        $http.post(apiUrl+'/api/users/me',{userName:username,password:password})
+        $http.post(apiUrl+route,{username:username,password:password})
           .then(function loginSuccessCallBack(response){
             if(response.data.status=="ok"){
               userInfo={
@@ -40,10 +40,10 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
   /**
    * [logout the connected user]
    */
-  const logout = () =>{
+  const logout = (route) =>{
     var deferred = $q.defer();
     $http({ 
-                url:apiUrl+'/api/users/logout',
+                url:apiUrl+route,
                 method:'GET',
             })
             .then( function logoutSuccessCallback(response){
@@ -72,9 +72,9 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
     return userInfo;
   };
 
-  const passwordForgot = (email)=>{
+  const passwordForgot = (route,email)=>{
     var deferred = $q.defer();
-    $http.post(apiUrl+'/api/users/forgot',{email:email})
+    $http.post(apiUrl+route,{email:email})
             .then(function forgotSuccessCallback(response){
                 deferred.resolve(response);
             }, function forgotErrorCallback(err){
@@ -83,9 +83,9 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
             return deferred.promise;
   };
 
-  const resetPassword = (token) =>{
+  const resetPassword = (route,token) =>{
     var deferred = $q.defer();
-    $http.post(apiUrl+'/api/users/reset',{token:token})
+    $http.post(apiUrl+route,{token:token})
     .then(function resetPasswordSuccessCallback(response){
         deferred.resolve(response);
     }, function resetPasswordFailureCallback(err){
@@ -94,10 +94,10 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
     return deferred.promise;
   };
 
-  const updatePassword = (user)=>{
+  const updatePassword = (route,user)=>{
     console.log(JSON.stringify(user));
     var deferred = $q.defer();
-    $http.post(apiUrl+'/api/users/updatePassword',{token:user.passwordToken,password:user.password})
+    $http.post(apiUrl+route,{token:user.passwordToken,password:user.password})
     .then(function updatePasswordSuccessCallback(response){
           deferred.resolve(response);
     },function updatePasswordFailureCallback(err){
@@ -109,9 +109,9 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
    * [Get the profile information of the connected user]
    * @return {User} [Object with the connected user's information]
    */
-  const getProfile = () =>{
+  const getProfile = (route) =>{
     var deferred = $q.defer();
-    $http.get(apiUrl+'/api/users/me')
+    $http.get(apiUrl+route)
     .then(function getProfileSuccessCallback(response){
         deferred.resolve(response.data);
     }, function getProfileErrorCallback(err){
@@ -125,9 +125,9 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
    * @param  {[String]} username [username entered]
    * @return {[boolean]}          [available or not]
    */
- const isUsernameAvailable = (username)=>{
+ const isUsernameAvailable = (route,username)=>{
     var deferred =$q.defer();
-    $http.post(apiUrl+'/api/users/isAvailable',{username:username})
+    $http.post(apiUrl+route,{username:username})
       .then(function isUsernameAvailableSuccessCallback(response){
         if(response.data.isAvailable){
              deferred.resolve()
@@ -144,9 +144,10 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
    * @param  {[String]} username [username entered]
    * @return {[boolean]}          [available or not]
  */
- const isUsernameExist = (username)=>{
+ const isUsernameExist = (route,username)=>{
+  $log.debug(route);
     var deferred =$q.defer();
-    $http.post(apiUrl+'/api/users/isAvailable',{username:username})
+    $http.post(apiUrl+route,{username:username})
       .then(function isUsernameAvailableSuccessCallback(response){
         if(response.data.isAvailable){
              deferred.reject()
@@ -159,9 +160,9 @@ const authFactory = ($http, $window,$q,API,AuthToken) =>{
       return deferred.promise;
  };
 
-const getAllHairdressers = (alreadyDisplayed) =>{
+const getAllHairdressers = (route,alreadyDisplayed) =>{
   var deferred = $q.defer();
-  $http.get(apiUrl+'/api/users/hairdressers?alreadyDisplayed='+alreadyDisplayed.toString())
+  $http.get(apiUrl+route+'/hairdressers?alreadyDisplayed='+alreadyDisplayed.toString())
   .then(function getAllHairdressersSuccessCallback (response){
       deferred.resolve(response.data);
   }, function getAllHairdressersFailureCallback(err){
@@ -199,6 +200,6 @@ const getHairdresserById = (id)=>{
   
 };
 
-authFactory.$inject = ['$http','$window','$q','API','AuthToken'];
+authFactory.$inject = ['$http','$window','$q','API','AuthToken','$log'];
 
 export {authFactory};

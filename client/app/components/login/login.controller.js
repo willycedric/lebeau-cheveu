@@ -1,5 +1,5 @@
 class LoginController {
-  constructor($http,API,$window,$q,Auth,$state,$rootScope,$scope) {
+  constructor($http,API,$window,$q,Auth,$state,$rootScope,$scope,$log) {
     var self = this;
 
     //facebook authentication route
@@ -14,25 +14,35 @@ class LoginController {
         self.isSuccessfullRegistration=true;
       }
     });
-
+     self.test ="test data";
+     $log.debug(self.test);
     /**
      * [Allow user to login with local credentials]
      * @param  {[type]} data [User's required information for login]
      * @return {[type]}      [Form object used for validation purpose]
      */
-   self.login = (data,loginForm)=>{
-      console.log('User data ', JSON.stringify(data));
+   self.login = (data,loginForm,role)=>{
+      $log.debug('User data ', JSON.stringify(data));
       //The form must be valid in order to be send to the API
       if(loginForm.$valid){
-        //console.log('email ', loginForm.email);
-        //$state.go('login',null,{reload:true});
-        Auth.login(data.userName,data.password)
+        if(role == 2){//hairdresser login
+          Auth.login(`${API.dev.customerRoute}`+'/me',data.username,data.password)
               .then(function loginControllerSuccess(data){
                   $rootScope.$broadcast('connectionStatechanged',{data:data.user});
                   //$state.go('home',null,{reload:true});   
               },function loginControllerError(err){
                   //console.error(err);
               }); 
+            }else{//hairdresser login
+              Auth.login(`${API.dev.hairdresserRoute}`+'/me',data.username,data.password)
+              .then(function loginControllerSuccess(data){
+                  $rootScope.$broadcast('connectionStatechanged',{data:data.user});
+                  //$state.go('home',null,{reload:true});   
+              },function loginControllerError(err){
+                  //console.error(err);
+              }); 
+            }
+        
       }else{
         console.error('The login form is not valid');
       }    	       
@@ -44,16 +54,28 @@ class LoginController {
      * 
      */
     self.register = (user, registerForm)=>{
+            $log.debug(JSON.stringify(user));
             if(registerForm.$valid){ 
-                Auth.register(user)
+              if(user.role == 2){ //customers registration
+                Auth.register(`${API.dev.customerRoute}`,user)
                       .then(function registerSuccessCallback(response){
                           if(response.status===200){
                             console.log('User is successfully registered');
                           }
                       },function registerFailureCallback(err){
                           //console.error(err);
-                      }); //End Auth factory
-            }
+                      }); //End Auth factory*/
+              }else{ //hairdressers registration
+                Auth.register(`${API.dev.hairdresserRoute}`,user)
+                      .then(function registerSuccessCallback(response){
+                          if(response.status===200){
+                            console.log('User is successfully registered');
+                          }
+                      },function registerFailureCallback(err){
+                          //console.error(err);
+                      }); //End Auth factory*/
+              }
+            }//end if
             
     };
 
@@ -79,7 +101,7 @@ class LoginController {
 
 }
 
-LoginController.$inject = ['$http','API','$window','$q','Auth','$state','$rootScope','$scope'];
+LoginController.$inject = ['$http','API','$window','$q','Auth','$state','$rootScope','$scope','$log'];
 
 export {LoginController};
 

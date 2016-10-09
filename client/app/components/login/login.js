@@ -3,7 +3,6 @@ import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 import {loginDirective} from './login.directive';
 
-
 export const login = angular.module('login', [uiRouter,ngAnimate])
   .config(($stateProvider) => {
     $stateProvider.state('login', {
@@ -29,12 +28,15 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
         $ctrl.selected = selectedItem;
         $state.go('^');
       }, function () {
-        console.log('Modal dismissed at: ' + new Date());
+        $log.debug('Modal dismissed at: ' + new Date());
         $state.go('^');
       });
 
       }//end On enter
     })
+  })
+  .config(($logProvider)=> {
+    $logProvider.debugEnabled(true);
   })
   .directive('login',loginDirective)
   .directive('emailValidator', ()=>{ //mail validator directive
@@ -68,38 +70,59 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
   		}
   	};
   })
-  .directive('usernameValidator', ($q,Auth)=>{//unique username validator on registration
+  .directive('usernameValidator', ($q,Auth,API,$log)=>{//unique username validator on registration
   		return {
   			require:'ngModel',
   			restrict:'A',
   			link:function(scope,element,attrs,ngModel){
-  				ngModel.$asyncValidators.uniqueusername = (value)=>{
-  						if(ngModel.$isEmpty(value)){
-  							return $q.when();
-  						}
-  						var deferred = $q.defer();
-  						Auth.isUsernameAvailable(value)
-  						.then(function isUserNameAvailabcleValidatorSuccess (response){
-  							deferred.resolve();
-  						},function isUserNameAvailableValidatorFailure(err){
-  							deferred.reject(err);
-  						});
-  						return deferred.promise;
-  				};
+
+          if(attrs.actor === "customer"){
+              ngModel.$asyncValidators.uniqueusername = (value)=>{
+                if(ngModel.$isEmpty(value)){
+                  return $q.when();
+                }
+                var deferred = $q.defer();
+                Auth.isUsernameAvailable(API.dev.customerRoute+'/isAvailable',value)
+                .then(function isUserNameAvailabcleValidatorSuccess (response){
+                  deferred.resolve();
+                },function isUserNameAvailableValidatorFailure(err){
+                  deferred.reject(err);
+                });
+                return deferred.promise;
+            };
+          }else if(attrs.actor === "hairdresser"){
+              ngModel.$asyncValidators.uniqueusername = (value)=>{
+                if(ngModel.$isEmpty(value)){
+                  return $q.when();
+                }
+                var deferred = $q.defer();
+                Auth.isUsernameAvailable(API.dev.hairdresserRoute+'/isAvailable',value)
+                .then(function isUserNameAvailabcleValidatorSuccess (response){
+                  deferred.resolve();
+                },function isUserNameAvailableValidatorFailure(err){
+                  deferred.reject(err);
+                });
+                return deferred.promise;
+            };
+          }else{
+            $log.error("unique username validator no actor defined")
+          }
+  				
   			}
   		};
   })
-.directive('usernameExistence', ($q, Auth)=>{ //existence of the username on login
+.directive('usernameExistence', ($q, Auth,API,$log)=>{ //existence of the username on login
     return {
       require:'ngModel',
       restrict:'A',
       link:function(scope,element,attrs,ngModel){
-           ngModel.$asyncValidators.existusername = (value)=>{
+          if(attrs.actor ==="customer"){
+            ngModel.$asyncValidators.existusername = (value)=>{
             if(ngModel.$isEmpty(value)){
               return $q.when();
             }
             var deferred = $q.defer();
-            Auth.isUsernameExist(value)
+            Auth.isUsernameExist(`${API.dev.customerRoute}`+'/isAvailable',value)
             .then(function isUserNameAvailabcleValidatorSuccess (response){
               deferred.resolve();
             },function isUserNameAvailableValidatorFailure(err){
@@ -107,6 +130,24 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
             });
             return deferred.promise;           
           };
+        }else if(attrs.actor=="hairdresser"){
+          ngModel.$asyncValidators.existusername = (value)=>{
+            if(ngModel.$isEmpty(value)){
+              return $q.when();
+            }
+            var deferred = $q.defer();
+            Auth.isUsernameExist(`${API.dev.hairdresserRoute}`+'/isAvailable',value)
+            .then(function isUserNameAvailabcleValidatorSuccess (response){
+              deferred.resolve();
+            },function isUserNameAvailableValidatorFailure(err){
+              deferred.reject(err);
+            });
+            return deferred.promise;           
+          };
+        }else{
+           $log.error("existence username validator no actor defined")
+        }
+           
       }
     }
 })
@@ -121,4 +162,5 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
     }
   };
 });
+
 

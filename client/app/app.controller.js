@@ -66,7 +66,7 @@ class AppController {
 		});
 
 		this.logout = () =>{
-    		Auth.logout()
+    		Auth.logout('/api/users/logout')
             .then(function logoutControllerSuccessCallback(response){   
                 $rootScope.$broadcast('connectionStatechanged',null);
                 //set the role based profile trigger at false
