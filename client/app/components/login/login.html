@@ -33,27 +33,27 @@
           <div class="customer-login">
               <div class="col-lg-12">
                 <span class="customer-login-text">client</span>
-                <form autocomplete="false"  role="login" name="loginForm" novalidate style="display: block;" ng-submit="vm.login(vm.user,loginForm,2)">
-                   <div ng-class="{ 'has-error' : loginForm.username.$invalid && !loginForm.username.$pristine }">
+                <form autocomplete="false"  role="login" name="customerLoginForm" novalidate style="display: block;" ng-submit="vm.logCustomer(vm.user,customerLoginForm)">
+                   <div ng-class="{ 'has-error' : customerLoginForm.username.$invalid && !customerLoginForm.username.$pristine }">
                     <label class="label-displayed" for="username"></label>
                     <input type="text" data-actor="customer" name="username" id="username" autocomplete="false"  ng-model ="vm.user.username" tabindex="1" class="form-control" placeholder="nom d'utilisateur" value="" required username-existence>
                     <!-- in case of an error the message below is displayed as part of the list of message errors -->
-                    <span ng-if='loginForm.username.$pending.existusername' class='text-info'>Vérification de la disponibilité ...</span>
-                    <span ng-show='loginForm.username.$invalid && !loginForm.username.$error.existusername &&!loginForm.username.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
-                    <span ng-show="loginForm.username.$invalid && loginForm.username.$error.existusername&&!loginForm.username.$pristine" class="text-warning">Ce nom d'utilisateur n'existe pas.</span>
+                    <span ng-if='customerLoginForm.username.$pending.existusername' class='text-info'>Vérification de la disponibilité ...</span>
+                    <span ng-show='customerLoginForm.username.$invalid && !customerLoginForm.username.$error.existusername &&!customerLoginForm.username.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
+                    <span ng-show="customerLoginForm.username.$invalid && customerLoginForm.username.$error.existusername&&!customerLoginForm.username.$pristine" class="text-warning">Ce nom d'utilisateur n'existe pas.</span>
                   </div>
-                  <div ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
+                  <div ng-class="{ 'has-error' : customerLoginForm.password.$invalid && !customerLoginForm.password.$pristine }">
                     <label class="label-displayed" for="password"></label>
                     <input type="password" name="password" id="password"  autocomplete="false"  ng-model ="vm.user.password" tabindex="2" class="form-control" placeholder="mot de passe" value="" required password-validator>
                     <!-- in case of an error the message below is displayed as part of the list of message errors -->
-                    <span ng-show="loginForm.password.$invalid && !loginForm.password.$error.password&&!loginForm.password.$pristine" class="text-danger">Le mot de passe est requis</span>
-                    <span ng-show='loginForm.password.$error.password && !loginForm.password.$pristine' class='text-warning'>Le mot de passe saisi doit contenir au minimum 8 caractères alphabétiques et/ou numériques</span>
+                    <span ng-show="customerLoginForm.password.$invalid && !customerLoginForm.password.$error.password&&!customerLoginForm.password.$pristine" class="text-danger">Le mot de passe est requis</span>
+                    <span ng-show='customerLoginForm.password.$error.password && !customerLoginForm.password.$pristine' class='text-warning'>Le mot de passe saisi doit contenir au minimum 8 caractères alphabétiques et/ou numériques</span>
 
                   </div>           
                   <div class="form-group push-tiny--top">
                     <div class="row">
                       <div class="">
-                        <input type="submit"  ng-disabled="loginForm.$invalid" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Se connecter" >
+                        <input type="submit"  ng-disabled="customerLoginForm.$invalid" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Se connecter" >
                       </div>
                     </div>
                   </div>
@@ -79,27 +79,27 @@
             <div class="hairdresser-login">
               <div class="col-lg-12">
                  <span class="hairdresser-login-text">Coiffeur/Coiffeuse</span>
-                <form autocomplete="false"  role="login" name="loginForm" novalidate style="display: block;" ng-submit="vm.login(vm.user,loginForm,1)">
-                   <div ng-class="{ 'has-error' : loginForm.username.$invalid && !loginForm.username.$pristine }">
+                <form autocomplete="false"  role="login" name="hairdresserLoginForm" novalidate style="display: block;" ng-submit="vm.logHairdresser(vm.hairdresser,hairdresserLoginForm)">
+                   <div ng-class="{ 'has-error' : hairdresserLoginForm.username.$invalid && !hairdresserLoginForm.username.$pristine }">
                     <label class="label-displayed" for="username"></label>
-                    <input type="text"  data-actor="hairdresser" name="username" id="username" autocomplete="false"  ng-model ="vm.user.username" tabindex="1" class="form-control" placeholder="nom d'utilisateur" value="" required username-existence>
+                    <input type="text"  data-actor="hairdresser" name="username" id="username" autocomplete="false"  ng-model ="vm.hairdresser.username" tabindex="1" class="form-control" placeholder="nom d'utilisateur" value="" required username-existence>
                     <!-- in case of an error the message below is displayed as part of the list of message errors -->
-                    <span ng-if='loginForm.username.$pending.existusername' class='text-info'>Vérification de la disponibilité ...</span>
-                    <span ng-show='loginForm.username.$invalid && !loginForm.username.$error.existusername &&!loginForm.username.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
-                    <span ng-show="loginForm.username.$invalid && loginForm.username.$error.existusername&&!loginForm.username.$pristine" class="text-warning">Ce nom d'utilisateur n'existe pas.</span>
+                    <span ng-if='hairdresserLoginForm.username.$pending.existusername' class='text-info'>Vérification de la disponibilité ...</span>
+                    <span ng-show='hairdresserLoginForm.username.$invalid && !hairdresserLoginForm.username.$error.existusername &&!hairdresserLoginForm.username.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
+                    <span ng-show="hairdresserLoginForm.username.$invalid && hairdresserLoginForm.username.$error.existusername&&!hairdresserLoginForm.username.$pristine" class="text-warning">Ce nom d'utilisateur n'existe pas.</span>
                   </div>
-                  <div ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
+                  <div ng-class="{ 'has-error' : hairdresserLoginForm.password.$invalid && !hairdresserLoginForm.password.$pristine }">
                     <label class="label-displayed" for="password"></label>
-                    <input type="password" name="password" id="password"  autocomplete="false"  ng-model ="vm.user.password" tabindex="2" class="form-control" placeholder="mot de passe" value="" required password-validator>
+                    <input type="password" name="password" id="password"  autocomplete="false"  ng-model ="vm.hairdresser.password" tabindex="2" class="form-control" placeholder="mot de passe" value="" required password-validator>
                     <!-- in case of an error the message below is displayed as part of the list of message errors -->
-                    <span ng-show="loginForm.password.$invalid && !loginForm.password.$error.password&&!loginForm.password.$pristine" class="text-danger">Le mot de passe est requis</span>
-                    <span ng-show='loginForm.password.$error.password && !loginForm.password.$pristine' class='text-warning'>Le mot de passe saisi doit contenir au minimum 8 caractères alphabétiques et/ou numériques</span>
+                    <span ng-show="hairdresserLoginForm.password.$invalid && !hairdresserLoginForm.password.$error.password&&!hairdresserLoginForm.password.$pristine" class="text-danger">Le mot de passe est requis</span>
+                    <span ng-show='hairdresserLoginForm.password.$error.password && !hairdresserLoginForm.password.$pristine' class='text-warning'>Le mot de passe saisi doit contenir au minimum 8 caractères alphabétiques et/ou numériques</span>
 
                   </div>           
                   <div class="form-group push-tiny--top">
                     <div class="row">
                       <div class="">
-                        <input type="submit"  ng-disabled="loginForm.$invalid" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Se connecter" >
+                        <input type="submit"  ng-disabled="hairdresserLoginForm.$invalid" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Se connecter" >
                       </div>
                     </div>
                   </div>
@@ -125,7 +125,7 @@
              <div class="row">
 
               <div class="col-lg-12" >
-                <form autocomplete="false" role="register" id="register-form"  name="registerForm"  novalidate ng-submit="vm.register(vm.user,registerForm)" style="display: none;">
+                <form autocomplete="false" role="register" id="register-form"  name="registerForm"  novalidate ng-submit="vm.registerNewAccount(vm.user,registerForm)" style="display: none;">
                  <p class="background-line push--top push--bottom">
                     <span> Bienvenue sur Lebeaucheveu </span>
                 </p>
@@ -178,7 +178,7 @@
                   </div>
                   <div class="form-group text-center">
                     <label   for="role">Êtes-vous un(e) coiffeuse/coiffeur ?</label>
-                    <input type="checkbox" tabindex="3" class="" name="role"  ng-model="vm.user.role"  ng-true-value='1' ng-false-value='2' id="role">
+                    <input type="checkbox" tabindex="3" class="" name="role"  ng-model="vm.user.role" ng-init="vm.user.role=2"  ng-true-value='1' ng-false-value='2' id="role">
                  </div>
                   <div class="form-group push-tiny--top">
                     <div class="row">

@@ -14,46 +14,59 @@ class LoginController {
         self.isSuccessfullRegistration=true;
       }
     });
-     self.test ="test data";
-     $log.debug(self.test);
+    
     /**
      * [Allow user to login with local credentials]
      * @param  {[type]} data [User's required information for login]
      * @return {[type]}      [Form object used for validation purpose]
      */
-   self.login = (data,loginForm,role)=>{
+   self.logCustomer = (data,customerLoginForm)=>{
       $log.debug('User data ', JSON.stringify(data));
       //The form must be valid in order to be send to the API
-      if(loginForm.$valid){
-        if(role == 2){//hairdresser login
+      if(customerLoginForm.$valid){       
           Auth.login(`${API.dev.customerRoute}`+'/me',data.username,data.password)
               .then(function loginControllerSuccess(data){
-                  $rootScope.$broadcast('connectionStatechanged',{data:data.user});
+                  $rootScope.$broadcast('connectionStatechanged',{data:data});
                   //$state.go('home',null,{reload:true});   
               },function loginControllerError(err){
                   //console.error(err);
               }); 
-            }else{//hairdresser login
-              Auth.login(`${API.dev.hairdresserRoute}`+'/me',data.username,data.password)
-              .then(function loginControllerSuccess(data){
-                  $rootScope.$broadcast('connectionStatechanged',{data:data.user});
-                  //$state.go('home',null,{reload:true});   
-              },function loginControllerError(err){
-                  //console.error(err);
-              }); 
-            }
         
       }else{
         console.error('The login form is not valid');
       }    	       
-    };   
+    };
+
+    /**
+     * Use to login a hairdresser
+     * @param  {[type]} data                 [description]
+     * @param  {[type]} hairdresserLoginForm [description]
+     * @param  {[type]} role                 [description]
+     * @return {[type]}                      [description]
+     */
+    self.logHairdresser = (data,hairdresserLoginForm)=>{
+      $log.debug('User data ', JSON.stringify(data));
+      //The form must be valid in order to be send to the API
+      if(hairdresserLoginForm.$valid){
+              Auth.login(`${API.dev.hairdresserRoute}`+'/me',data.username,data.password)
+              .then(function loginControllerSuccess(data){
+                $log.debug('From the loginControllerSuccess ',data);
+                  $rootScope.$broadcast('connectionStatechanged',{data:data});
+                  //$state.go('home',null,{reload:true});   
+              },function loginControllerError(err){
+                  //console.error(err);
+              });         
+      }else{
+        console.error('The login form is not valid');
+      }            
+    };
     /**
      * Allow user to register an account
      * @param  {[type]} user         [Contains user's required information to create an account]
      * @param  {[type]} registerForm [Form object used for validation purpose]
      * 
      */
-    self.register = (user, registerForm)=>{
+    self.registerNewAccount = (user, registerForm)=>{
             $log.debug(JSON.stringify(user));
             if(registerForm.$valid){ 
               if(user.role == 2){ //customers registration
@@ -64,7 +77,7 @@ class LoginController {
                           }
                       },function registerFailureCallback(err){
                           //console.error(err);
-                      }); //End Auth factory*/
+                      }); 
               }else{ //hairdressers registration
                 Auth.register(`${API.dev.hairdresserRoute}`,user)
                       .then(function registerSuccessCallback(response){
@@ -73,7 +86,7 @@ class LoginController {
                           }
                       },function registerFailureCallback(err){
                           //console.error(err);
-                      }); //End Auth factory*/
+                      }); 
               }
             }//end if
             

@@ -43,10 +43,10 @@ class AppController {
 		$scope.$on('connectionStatechanged',function(evt,user){				
 			if(user){			
 				$scope.this.toggle=true;
-				$scope.this.username=user.data.userName;
+				$scope.this.username=AuthToken.parseToken(token).name;
 				//Toggle the right profile link in the menu based on the user role 
 				//console.log(JSON.stringify(user.data));
-				switch(user.data.role){
+				switch(AuthToken.parseToken(token).role){
 					case 0:
 						$scope.this.isAdmin=true;
 					break;
@@ -66,15 +66,30 @@ class AppController {
 		});
 
 		this.logout = () =>{
-    		Auth.logout('/api/users/logout')
-            .then(function logoutControllerSuccessCallback(response){   
-                $rootScope.$broadcast('connectionStatechanged',null);
-                //set the role based profile trigger at false
-                $scope.this.isAdmin=$scope.this.isHairdresser=$scope.this.isCustomer=false;      
-                $window.location.href=`${API.dev.home}`;
-            },function logoutControllerErrorCallback(err){
-                    console.error(err);
-            });
+			if(AuthToken.parseToken(token).role ===2){
+					Auth.logout(`${API.dev.customerRoute}`+'/logout')
+		            .then(function logoutControllerSuccessCallback(response){   
+		                $rootScope.$broadcast('connectionStatechanged',null);
+		                //set the role based profile trigger at false
+		                $scope.this.isAdmin=$scope.this.isHairdresser=$scope.this.isCustomer=false;      
+		                $window.location.href=`${API.dev.home}`;
+		            },function logoutControllerErrorCallback(err){
+		                    console.error(err);
+		            });
+			}else if(AuthToken.parseToken(token).role===1){
+				Auth.logout(`${API.dev.hairdresserRoute}`+'/logout')
+	            .then(function logoutControllerSuccessCallback(response){   
+	                $rootScope.$broadcast('connectionStatechanged',null);
+	                //set the role based profile trigger at false
+	                $scope.this.isAdmin=$scope.this.isHairdresser=$scope.this.isCustomer=false;      
+	                $window.location.href=`${API.dev.home}`;
+	            },function logoutControllerErrorCallback(err){
+	                    console.error(err);
+	            });
+			}else{
+				throw new Error(' Logout from the appController, the '+AuthToken.parseToken(token).role+' is not handle yet');
+			}
+    		
         };
 
        
