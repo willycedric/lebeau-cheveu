@@ -2,31 +2,31 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 import {loginDirective} from './login.directive';
+import './login.scss';
 
 export const login = angular.module('login', [uiRouter,ngAnimate])
   .config(($stateProvider) => {
     $stateProvider.state('login', {
       url: '/login',
-      onEnter:function($uibModal,$state){
+      onEnter:function($uibModal,$uibModalInstance,$state){
         var $ctrl = this;
         $ctrl.items = ['item1', 'item2', 'item3'];
+        $ctrl.instance =$uibModalInstance;
         $ctrl.animationsEnabled = true;
         var modalInstance = $uibModal.open({
         animation: $ctrl.animationsEnabled,
         ariaLabelledBy: 'modal-title',
         ariaDescribedBy: 'modal-body',
         template: '<login></login>',
-        controllerAs: 'vm',
         size: 'lg',
         resolve: {
           items: function () {
-            return $ctrl.items;
+             return $ctrl.items;
           }
         }
       });
       modalInstance.result.then(function (selectedItem) {
-        $ctrl.selected = selectedItem;
-        $state.go('^');
+       
       }, function () {
         $log.debug('Modal dismissed at: ' + new Date());
         $state.go('^');

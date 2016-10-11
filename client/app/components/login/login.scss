@@ -1,0 +1,199 @@
+/* @import "compass/css3"; */
+
+$body-bg: #ffffff;
+$form-bg: #ffffff;
+$white: #ffffff;
+$placeholder-color:#3f1d1d;
+$facebook-color:#4267B2;
+
+$main: #a94442;
+$main-light: lighten($main,5%);
+$main-dark: darken($main,5%);
+
+$gray-light: #a0b3b0;
+$gray: #ddd;
+
+$thin: 300;
+$normal: 400;
+$bold: 600;
+$br: 4px;
+
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+/* 
+html {
+	overflow-y: scroll; 
+}
+
+body {
+  background:$body-bg;
+  font-family: 'Titillium Web', sans-serif;
+} */
+
+.login .tab-content{
+  width:100%;
+  margin: 0 auto;
+}
+
+.login a {
+  text-decoration:none;
+  color:$main;
+  transition:.5s ease;
+  &:hover {
+    color:$main;
+  }
+}
+
+.login .form {
+  background:rgba($form-bg,.9);
+  padding: 40px;
+  max-width:600px;
+ /*  margin:40px auto; */
+  border-radius:$br;
+  box-shadow:0 4px 10px 4px rgba($form-bg,.3);
+}
+
+.login .tab-group {
+  list-style:none;
+  padding:0;
+  margin:0 0 30px 0;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  li a {
+    display:block;
+    text-decoration:none;
+    padding:15px;
+    background:rgba($gray-light,.25);
+    color:$gray-light;
+    font-size:20px;
+    float:left;
+    width:50%;
+    text-align:center;
+    cursor:pointer;
+    transition:.5s ease;
+    &:hover {
+      background:$main;
+      color:$white;
+    }
+  }
+  .active a {
+    background:$main;
+    color:$white;
+  }
+}
+
+.login .tab-content > div:last-child {
+  display:none;
+}
+
+
+.login  h1 {
+  text-align:center;
+  color:$white;
+  font-weight:$thin;
+  margin:0 0 40px;
+}
+
+
+
+.login input, .login textarea {
+  font-size:22px;
+  display:block;
+  width:100%;
+  height:100%;
+  padding:5px 10px;
+  background:none;
+  background-image:none;
+  border:1px solid $gray-light;
+  color:$placeholder-color;
+  border-radius:0;
+  transition:border-color .25s ease, box-shadow .25s ease;
+  &:focus {
+		outline:0;
+		border-color:$main;
+  }
+}
+.login input[type="checkbox"]{
+
+}
+.login textarea {
+  border:2px solid $gray-light;
+  resize: vertical;
+}
+
+.login .field-wrap {
+  position:relative;
+  margin-bottom: 3px;
+}
+
+.login .top-row {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  > div {
+    float:left;
+    width:48%;
+    margin-right:4%;
+    &:last-child { 
+      margin:0;
+    }
+  }
+}
+
+.login .button {
+  border:0;
+  outline:none;
+  border-radius:0;
+  padding:15px 0;
+  font-size:2rem;
+  font-weight:$bold;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  background:$main;
+  color:$white;
+  transition:all.5s ease;
+  -webkit-appearance: none;
+  &:hover, &:focus {
+    background:$main;
+  }
+}
+
+.login .button-facebook{
+    color:$white !important;
+    font-weight: bold;/*arrière plan de couleur implique généralement texte un peu plus gras */
+    /*border-radius: 4px;*/
+    font-family: "Helvetica";
+    padding:10px 15px;
+    background-color: $facebook-color;
+    opacity: 1;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    overflow: visible;
+    height:57px;
+    margin-left: 3px;
+    margin-bottom:20px;
+    text-transform: lowercase;
+    &:hover, &:focus {
+    background:$facebook-color;
+    opacity:0.8;
+    text-transform: lowercase;
+  }
+}
+
+.login .button-block {
+  display:block;
+  width:100%;
+}
+
+.login .forgot {
+  margin-top:-20px;
+  text-align:right;
+}
