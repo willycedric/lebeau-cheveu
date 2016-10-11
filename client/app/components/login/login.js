@@ -2,7 +2,10 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 import {loginDirective} from './login.directive';
+import {ModalInstanceCtrl} from './modalCtrl';
 import './login.scss';
+import {LoginController as controller} from './login.controller';
+import template from './login.html';
 
 export const login = angular.module('login', [uiRouter,ngAnimate])
   .config(($stateProvider) => {
@@ -17,7 +20,7 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
         animation: $ctrl.animationsEnabled,
         ariaLabelledBy: 'modal-title',
         ariaDescribedBy: 'modal-body',
-        template: '<login></login>',
+         templateUrl: 'login.html',
         size: 'lg',
         resolve: {
           items: function () {
@@ -26,7 +29,7 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
         }
       });
       modalInstance.result.then(function (selectedItem) {
-       
+       $log.debug("modal displayed");
       }, function () {
         $log.debug('Modal dismissed at: ' + new Date());
         $state.go('^');
@@ -38,6 +41,7 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
   .config(($logProvider)=> {
     $logProvider.debugEnabled(true);
   })
+  .controller('ModalInstanceCtrl',ModalInstanceCtrl)
   .directive('login',loginDirective)
   .directive('emailValidator', ()=>{ //mail validator directive
   	return{

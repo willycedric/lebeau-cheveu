@@ -1,9 +1,8 @@
 
 class LoginController {
-  constructor($http,API,$window,$q,Auth,$state,$rootScope,$scope,$log,items) {
+  constructor($http,API,$window,$q,Auth,$state,$rootScope,$scope,$log,$uibModalInstance) {
    
     var self = this;
-    self.items=items;
     //facebook authentication route
     self.facebookUrl = `${API.dev.homeUrl}`+'/api/users/auth/facebook';
     //toggle the display of the registration successfull message
@@ -54,6 +53,7 @@ class LoginController {
               .then(function loginControllerSuccess(data){
                 $log.debug('From the loginControllerSuccess ',data);
                   $rootScope.$broadcast('connectionStatechanged',{data:data});
+                   $uibModalInstance.close('cancel');
                   //$state.go('home',null,{reload:true});   
               },function loginControllerError(err){
                   //console.error(err);
@@ -111,8 +111,9 @@ class LoginController {
     }
 
     //Control to dismiss the modal 
-     self.lauchLoginForm = function () {
-          $log.debug('clicked on the connexion button') 
+     self.lauchLoginForm = () => {
+          $log.debug('clicked on the connexion button');
+           //$uibModalInstance.close('cancel');
     };
 
     self.cancel = function () {

@@ -5,7 +5,7 @@ import $ from 'jquery';
 
 export const loginDirective = ()=> {
 	 return {
-    template,
+    template:template,
     controller,
     controllerAs:'vm',
     restrict: 'E',
