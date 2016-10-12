@@ -70,11 +70,11 @@ export const loginDirective = ($uibModal)=> {
           
         });
 
-        $(elt).find('.login').on('click', function(evt){
+       /* $(elt).find('.login').on('click', function(evt){
             evt.preventDefault();
             console.log('clicked on the button');
             $uibModalInstance.close('dismiss');
-        })
+        })*/
 
 
 

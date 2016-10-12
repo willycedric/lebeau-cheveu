@@ -11,37 +11,12 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
   .config(($stateProvider) => {
     $stateProvider.state('login', {
       url: '/login',
-      onEnter:function($uibModal,$uibModalInstance,$state){
-        var $ctrl = this;
-        $ctrl.items = ['item1', 'item2', 'item3'];
-        $ctrl.instance =$uibModalInstance;
-        $ctrl.animationsEnabled = true;
-        var modalInstance = $uibModal.open({
-        animation: $ctrl.animationsEnabled,
-        ariaLabelledBy: 'modal-title',
-        ariaDescribedBy: 'modal-body',
-         templateUrl: 'login.html',
-        size: 'lg',
-        resolve: {
-          items: function () {
-             return $ctrl.items;
-          }
-        }
-      });
-      modalInstance.result.then(function (selectedItem) {
-       $log.debug('modal displayed');
-      }, function () {
-        $log.debug('Modal dismissed at: ' + new Date());
-        $state.go('^');
-      });
-
-      }//end On enter
+      template:'<login></login>'
     })
   })
   .config(($logProvider)=> {
     $logProvider.debugEnabled(true);
   })
-  .controller('ModalInstanceCtrl',ModalInstanceCtrl)
   .directive('login',loginDirective)
   .directive('emailValidator', ()=>{ //mail validator directive
   	return{
