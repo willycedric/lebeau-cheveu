@@ -1,15 +1,16 @@
-import join from './join.html';
+//import join from './join.html';
 class JoinController {
   constructor($uibModal,$log) {
 
   	var $ctrl = this;
-	  $ctrl.items = ['item1', 'item2', 'item3'];
+	  $ctrl.items = ['item1', 'item2', 'item3', 'item4'];
 
 	  $ctrl.animationsEnabled = true;
   	
     this.url= "http://res.cloudinary.com/hgtagghpz/image/upload/v1475152779/smile_nucifu.jpg";
     $log.debug('Inside top');
     //var $ctrl = this;
+    this.message = "HELLO MODAL";
     this.launchLoginModal = function(size){
     	var modalInstance = $uibModal.open({
       animation: $ctrl.animationsEnabled,

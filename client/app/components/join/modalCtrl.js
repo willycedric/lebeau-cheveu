@@ -2,6 +2,7 @@ class ModalInstanceCtrl {
   constructor($uibModalInstance,$log,items) {
     //	var $ctrl = this;
       this.items = items;
+      this.message="HELLO FROM THE MODAL CONOTROLLER";
       this.selected = {
         item: this.items[0]
       };

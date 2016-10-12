@@ -5,6 +5,7 @@
 		    <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
 		</div>
 		<div class="modal-body" id="modal-body">
+			{{vm.message}}
 		    <ul>
 		        <li ng-repeat="item in vm.items">
 		            <a href="#" ng-click="$event.preventDefault(); vm.selected.item = item">{{ item }}</a>
