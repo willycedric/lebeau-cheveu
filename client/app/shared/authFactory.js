@@ -181,7 +181,8 @@ const getHairdresserById = (id)=>{
     });
     return deferred.promise;
 
-}
+};
+
 
   return {
     login,

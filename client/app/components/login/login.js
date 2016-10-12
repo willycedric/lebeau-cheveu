@@ -29,7 +29,7 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
         }
       });
       modalInstance.result.then(function (selectedItem) {
-       $log.debug("modal displayed");
+       $log.debug('modal displayed');
       }, function () {
         $log.debug('Modal dismissed at: ' + new Date());
         $state.go('^');

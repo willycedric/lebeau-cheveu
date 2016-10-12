@@ -3,7 +3,7 @@ import {LoginController as controller} from './login.controller';
 import template from './login.html';
 import $ from 'jquery';
 
-export const loginDirective = ()=> {
+export const loginDirective = ($uibModal)=> {
 	 return {
     template:template,
     controller,
@@ -69,11 +69,12 @@ export const loginDirective = ()=> {
           $(target).fadeIn(600);
           
         });
-/*
-        $(elt).find('input[type="submit"]').on('click', function(evt){
+
+        $(elt).find('.login').on('click', function(evt){
             evt.preventDefault();
             console.log('clicked on the button');
-        })*/
+            $uibModalInstance.close('dismiss');
+        })
 
 
 

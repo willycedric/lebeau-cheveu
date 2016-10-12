@@ -112,8 +112,10 @@ class LoginController {
 
     //Control to dismiss the modal 
      self.lauchLoginForm = () => {
-          $log.debug('clicked on the connexion button');
-           //$uibModalInstance.close('cancel');
+          //$log.debug('clicked on the connexion button');
+          //$modalStack.dismissAll('cancel');
+          //$uibModalInstance.close('all');
+          
     };
 
     self.cancel = function () {

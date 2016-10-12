@@ -5,7 +5,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import template from './app.html';
 import {AppController as controller} from './app.controller';
 
-export const appDirective = ()=> {
+export const appDirective = ($uibModal)=> {
   return {
     template,
     controller,
@@ -19,6 +19,22 @@ export const appDirective = ()=> {
   		});   
         $(elt).find('#menu').hide();
         $(elt).find('.toggle-button').hide();
+        /*scope.openModal = function() {
+              console.log('inside the modal');
+              var modalInstance = $uibModal.open({
+                animation: true,
+                template:'<login></login>',
+                controller
+                scope: scope,
+                size: 'lg'
+              });
+            };*/
+      
+        /*$(elt).find('.login').on('click', function(evt){
+          evt.preventDefault();
+          console.log('in the menu');
+          //scope.openModal();
+        });*/
     },
     replace: true
   };
