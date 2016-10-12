@@ -221,11 +221,11 @@ nav{width:100%;}
 #cssmenu ul ul,#cssmenu ul ul ul{position:relative;left:0;width:100%;margin:0;text-align:left}
 #cssmenu > ul > li.has-sub > a:after,#cssmenu > ul > li.has-sub > a:before,#cssmenu ul ul > li.has-sub > a:after,#cssmenu ul ul > li.has-sub > a:before{display:none}
 #cssmenu #head-mobile{display:block;padding:23px;color:#581f1f;font-size:12px;font-weight:700;margin-bottom:15px;}
-.button{width:55px;height:46px;position:absolute;right:0;top:0;cursor:pointer;z-index: 12399994;}
-.button:after{position:absolute;top:22px;padding:2px;right:20px;display:block;height:4px;width:20px;border-top:2px solid #581f1f;border-bottom:2px solid #581f1f;content:''}
-.button:before{-webkit-transition:all .3s ease;-ms-transition:all .3s ease;transition:all .3s ease;position:absolute;top:16px;right:20px;display:block;height:2px;width:20px;background:#581f1f;content:''}
-.button.menu-opened:after{-webkit-transition:all .3s ease;-ms-transition:all .3s ease;transition:all .3s ease;padding:0;top:23px;border:0;height:2px;width:19px;background:#581f1f;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);-o-transform:rotate(45deg);transform:rotate(45deg)}
-.button.menu-opened:before{top:23px;background:#581f1f;width:19px;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-ms-transform:rotate(-45deg);-o-transform:rotate(-45deg);transform:rotate(-45deg)}
+#cssmenu.button{width:55px;height:46px;position:absolute;right:0;top:0;cursor:pointer;z-index: 12399994;}
+#cssmenu.button:after{position:absolute;top:22px;padding:2px;right:20px;display:block;height:4px;width:20px;border-top:2px solid #581f1f;border-bottom:2px solid #581f1f;content:''}
+#cssmenu.button:before{-webkit-transition:all .3s ease;-ms-transition:all .3s ease;transition:all .3s ease;position:absolute;top:16px;right:20px;display:block;height:2px;width:20px;background:#581f1f;content:''}
+#cssmenu.button.menu-opened:after{-webkit-transition:all .3s ease;-ms-transition:all .3s ease;transition:all .3s ease;padding:0;top:23px;border:0;height:2px;width:19px;background:#581f1f;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);-o-transform:rotate(45deg);transform:rotate(45deg)}
+#cssmenu.button.menu-opened:before{top:23px;background:#581f1f;width:19px;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-ms-transform:rotate(-45deg);-o-transform:rotate(-45deg);transform:rotate(-45deg)}
 #cssmenu .submenu-button{position:absolute;z-index:99;right:0;top:0;display:block;border-left:1px solid #444;height:46px;width:46px;cursor:pointer}
 #cssmenu .submenu-button.submenu-opened{background:#262626}
 #cssmenu ul ul .submenu-button{height:34px;width:34px}

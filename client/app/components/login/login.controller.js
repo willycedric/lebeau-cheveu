@@ -3,13 +3,15 @@ class LoginController {
   constructor($uibModal,$log) {
   var self =this;
   self.message = "run pony";
-    self.launchModal = function(size){
+    self.launchLoginModal = function(size){
       var modalInstance = $uibModal.open({
       animation: true,
-      templateUrl: 'template.html',
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      templateUrl: 'login.html',
       controller: ModalInstanceCtrl,
       controllerAs: 'vm',
-      size: 'lg',
+      size: size,
       resolve: {
         items: function () {
           return  self.message;

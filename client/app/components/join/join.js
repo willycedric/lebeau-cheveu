@@ -14,36 +14,6 @@ export const join = angular.module('join', [uiRouter,$uibModal])
       url: '/join',
       template: '<join></join>'
     })
-    .state('join.login',{
-      url:'/login',
-      onEnter:function($uibModal,$state){
-        var $ctrl = this;
-        $ctrl.items = ['item1', 'item2', 'item3'];
-        $ctrl.animationsEnabled = true;
-        var modalInstance = $uibModal.open({
-        animation: $ctrl.animationsEnabled,
-        ariaLabelledBy: 'modal-title',
-        ariaDescribedBy: 'modal-body',
-        template: '<login></login>',
-        controller: 'ModalInstanceCtrl',
-        controllerAs: 'vm',
-        size: 'sm',
-        resolve: {
-          items: function () {
-            return $ctrl.items;
-          }
-        }
-      });
-      modalInstance.result.then(function (selectedItem) {
-        $ctrl.selected = selectedItem;
-        $state.go('^');
-      }, function () {
-        console.log('Modal dismissed at: ' + new Date());
-        $state.go('^');
-      });
-
-      }//end On enter
-    })
   })
   .controller('ModalInstanceCtrl',ModalInstanceCtrl)
   .directive('join',joinDirective)
