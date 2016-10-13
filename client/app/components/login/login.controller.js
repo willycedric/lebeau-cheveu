@@ -11,12 +11,12 @@ class LoginController {
       templateUrl: 'login.html',
       controller: ModalInstanceCtrl,
       controllerAs: 'vm',
-      size: size,
-      resolve: {
+      size: size
+     /* resolve: {
         items: function () {
           return  self.message;
         }
-      }
+      }*/
     });
 
    modalInstance.result.then(function (selectedItem) {

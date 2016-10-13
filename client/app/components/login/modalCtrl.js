@@ -1,7 +1,5 @@
 class ModalInstanceCtrl {
   constructor($uibModalInstance,$log,$http,API,$window,$q,Auth,$state,$rootScope,$scope) {
-    this.message = "Checking double binding dsdsdsdsdsdsds";
-      $log.debug('Hello from the sub controller');
     var self = this;
      
       self.ok = function () {
@@ -23,6 +21,14 @@ class ModalInstanceCtrl {
     
     //facebook authentication route
     self.facebookUrl = `${API.dev.homeUrl}`+'/api/users/auth/facebook';
+    /**
+     * Function used to redirect the user to the facebook login Oauth provider
+     * @return {[type]} [description]
+     */
+    self.goToFacebookLogin = () =>{
+      $window.location.href=self.facebookUrl; //redirectiong to facebook
+      $log.debug('ModalCtrl ','redirectiong to facebook Oauth');
+    };
     //toggle the display of the registration successfull message
     self.isSuccessfullRegistration=false;
     //toggle the display of the connexion successfull message

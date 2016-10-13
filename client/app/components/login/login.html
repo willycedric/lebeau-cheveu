@@ -1,9 +1,7 @@
  <div id="content">
     <section class="login">
       <script type="text/ng-template" id="login.html">
-        <div class="modal-header">
-        <!-- <h3 class="modal-title" id="modal-title">I'm a modal!</h3> -->
-        </div> <!-- .modal-header -->
+        
         <div class="modal-body" id="modal-body">
                       
                   <div class="container" ng-hide='vm.isSuccessfullRegistration || vm.isSuccessfullLogin'>
@@ -27,18 +25,23 @@
                           </ul>                    
                           <div class="tab-content">
                             <div id="signup" ng-show="vm.isCustomerFormDisplayed" > 
-                             <div id="facebook">
-                                <!-- Login with facebook -->
-                                <p class="background-line push--top push--bottom">
-                                    <span> Connectez vous via facebook </span>
-                                </p>            
-                                <div class="">
-                                      <a class="Mbutton button-facebook" href="{{vm.facebookUrl}}" >
-                                        <i class="fa fa-facebook"></i>
-                                         Se connecter avec facebook
-                                      </a>                   
-                               </div>
-                            </div><!-- #facebook -->
+                               <div id="facebook" class="social-wrap c">
+
+                                  <!-- Login with facebook -->
+                                  <p class="background-line push--top push--bottom">
+                                      <span> Connectez vous via facebook </span>
+                                  </p>          
+                                  <button class="facebook" ng-click="vm.goToFacebookLogin()"> Se connecter avec facebook</button>
+                                 <!-- <div class="">
+                                        <a class="Mbutton button-facebook" href="{{vm.facebookUrl}}" >
+                                          <i class="fa fa-facebook"></i>
+                                           Se connecter avec facebook
+                                        </a>                   
+                                 </div>-->
+                              </div><!-- #facebook -->
+                              <p class="background-line push--top push--bottom">
+                                      <span> Connectez vous avec votre nom d'utilisateur </span>
+                              </p> 
                               <form autocomplete="off"  role="login" name="customerLoginForm" novalidate style="display: block;" ng-submit="vm.logCustomer(vm.user,customerLoginForm)">
                                    <div class="field-wrap" ng-class="{ 'has-error' : customerLoginForm.username.$invalid && !customerLoginForm.username.$pristine }">
                                     <label class="label-displayed" for="username"></label>
@@ -72,7 +75,11 @@
                               </form>  <!-- customer login form -->                
                             </div>
                             
-                            <div id="login" ng-hide="vm.isCustomerFormDisplayed">               
+                            <div id="login" ng-hide="vm.isCustomerFormDisplayed"> 
+
+                              <p class="background-line push--top push--bottom">
+                                      <span> Connectez vous avec votre nom d'utilisateur </span>
+                              </p>               
                               <form autocomplete="off"  role="login" name="hairdresserLoginForm" novalidate style="display: block;" ng-submit="vm.logHairdresser(vm.hairdresser,hairdresserLoginForm)">                                    
                                 <div  class="field-wrap" ng-class="{ 'has-error' : hairdresserLoginForm.username.$invalid && !hairdresserLoginForm.username.$pristine }">
                                   <label class="label-displayed" for="username"></label>
@@ -108,8 +115,9 @@
                             </div>            
                         </div><!-- tab-content -->          
                     </div> <!-- .form -->
-                          
+                      
                       <div ng-show="vm.isLoginFormDisplayed" class="text-center">
+                      <hr>
                         Vous n'avez pas de compte? <a ng-click="vm.toggleDisplayedForm()" id="register-form-link">Inscription</a>              
                       </div>
                   </div><!-- .login-form-->
