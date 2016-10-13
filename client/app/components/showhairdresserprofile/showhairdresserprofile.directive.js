@@ -1,5 +1,5 @@
 import './showhairdresserprofile.css';
-import './ .scss';
+import './showhairdresserprofile.scss';
 import {ShowhairdresserprofileController as controller} from './showhairdresserprofile.controller';
 import template from './showhairdresserprofile.html';
 import $ from 'jquery';
