@@ -4,30 +4,30 @@
     font-family:  "Helvetica";
     font-weight: 400;
 }
-.login a {
+ a {
     text-decoration: none;
     color:#333;
     font-size: 18px;
     font-family: "Helvetica";
 }
-.login a:hover{
+ a:hover{
     cursor:pointer;
 }
 
-.login .panel-login {
+ .panel-login {
     border-color: #ccc;
     -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
     -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
     box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 }
-.login  .panel-login>.panel-heading {
+ .panel-login>.panel-heading {
     color: #00415d;
     background-color: #fff;
     border-color: #fff;
     text-align:center;
     font-family: "Helvetica";
 }
-.login.panel-login>.panel-heading a{
+.panel-login>.panel-heading a{
     text-decoration: none;
     color: #666;
     font-weight: bold;
@@ -37,11 +37,11 @@
     -moz-transition: all 0.1s linear;
     transition: all 0.1s linear;
 }
-.login .panel-login>.panel-heading a.active{
+.panel-login>.panel-heading a.active{
     color: #02DBAA;
     font-size: 18px;
 }
-.login .panel-login>.panel-heading hr{
+.panel-login>.panel-heading hr{
     margin-top: 10px;
     margin-bottom: 0px;
     clear: both;
@@ -52,7 +52,7 @@
     background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
     background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
 }
-.login .panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
     height: 45px;
     border: 1px solid #ddd;
     font-size: 16px;
@@ -62,15 +62,15 @@
     background-color: #fafafa;
     width:100%;
 }
-.login .panel-login input:hover,
-.login .panel-login input:focus {
+ .panel-login input:hover,
+ .panel-login input:focus {
     outline:none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
     border-color: #ccc;
 }
-.login .form-control {
+ .form-control {
     display: block;
     width: 100%;
     height: 50px;
@@ -91,7 +91,7 @@
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
-.login .btn-login {
+ .btn-login {
     background-color:#a94442;
     outline: none;
     color: #fff;
@@ -115,27 +115,27 @@
     overflow: visible;
     margin-left:3px;
 }
-.login .btn-login:hover,
-.login .btn-login:focus {
+.btn-login:hover,
+ .btn-login:focus {
     color: #fff;
     /*background-color: #22AA22;
     border-color:  #22AA22;*/
     opacity:0.8;
 }
 
-.login .forgot-password {
+.forgot-password {
     transition: all 0.3s ease;
     cursor:pointer;
     opacity:0.6;
 }
-.login .forgot-password:hover,
-.login .forgot-password:focus {
+ .forgot-password:hover,
+ .forgot-password:focus {
     text-decoration: none;
     transition: all 0.3s ease;
     opacity:1;
 }
 
-.login .btn-register {
+.btn-register {
     background-color: #a94442;
     outline: none;
     color: #fff;
@@ -152,8 +152,8 @@
     height:57px;
     margin-left: 3px;
 }
-.login .btn-register:hover,
-.login .btn-register:focus {
+ .btn-register:hover,
+.btn-register:focus {
     color: #fff;
    /* background-color:#22AA22;
     border-color: #22AA22;*/
@@ -162,7 +162,7 @@
 }
 
 /* social button design */
-.login .facebook-intro{
+.facebook-intro{
     color: #333;
     font-size: 18px;
     font-family: "Helvetica";
@@ -193,11 +193,11 @@
     background-color: #4267B2;
     transition: all 0.3s ease;
 }
-.login .background-line {
+ .background-line {
     display: table;
     white-space: nowrap;
 }
-.login .background-line:before, .background-line:after {
+ .background-line:before, .background-line:after {
     border-top: 1px solid silver;
     content: '';
     display: table-cell;
@@ -206,32 +206,32 @@
     width: 50%;
 }
 
-.login .background-line > span {
+ .background-line > span {
     padding: 0 20px;
     font-family:  "Helvetica Neue";
 }
-.login .push--bottom, .push--ends {
+ .push--bottom, .push--ends {
     margin-bottom: 32px !important;
 }
-.login .push--top, .push--ends {
+ .push--top, .push--ends {
     margin-top: 32px !important;
 }
 
-.login .push-tiny--top, .login .push-tiny--ends {
+ .push-tiny--top, .login .push-tiny--ends {
     margin-top: 12px !important;
 }
-.login .push-tiny--bottom {
+ .push-tiny--bottom {
     margin-bottom: 12px !important;
 }
-.login .form-group{
+ .form-group{
     margin-bottom: 24px;
 }
-.login hr {
+ hr {
     border: 0;
     border-bottom: 1px solid silver;
    margin: 30px -20px 20px; /* Allow us to have a full width hr */
 }
-.login .img-responsive{
+.img-responsive{
     display: block;
     max-width: 50%;
     height: auto;
@@ -241,10 +241,10 @@
     color: black;
     font-family: "Helvetica";
 }
-.login a >i{
+ a >i{
     border-right: 1px solid black;
 }
-.login .lebeaucheveu-logo-text{
+ .lebeaucheveu-logo-text{
     display: flex;
     align-items: center;
     padding: 20px;
@@ -255,7 +255,7 @@
     color: #000;
 }
 
-.login .message-registration-success {
+ .message-registration-success {
     margin-top: 20px;
     font-size: 1.5em;
     letter-spacing: 0.2px;
@@ -266,17 +266,17 @@
     align-items: center;
 }
 
-.login .login-link{
+.login-link{
     color:#000;
     font-weight: bolder;
     text-transform: capitalize;
     opacity:0.8;
 }
-.login .login-link:hover{
+ .login-link:hover{
     opacity:1;
     cursor:pointer;
 }
-.login .label-displayed{
+ .label-displayed{
     display:none;
 }
 
@@ -298,5 +298,22 @@
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
     box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
 }
+
+@media (min-width: 992px){
+   .modal-lg {
+    /* width: 900px; */
+    width:0;
+    } 
+}
+
+@media (min-width: 768px){
+
+    .modal-dialog {
+        width: 600px;
+        margin: 30px auto;
+    }
+}
+
+
 
 

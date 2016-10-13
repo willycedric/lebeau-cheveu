@@ -3,19 +3,22 @@ import {LoginController as controller} from './login.controller';
 import template from './login.html';
 import $ from 'jquery';
 
-export const loginDirective = ($uibModal)=> {
+export const loginDirective = ($uibModal,$log)=> {
 	 return {
     template:template,
     controller,
     controllerAs:'vm',
     restrict: 'E',
-    scope: {},
+    scope: {
+      name:'='
+    },
     link: function(scope, elt, atts, ngModel){
-        //scope.instance = atts.instance;
-        atts.$observe('instance', function(value){
-          console.log('Instance ', value);
+         atts.$observe('name', function(value){
+          scope.name = value;
+         //$log.debug(scope.name);
         });
-        //Login and Register form 
+
+       /* //Login and Register form 
     	$(elt).find('#login-form-link').click(function(evt){
     		evt.preventDefault();
     		$(elt).find("#login-form").delay(100).fadeIn(100);
@@ -30,7 +33,7 @@ export const loginDirective = ($uibModal)=> {
     		$(elt).find("#login-form").fadeOut(100);
     		$(elt).find("#login-form-link").removeClass('active');
     		$(this).addClass('active');
-    	});
+    	});*/
 
         $(elt).find('.form').find('input, textarea').on('keyup blur focus', function (e) {  
               var $this = $(this),
@@ -70,11 +73,11 @@ export const loginDirective = ($uibModal)=> {
           
         });
 
-        $(elt).find('.login').on('click', function(evt){
+       /* $(elt).find('.login').on('click', function(evt){
             evt.preventDefault();
             console.log('clicked on the button');
             $uibModalInstance.close('dismiss');
-        })
+        })*/
 
 
 

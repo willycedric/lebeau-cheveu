@@ -7,41 +7,17 @@ import './login.scss';
 import {LoginController as controller} from './login.controller';
 import template from './login.html';
 
+
 export const login = angular.module('login', [uiRouter,ngAnimate])
   .config(($stateProvider) => {
     $stateProvider.state('login', {
       url: '/login',
-      onEnter:function($uibModal,$uibModalInstance,$state){
-        var $ctrl = this;
-        $ctrl.items = ['item1', 'item2', 'item3'];
-        $ctrl.instance =$uibModalInstance;
-        $ctrl.animationsEnabled = true;
-        var modalInstance = $uibModal.open({
-        animation: $ctrl.animationsEnabled,
-        ariaLabelledBy: 'modal-title',
-        ariaDescribedBy: 'modal-body',
-         templateUrl: 'login.html',
-        size: 'lg',
-        resolve: {
-          items: function () {
-             return $ctrl.items;
-          }
-        }
-      });
-      modalInstance.result.then(function (selectedItem) {
-       $log.debug('modal displayed');
-      }, function () {
-        $log.debug('Modal dismissed at: ' + new Date());
-        $state.go('^');
-      });
-
-      }//end On enter
+      template:'<login></login>'
     })
   })
   .config(($logProvider)=> {
     $logProvider.debugEnabled(true);
   })
-  .controller('ModalInstanceCtrl',ModalInstanceCtrl)
   .directive('login',loginDirective)
   .directive('emailValidator', ()=>{ //mail validator directive
   	return{
@@ -166,5 +142,24 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
     }
   };
 });
+/*.directive('activePageName', ($rootScope)=>{
+  return{
+      restrict:'E',
+      template:named,
+      scope:{
+          name:'='
+      },
+      link:function(scope,elt,atts){
+          atts.$observe('name', (value)=>{
+                console.log("Value from the name directive ", value);
+                 scope.name =$rootScope.name;
+          });
+          atts.$observe('connexion', (value)=>{
+                console.log("Value from the name directive ", value);
+                 scope.name =$rootScope.connexion;
+          });
+      }
+};
+})*/
 
 
