@@ -88,6 +88,7 @@ body {
     color: #a94442;
     background: #ddd;
     border-radius: 4px 4px 0 0;
+    font-size: 1em;
 }
 #cssmenu > ul > li:hover,#cssmenu ul li.active:hover,#cssmenu ul li.active,#cssmenu ul li.has-sub.active:hover{ background-color: #fafafa;color:#515151;font-weight: bold;margin: 0 0 0 0px;padding: 0 0 0 0px;border: 1px solid #fafafa;border-radius:0px 0px 0 0;-webkit-transition:background .3s ease;-ms-transition:background .3s ease;transition:background .3s ease;}
 #cssmenu > ul > li.has-sub > a{padding-right:30px}
@@ -237,6 +238,17 @@ nav{width:100%;}
 #cssmenu .submenu-button.submenu-opened:before{display:none}
 #cssmenu ul ul ul li.active a{border-left:none}
 #cssmenu > ul > li.has-sub > ul > li.active > a,#cssmenu > ul ul > li.has-sub > ul > li.active > a{border-top:none}
+}
+
+/* Login Link */
+
+ #cssmenu ul li.login-link a{
+    font-family: 'Helvetica Neu',Helvetica,sans-serif;
+    background-color:transparent;
+ }
+#cssmenu ul li.login-link a:hover,#cssmenu ul li.login-link a:focus,#cssmenu ul li.login-link a:active {
+    text-decoration: none;
+    background:#ddd;
 }
 
 @media screen and (min-width: 1300px){

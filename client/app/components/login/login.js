@@ -7,6 +7,7 @@ import './login.scss';
 import {LoginController as controller} from './login.controller';
 import template from './login.html';
 
+
 export const login = angular.module('login', [uiRouter,ngAnimate])
   .config(($stateProvider) => {
     $stateProvider.state('login', {
@@ -141,5 +142,24 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
     }
   };
 });
+/*.directive('activePageName', ($rootScope)=>{
+  return{
+      restrict:'E',
+      template:named,
+      scope:{
+          name:'='
+      },
+      link:function(scope,elt,atts){
+          atts.$observe('name', (value)=>{
+                console.log("Value from the name directive ", value);
+                 scope.name =$rootScope.name;
+          });
+          atts.$observe('connexion', (value)=>{
+                console.log("Value from the name directive ", value);
+                 scope.name =$rootScope.connexion;
+          });
+      }
+};
+})*/
 
 

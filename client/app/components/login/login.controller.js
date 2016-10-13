@@ -1,9 +1,9 @@
 import {ModalInstanceCtrl} from './modalCtrl';
 class LoginController {
-  constructor($uibModal,$log) {
-  var self =this;
-  self.message = "run pony";
-    self.launchLoginModal = function(size){
+  constructor($uibModal,$log,$window) {
+      var self =this;
+      self.message="empty string";
+      self.launchLoginModal = function(size){
       var modalInstance = $uibModal.open({
       animation: true,
       ariaLabelledBy: 'modal-title',
@@ -33,7 +33,7 @@ class LoginController {
 
 }
 
-//LoginController.$inject = ['$http','API','$window','$q','Auth','$state','$rootScope','$scope','$log'];
+LoginController.$inject = ['$uibModal','$log', '$window'];
 
 export {LoginController};
 
