@@ -140,6 +140,24 @@ class ModalInstanceCtrl {
     self.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
+
+    self.isLoginFormDisplayed = true;
+    self.isCustomerFormDisplayed =true;
+
+    self.toggleDisplayedForm = ()=>{
+      self.isLoginFormDisplayed =!self.isLoginFormDisplayed;
+    };
+
+    self.toggleDisplayedUserForm = (formName) =>{
+      $log.debug('modalCtrl ',formName);
+        if(formName ==="customer" && self.isCustomerFormDisplayed ){
+              self.isCustomerFormDisplayed = true;
+        }else if (formName ==="hairdresser" && !self.isCustomerFormDisplayed){
+          self.isCustomerFormDisplayed =false;
+        }else{
+           self.isCustomerFormDisplayed=!self.isCustomerFormDisplayed;
+         }     
+    };
    
   }//End constructor 
 }

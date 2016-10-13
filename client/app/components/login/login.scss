@@ -43,6 +43,7 @@ body {
   transition:.5s ease;
   &:hover {
     color:$main;
+    text-decoration:none;
   }
 }
 
@@ -79,6 +80,7 @@ body {
     &:hover {
       background:$main;
       color:$white;
+      text-decoration:none;
     }
   }
   .active a {
@@ -87,9 +89,9 @@ body {
   }
 }
 
-.tab-content > div:last-child {
+/* .tab-content > div:last-child {
   display:none;
-}
+} */
 
 
 

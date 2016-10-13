@@ -21,13 +21,14 @@
                                                                             <!-- HERE LOGIN FORM -->
 
                                                                           
-                      <div class="form">      
+                      <div class="form" ng-show="vm.isLoginFormDisplayed">      
                           <ul class="tab-group">
-                            <li class="tab active"><a href="#signup">Client</a></li>
-                            <li class="tab"><a href="#login">Coiffeuse</a></li>
+                            <li ng-class="{'tab active':vm.isCustomerFormDisplayed,tab:!vm.isCustomerFormDisplayed}"><a ng-click="vm.toggleDisplayedUserForm('customer')">Client</a></li>
+                            <li ng-class="{tab:vm.isCustomerFormDisplayed,'tab active':!vm.isCustomerFormDisplayed}"><a ng-click="vm.toggleDisplayedUserForm('hairdresser')">Coiffeuse</a></li>
                           </ul>                    
                           <div class="tab-content">
-                            <div id="signup"> 
+                            <div id="signup" ng-show="vm.isCustomerFormDisplayed" > 
+                             <div id="facebook">
                                 <!-- Login with facebook -->
                                 <p class="background-line push--top push--bottom">
                                     <span> Connectez vous via facebook </span>
@@ -38,6 +39,7 @@
                                          Se connecter avec facebook
                                       </a>                   
                                </div>
+                            </div><!-- #facebook -->
                               <form autocomplete="off"  role="login" name="customerLoginForm" novalidate style="display: block;" ng-submit="vm.logCustomer(vm.user,customerLoginForm)">
                                    <div class="field-wrap" ng-class="{ 'has-error' : customerLoginForm.username.$invalid && !customerLoginForm.username.$pristine }">
                                     <label class="label-displayed" for="username"></label>
@@ -71,7 +73,7 @@
                               </form>  <!-- customer login form -->                
                             </div>
                             
-                            <div id="login">               
+                            <div id="login" ng-hide="vm.isCustomerFormDisplayed">               
                               <form autocomplete="off"  role="login" name="hairdresserLoginForm" novalidate style="display: block;" ng-submit="vm.logHairdresser(vm.hairdresser,hairdresserLoginForm)">                                    
                                 <div  class="field-wrap" ng-class="{ 'has-error' : hairdresserLoginForm.username.$invalid && !hairdresserLoginForm.username.$pristine }">
                                   <label class="label-displayed" for="username"></label>
@@ -91,7 +93,7 @@
                                </div>         
                               <div class="row">
                                 <div class="">
-                                  <input type="submit"  ng-disabled="hairdresserLoginForm.$invalid" name="login-submit" id="login-submit" tabindex="4" class="button button-block" value="Se connecter" ng-click="vm.closeModal()">
+                                  <input type="submit"  ng-disabled="hairdresserLoginForm.$invalid" name="login-submit" id="login-submit" tabindex="4" class="Mbutton button-block" value="Se connecter" ng-click="vm.closeModal()">
                                 </div>
                               </div>          
                               <div class="form-group">
@@ -108,8 +110,8 @@
                         </div><!-- tab-content -->          
                     </div> <!-- .form -->
                           
-                      <div class="text-center">
-                        Vous n'avez pas de compte? <a href="#" id="register-form-link">Inscription</a>              
+                      <div ng-show="vm.isLoginFormDisplayed" class="text-center">
+                        Vous n'avez pas de compte? <a ng-click="vm.toggleDisplayedForm()" id="register-form-link">Inscription</a>              
                       </div>
                   </div><!-- .login-form-->
                   </div><!-- .col-sm-5  -->
@@ -118,7 +120,7 @@
                                         
                            <div class="row">
                             <div class="col-sm-5" >
-                              <form autocomplete="off" role="register" ng-hide ="vm.isLoginFormDisplayed" id="register-form"  name="registerForm"  novalidate ng-submit="vm.registerNewAccount(vm.user,registerForm)" style="display: none;">
+                              <form autocomplete="off" role="register" ng-hide ="vm.isLoginFormDisplayed" id="register-form"  name="registerForm"  novalidate ng-submit="vm.registerNewAccount(vm.user,registerForm)">
                                <p class="background-line push--top push--bottom">
                                   <span> Bienvenue sur Lebeaucheveu </span>
                               </p>
@@ -177,14 +179,14 @@
                                   <div class="row">
                                     <!-- <div class="col-sm-6 col-sm-offset-3"> -->
                                     <div class="">
-                                      <input type="submit"  ng-disabled="registerForm.$invalid" name="register-submit" id="register-submit" tabindex="2" class="button button-block" value="S'inscrire" >
+                                      <input type="submit"  ng-disabled="registerForm.$invalid" name="register-submit" id="register-submit" tabindex="2" class="Mbutton button-block" value="S'inscrire" >
                                     </div>
                                   </div>
                                 </div>
                                 <hr/>
                                 <div class="text-center">
                                  <!--  Se connecter? <a ng-click="vm.goToLoginView()" id="login-form-link">Connexion</a>     --> 
-                                 Se connecter? <a ui-sref="home.login" id="login-form-link">Connexion</a>          
+                                 Se connecter? <a ng-click="vm.toggleDisplayedForm()" id="login-form-link">Connexion</a>          
                                 </div>
                               </form>
                             </div><!-- end col-lg-12 -->
