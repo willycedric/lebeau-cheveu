@@ -173,7 +173,7 @@ const getAllHairdressers = (route,alreadyDisplayed) =>{
 
 const getHairdresserById = (id)=>{
     var deferred = $q.defer();
-    $http.get(apiUrl+'/api/users/hairdressers'+'/'+id)
+    $http.get(apiUrl+'/api/hairdressers'+'/'+id)
     .then(function getHairdresserByIdSuccessCallback(response){
         deferred.resolve(response.data);
     },function getHairdresserByIdFailureCallback(err){
