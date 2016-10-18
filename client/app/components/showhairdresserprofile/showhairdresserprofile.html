@@ -1,83 +1,160 @@
 <div class="showhairdresserprofile">
-  <section id="profil" class="">
-  	<div class="container">
-  		<div class="row">
+	<section id="profil" class="">
+		<div class="container">
+			<div class="row">
 			<div class="col-sm-4 col-lg-3 col-xs-4 ">
-	  			<hairdresser-profile-card url="{{vm.hairdresser.picture}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type | customerTypeFilter}}"></hairdresser-profile-card>
-	  		</div>
-	  		<div class=" col-sm-offset-2 col-lg-offset-3 col-lg-6 col-xs-offset-2 col-sm-6 col-xs-6 description">
-	  			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	  			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	  			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	  			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	  			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	  			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	  			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	  			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	  			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	  			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	  			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	  		</div>
-  		</div> <!-- .row -->
-  	</div><!-- .container -->
-  </section><!-- #profil -->
-  <section id="carousel" class="content-widget">
-  </section><!-- carousel -->
-  <section id="logbook" class="content-widget">
-  <!-- 	<hairdresser-logbook days = "vm.days" hours = "vm.openingHourList" times = "vm.times"></hairdresser-logbook> -->
-  <div class="container">
-	  <div class="row">
-	        <div id="no-more-tables">
-	            <table class="col-sm-offset-2 col-sm-8 table-bordered table-striped table-condensed cf">               
-	        		<thead class="cf">
-	        			<tr>
-	        				<th class="hearder-label"  >Horaire</th>
-	                        <th class="hearder-label" ng-repeat="d in vm.days">{{d|date :'EEE'}}</th>
-	        			</tr>
-	        		</thead>
-	        		<tbody>
-	        			<tr ng-repeat="t in vm.times[0][0][0].slotType track by $index">
-	                        <td class="cell-hour">{{vm.openingHourList[$index]}}</td>
-	        				<td data-title="Monday" ng-click = "vm.rowClicked(t)" >{{t|displayHairdresserStatut}}</td>
-	        				<td data-title="Tuesday" ng-click="vm.rowClicked(vm.times[1][0][0].slotType[$index])" >{{vm.times[1][0][0].slotType[$index]|displayHairdresserStatut}}</td>
-	        				<td data-title="Wednesday" ng-click="vm.rowClicked(vm.times[2][0][0].slotType[$index])">{{vm.times[2][0][0].slotType[$index]|displayHairdresserStatut}}</td>
-	        				<td data-title="Thursday" ng-click="vm.rowClicked(vm.times[3][0][0].slotType[$index])"  >{{vm.times[3][0][0].slotType[$index]|displayHairdresserStatut}}</td>
-	        				<td data-title="Friday" ng-click="vm.rowClicked(vm.times[4][0][0].slotType[$index])"  >{{vm.times[4][0][0].slotType[$index]|displayHairdresserStatut}}</td>
-	        				<td data-title="Satruday" ng-click="vm.rowClicked(vm.times[5][0][0].slotType[$index])" >{{vm.times[5][0][0].slotType[$index]|displayHairdresserStatut}}</td>
-	        				<td data-title="Sunday" ng-click="vm.rowClicked(vm.times[6][0][0].slotType[$index])"  >{{vm.times[6][0][0].slotType[$index]|displayHairdresserStatut}}</td>
-	        			</tr>                  
-	        		</tbody>
-	        	</table>
+					<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser[0].username}}" type="{{vm.hairdresser[0].customer_type | customerTypeFilter}}"></hairdresser-profile-card>
+				</div>
+				<div class=" col-sm-offset-2 col-lg-offset-3 col-lg-6 col-xs-offset-2 col-sm-6 col-xs-6 description">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</div>
+			</div> <!-- .row -->
+		</div><!-- .container -->
+	</section><!-- #profil -->
+	<section id="carousel" class="content-widget">
+		<div class="container">          
+	        <div class="row">
+	        	<h4 class="panel-title" style="color:#790303; text-align:center;margin-bottom:5px;">Mes dernières réalisations </h4>
+	          <div class="col-xs-offset-1 col-xs-10">
+	              <uib-carousel active="vm.active" interval="vm.myInterval" on-carousel-change="vm.onSlideChanged(nextSlide, direction,nextIndex)"no-wrap="vm.noWrapSlides">
+	                <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
+	                  <div class="carousel-caption">
+	                    <!--   <p >{{slide.text}}</p> -->
+	                 </div> <!-- .carousel-caption -->
+	                   <img class='carousel-img' style="width: 100%;height: auto;" ng-src="{{slide.image}}" >
+	              </uib-slide>
+	            </uib-carousel>
+	         </div>
+	        </div>        <!-- .row -->
+	    </div><!-- .container-fluid-fluid -->   
+	</section><!-- carousel -->
+	<section id="logbook" class="content-widget">
+		<!-- Accordion template -->
+		<script type="text/ng-template" id="group-template.html">
+		    <div class="panel panel-default">
+		      <div class="panel-heading">
+		        <h4 class="panel-title" style="color:#790303; text-align:center;">
+		          <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
+		            <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
+		              {{heading}}
+		            </span>
+		          </a>
+		        </h4>
+		      </div>
+		      <div class="panel-collapse collapse" uib-collapse="!isOpen">
+		        <div class="panel-body" style="text-align: right" ng-transclude></div>
+		      </div>
+		    </div>
+  		</script>
+  		<script type="text/ng-template" id="confirmation.html">
+	        <div class="modal-body" id="modal-body">
+	           <span class="connection-required" style="text-algin:center;"> Vous devez vous connecter pour pouvoir réserver une séance</span>
 	        </div>
-	    </div> <!-- .row -->
-    </div> <!-- .container -->
-  </section>
-  <section id="performance-advice" class="content-widget">
-  	<div class="container">
-  		<div class="row">
-  			<div class="col-sm-6 col-xs-12 performance ">
-  				<div class="row">
-		  			<h3 style="text-align:center;">Prestation et tarif</h3>
-		  		</div>
-		  		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		  		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		  		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		  		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		  		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		  		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		  	</div>
-		  	<div class="col-sm-6 col-xs-12 advice">
-		  		<div class="row">
-		  			<h3 style="text-align:center;">Avis</h3>
-		  		</div>
-		  		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		  		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		  		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		  		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		  		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		  		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		  	</div>
-	    </div><!-- .row -->
-  	</div><!-- .container -->  	
-  </section><!-- #prestation-avis -->
-</div><!-- showhairdresserprofile -->
+	        <div class="modal-footer" style="text-align:center;">
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+	            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Annuler</button>
+	        </div>
+   	  	</script>
+   	  	<script type="text/ng-template" id="slot-confirmation.html">
+	        <div class="modal-body" id="modal-body">
+	           <span class="question-modal" style="text-algin:center;"> Confirmez votre réservation du {{$ctrl.selectedTimeSlot|date}} à {{$ctrl.slotHour}}?</span>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;">
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+	            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Annuler</button>
+	        </div>
+   	  	</script>
+   	  	<script type="text/ng-template" id="slot-reservation.html">
+	        <div class="modal-body" id="modal-body">
+	           <span class="question-modal" style="text-algin:center;"> La période du {{$ctrl.selectedTimeSlot|date}} à {{$ctrl.slotHour}} est déja prise</span>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;">
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+   	  	</script>
+   	  	<script type="text/ng-template" id="only-customer.html">
+	        <div class="modal-body" id="modal-body">
+	           <span class="question-modal" style="text-algin:center;"> Seul les clients peuvent accéder à cette fonctionnalités</span>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;">
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+   	  	</script>
+
+		 <uib-accordion close-others="oneAtATime">
+			<div uib-accordion-group class="panel-default" is-open="vm.isCustomHeaderOpen" template-url="group-template.html">
+      <uib-accordion-heading>
+        Mes prochaines disponibilités <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': vm.isCustomHeaderOpen, 'glyphicon-chevron-right': !vm.isCustomHeaderOpen}"></i>
+      </uib-accordion-heading>
+  <!-- 	<hairdresser-logbook days = "vm.days" hours = "vm.openingHourList" times = "vm.times"></hairdresser-logbook> -->
+		<div class="container">
+			<div class="row">
+				<div id="logbook">
+				    <table class="col-sm-offset-2 col-sm-8 table-bordered table-striped table-condensed cf">               
+						<thead class="cf">
+							<tr>
+								<th class="hearder-label"  >Horaire</th>
+				                <th class="hearder-label" ng-repeat="d in vm.days">{{d|date :'EEE'}}</th>
+							</tr>
+						</thead>
+						<!-- Each the appountments array contains Seven appointment and each has a 11 length slotType array -->
+						<tbody>
+							<tr ng-repeat="t in vm.hairdresser.appointments[0].slotType track by $index">
+				                <td class="cell-hour">{{vm.openingHourList[$index]}}</td>
+								<td data-title="Day1" ng-class= "{'active-cell':!t,'busy-cell':t}"  ng-click = "vm.rowClicked(vm.hairdresser.appointments[0].dayOfWeek,$index,vm.hairdresser.appointments[0]._id,t)" >{{t |displayHairdresserStatut}}<login name=""></login></td>
+								<td data-title="Day2" ng-class='{"active-cell":!vm.hairdresser.appointments[1].slotType[$index],"busy-cell":vm.hairdresser.appointments[1].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[1].dayOfWeek,$index,vm.hairdresser.appointments[1]._id,vm.hairdresser.appointments[1].slotType[$index])" >{{vm.hairdresser.appointments[1].slotType[$index]|displayHairdresserStatut}}<login name=""></login></td>
+								<td data-title="Day3" ng-class='{"active-cell":!vm.hairdresser.appointments[2].slotType[$index],"busy-cell":vm.hairdresser.appointments[2].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[2].dayOfWeek,$index,vm.hairdresser.appointments[2]._id,vm.hairdresser.appointments[2].slotType[$index])">{{vm.hairdresser.appointments[2].slotType[$index]|displayHairdresserStatut}}<login name=""></login></td>
+								<td data-title="Day4" ng-class='{"active-cell":!vm.hairdresser.appointments[3].slotType[$index],"busy-cell":vm.hairdresser.appointments[3].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[3].dayOfWeek,$index,vm.hairdresser.appointments[3]._id,vm.hairdresser.appointments[3].slotType[$index])"  >{{vm.hairdresser.appointments[3].slotType[$index]|displayHairdresserStatut}}<login name=""></login></td>
+								<td data-title="Day5" ng-class='{"active-cell":!vm.hairdresser.appointments[4].slotType[$index],"busy-cell":vm.hairdresser.appointments[4].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[4].dayOfWeek,$index,vm.hairdresser.appointments[4]._id,vm.hairdresser.appointments[4].slotType[$index])"  >{{vm.hairdresser.appointments[4].slotType[$index]|displayHairdresserStatut}}<login name=""></login></td>
+								<td data-title="Day6" ng-class='{"active-cell":!vm.hairdresser.appointments[5].slotType[$index],"busy-cell":vm.hairdresser.appointments[5].slotType[$index]}'  ng-click="vm.rowClicked(vm.hairdresser.appointments[5].dayOfWeek,$index,vm.hairdresser.appointments[5]._id,vm.hairdresser.appointments[5].slotType[$index])" >{{vm.hairdresser.appointments[5].slotType[$index]|displayHairdresserStatut}}<login name=""></login></td>
+								<td data-title="Day7" ng-class='{"active-cell":!vm.hairdresser.appointments[6].slotType[$index],"busy-cell":vm.hairdresser.appointments[6].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[6].dayOfWeek,$index,vm.hairdresser.appointments[6]._id,vm.hairdresser.appointments[6].slotType[$index])"  >{{vm.hairdresser.appointments[6].slotType[$index]|displayHairdresserStatut}}<login name=""></login></td>
+							</tr>                  
+						</tbody>
+					</table>
+				</div><!-- #logbook -->
+			</div> <!-- .row -->
+		</div> <!-- .container -->
+    </div><!-- uib-accordion-group-->
+	</uib-accordion>
+	</section>
+	<section id="performance-advice" class="content-widget">
+	<div class="container">
+	<div class="row">
+		<div class="col-sm-6 col-xs-12 performance ">
+			<div class="row">
+				<h3 style="text-align:center;">Prestation et tarif</h3>
+			</div>
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</div>
+		<div class="col-sm-6 col-xs-12 advice">
+			<div class="row">
+				<h3 style="text-align:center;">Avis</h3>
+			</div>
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</div>
+	</div><!-- .row -->
+	</div><!-- .container -->  	
+	</section><!-- #prestation-avis -->
+	</div><!-- showhairdresserprofile -->
+
+

@@ -1,5 +1,5 @@
 
-const AuthToken = ($window) =>{
+const AuthToken = ($window,$log) =>{
 	/**
    * [Save the token received in each response of the server in the sessionStorage]
    * @param  {[type]} token [token received from the server]
@@ -28,9 +28,14 @@ const AuthToken = ($window) =>{
    * @return {[object]}       [token payload]
    */
   const parseToken = (token) =>{
-  	var base64url= token.split('.')[1];
-  	var base64 = base64url.replace('-','+').replace('_','/');
-  	return JSON.parse($window.atob(base64));
+    if(token){
+      var base64url= token.split('.')[1];
+      var base64 = base64url.replace('-','+').replace('_','/');
+      return JSON.parse($window.atob(base64));
+    }else{
+        $log.error('token is not define');
+    }
+  	
   };
    const isAuthenticated = (token, payload) =>{
    		if(token){
@@ -47,5 +52,6 @@ const AuthToken = ($window) =>{
   	isAuthenticated
   };
 };
+AuthToken.$inject =['$window','$log'];
 
 export {AuthToken};

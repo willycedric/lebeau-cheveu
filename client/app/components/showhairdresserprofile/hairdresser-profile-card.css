@@ -15,7 +15,7 @@
   left:10px;
   bottom:0;
   background: url(data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIHN0eWxlPSJmaWxsOiM1ODFmMWYiIGQ9Ik0yMCA0SDRjLTEuMSAwLTEuOTkuOS0xLjk5IDJMMiAxOGMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0yVjZjMC0xLjEtLjktMi0yLTJ6bTAgMTRINFY4bDggNSA4LTV2MTB6bS04LTdMNCA2aDE2bC04IDV6Ii8+Cjwvc3ZnPg==) no-repeat center center;
-  padding:25px;
+  padding:12px;
    z-index:2;
 }
 .showhairdresserprofile .card-contact:hover{
@@ -32,6 +32,6 @@
   text-transform: uppercase;
 }
 .showhairdresserprofile .card-details {
-  font-size: 24px;
-  color:#fff;
+  font-size: 16px;
+  color:#790303;/*#a94442;*/
 }

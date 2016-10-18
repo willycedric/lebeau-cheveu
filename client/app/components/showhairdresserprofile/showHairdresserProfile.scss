@@ -2,6 +2,14 @@
 $td-color-border:#dedede;
 $td-padding:20px;
 $td-background-color:#eee;
+$white:#fff;
+$color-button:#a94442;/*#790303*/
+$button-color:#790303;
+$green:#4CAF50;
+$orange:#FF6600;
+$fafafa:#FAFAFA;
+
+/** Logbook CSS */
 table,thead,tbody,tfoot,tr,td,th{
   text-align: center;
   margin: auto;
@@ -18,7 +26,9 @@ tr{
  .table-bordered > tbody > tr > td {
     border: 1px solid $td-color-border;
     padding: $td-padding;
-    background: $td-background-color;
+    background:$td-color-border;
+    transform:scale(0.9);
+    color:$white;
     border-top:none;
     &:nth-child(odd){
 	    border-right:none;
@@ -27,31 +37,84 @@ tr{
 }
 table tr td.cell-hour{
 	  	padding:0;
-	  	background:cyan;
+	  	background:$color-button;
+}
+
+table tr td.active-cell{
+	background:$green;
+	transition: all .2s ease-in-out;
+	&:hover,&:focus,&:active{
+		cursor:pointer;
+		transform: scale(1);
+	}
+}
+table tr td.busy-cell{
+	background:$orange;
+	transition: all .2s ease-in-out;
+	&:hover,&:focus,&:active{
+		cursor:not-allowed;
+		transform:scale(1);
+	}
+}
+
+
+.table-bordered > thead > tr > th{
+    border-top: 1px solid $white;
+    border-left: 1px solid $white;
+    background-color: $color-button;
+    color: $white;
+    text-align: center;
+    height: 30px;
+    font-size: 12px;
+}
+
+.panel-default > .panel-heading {
+    color: #333;
+    background-color: $fafafa;
+    border-color: #ddd;
+}
+
+.btn-primary {
+    color: $white;
+    background-color: #790303;
+    border-color: #790303;
+      &:hover,&:focus,&:active,&:active:hover{
+      	 background-color:$button-color;
+   		 border-color: $button-color;
+      }
+}
+.btn-warning {
+ 	color: $white;
+    background-color: $color-button;
+    border-color: $color-button;
+    &:hover,&:focus,&:active,&:active:hover{
+    	background-color: $color-button;
+   		 border-color: $color-button;
+    }
 }
 
 @media only screen and (max-width: 800px) {
     
     /* Force table to not be like tables anymore */
-	#no-more-tables table, 
-	#no-more-tables thead, 
-	#no-more-tables tbody, 
-	#no-more-tables th, 
-	#no-more-tables td, 
-	#no-more-tables tr { 
+	#logbook table, 
+	#logbook thead, 
+	#logbook tbody, 
+	#logbook th, 
+	#logbook td, 
+	#logbook tr { 
 		display: block; 
 	}
  
 	/* Hide table headers (but not display: none;, for accessibility) */
-	#no-more-tables thead tr { 
+	#logbook thead tr { 
 		position: absolute;
 		top: -9999px;
 		left: -9999px;
 	}
  
-	#no-more-tables tr { border: 1px solid #ccc; }
+	#logbook tr { border: 1px solid #ccc; }
  
-	#no-more-tables td { 
+	#logbook td { 
 		/* Behave  like a "row" */
 		border: none;
 		border-bottom: 1px solid #eee; 
@@ -61,7 +124,7 @@ table tr td.cell-hour{
 		text-align:left;
 	}
  
-	#no-more-tables td:before { 
+	#logbook td:before { 
 		/* Now like a table header */
 		position: absolute;
 		/* Top/left values mimic padding */
@@ -77,5 +140,5 @@ table tr td.cell-hour{
 	/*
 	Label the data
 	*/
-	#no-more-tables td:before { content: attr(data-title); }
+	#logbook td:before { content: attr(data-title); }
 }

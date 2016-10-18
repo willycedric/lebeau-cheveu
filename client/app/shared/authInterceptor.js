@@ -10,7 +10,8 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$window)=>{
 			if((res.config.url.indexOf(apiUrl+`${API.dev.customerRoute}`) === 0 || res.config.url.indexOf(apiUrl+`${API.dev.hairdresserRoute}`)===0 )&& res.data.token){
 				AuthToken.saveToken(res.data.token);
 				//redirect the user to the home page after login
-				$window.location.href=`${API.dev.home}`;
+				//$window.location.href=`${API.dev.home}`;
+			
 			}
 			if((res.config.url == apiUrl+`${API.dev.customerRoute}`)||(res.config.url == apiUrl+`${API.dev.hairdresserRoute}`) && res.status===200 && res.data.isRegistered){
 				//redirect to the home page after successfull registration
