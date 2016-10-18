@@ -1,24 +1,6 @@
 class ModalInstanceCtrl {
-  constructor($uibModalInstance,$log,$http,API,$window,$q,Auth,$state,$rootScope,$scope) {
-    var self = this;
-     
-      self.ok = function () {
-        $log.debug('inside the ok');
-       // $uibModalInstance.close(this.selected.item);
-      };
-
-      self.cancel = function () {
-        //$log.debug('inside the cancel');
-        //$uibModalInstance.dismiss('cancel');
-      };
-      self.launchLoginForm = function(){
-      
-        $log.debug('dismmis the form');
-        $uibModalInstance.close('cancel');
-      };
-
-
-    
+  constructor($uibModal,$uibModalStack,$uibModalInstance,$log,$http,API,$window,$q,Auth,$state,$rootScope,$scope) {
+    var self = this;   
     //facebook authentication route
     self.facebookUrl = `${API.dev.homeUrl}`+'/api/users/auth/facebook';
     /**
@@ -46,16 +28,18 @@ class ModalInstanceCtrl {
      * @return {[type]}      [Form object used for validation purpose]
      */
    self.logCustomer = (data,customerLoginForm)=>{
-      $log.debug('User data ', JSON.stringify(data));
+      self.displayLoading('Login in progress'); //Display the spining modal
+      //$log.debug('User data ', JSON.stringify(data));
       //The form must be valid in order to be send to the API
       if(customerLoginForm.$valid){       
           Auth.login(`${API.dev.customerRoute}`+'/me',data.username,data.password)
               .then(function loginControllerSuccess(data){
                   $rootScope.$broadcast('connectionStatechanged',{data:data});
-                   self.launchLoginForm();
-                  //$state.go('home',null,{reload:true});   
+                   self.lauchLoginForm();                
               },function loginControllerError(err){
                   //console.error(err);
+              }).finally(function(){
+                $uibModalStack.dismissAll('closing'); //remove the spining modal                
               }); 
         
       }else{
@@ -74,6 +58,7 @@ class ModalInstanceCtrl {
       $log.debug('User data ', JSON.stringify(data));
       //The form must be valid in order to be send to the API
       if(hairdresserLoginForm.$valid){
+              self.displayLoading('Login in progress'); //Display the spining modal
               Auth.login(`${API.dev.hairdresserRoute}`+'/me',data.username,data.password)
               .then(function loginControllerSuccess(data){
                 $log.debug('From the loginControllerSuccess ',data);
@@ -82,6 +67,8 @@ class ModalInstanceCtrl {
                   //$state.go('home',null,{reload:true});   
               },function loginControllerError(err){
                   //console.error(err);
+              }).finally(function(){
+                 $uibModalStack.dismissAll('closing'); //remove the spining modal 
               });         
       }else{
         console.error('The login form is not valid');
@@ -97,22 +84,28 @@ class ModalInstanceCtrl {
             $log.debug(JSON.stringify(user));
             if(registerForm.$valid){ 
               if(user.role == 2){ //customers registration
+                self.displayLoading('Registration in progress');
                 Auth.register(`${API.dev.customerRoute}`,user)
                       .then(function registerSuccessCallback(response){
                           if(response.status===200){
-                            console.log('User is successfully registered');
+                            $log.log('User is successfully registered');
                           }
                       },function registerFailureCallback(err){
                           //console.error(err);
+                      }).finally(function(){
+                         $uibModalStack.dismissAll('closing'); //remove the spining modal 
                       }); 
               }else{ //hairdressers registration
+                self.displayLoading('Registration in progress');
                 Auth.register(`${API.dev.hairdresserRoute}`,user)
                       .then(function registerSuccessCallback(response){
                           if(response.status===200){
-                            console.log('User is successfully registered');
+                            $log.log('User is successfully registered');
                           }
                       },function registerFailureCallback(err){
                           //console.error(err);
+                      }).finally(function(){
+                         $uibModalStack.dismissAll('closing'); //remove the spining modal 
                       }); 
               }
             }//end if
@@ -137,10 +130,7 @@ class ModalInstanceCtrl {
 
     //Control to dismiss the modal 
      self.lauchLoginForm = () => {
-          //$log.debug('clicked on the connexion button');
-          //$modalStack.dismissAll('cancel');
-          //$uibModalInstance.close('all');
-          
+          $uibModalInstance.dismiss('cancel');          
     };
 
     self.cancel = function () {
@@ -164,8 +154,31 @@ class ModalInstanceCtrl {
            self.isCustomerFormDisplayed=!self.isCustomerFormDisplayed;
          }     
     };
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
+    self.displayLoading = (message)=>{              
+                  var modalInstance = $uibModal.open({
+                  animation: true,
+                  ariaLabelledBy: 'modal-title',
+                  ariaDescribedBy: 'modal-body',
+                  templateUrl: 'loading.html',
+                  controller:function($uibModalInstance,message){
+                     this.message = message;
+                     this.gif="http://res.cloudinary.com/hgtagghpz/image/upload/v1476819238/spinning-gif_i5g0jx.gif";
+                  },
+                  controllerAs: '$ctrl',
+                  size: 'sm',
+                  resolve: {
+                    message: function () {
+                      return  message;
+                    }
+                  }
+                });
+        };
    
   }//End constructor 
 }
-ModalInstanceCtrl.$inject = ['$uibModalInstance','$log','$http','API','$window','$q','Auth','$state','$rootScope','$scope'];
+ModalInstanceCtrl.$inject = ['$uibModal','$uibModalStack','$uibModalInstance','$log','$http','API','$window','$q','Auth','$state','$rootScope','$scope'];
 export {ModalInstanceCtrl};

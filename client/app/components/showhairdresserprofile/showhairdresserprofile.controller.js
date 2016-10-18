@@ -2,7 +2,7 @@
 import images from '../../../../images.json';
 import {ModalInstanceCtrl} from './../login/modalCtrl';
 class ShowhairdresserprofileController {
-  constructor($stateParams,Auth,$scope,AuthToken,$window,API,$log,$uibModal,$hairdresserMAnager,$customerMAnager) {
+  constructor($stateParams,Auth,$scope,AuthToken,$window,API,$log,$uibModal,hairdresserMAnager,customerMAnager) {
 
         /**
          * Parameters definition
@@ -243,7 +243,7 @@ class ShowhairdresserprofileController {
          * @return {[type]}               [description]
          */
         this.updateAppointmentSlot = (hairdresserId, appointmentId,slotIndex,customerId) =>{
-          $hairdresserMAnager.updateAppointmentSlot(hairdresserId, appointmentId,slotIndex,customerId)
+          hairdresserMAnager.updateAppointmentSlot(hairdresserId, appointmentId,slotIndex,customerId)
           .then(function updateAppointmentSlotProfileControllerSuccessCallback(response){
               $log.info('inside the success callback');
           },function updateAppointmentSlotProfileControllerErrorCallback(err){
@@ -259,7 +259,7 @@ class ShowhairdresserprofileController {
          * @return {[type]}               [description]
          */
         this.updateCustomerAppointmentSlot = (hairdresserId, appointmentId,slotIndex,customerId)=>{
-          $customerMAnager.updateCustomerAppointmentSlot(hairdresserId, appointmentId,slotIndex,customerId)
+          customerMAnager.updateCustomerAppointmentSlot(hairdresserId, appointmentId,slotIndex,customerId)
           .then(function updateAppointmentCustomerSlotControllerSuccessCallback(response){
               $log.info('inside the success callback');
           },function updateAppointmentCustomerSlotControllerErrorCallback(err){
@@ -301,7 +301,7 @@ class ShowhairdresserprofileController {
 }//end constructor
 }
 
-ShowhairdresserprofileController.$inject=['$stateParams','Auth','$scope','AuthToken','$window','API','$log','$uibModal','$hairdresserMAnager','$customerMAnager'];
+ShowhairdresserprofileController.$inject=['$stateParams','Auth','$scope','AuthToken','$window','API','$log','$uibModal','hairdresserMAnager','customerMAnager'];
 export {ShowhairdresserprofileController};
 
 

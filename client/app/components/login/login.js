@@ -16,7 +16,7 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
     })
   })
   .config(($logProvider)=> {
-    $logProvider.debugEnabled(true);
+    $logProvider.debugEnabled(false);
   })
   .directive('login',loginDirective)
   .directive('emailValidator', ()=>{ //mail validator directive
@@ -54,9 +54,7 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
   		return {
   			require:'ngModel',
   			restrict:'A',
-  			link:function(scope,element,attrs,ngModel){
-
-          if(attrs.actor === "customer"){
+  			link:function(scope,element,attrs,ngModel){          
               ngModel.$asyncValidators.uniqueusername = (value)=>{
                 if(ngModel.$isEmpty(value)){
                   return $q.when();
@@ -69,24 +67,7 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
                   deferred.reject(err);
                 });
                 return deferred.promise;
-            };
-          }else if(attrs.actor === "hairdresser"){
-              ngModel.$asyncValidators.uniqueusername = (value)=>{
-                if(ngModel.$isEmpty(value)){
-                  return $q.when();
-                }
-                var deferred = $q.defer();
-                Auth.isUsernameAvailable(API.dev.hairdresserRoute+'/isAvailable',value)
-                .then(function isUserNameAvailabcleValidatorSuccess (response){
-                  deferred.resolve();
-                },function isUserNameAvailableValidatorFailure(err){
-                  deferred.reject(err);
-                });
-                return deferred.promise;
-            };
-          }else{
-            $log.error("unique username validator no actor defined")
-          }
+            }
   				
   			}
   		};
@@ -142,24 +123,3 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
     }
   };
 });
-/*.directive('activePageName', ($rootScope)=>{
-  return{
-      restrict:'E',
-      template:named,
-      scope:{
-          name:'='
-      },
-      link:function(scope,elt,atts){
-          atts.$observe('name', (value)=>{
-                console.log("Value from the name directive ", value);
-                 scope.name =$rootScope.name;
-          });
-          atts.$observe('connexion', (value)=>{
-                console.log("Value from the name directive ", value);
-                 scope.name =$rootScope.connexion;
-          });
-      }
-};
-})*/
-
-

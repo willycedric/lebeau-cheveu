@@ -1,4 +1,5 @@
-const AuthInterceptor = (AuthToken,API,$q,$rootScope,$window)=>{
+
+const AuthInterceptor = (AuthToken,API,$q,$rootScope,$injector,$window,$log)=>{
 	let apiUrl=`${API.dev.homeUrl}`;
 	return {
 		/**
@@ -33,7 +34,9 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$window)=>{
 			var token = AuthToken.getToken();
 			if((config.url.indexOf(apiUrl+`${API.dev.customerRoute}`) === 0 || config.url.indexOf(apiUrl+`${API.dev.hairdresserRoute}`)===0 ) && token){
 				config.headers.Authorization='JWT '+token;
+
 			}
+
 			return config;
 		},
 		/**
@@ -79,6 +82,6 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$window)=>{
 
 };
 
-AuthInterceptor.$inject=['AuthToken','API','$q','$rootScope','$window'];
+AuthInterceptor.$inject=['AuthToken','API','$q','$rootScope','$injector','$window','$log'];
 
 export {AuthInterceptor};

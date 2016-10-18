@@ -42,6 +42,7 @@ class AppController {
 		}
 		$scope.$on('connectionStatechanged',function(evt,user){				
 			if(user){			
+				token = AuthToken.getToken(); //Get the token on successfull authentication
 				$scope.this.toggle=true;
 				$scope.this.username=AuthToken.parseToken(AuthToken.getToken()).name;
 				//Toggle the right profile link in the menu based on the user role 

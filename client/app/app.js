@@ -44,10 +44,5 @@ angular.module('app', [
   hairdressers.name,
   showhairdresserprofile.name
   ])
-.directive('app', appDirective)
-.controller('ModalController', function($scope, $uibModalInstance) {
-    $scope.closeModal = function() {
-      $uibModalInstance.close();
-    };
-  });
+.directive('app', appDirective);
 

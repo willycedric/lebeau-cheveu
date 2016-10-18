@@ -8,9 +8,8 @@ class JoinController {
 	  $ctrl.animationsEnabled = true;
   	
     this.url= "http://res.cloudinary.com/hgtagghpz/image/upload/v1475152779/smile_nucifu.jpg";
-    $log.debug('Inside top');
     //var $ctrl = this;
-    this.launchLoginModal = function(size){
+    /*this.launchLoginModal = function(size){
     	var modalInstance = $uibModal.open({
       animation: $ctrl.animationsEnabled,
       ariaLabelledBy: 'modal-title',
@@ -33,7 +32,7 @@ class JoinController {
     });
 
 
-    }//end launchModalFunction
+    }//end launchModalFunction*/
    
   }
 
