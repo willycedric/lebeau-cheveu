@@ -4,9 +4,9 @@ class HairdresserController {
 	//If a user is connected through the localStretegy, retrieveed the token from the localStorage
  	var token = AuthToken.getToken();
     if(token){
-        this.userName= AuthToken.parseToken(token).name;
+        this.username= AuthToken.parseToken(token).name;
     } 
-Access.hasRole(1)
+Access.isHairdresser(1)
 .then(function(response){
 	console.log('Response ',response);
 }, function (reason){

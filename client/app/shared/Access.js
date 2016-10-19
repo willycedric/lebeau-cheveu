@@ -7,9 +7,21 @@ const Access = (UserProfile,$q) =>{
 
 	    // "we know who you are, and your profile does not allow you to access this resource"
 	    FORBIDDEN: 403,
-       hasRole: function (role) {
+       isHairdresser: function (role) {
        				var deferred = $q.defer();
-			       return UserProfile.fetchUserProfile().then(function (userProfile) {
+			       return UserProfile.fetchHairdresserProfile().then(function (userProfile) {
+			        if (userProfile.$hasRole(role)) {
+			           deferred.resolve(access.OK);
+			        }  else {
+			            deferred.reject(access.UNAUTHORIZED);
+			        }
+			        return deferred.promise;
+			      });
+			       //return deferred.promise;
+			    },
+	    isCustomer :function (role) {
+       				var deferred = $q.defer();
+			       return UserProfile.fetchCustomerProfile().then(function (userProfile) {
 			        if (userProfile.$hasRole(role)) {
 			           deferred.resolve(access.OK);
 			        }  else {

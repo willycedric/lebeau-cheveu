@@ -10,7 +10,12 @@
   			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
   			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <!--   			<a ui-sref="login" class="btn-lbc">Commencer à coiffer</a> -->
-          <a class=""><login></login></a>
+     <span ng-if="isLogged">
+         <a class="btn-lbc" ng-click="goToMyHairdresserProfile()"> Mon profile </a>
+      </span>
+      <span ng-if="!isLogged">
+         <a class=""><login name="commencer"></login></a>
+      </span>
   		</div>
   	</div>  <!-- .row --> 
   	<div class="row next-section ">

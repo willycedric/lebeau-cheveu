@@ -9,7 +9,7 @@ export const customer = angular.module('customer', [uiRouter])
       url: '/customer',
       template: '<customer></customer>',
       resolve:{
-      	access:["Access", function(Access){ return Access.hasRole(2);}]
+      	access:["Access", function(Access){ return Access.isCustomer(2);}]
       }
     })
   })

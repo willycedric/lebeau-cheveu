@@ -8,7 +8,7 @@ export const hairdresser = angular.module('hairdresser', [uiRouter])
       url: '/hairdresser',
       template: '<hairdresser></hairdresser>',
       resolve:{
-      	access:["Access", function(Access){ return Access.hasRole(1);}]
+      	access:["Access", function(Access){ return Access.isHairdresser(1);}]
       }
     })
   })

@@ -26,6 +26,8 @@ export const join = angular.module('join', [uiRouter,$uibModal])
         user:'@',
         description:'@',
         loginModal:'&',
+        goToMyProfile:'&',
+        islogged:'@',
         name:'='
       },
       link:function(scope,elt, attrs){
@@ -44,7 +46,10 @@ export const join = angular.module('join', [uiRouter,$uibModal])
         url:'@',
         user:'@',
         description:'@',
-         loginModal:'&'
+         loginModal:'&',
+         goToMyProfile:'&',
+         islogged:'@',
+         name:'='
       },
       link:function(scope,elt,attrs){
         scope.launch = function(){
