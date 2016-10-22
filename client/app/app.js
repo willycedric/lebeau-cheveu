@@ -22,6 +22,11 @@ import {forgot} from './components/forgot/forgot';
 import {join} from './components/join/join';
 import {hairdressers} from './components/hairdressers/hairdressers';
 import {showhairdresserprofile} from './components/showhairdresserprofile/showhairdresserprofile';
+import {hairdresserAccount} from './components/hairdresserAccount/hairdresserAccount';
+import {hairdresserBooking} from './components/hairdresserBooking/hairdresserBooking';
+import {hairdresserLogbook} from './components/hairdresserLogbook/hairdresserLogbook';
+import {hairdresserPicture} from './components/hairdresserPicture/hairdresserPicture';
+
 import {shared} from './shared/shared';
 
 angular.module('app', [
@@ -42,7 +47,11 @@ angular.module('app', [
   forgot.name,
   join.name,
   hairdressers.name,
-  showhairdresserprofile.name
+  showhairdresserprofile.name,
+  hairdresserAccount.name,
+  hairdresserBooking.name,
+  hairdresserLogbook.name,
+  hairdresserPicture.name
   ])
 .directive('app', appDirective);
 

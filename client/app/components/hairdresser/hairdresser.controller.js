@@ -1,5 +1,5 @@
 class HairdresserController {
-  constructor(AuthToken,Auth,Access,API,$log) {
+  constructor(AuthToken,Auth,Access,API,$log,$state) {
   	// hairdressers account informations
   	var self = this;
   	self.hairdresser={};
@@ -17,7 +17,42 @@ class HairdresserController {
     }, function HairdresserControllerGetProfileErrorCallback(err){
 
     });
-$log.debug("self ",self.username);
+
+    /**
+     * redirect the hairdresser to the Account view
+     * @return {[type]} [description]
+     */
+    self.goToMyAccount = ()=>{
+    	$log.debug('click on the button');
+    	$state.go('hairdresser.MyAccount');
+    };
+
+    /**
+     * redirect the hairdresser to the booking view
+     * @return {[type]} [description]
+     */
+    self.goToBooking= () => {
+    	$log.debug("hairdresser Booking View");
+    	$state.go('catalog');
+    };
+
+    /**
+     * redirect the hairdresser to the logbook view
+     * @return {[type]} [description]
+     */
+    self.goToMyLogbook = () =>{
+    	$log.debug("hairdresser Logbook view");
+    	$state.go("hairdresser.Logbook");
+    };
+
+    /**
+     * redirect the hairdresser to the galeria view
+     * @return {[type]} [description]
+     */
+    self.goToMyPhoto = () =>{
+    	$log.debug("hairdresser Pictures view");
+    	$state.go('hairdresser.Pictures');
+    };
 
 
 Access.isHairdresser(1)
@@ -29,7 +64,7 @@ Access.isHairdresser(1)
 
 };//end constructor;
 }
-HairdresserController.$inject =['AuthToken','Auth','Access','API','$log'];
+HairdresserController.$inject =['AuthToken','Auth','Access','API','$log','$state'];
 export {HairdresserController};
 
 
