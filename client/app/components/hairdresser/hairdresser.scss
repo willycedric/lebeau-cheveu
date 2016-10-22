@@ -1,0 +1,22 @@
+@import "../../styles/sass/main";
+
+.hairdresser{
+	margin-top:5%;
+}
+
+.hairdresser .card{
+	height:200px;
+}
+.hairdresser .card-name{
+	position: relative;
+    top: 50%;
+}
+
+.hairdresser .card-details{
+	display:none;
+}
+.hairdresser .badge{
+  background-color: $white;
+  margin:0.8%;
+  color:$button-color;
+}

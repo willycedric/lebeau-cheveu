@@ -16,7 +16,7 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
     })
   })
   .config(($logProvider)=> {
-    $logProvider.debugEnabled(false);
+    $logProvider.debugEnabled(true);
   })
   .directive('login',loginDirective)
   .directive('emailValidator', ()=>{ //mail validator directive

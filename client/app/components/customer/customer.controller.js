@@ -1,5 +1,5 @@
 class CustomerController {
-	  constructor(AuthToken,Auth,Access) {
+	  constructor(AuthToken,Auth,Access,API) {
 	  	this.lastName=null;
 	  	this.firstName=null;
 	  	this.Auth = Auth;
@@ -14,7 +14,7 @@ class CustomerController {
      */	
 	 refreshCustomerProfile (self,token){
 	    		if(token){  
-	    			this.Auth.getProfile('/api/users/me')
+	    			this.Auth.getProfile(`${API.dev.customerRoute}`+'/me')
 		    		.then(function customerControllerGetProfileSuccess (data){		    			
 		    			self.lastName= data.lastName;		    			
 		    			self.firstName=data.firstName;
@@ -25,6 +25,6 @@ class CustomerController {
 	    		}
     };	
 }
-CustomerController.$inject =['AuthToken','Auth','Access'];
+CustomerController.$inject =['AuthToken','Auth','Access','API'];
 export {CustomerController};
 

@@ -1,0 +1,33 @@
+ 
+$menu-background:#901a18;
+$weight-font:300;
+ .left-menu{
+	margin-top:5%;
+}
+
+.left-menu li{
+	display:list-item;
+	list-style:none;
+}
+.left-menu li.menu-item{
+	margin-bottom: 0.5%;
+	background:$menu-background;
+	padding:0.8%;
+	border:1px solid #F7F7FA;
+	font-weight:$weight-font;
+	width:73%;
+	text-align:center;
+}
+ .left-menu ul li.menu-item:hover{
+	background:#ddd;
+	cursor:pointer;	
+}
+ .left-menu li.menu-item a{
+	color:#fafafa;
+	text-decoration: none;
+	
+}
+ .left-menu li.menu-item:hover> a{
+	cursor:pointer;
+	color:#515151;
+}
