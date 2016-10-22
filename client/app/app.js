@@ -22,10 +22,10 @@ import {forgot} from './components/forgot/forgot';
 import {join} from './components/join/join';
 import {hairdressers} from './components/hairdressers/hairdressers';
 import {showhairdresserprofile} from './components/showhairdresserprofile/showhairdresserprofile';
-import {hairdresserAccount} from './components/hairdresserAccount/hairdresserAccount';
-import {hairdresserBooking} from './components/hairdresserBooking/hairdresserBooking';
-import {hairdresserLogbook} from './components/hairdresserLogbook/hairdresserLogbook';
-import {hairdresserPicture} from './components/hairdresserPicture/hairdresserPicture';
+import {hairdresseraccount} from './components/hairdresserAccount/hairdresserAccount';
+import {hairdresserbooking} from './components/hairdresserBooking/hairdresserBooking';
+import {hairdresserlogbook} from './components/hairdresserLogbook/hairdresserLogbook';
+import {hairdresserpicture} from './components/hairdresserPicture/hairdresserPicture';
 
 import {shared} from './shared/shared';
 
@@ -48,10 +48,10 @@ angular.module('app', [
   join.name,
   hairdressers.name,
   showhairdresserprofile.name,
-  hairdresserAccount.name,
-  hairdresserBooking.name,
-  hairdresserLogbook.name,
-  hairdresserPicture.name
+  hairdresseraccount.name,
+  hairdresserbooking.name,
+  hairdresserlogbook.name,
+  hairdresserpicture.name
   ])
 .directive('app', appDirective);
 
