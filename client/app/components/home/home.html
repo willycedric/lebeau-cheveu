@@ -1,5 +1,20 @@
 <div class="home">
-  <section class="overlay">
+   <section id="carousel">
+    <div class="container-fulid">          
+        <div class="row">
+          <div class="col-xs-12">
+              <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" on-carousel-change="vm.onSlideChanged(nextSlide, direction,nextIndex)"no-wrap="vm.noWrapSlides">
+                <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
+                  <div class="carousel-caption">
+                      <p >{{slide.text}}</p>
+                 </div> <!-- .carousel-caption -->
+                   <img class='carousel-img' style="width: 100%;height: auto;" ng-src="{{slide.image}}" >
+              </uib-slide>
+            </uib-carousel>
+         </div>
+        </div>        <!-- .row -->
+    </div><!-- .container-fluid-fluid -->
+    <div class="overlay">
     <div class="container-fluid">
        <div class="row hidden-xs">
           <div class="hero-footer ">  
@@ -23,45 +38,90 @@
                 </form>
           </div> <!--  .hero-footer  -->
        </div> <!-- .row .hidden-xs -->
-      <div class="row  visible-xs">       
-            <div class="hero-footer">  
-                <form class="form-inline">                  
-                    <div class="col-xs-8">
-                      <div class="form-group">
-                        <label for="exampleInputName2" class="sr-only">Name</label>
-                         <input type="text"  name="exampleInputName2" ng-model="vm.asyncSelected" placeholder="Où?" uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control location">
-                      </div>  
-                    </div>
-                    <div class="col-xs-4">
-                       <a href="#"> <span class="icon-search-lbc"></span></a>
-                    </div>                               
-                </form> <!-- form -->
-            </div> <!--  .hero-footer  -->        
-      </div><!-- .row .visible-xs-->    
-    </div><!-- .container-fluid -->    
-  </section> <!-- .overlay --> 
-   <section id="carousel">
-    <div class="container-fulid">          
-        <div class="row">
-          <div class="col-xs-12">
-              <uib-carousel template-url="carousel.template.html"active="vm.active" interval="vm.myInterval" on-carousel-change="vm.onSlideChanged(nextSlide, direction,nextIndex)"no-wrap="vm.noWrapSlides">
-                <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
-                  <div class="carousel-caption">
-                      <p >{{slide.text}}</p>
-                 </div> <!-- .carousel-caption -->
-                   <img class='carousel-img' style="width: 100%;height: auto;" ng-src="{{slide.image}}" >
-              </uib-slide>
-            </uib-carousel>
-         </div>
-        </div>        <!-- .row -->
-    </div><!-- .container-fluid-fluid -->   
+       <div class="row  visible-xs">       
+              <div class="hero-footer">  
+                  <form class="form-inline">                  
+                      <div class="col-xs-8">
+                        <div class="form-group">
+                          <label for="exampleInputName2" class="sr-only">Name</label>
+                           <input type="text"  name="exampleInputName2" ng-model="vm.asyncSelected" placeholder="Où?" uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control location">
+                        </div>  
+                      </div>
+                      <div class="col-xs-4">
+                         <a href="#"> <span class="icon-search-lbc"></span></a>
+                      </div>                               
+                  </form> <!-- form -->
+              </div> <!--  .hero-footer  -->        
+        </div><!-- .row .visible-xs-->    
+      </div><!-- .container-fluid -->    
+    </div> <!-- .overlay --> 
    </section> <!-- #carousel -->
+   <section class="how-it-work from-previous-section">
+      <div class="container">
+          <div class="hidden-xs">
+              <div class="row">
+                  <a class="how-work button-default-lbc btn-lbc"  >Comment ça marche </a>
+                  <div id="how-it-work" class="hide">
+                    <h3 class="section-title" >Comment ça marche </h3>
+                      <div class="col-sm-4 col-md-4" id="first-step">
+                   
+                    <div class="step-details">
+                      <div class="txt hide">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      </div><!-- #txt -->                      
+                    </div> <!-- .step-details-->
+                     <div class="step-badge">
+                      <span> 1 </span>
+                    </div><!-- .step-badge -->
+                  </div><!-- first-step -->
+                   <div class="col-sm-4 col-md-4" id="second-step">
+                      
+                      <div class="step-details">
+                        <div class="txt hide">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </div><!-- #txt -->
+                      </div><!-- .step-details-->
+                      <div class="step-badge hide">
+                         <span> 2</span>
+                      </div><!-- step-badge -->
+                  </div><!-- .second-step -->
+                   <div class="col-sm-4 col-md-4"id="third-step">
+                      
+                       <div class="step-details">
+                        <div class="txt hide">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </div><!-- #txt -->
+                      </div><!-- .step-details-->
+                      <div class="step-badge hide">
+                         <span> 3 </span>
+                      </div><!-- .step-badge -->
+                  </div><!-- .third-step-->
+              
+                 </div> <!-- #how-it-work -->
+              </div> <!-- .row -->
+          </div> <!-- .hidden-xs -->
+      </div>
+   </section>
 
-   <section id="haircut-categories" class="section-start" style="background:#EDEFED">
+   <section id="haircut-categories" class="from-previous-section" style="background:#EDEFED">
     <div class="container">
        <div class="row">
         <div class="col-xs-12">
-            <h4 style="text-align:center"> Nos Prestations</h4>
+            <h3 class="section-title"> Nos Prestations</h3>
         </div>
       </div> <!-- .row -->
       <div class="row">
@@ -81,7 +141,7 @@
     <div class="container-fluid">
         <div class="row">
           <div class="col-xs-12">
-              <h4 style="text-align:center"> Rejoignez nous !</h4>
+               <h3 class="section-title"> Rejoignez nous</h3>
           </div>
         </div> <!-- .row -->
         <div class="row hidden-xs">
@@ -114,11 +174,11 @@
         </div> <!-- .row .visible-xs -->
     </div> <!-- .container-fluid -->     
   </section> <!-- #motivation -->
-  <section id="haircuts-example" class="section-start">
+  <section id="haircuts-example" class="from-previous-section">
     <div class="container-fluid hidden-xs">
         <div class="row">
           <div class="col-xs-12">
-              <h4 style="text-align:center">  dernières créations</h4>
+              <h3 class="section-title"> Dernières créations </h3>
           </div>
        </div> <!-- .row -->
       <div class="row">
@@ -158,11 +218,11 @@
       </div><!-- .row -->   
     </div> <!-- .container-fluid .visible-xs -->
   </section> <!-- #haircuts-example -->  
-  <section id="customer-advice" class="section-start">
+  <section id="customer-advice" class="from-previous-section">
     <div class="container-fluid">
         <div class="row">
-          <div class="col-xs-12">
-              <h4 style="text-align:center"> Des clients satisfaits </h4>
+          <div class="col-xs-12">             
+               <h3 class="section-title"> Des clients satisfaits</h3>
           </div>
         </div> <!-- .row -->
         <div class="row">
@@ -193,11 +253,11 @@
       </div><!-- .row -->
     </div> <!-- .container-fluid -->
   </section>
-  <footer id="legal-notice" class="section-start">
+  <footer id="legal-notice" class="from-previous-section">
     <div class="container-fluid hidden-xs">
       <div class="row">
         <div class="col-xs-12">
-          <h4 style="text-align:center">Mention légales</h4>
+          <h3 class="section-title"> Mention légales</h3>
         </div>
       </div> <!-- .row -->
       <div class="row">
@@ -238,7 +298,7 @@
     <div class="container-fluid visible-xs">
       <div class="row">
           <div class="col-xs-12">
-              <h4 style="text-align:center;">Mentions légales </h4>
+             <h3 class="section-title"> Mention légales</h3>
           </div>
       </div> <!-- .row -->
       <div class="row">

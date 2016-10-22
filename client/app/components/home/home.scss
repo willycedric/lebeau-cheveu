@@ -1,0 +1,106 @@
+@import "../../styles/sass/main";
+$circle-radius:8%;
+$box-shadow-size:4px;
+$details-height:18%;
+$details-background:#999; /* or c8c8c8*/
+$shadow-color:#5F5F5F;
+$border-style:dashed;
+
+/** How it work section */
+.step-badge{
+	width:$circle-radius;
+	height:$circle-radius;
+	border-radius:50%;
+	color:$white;
+	background:$button-color;
+	margin:0 auto;
+	text-align:center;
+	position:relative;
+	span{
+		font-weight:700;
+		font-size:1.5em;
+	}
+	&:hover,&:focus{
+		cursor:pointer;
+	}
+}
+.step-details{
+	position:relative;
+    opacity:0;
+	background:$details-background;
+	color:$white; 
+	text-align:center;
+	height:$details-height;
+	@include box-shadow-lbc-default ($box-shadow-size,$shadow-color);
+}
+
+#how-it-work{
+    margin-top:5%;
+}
+
+.toggle-opacity{
+    opacity:1;
+}
+
+@keyframes animation1 {
+            0% {
+                transform: scale(0.01, 0);
+                
+            }
+            50% {
+                transform: scale(0.01, 1);
+                
+            }
+            100% {
+                transform: scale(1, 1);
+                /*background: rgba(98, 123, 157, 1);*/
+            }
+        }
+        
+        .anim1 {
+            animation-name: animation1;
+            animation-duration: 2s;
+            transform-origin: 50% 100%;
+            animation-fill-mode: forwards;
+        }
+        
+        .anim2 {
+            animation-name: animation2;
+            animation-duration: 1s;
+            transform-origin: 50% 100%;
+            animation-fill-mode: forwards;
+        }
+		
+        
+        #circle {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            left: 160px;
+            top: 160px;
+            background: rgb(70, 85, 105);
+            border-radius: 50%;
+        }
+        
+        @keyframes animation2 {
+            0% {}
+            100% {
+                transform: translateY(-($details-height));
+              
+            }
+        }
+       
+        
+        .txt {
+            transition: all 0.5s ease;
+            transition-delay: 1.5s;
+            padding: 20px;
+        }
+        
+        .hide {
+            opacity: 0;
+        }
+        
+        .show {
+            opacity: 1;
+        }

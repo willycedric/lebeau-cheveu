@@ -88,3 +88,9 @@
   -ms-transform-style: $style;
   -webkit-transform-style: $style;
 }
+
+@mixin box-shadow-lbc-default ( $selected-size, $selected-color){
+   -moz-box-shadow: $selected-size $selected-size $selected-size ($selected-size)  $selected-color;
+    -webkit-box-shadow: $selected-size $selected-size $selected-size ($selected-size)  $selected-color;
+    box-shadow: $selected-size $selected-size $selected-size ($selected-size)  $selected-color;
+}

@@ -8,6 +8,7 @@ import {homeDirective} from './home.directive';
 import simpleCard from './simple-card.html';
 import cardWithUser from './card-with-user.html';
 import './simple-card.css';
+import './home.scss';
 import $ from 'jquery';
 
 export const home = angular.module('home', [uiRouter,carousel,datepickerPopup])

@@ -231,7 +231,6 @@ input[name="location-xs"]{
 }
 .home .btn-lbc {
   color: white;
-  margin-left:22%;
   padding: 12px 35px;
   border-radius: 4px;
   font-weight: bold;
@@ -248,12 +247,16 @@ input[name="location-xs"]{
   text-decoration: none;
   color: white;
 }
+.home #carousel{
+  position:relative;
+}
 .home .overlay {  
   position:absolute;
   z-index:12;
  /* top:50%;*/
  /*bottom:0;*/
   left:0;
+  bottom:0;
   width:100%;
   text-align:center;
 }

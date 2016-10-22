@@ -1,2 +1,31 @@
 @import "components/button";
 @import "components/hairdresserLogbook"; 
+@import "helpers/mixin";
+$distance-from-previous-section:10%;
+$white:#fff;
+$button-color:#790303;
+$black:#000;
+
+/** Margin with the previous section */
+.from-previous-section{
+	margin-top:$distance-from-previous-section;
+}
+
+/* Center element on each boostrap row */
+.row {
+	text-align:center;
+}
+
+.section-title{
+	text-align:center;
+	font-weight:600;
+	font-size:1.3em;
+	font-family:Helvetica,Arial;
+	margin-bottom:4%;
+	color:#333;
+	transform:scale(0.9);
+	&:hover,&:focus{
+		cursor:pointer;
+		transform:scale(1);
+	}
+}
