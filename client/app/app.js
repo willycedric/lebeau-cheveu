@@ -22,10 +22,10 @@ import {forgot} from './components/forgot/forgot';
 import {join} from './components/join/join';
 import {hairdressers} from './components/hairdressers/hairdressers';
 import {showhairdresserprofile} from './components/showhairdresserprofile/showhairdresserprofile';
-import {hairdresseraccount} from './components/hairdresserAccount/hairdresserAccount';
-import {hairdresserbooking} from './components/hairdresserBooking/hairdresserBooking';
-import {hairdresserlogbook} from './components/hairdresserLogbook/hairdresserLogbook';
-import {hairdresserpicture} from './components/hairdresserPicture/hairdresserPicture';
+import {hairdresseraccount} from './components/hairdresseraccount/hairdresseraccount';
+import {hairdresserbooking} from './components/hairdresserbooking/hairdresserbooking';
+import {hairdresserlogbook} from './components/hairdresserlogbook/hairdresserlogbook';
+import {hairdresserpicture} from './components/hairdresserpicture/hairdresserpicture';
 
 import {shared} from './shared/shared';
 

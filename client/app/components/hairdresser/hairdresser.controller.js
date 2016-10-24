@@ -24,7 +24,7 @@ class HairdresserController {
      */
     self.goToMyAccount = ()=>{
     	$log.debug('click on the button');
-    	$state.go('hairdresser.MyAccount');
+    	$state.go('hairdresser.account');
     };
 
     /**
@@ -33,7 +33,7 @@ class HairdresserController {
      */
     self.goToBooking= () => {
     	$log.debug("hairdresser Booking View");
-    	$state.go('catalog');
+    	$state.go('hairdresser.booking');
     };
 
     /**
@@ -42,7 +42,7 @@ class HairdresserController {
      */
     self.goToMyLogbook = () =>{
     	$log.debug("hairdresser Logbook view");
-    	$state.go("hairdresser.Logbook");
+    	$state.go("hairdresser.logbook");
     };
 
     /**
@@ -51,7 +51,7 @@ class HairdresserController {
      */
     self.goToMyPhoto = () =>{
     	$log.debug("hairdresser Pictures view");
-    	$state.go('hairdresser.Pictures');
+    	$state.go('hairdresser.picture');
     };
 
 

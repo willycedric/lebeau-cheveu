@@ -18,10 +18,10 @@
 					<div class="left-menu">
 						<div class="customer-menu">
 							<ul>
-								<li class="menu-item" ng-click="vm.goToBooking()"> <a> Mes réservations<span class="badge">{{vm.hairdresser.appointments.length}}</span> </a></li>
-								<li class="menu-item" ng-click="vm.goToMyLogbook()"><a >Mon Agenda </a></li>
-								<li class="menu-item" ng-click="vm.goToMyPhoto()"><a >Mes Photos </a></li>
-								<li class="menu-item" ng-click="vm.goToMyAccount()"><a >Mon Compte </a></li>
+								<li ui-sref-active="active" class="active menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.appointments.length}}</span> </a></li>
+								<li ui-sref-active="active" class="active menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda </a></li>
+								<li ui-sref-active="active" class="active menu-item"><a ui-sref="hairdresserpicture">Mes Photos </a></li>
+								<li ui-sref-active="active" lass="active menu-item"><a ui-sref="hairdresseraccount" >Mon Compte </a></li>
 							</ul>
 						</div> <!-- end .customer-menu -->
 					</div>		<!-- 	end .left-menu -->	
