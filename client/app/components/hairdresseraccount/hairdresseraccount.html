@@ -1,0 +1,125 @@
+<section class="hairdresser-account">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="row">
+					<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type | customerTypeFilter}}"></hairdresser-profile-card>
+				</div> <!-- row id card -->
+				<div class=" row menu-item">
+					<div class="left-menu">
+							<div class="hairdresser-menu">
+								<ul>
+									<li class="menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.appointments.length}}</span> </a></li>
+									<li class="menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda </a></li>
+									<li class="menu-item"><a ui-sref="hairdresserpicture">Mes Photos </a></li>
+									<li class="menu-item"><a ui-sref="hairdresseraccount" >Mon Compte </a></li>
+								</ul>
+							</div> <!-- end .customer-menu -->
+					</div>		<!-- 	end .left-menu -->	
+				</div><!-- row menu -->
+			</div> <!-- .col-sm-4 left-element -->
+			<div class=" col-sm-offset-1 col-sm-8">
+				<div class="section">
+					<div class=" row section-top">
+						<span class="section-t col-sm-3">
+								<h4>Profile</h4>
+						</span><!-- .section-title -->
+						<span class="col-sm-3 edit-button">
+							<a class="btn-default-lbc btn-lbc" ng-click="vm.launchUpdateModal()">Modifier</a>
+						</span><!-- .edit-button -->
+					</div> <!-- row section-top -->
+					<hr/>
+					<div class="row" id="hairdresser-profile">
+							<div class=" row-top col-sm-3 left">
+								<span class="section-contains"> Prénom : {{vm.hairdresser.firstname}}</span><br/>
+								<span class="section-contains"> Nom : {{vm.hairdresser.lastname}}</span><br/>
+							</div><!-- .left -->
+							<div class=" row-top col-sm-6 right">
+								<span class="section-contains"> Email :  {{vm.hairdresser.email}} </span><br/>
+								<span class="section-contains"> Nom d'utilisateur: {{vm.hairdresser.username}}</span><br/>
+							</div>
+					</div> <!-- row haidresser-profile -->
+				</div> <!--.section -->	
+				<div class="section">
+					<div class=" row section-top">
+						<span class="section-t col-sm-3">
+								<h4>Préference</h4>
+						</span><!-- .section-title -->
+						<span class="col-sm-3 edit-button">
+							<a class="btn-default-lbc btn-lbc">Modifier</a>
+						</span><!-- .edit-button -->
+					</div> <!-- row section-top -->
+					<hr/>
+					<div class="row" id="preference">
+						<div class="col-sm-5 row-top left">
+							<span class="section-contains">Type de client: {{vm.hairdresser.customer_type | customerTypeFilter}}</span>
+						</div>						
+					</div>
+				</div><!-- .section -->
+				<div class="section">
+					<div class=" row section-top">
+						<span class="section-t col-sm-3">
+								<h4>Sécurité</h4>
+						</span><!-- .section-title -->
+						<span class="col-sm-4 edit-button">
+							<a class="btn-default-lbc btn-lbc">Mot de passe</a>
+						</span><!-- .edit-button -->
+					</div> <!-- row section-top -->
+					<hr>
+					<div class="row row-top ">
+						<span class="section-contains">Votre mot de passe expire dans: {{vm.hairdresser.passwordExpirationDate}}</span>
+					</div><!-- .row .row-top -->
+				</div> <!-- .section -->
+			</div> <!-- .col-sm-8 right element -->
+		</div> <!-- top row -->
+	</div> <!-- .top container -->
+	<script type="text/ng-template" id="haidresserProfile.html">
+		 <div class="modal-header">
+            <!-- <h3 class="modal-title">Error!</h3>-->
+        </div>
+        <div class="modal-body">
+			<form autocomplete="off" role="updapte" ng-hide ="vm.isLoginFormDisplayed" id="update-form"  name="updateForm"  novalidate ng-submit="vm.updateHairdresserProfile(vm.hairdresser,updateForm)">
+				                              <!-- username -->
+				<div class="field-wrap" ng-class="{ 'has-error' : updateForm.username.$invalid && !updateForm.username.$pristine }">
+				                                  <label class="label-displayed" for="username"></label>
+				                                  <input type="text" name="username" id="username"  ng-model ="$ctrl.hairdresser.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required username-validator>
+				                                  <!-- in case of an error the message below is displayed as part of the list of message errors -->
+				                                  <span ng-if='updateForm.username.$pending.uniqueusername' class='text-info'>Vérification de la disponibilité ...</span>
+				                                  <span ng-show='updateForm.username.$invalid&& !updateForm.username.$error.uniqueusername &&!updateForm.username.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
+				                                  <span ng-show="updateForm.username.$invalid &&updateForm.username.$error.uniqueusername&&!updateForm.username.$pristine" class="text-warning">Le nom d'utilisateur choisi n'est plus disponible.</span>
+				</div>
+				                                 <!-- firstname -->
+				<div class="field-wrap" ng-class="{ 'has-error' : updateForm.firstname.$invalid && !updateForm.firstname.$pristine }">
+				                                  <label class="label-displayed" for="firstname"></label>
+				                                  <input type="text" name="firstname" id="firstname"  ng-model ="$ctrl.hairdresser.firstname" tabindex="1"  placeholder="prénom " value="" required>
+				                                  <!-- in case of an error the message below is displayed as part of the list of message errors -->
+				                                  <span ng-show='updateForm.firstname.$invalid &&!updateForm.firstname.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
+				</div>
+				                                 <!-- lastname -->
+				 <div class="field-wrap" ng-class="{ 'has-error' : updateForm.lastname.$invalid && !updateForm.lastname.$pristine }">
+				                                  <label class="label-displayed" for="lastname"></label>
+				                                  <input type="text" name="lastname" id="lastname"  ng-model ="$ctrl.hairdresser.lastname" tabindex="1"  placeholder="nom" value="" required>
+				                                  <!-- in case of an error the message below is displayed as part of the list of message errors -->
+				                                  <span ng-show='updateForm.lastname.$invalid &&!updateForm.lastname.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
+				</div>
+				                                 <!-- email -->
+				<div class="field-wrap" ng-class="{ 'has-error' : updateForm.email.$invalid && !updateForm.email.$pristine }">
+				                                  <label class="label-displayed" for="email"></label>
+				                                  <input type="text" name="email" id="email"  ng-model ="$ctrl.hairdresser.email" tabindex="1"  placeholder="email" value="" required email-validator>
+				                                  <!-- in case of an error the message below is displayed as part of the list of message errors -->
+				                                  <span ng-show="updateForm.email.$invalid && !updateForm.email.$error.email &&!updateForm.email.$pristine" class="text-danger">L'email est requis </span>
+				                                  <span ng-show='updateForm.email.$invalid && updateForm.email.$error.email && !updateForm.email.$pristine' class='text-warning'>L'email saisi n'est pas valide</span>
+				 </div>
+			</form>
+	  </div>
+	  <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+             <button class="btn btn-primary" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+      </div>
+</script>
+<script type="text/ng-template" id="hairdresserPreference.html">
+
+</script>
+<script type="text/ng-template" id="hairdresserPassword.html>"
+</script>
+</section><!-- hairdresser -- >

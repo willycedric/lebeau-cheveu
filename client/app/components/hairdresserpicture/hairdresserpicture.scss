@@ -1,0 +1,20 @@
+@import "../../styles/sass/main";
+
+.hairdresser-picture{
+	margin-top:5%;
+}
+
+
+.hairdresser-picture .card-name{
+	position: relative;
+    top: 50%;
+}
+
+.hairdresser-picture .card-details{
+	display:none;
+}
+.hairdresser-picture .badge{
+  background-color: $white;
+  margin:0.8%;
+  color:$button-color;
+}

@@ -1,0 +1,20 @@
+@import "../../styles/sass/main";
+
+.hairdresser-booking{
+	margin-top:5%;
+}
+
+
+.hairdresser-booking .card-name{
+	position: relative;
+    top: 50%;
+}
+
+.hairdresser-booking .card-details{
+	display:none;
+}
+.hairdresser-booking .badge{
+  background-color: $white;
+  margin:0.8%;
+  color:$button-color;
+}

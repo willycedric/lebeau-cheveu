@@ -1,0 +1,20 @@
+@import "../../styles/sass/main";
+
+.hairdresser-logbook{
+	margin-top:5%;
+}
+
+
+.hairdresser .card-name{
+	position: relative;
+    top: 50%;
+}
+
+.hairdresser-logbook .card-details{
+	display:none;
+}
+.hairdresser-logbook .badge{
+  background-color: $white;
+  margin:0.8%;
+  color:$button-color;
+}
