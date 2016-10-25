@@ -1,10 +1,10 @@
 @import "../../styles/sass/main";
 
-.hairdresser-logbook{
+.hairdresser-message{
 	margin-top:5%;
 }
 
-.hairdresser-logbook .card{
+.hairdresser-message .card{
 	height:200px;
 }
 .hairdresser-logbook .card-name{
@@ -12,10 +12,10 @@
     top: 50%;
 }
 
-.hairdresser-logbook .card-details{
+.hairdresser-message .card-details{
 	display:none;
 }
-.hairdresser-logbook .badge{
+.hairdresser-message .badge{
   background-color: $white;
   margin:0.8%;
   color:$button-color;

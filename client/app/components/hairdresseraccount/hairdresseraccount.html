@@ -9,10 +9,12 @@
 					<div class="left-menu">
 							<div class="hairdresser-menu">
 								<ul>
+									<li class="menu-item"><a ui-sref="hairdresser" >Resumé</a></li>
 									<li class="menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.appointments.length}}</span> </a></li>
 									<li class="menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda </a></li>
 									<li class="menu-item"><a ui-sref="hairdresserpicture">Mes Photos </a></li>
 									<li class="menu-item"><a ui-sref="hairdresseraccount" >Mon Compte </a></li>
+									<li class="menu-item"><a ui-sref="hairdressermessage" >Message(s)<span class="badge">{{vm.hairdresser.messages.length}}</span> </a></li>
 								</ul>
 							</div> <!-- end .customer-menu -->
 					</div>		<!-- 	end .left-menu -->	
@@ -25,7 +27,7 @@
 								<h4>Profile</h4>
 						</span><!-- .section-title -->
 						<span class="col-sm-3 edit-button">
-							<a class="btn-default-lbc btn-lbc" ng-click="vm.launchUpdateModal()">Modifier</a>
+							<a class="btn-default-lbc btn-lbc" ng-click="vm.launchUpdateProfileModal()">Modifier</a>
 						</span><!-- .edit-button -->
 					</div> <!-- row section-top -->
 					<hr/>
@@ -46,7 +48,7 @@
 								<h4>Préference</h4>
 						</span><!-- .section-title -->
 						<span class="col-sm-3 edit-button">
-							<a class="btn-default-lbc btn-lbc">Modifier</a>
+							<a class="btn-default-lbc btn-lbc" ng-click ="vm.updatePreferenceModal()">Modifier</a>
 						</span><!-- .edit-button -->
 					</div> <!-- row section-top -->
 					<hr/>
@@ -66,8 +68,8 @@
 						</span><!-- .edit-button -->
 					</div> <!-- row section-top -->
 					<hr>
-					<div class="row row-top ">
-						<span class="section-contains">Votre mot de passe expire dans: {{vm.hairdresser.passwordExpirationDate}}</span>
+					<div class="row row-top">
+						<span class="section-contains left">Votre mot de passe expire dans: {{vm.hairdresser.passwordExpirationDate}}</span>
 					</div><!-- .row .row-top -->
 				</div> <!-- .section -->
 			</div> <!-- .col-sm-8 right element -->
@@ -75,14 +77,14 @@
 	</div> <!-- .top container -->
 	<script type="text/ng-template" id="haidresserProfile.html">
 		 <div class="modal-header">
-            <!-- <h3 class="modal-title">Error!</h3>-->
+             <h3 class="center modal-title">Profile</h3>
         </div>
         <div class="modal-body">
-			<form autocomplete="off" role="updapte" ng-hide ="vm.isLoginFormDisplayed" id="update-form"  name="updateForm"  novalidate ng-submit="vm.updateHairdresserProfile(vm.hairdresser,updateForm)">
+			<form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="$ctrl.updateProfile()">
 				                              <!-- username -->
 				<div class="field-wrap" ng-class="{ 'has-error' : updateForm.username.$invalid && !updateForm.username.$pristine }">
 				                                  <label class="label-displayed" for="username"></label>
-				                                  <input type="text" name="username" id="username"  ng-model ="$ctrl.hairdresser.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required username-validator>
+				                                  <input type="text" name="username" id="username"  ng-model ="$ctrl.hairdresser.username"  hairdresser={{$ctrl.hairdresser.username}} tabindex="1"  placeholder="nom d'utilisateur" value="" required username-validator>
 				                                  <!-- in case of an error the message below is displayed as part of the list of message errors -->
 				                                  <span ng-if='updateForm.username.$pending.uniqueusername' class='text-info'>Vérification de la disponibilité ...</span>
 				                                  <span ng-show='updateForm.username.$invalid&& !updateForm.username.$error.uniqueusername &&!updateForm.username.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
@@ -110,15 +112,45 @@
 				                                  <span ng-show="updateForm.email.$invalid && !updateForm.email.$error.email &&!updateForm.email.$pristine" class="text-danger">L'email est requis </span>
 				                                  <span ng-show='updateForm.email.$invalid && updateForm.email.$error.email && !updateForm.email.$pristine' class='text-warning'>L'email saisi n'est pas valide</span>
 				 </div>
+				 <div class="container">
+					 <div class="row">
+					 	<div class="col-sm-offset-1 col-sm-2">
+                  			<input  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-primary" value="Enregistrer" >
+                  		</div>
+                  		<div class="col-sm-1">
+                  			<button class="btn btn-primary" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+                  		</div>
+                	</div>
+               </div>
 			</form>
 	  </div>
-	  <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
-             <button class="btn btn-primary" type="button" ng-click="$ctrl.cancel()">Cancel</button>
-      </div>
 </script>
 <script type="text/ng-template" id="hairdresserPreference.html">
-
+	<div class="modal-header">
+		<h3 class="center modal-tile">Préference </h3>
+	</div>
+	<div class="modal-body">
+		<form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="$ctrl.updatePreference($ctrl.multipleSelect)">
+			
+			
+					<label for="multipleSelect"> Type de client:  </label><br>				
+				    <select name="multipleSelect" id="multipleSelect" ng-model="$ctrl.multipleSelect" multiple>
+				      <option value="1">Femme</option>
+				      <option value="2">Homme</option>
+				      <option value="0">Mixte</option>
+				    </select><br>
+		<div class="container">	
+			<div class="row">
+			 	<div class="col-sm-offset-1 col-sm-2">
+          			<input  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-primary" value="Enregistrer" >
+          		</div>
+          		<div class="col-sm-1">
+          			<button class="btn btn-primary" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+          		</div>
+        	</div>
+		</div>
+		</form>  
+	</div>
 </script>
 <script type="text/ng-template" id="hairdresserPassword.html>"
 </script>

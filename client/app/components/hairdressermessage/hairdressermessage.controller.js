@@ -1,4 +1,4 @@
-class HairdresserpictureController {
+	class HairdressermessageController {
 	  constructor(AuthToken,Auth,Access,API,$log,$state) {
 	  	// hairdressers account informations
 	  	var self = this;
@@ -20,9 +20,9 @@ class HairdresserpictureController {
 
 
 	};//end constructor;
-}
-HairdresserpictureController.$inject =['AuthToken','Auth','Access','API','$log','$state'];
+	}
+	HairdressermessageController.$inject =['AuthToken','Auth','Access','API','$log','$state'];
 
-export {HairdresserpictureController};
+export {HairdressermessageController};
 
 

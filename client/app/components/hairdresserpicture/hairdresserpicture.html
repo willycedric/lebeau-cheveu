@@ -1,33 +1,25 @@
-<section class="hairdresser">
-	<section id="hairdresser-profil">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4 col-lg-3 col-xs-4 ">
-						<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type | customerTypeFilter}}"></hairdresser-profile-card>
-				</div>
-				<div class=" col-sm-offset-2 col-lg-offset-3 col-lg-6 col-xs-offset-2 col-sm-6 col-xs-6 description">
-					{{vm.hairdresser. description}}
-				</div>
-			</div> <!-- .row -->
-		</div><!-- .container -->
-	</section><!-- #profil -->
-	<section id ="hairdresser-menu">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4">
+<section class="hairdresser-picture">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="row">
+					<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type | customerTypeFilter}}"></hairdresser-profile-card>
+				</div> <!-- row id card -->
+				<div class=" row menu-item">
 					<div class="left-menu">
-						<div class="customer-menu">
-							<ul>
-								<li class="menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.appointments.length}}</span> </a></li>
-								<li class="menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda </a></li>
-								<li class="menu-item"><a ui-sref="hairdresserpicture">Mes Photos </a></li>
-								<li class="menu-item"><a ui-sref="hairdresseraccount" >Mon Compte </a></li>
-							</ul>
-						</div> <!-- end .customer-menu -->
+							<div class="hairdresser-menu">
+								<ul>
+									<li class="menu-item"><a ui-sref="hairdresser" >Resumé</a></li>
+									<li class="menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.appointments.length}}</span> </a></li>
+									<li class="menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda </a></li>
+									<li class="menu-item"><a ui-sref="hairdresserpicture">Mes Photos </a></li>
+									<li class="menu-item"><a ui-sref="hairdresseraccount" >Mon Compte </a></li>
+									<li class="menu-item"><a ui-sref="hairdressermessage" >Message(s)<span class="badge">{{vm.hairdresser.messages.length}}</span> </a></li>
+								</ul>
+							</div> <!-- end .customer-menu -->
 					</div>		<!-- 	end .left-menu -->	
-				</div>
-			</div>
-
-		</div>
-	</section>
+				</div><!-- row menu -->
+			</div> <!-- .col-sm-4 left-element -->			
+		</div> <!-- top row -->
+	</div> <!-- .top container -->
 </section><!-- hairdresser -- >

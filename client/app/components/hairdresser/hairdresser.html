@@ -1,33 +1,70 @@
 <section class="hairdresser">
-	<section id="hairdresser-profil">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4 col-lg-3 col-xs-4 ">
-						<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type | customerTypeFilter}}"></hairdresser-profile-card>
-				</div>
-				<div class=" col-sm-offset-2 col-lg-offset-3 col-lg-6 col-xs-offset-2 col-sm-6 col-xs-6 description">
-					{{vm.hairdresser. description}}
-				</div>
-			</div> <!-- .row -->
-		</div><!-- .container -->
-	</section><!-- #profil -->
-	<section id ="hairdresser-menu">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="row">
+					<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type | customerTypeFilter}}"></hairdresser-profile-card>
+				</div> <!-- row id card -->
+				<div class=" row menu-item">
 					<div class="left-menu">
-						<div class="customer-menu">
-							<ul>
-								<li ui-sref-active="active" class="active menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.appointments.length}}</span> </a></li>
-								<li ui-sref-active="active" class="active menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda </a></li>
-								<li ui-sref-active="active" class="active menu-item"><a ui-sref="hairdresserpicture">Mes Photos </a></li>
-								<li ui-sref-active="active" lass="active menu-item"><a ui-sref="hairdresseraccount" >Mon Compte </a></li>
-							</ul>
-						</div> <!-- end .customer-menu -->
+							<div class="hairdresser-menu">
+								<ul>
+									<li class="menu-item"><a ui-sref="hairdresser" >Resumé</a></li>
+									<li class="menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.appointments.length}}</span> </a></li>
+									<li class="menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda </a></li>
+									<li class="menu-item"><a ui-sref="hairdresserpicture">Mes Photos </a></li>
+									<li class="menu-item"><a ui-sref="hairdresseraccount" >Mon Compte </a></li>
+									<li class="menu-item"><a ui-sref="hairdressermessage" >Message(s)<span class="badge">{{vm.hairdresser.messages.length}}</span> </a></li>
+								</ul>
+							</div> <!-- end .customer-menu -->
 					</div>		<!-- 	end .left-menu -->	
-				</div>
-			</div>
-
-		</div>
-	</section>
+				</div><!-- row menu -->
+			</div> <!-- .col-sm-4 left-element -->
+			<div class=" col-sm-offset-1 col-sm-8">
+				
+					<div class="row section row-top" id="last-connection-date">
+						<span class="section-contains left"> Dernière connexion : {{vm.hairdresser.lastconnection |date}}</span>
+						<span class="section-contains right">Status : {{vm.hairdresser.accountstatus | accountstatus}}</span>
+					</div> <!-- row section-->			
+				
+					<div class="row row-top ">
+						<div class="col-sm-5 section section-height center">				
+								<h5 class="section-t  ">Prochain Rendez-vous</h5>						
+								<hr>
+								<span class="section-contains section-number">0</span>
+						</div><!-- .section -->
+						<div class="col-sm-offset-2 col-sm-5 section-height center section">
+							<h5 class="section-t ">Nombre de visite(s)</h5>
+							<hr>
+								<span class="section-contains section-number">0</span>
+						</div><!-- .section -->
+				  </div><!-- .row -->
+				  <div class="row row-top ">
+						<div class="col-sm-5 section section-height center">				
+								<h5 class="section-t  ">Message non lu(s)</h5>						
+								<hr>
+								<span class="section-contains section-number">0</span>
+						</div><!-- .section -->
+						<div class="col-sm-offset-2 col-sm-5 section-height center section">
+							<h5 class="section-t ">Nombre d'avis</h5>
+							<hr>
+								<span class="section-contains section-number">0</span>
+						</div><!-- .section -->
+				  </div><!-- .row -->
+				  <div class="row row-top ">
+						<div class="col-sm-5 section section-height center">				
+								<h5 class="section-t  ">Prochain Prélèvement</h5>						
+								<hr>
+								<span class="section-contains section-number">01/01/1990</span>
+						</div><!-- .section -->
+						<div class="col-sm-offset-2 col-sm-5 section-height center section">
+							<h5 class="section-t ">Nombre de photos</h5>
+							<hr>
+								<span class="section-contains section-number">0</span>
+						</div><!-- .section -->
+				  </div><!-- .row -->
+			
+			</div><!-- right elemnt -->			
+		</div> <!-- top row -->
+	</div> <!-- .top container -->
 </section><!-- hairdresser -- >

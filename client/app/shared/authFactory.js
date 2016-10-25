@@ -127,7 +127,7 @@ const authFactory = ($http, $window,$q,API,AuthToken,$log) =>{
    */
  const isUsernameAvailable = (route,username)=>{
     var deferred =$q.defer();
-    $http.post(apiUrl+route,{username:username})
+    $http.post(apiUrl+route,{username:username.value, name:username.name})
       .then(function isUsernameAvailableSuccessCallback(response){
         if(response.data.isAvailable){
              deferred.resolve()
@@ -183,6 +183,23 @@ const getHairdresserById = (id)=>{
 
 };
 
+/**
+ * Function used to update a customer account
+ * @param  {[type]} route [description]
+ * @param  {[type]} user  [description]
+ * @return {[type]}       [description]
+ */
+  const updateUserProfile = (route,user)=>{
+    var deferred =$q.defer();
+    $http.put(apiUrl+route+'/'+user._id,{user:user})
+    .then(function updateUserProfileSuccessCallback(response){
+        deferred.resolve(response.data);
+    }, function updateUserProfileErrorCallback (err){
+      deferred.reject(new Error('Error during user update '+err));
+    });
+    return deferred.promise;
+  }
+
 
   return {
     login,
@@ -196,7 +213,8 @@ const getHairdresserById = (id)=>{
     isUsernameAvailable,
     isUsernameExist,
     getAllHairdressers,
-    getHairdresserById
+    getHairdresserById,
+    updateUserProfile
   };
   
 };

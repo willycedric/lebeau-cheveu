@@ -59,9 +59,14 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
                 if(ngModel.$isEmpty(value)){
                   return $q.when();
                 }
+               
+                attrs.$observe("hairdresser", function(name){
+                 return  scope.name =name;
+                });
+                console.log(scope.name);
                 var deferred = $q.defer();
-                Auth.isUsernameAvailable(API.dev.customerRoute+'/isAvailable',value)
-                .then(function isUserNameAvailabcleValidatorSuccess (response){
+                Auth.isUsernameAvailable(API.dev.hairdresserRoute+'/isUsernameAvailable',value)
+                .then(function isUserNameAvailableValidatorSuccess (response){
                   deferred.resolve();
                 },function isUserNameAvailableValidatorFailure(err){
                   deferred.reject(err);

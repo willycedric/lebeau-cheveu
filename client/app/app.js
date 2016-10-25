@@ -26,6 +26,7 @@ import {hairdresseraccount} from './components/hairdresseraccount/hairdresseracc
 import {hairdresserbooking} from './components/hairdresserbooking/hairdresserbooking';
 import {hairdresserlogbook} from './components/hairdresserlogbook/hairdresserlogbook';
 import {hairdresserpicture} from './components/hairdresserpicture/hairdresserpicture';
+import {hairdressermessage} from './components/hairdressermessage/hairdressermessage';
 
 import {shared} from './shared/shared';
 
@@ -51,7 +52,8 @@ angular.module('app', [
   hairdresseraccount.name,
   hairdresserbooking.name,
   hairdresserlogbook.name,
-  hairdresserpicture.name
+  hairdresserpicture.name,
+  hairdressermessage.name
   ])
 .directive('app', appDirective);
 

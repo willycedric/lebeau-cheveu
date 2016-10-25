@@ -12,5 +12,16 @@ export const hairdresser = angular.module('hairdresser', [uiRouter])
       }
     })
   })
-  .directive('hairdresser',hairdresserDirective);
+  .directive('hairdresser',hairdresserDirective)
+  .filter('accountstatus', ()=>{
+    return (accountstatus)=>{
+      if(accountstatus ==1){
+        return 'actif';
+      }else if(accountstatus == 0){
+          return 'désactivé';
+      }else{
+        return 'inconnu';
+      }
+    };
+  });
 
