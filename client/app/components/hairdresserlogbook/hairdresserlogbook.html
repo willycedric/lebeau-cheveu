@@ -52,7 +52,7 @@
 				<h5 class="center modal-tile">prochain Rendez-vous</h5>
 			</div>
 	        <div class="modal-body default" id="modal-body">
-	           <span class="section-label">{{$ctrl.dayOfWeek |date }}</span> à <span class="section-label">{{$ctrl.appointmentHour}}</span> avec <span class="section-label">{{$ctrl.customerUsername}}</span> <br/>
+	           <span class="section-label"> Le {{$ctrl.dayOfWeek |date:'dd-MMM-yyyy' }}</span> à <span class="section-label">{{$ctrl.appointmentHour}}</span> avec <span class="section-label">{{$ctrl.customerUsername}}</span> <br/>
 	           <button class="btn btn-confirm" type="button" ng-click="$ctrl.ok()">Confirmer</button>
 	           <button class="btn btn-cancel" type="button" ng-click="$ctrl.cancel()">Annuler</button>
 
