@@ -113,3 +113,22 @@ hr{
 	color:gray;
 	font-weight:$default-font-weight;
 }
+
+
+/** Modal windows default styles */
+/* Modal header */
+.modal-header {
+	background:$button-color;
+	font-weight:$default-font-weight;
+	text-align: center;
+	text-transform:uppercase;
+	color:$white;
+}
+/* Modal body */
+.modal-body{
+	text-align:center;
+	font-weight:$default-font-weight;
+}
+.modal-footer{
+	text-align:center;
+}

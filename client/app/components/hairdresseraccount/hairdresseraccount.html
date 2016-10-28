@@ -20,7 +20,7 @@
 					</div>		<!-- 	end .left-menu -->	
 				</div><!-- row menu -->
 			</div> <!-- .col-sm-4 left-element -->
-			<div class=" col-sm-offset-1 col-sm-8">
+			<div class="col-sm-9">
 				<div class="section">
 					<div class=" row section-top">
 						<span class="section-t col-sm-3">
@@ -45,7 +45,7 @@
 				<div class="section">
 					<div class=" row section-top">
 						<span class="section-t col-sm-3">
-								<h4>Préference</h4>
+								<h4>Préferences</h4>
 						</span><!-- .section-title -->
 						<span class="col-sm-3 edit-button">
 							<a class="btn-default-lbc btn-lbc" ng-click ="vm.updatePreferenceModal()">Modifier</a>
@@ -55,7 +55,10 @@
 					<div class="row" id="preference">
 						<div class="col-sm-5 row-top left">
 							<span class="section-contains">Type de client: {{vm.hairdresser.customer_type | customerTypeFilter}}</span>
-						</div>						
+						</div>	
+						<div class="col-sm-5 row - top right">
+							<span class="section-contains">Categories de coiffure:<span ng-repeat="category in vm.hairdresser.categories track by $index"> {{category}} </span> <br/></span>
+						</div>					
 					</div>
 				</div><!-- .section -->
 				<div class="section">
@@ -127,18 +130,25 @@
 </script>
 <script type="text/ng-template" id="hairdresserPreference.html">
 	<div class="modal-header">
-		<h3 class="center modal-tile">Préference </h3>
+		<h3 class="center modal-tile">Préferences </h3>
 	</div>
 	<div class="modal-body">
-		<form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="$ctrl.updatePreference($ctrl.multipleSelect)">
+		<form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="$ctrl.updatePreference($ctrl.multipleSelect1,$ctrl.multipleSelect2)">
 			
 			
-					<label for="multipleSelect"> Type de client:  </label><br>				
-				    <select name="multipleSelect" id="multipleSelect" ng-model="$ctrl.multipleSelect" multiple>
+					<label for="multipleSelect1"> Type de client:  </label><br>				
+				    <select name="multipleSelect1" id="multipleSelect1" ng-model="$ctrl.multipleSelect1" multiple>
 				      <option value="1">Femme</option>
 				      <option value="2">Homme</option>
 				      <option value="0">Mixte</option>
 				    </select><br>
+				    <label for="multipleSelect2"> Categorie de coiffure:  </label><br>				
+				    <select name="multipleSelect2" id="multipleSelect2" ng-model="$ctrl.multipleSelect2" multiple>
+				      <option value="1">Cheveux Afro</option>
+				      <option value="2">Cheveux Lisses</option>
+				      <option value="0">Cheveux Bouclés</option>
+				    </select><br>
+				    
 		<div class="container">	
 			<div class="row">
 			 	<div class="col-sm-offset-1 col-sm-2">

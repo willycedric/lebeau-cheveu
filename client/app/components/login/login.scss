@@ -284,3 +284,25 @@ ul.sm-wrap li#facebook-sm {
 ul.sm-wrap a{
     text-decoration: none;    
 }
+
+
+/* Login input[type="chekbox"]*/
+
+.hairdresser-checkbox{
+  padding:3%;
+}
+
+.hairdresser-label{
+  position:absolute;
+  left:0;
+}
+
+input[type='checkbox'] {
+  position:absolute;
+  display:inline;
+  height:50%;
+}
+
+#register-submit{
+  margin-top:3%;
+}

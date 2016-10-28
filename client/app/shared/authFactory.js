@@ -171,12 +171,18 @@ const getAllHairdressers = (route,alreadyDisplayed) =>{
   return deferred.promise;
 };
 
-const getHairdresserById = (id)=>{
+/**
+ * Helper allowing to get the user by his ID 
+ * @param  {[type]} route [API Route]
+ * @param  {[type]} id    [user Id]
+ * @return {[type]}       [description]
+ */
+const getUserById = (route, id)=>{
     var deferred = $q.defer();
-    $http.get(apiUrl+'/api/hairdressers'+'/'+id)
-    .then(function getHairdresserByIdSucccessCallback(response){
+    $http.post(apiUrl+route+'/getUserById',{id:id})
+    .then(function getUserByIdSucccessCallback(response){
         deferred.resolve(response.data);
-    },function getHairdresserByIdFailureCallback(err){
+    },function getUserByIdFailureCallback(err){
       deferred.reject(err);
     });
     return deferred.promise;
@@ -200,6 +206,33 @@ const getHairdresserById = (id)=>{
     return deferred.promise;
   }
 
+const getHairdresserById = (id)=>{
+    var deferred = $q.defer();
+    $http.get(apiUrl+'/api/hairdressers'+'/'+id)
+    .then(function getHairdresserByIdSucccessCallback(response){
+        deferred.resolve(response.data);
+    },function getHairdresserByIdFailureCallback(err){
+      deferred.reject(err);
+    });
+    return deferred.promise;
+
+};
+
+/**
+ * get The user profile 
+ * @param  {[type]} route [description]
+ * @return {[type]}       [description]
+ */
+const getMe = (route)=>{
+    var deferred = $q.defer();
+    $http.get(apiUrl+route+'/me')
+    .then(function getMeSucccessCallback(response){
+        deferred.resolve(response.data);
+    },function getMeFailureCallback(err){
+      deferred.reject(new Error('Error getMe (err) =>'+err));
+    });
+    return deferred.promise;
+};
 
   return {
     login,
@@ -213,8 +246,10 @@ const getHairdresserById = (id)=>{
     isUsernameAvailable,
     isUsernameExist,
     getAllHairdressers,
+    getUserById,
     getHairdresserById,
-    updateUserProfile
+    updateUserProfile,
+    getMe
   };
   
 };

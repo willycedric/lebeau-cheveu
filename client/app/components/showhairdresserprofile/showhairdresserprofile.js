@@ -46,11 +46,14 @@ export const showhairdresserprofile = angular.module('showhairdresserprofile', [
       case 0:
         return 'Dispo';
         break;
-        case 1:
-          return 'Réservé';
-          break;
-          default:
-          break;
+      case 1:
+        return 'Réservé';
+        break;
+      case -1:
+        return 'Vérouillé'
+        break;
+      default:
+        break;
     }
   }
 });

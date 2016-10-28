@@ -11,9 +11,9 @@
  		 * @type {[type]}
  		 */
 		 let apiUrl=`${API.dev.homeUrl}`;
- 		const updateAppointmentSlot = (hairdresserId, appointmentId, slotIndex,customerId)=>{
+ 		const updateAppointmentSlot = (hairdresserId, appointmentId, slotIndex,customerId,username,lastname,firstname)=>{
  				var deferred = $q.defer();
- 				$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserAppointment', {hairdresserId:hairdresserId, appointmentId:appointmentId,slotIndex:slotIndex,customerId:customerId})
+ 				$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserAppointment', {hairdresserId:hairdresserId, appointmentId:appointmentId,slotIndex:slotIndex,customerId:customerId,username:username,lastname:lastname,firstname:firstname})
  				.then(function updateAppointmentSlotSuccessCallback(response){
  					$log.debug('no response now');
  				}, function updateAppointmentSlotErrorCallback(err){
@@ -22,8 +22,63 @@
  				return deferred.promise;
  		};
 
+ 		/**
+ 		 * [description]
+ 		 * @param  {[type]} appointmentId [description]
+ 		 * @return {[type]}               [description]
+ 		 */
+ 		const getAppointmentById = (appointmentId)=>{
+ 			var deferred = $q.defer();
+ 			$http.post(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserAppointmentId',{appointmentId:appointmentId})
+ 			.then(function getAppointmentByIdSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function getAppointmentByIdFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to get an appointment by it's Id (err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		};
+
+ 		/**
+ 		 * Function allowiing to update the hairdresser booking arrays with a new confirmed appointment
+ 		 * @param  {[type]} customerFirstNAme [customer first name]
+ 		 * @param  {[type]} customerLastName  [customer last name]
+ 		 * @param  {[type]} appointmentDay    [appointment day]
+ 		 * @param  {[type]} appointmentHour   [appointment hour]
+ 		 * @param  {[type]} customerLocation   [customer Location]
+ 		 * @return {[type]}                   [description]
+ 		 */
+ 		const updateHairdresserBooking = (customerFirstNAme, customerLastName, appointmentDay, appointmentHour, customerLocation)=>{
+ 			var deferred = $q.defer();
+ 			$http.post(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserupdatebooking',{customerLastName,customerFirstNAme,appointmentDay,appointmentHour, customerLocation})
+ 			.then(function updateHairdresserBookingSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function updateHairdresserBookingFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to update the hairdresser booking array(err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		};
+
+ 		/**
+ 		 * Function allowing to remove an appointment canceled by the hairdresser
+ 		 * @param  {[type]} appointmentId [description]
+ 		 * @return {[type]}               [description]
+ 		 */
+ 		const removeHairdresserAppointement = (appointmentId)=>{
+ 			var deferred = $q.defer();
+ 			$http.delete(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserupdatebooking',{appointmentId})
+ 			.then(function removeHairdresserAppointementSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function removeHairdresserAppointementFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to update the hairdresser booking array(err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		}
+
  		return {
- 			updateAppointmentSlot
+ 			updateAppointmentSlot,
+ 			getAppointmentById,
+ 			updateHairdresserBooking,
+ 			removeHairdresserAppointement
  		};
  };
 

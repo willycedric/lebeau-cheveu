@@ -19,7 +19,114 @@
 							</div> <!-- end .customer-menu -->
 					</div>		<!-- 	end .left-menu -->	
 				</div><!-- row menu -->
-			</div> <!-- .col-sm-4 left-element -->			
+			</div> <!-- .col-sm-4 left-element -->
+			<div col-sm-offset-1 col-sm-8>
+						<div id="logbook">
+					    <table class="table-bordered table-striped table-condensed cf">               
+							<thead class="cf">
+								<tr>
+									<th class="hearder-label"  >Horaire</th>
+					                <th class="hearder-label" ng-repeat="d in vm.days track by $index">{{d|date :'EEE'}}</th>
+								</tr>
+							</thead>
+							<!-- Each the appountments array contains Seven appointment and each has a 11 length slotType array -->
+							<tbody>
+								<tr ng-repeat="t in vm.hairdresser.appointments[0].slotType track by $index">
+					                <td class="cell-hour">{{vm.openingHourList[$index]}}</td>
+									<td data-title="Day1" ng-class= "{'active-cell':!t,'busy-cell':t}"  ng-click = "vm.rowClicked(vm.hairdresser.appointments[0].dayOfWeek,vm.hairdresser.appointments[0]._id,$index,t)" >{{t |displayHairdresserStatut}}</td>
+									<td data-title="Day2" ng-class='{"active-cell":!vm.hairdresser.appointments[1].slotType[$index],"busy-cell":vm.hairdresser.appointments[1].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[1].dayOfWeek,vm.hairdresser.appointments[1]._id,$index,vm.hairdresser.appointments[1].slotType[$index])" >{{vm.hairdresser.appointments[1].slotType[$index]|displayHairdresserStatut}}</td>
+									<td data-title="Day3" ng-class='{"active-cell":!vm.hairdresser.appointments[2].slotType[$index],"busy-cell":vm.hairdresser.appointments[2].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[2].dayOfWeek,vm.hairdresser.appointments[2]._id,$index,vm.hairdresser.appointments[2].slotType[$index])">{{vm.hairdresser.appointments[2].slotType[$index]|displayHairdresserStatut}}</td>
+									<td data-title="Day4" ng-class='{"active-cell":!vm.hairdresser.appointments[3].slotType[$index],"busy-cell":vm.hairdresser.appointments[3].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[3].dayOfWeek,vm.hairdresser.appointments[3]._id,$index,vm.hairdresser.appointments[3].slotType[$index])"  >{{vm.hairdresser.appointments[3].slotType[$index]|displayHairdresserStatut}}</td>
+									<td data-title="Day5" ng-class='{"active-cell":!vm.hairdresser.appointments[4].slotType[$index],"busy-cell":vm.hairdresser.appointments[4].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[4].dayOfWeek,vm.hairdresser.appointments[4]._id,$index,vm.hairdresser.appointments[4].slotType[$index])"  >{{vm.hairdresser.appointments[4].slotType[$index]|displayHairdresserStatut}}</td>
+									<td data-title="Day6" ng-class='{"active-cell":!vm.hairdresser.appointments[5].slotType[$index],"busy-cell":vm.hairdresser.appointments[5].slotType[$index]}'  ng-click="vm.rowClicked(vm.hairdresser.appointments[5].dayOfWeek,vm.hairdresser.appointments[5]._id,$index,vm.hairdresser.appointments[5].slotType[$index])" >{{vm.hairdresser.appointments[5].slotType[$index]|displayHairdresserStatut}}</td>
+									<td data-title="Day7" ng-class='{"active-cell":!vm.hairdresser.appointments[6].slotType[$index],"busy-cell":vm.hairdresser.appointments[6].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[6].dayOfWeek,vm.hairdresser.appointments[6]._id,$index,vm.hairdresser.appointments[6].slotType[$index])"  >{{vm.hairdresser.appointments[6].slotType[$index]|displayHairdresserStatut}}</td>
+								</tr>                  
+							</tbody>
+						</table>
+					</div><!-- #logbook -->
+			</div> <!-- right element -->			
 		</div> <!-- top row -->
 	</div> <!-- .top container -->
+	<script type="text/ng-template" id="appointment.html">
+			<div class="modal-header default" id="modal-header">
+				<h5 class="center modal-tile">prochain Rendez-vous</h5>
+			</div>
+	        <div class="modal-body default" id="modal-body">
+	           <span class="section-label">{{$ctrl.dayOfWeek |date }}</span> à <span class="section-label">{{$ctrl.appointmentHour}}</span> avec <span class="section-label">{{$ctrl.customerUsername}}</span> <br/>
+	           <button class="btn btn-confirm" type="button" ng-click="$ctrl.ok()">Confirmer</button>
+	           <button class="btn btn-cancel" type="button" ng-click="$ctrl.cancel()">Annuler</button>
+
+	        </div>
+	        <div class="modal-footer default">
+	            <button class="btn btn-back" type="button" ng-click="$ctrl.back()">Retour</button>
+	        </div>
+   	</script>
+   	<script type="text/ng-template" id="emptyappointment.html">
+			<div class="modal-header default" id="modal-header">
+				<h3 class="center modal-tile">Empty</h3>
+			</div>
+	        <div class="modal-body default" id="modal-body">
+	           <span class="connection-required" > Vous devez vous connecter pour pouvoir réserver une séance</span>
+	        </div>
+	        <div class="modal-footer default" >
+	            <button class="btn btn-confirm" type="button" ng-click="$ctrl.ok()">OK</button>
+	            <button class="btn btn-cancel" type="button" ng-click="$ctrl.cancel()">Annuler</button>
+	        </div>
+   	</script>
+   	<script type="text/ng-template" id="lockedappointment.html">
+			<div class="modal-header default" id="modal-header">
+				<h3 class="center modal-tile">Locked</h3>
+			</div>
+	        <div class="modal-body default" id="modal-body">
+	           <span class="connection-required" > Vous devez vous connecter pour pouvoir réserver une séance</span>
+	        </div>
+	        <div class="modal-footer default" >
+	            <button class="btn btn-confirm" type="button" ng-click="$ctrl.ok()">OK</button>
+	            <button class="btn btn-cancel" type="button" ng-click="$ctrl.cancel()">Annuler</button>
+	        </div>
+   	</script>
+   	<script type="text/ng-template" id="appointmentconfirmation.html">
+			<div class="modal-header default" id="modal-header">
+				<h3 class="center modal-tile">Confirmation</h3>
+			</div>
+	        <div class="modal-body default" id="modal-body">
+	           <span class="section-label" > Vous avez confirmé votre rendez-vous du {{$ctrl.dayOfWeek}} à {{$ctrl.appointmentHour}}</span>
+	        </div>
+	        <div class="modal-footer default" >
+	            <button class="btn btn-confirm" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+   	</script>
+   	<script type="text/ng-template" id="removeAppointmentmodal.html">
+			<div class="modal-header default" id="modal-header">
+				<h3 class="center modal-tile">Confirmation</h3>
+			</div>
+	        <div class="modal-body default" id="modal-body">
+	           <span class="section-label" style="text-algin:center;"> Vous avez annulé votre rendez-vous du {{$ctrl.dayOfWeek}} à {{$ctrl.appointmentHour}}</span>
+	        </div>
+	        <div class="modal-footer default">
+	            <button class="btn btn-confirm" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+   	</script>
+   	<script type="text/ng-template" id="errorconfirmation.html">
+			<div class="modal-header default" id="modal-header">
+				<h3 class="center modal-tile">Erreur</h3>
+			</div>
+	        <div class="modal-body default" id="modal-body">
+	           <span class="section-label" > Erreur lors de la confirmation du rendez-vous, veuillez recommencer dans quelque instant</span>
+	        </div>
+	        <div class="modal-footer default">
+	            <button class="btn btn-confirm" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+   	</script>
+   		<script type="text/ng-template" id="removeAppointmenterrormodal.html">
+			<div class="modal-header default" id="modal-header">
+				<h3 class="center modal-tile">Erreur</h3>
+			</div>
+	        <div class="modal-body default" id="modal-body">
+	           <span class="section-label" style="text-algin:center;"> Erreur lors de l'annulation  du rendez-vous, veuillez recommencer dans quelque instant</span>
+	        </div>
+	        <div class="modal-footerdefault">
+	            <button class="btn btn-confirm" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+   	</script>
 </section><!-- hairdresser -- >

@@ -11,6 +11,7 @@ class HairdresseraccountController {
 
 
 	  	self.updateHairdresserProfile = (hairdresser)=>{
+	  		$log.debug('hairdresser ', hairdresser);
 	  		Auth.updateUserProfile(`${API.dev.hairdresserRoute}`,hairdresser)
 	  		.then(function HairdresseraccountControllerUpdateSuccessCallback(rep){
 	  			self.hairdresser =rep;
@@ -74,13 +75,33 @@ class HairdresseraccountController {
 				$ctrl.multipleSelect= [];
 				$ctrl.hairdresser =hairdresser;
 				
-				$ctrl.updatePreference = (multipleSelect)=>{
+				$ctrl.updatePreference = (multipleSelect1, multipleSelect2)=>{
+				
 					//if more than one value, the customer type is both men and women
-					if(multipleSelect.length>1){
-						$ctrl.hairdresser.customer_type=0;
-					}else{ // either men or women
-						$ctrl.hairdresser.customer_type = parseInt(multipleSelect[0]);
+					if(multipleSelect1 === undefined){
+						
+					}else if (multipleSelect1.length > 1){ // either men or women
+						$ctrl.hairdresser.customer_type = 0;
+					}else{
+						$ctrl.hairdresser.customer_type=parseInt(multipleSelect1[0]);
 					}
+					// Updating  haircuts categories of the hairdresser
+					if(multipleSelect2 === undefined){
+
+					}
+					else if(multipleSelect2.length!= 0){
+						$ctrl.hairdresser.categories = [];
+						angular.forEach(multipleSelect2, function(val, key){
+							if(val === "0"){
+								$ctrl.hairdresser.categories.push("cheveux bouclés");
+							}else if(val ==="1"){
+								$ctrl.hairdresser.categories.push("cheveux afro");
+							}else{
+								$ctrl.hairdresser.categories.push("cheveux lisses");
+							}
+						});
+					}
+					
 
 					topCtrl.updateHairdresserProfile($ctrl.hairdresser);
 					$uibModalInstance.close('close');

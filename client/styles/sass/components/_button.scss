@@ -1,5 +1,11 @@
 @import "../helpers/mixin";
 
+$button-confirm-background:#6e6d6d;
+$button-cancel-background:#a94442;
+$button-back-background:#333;
+$default-button-color:#790303;
+$white:#fff;
+
 .button-default-lbc{
  	&:hover{
  		color:white;
@@ -13,14 +19,44 @@
 }
 
 .btn-lbc {
-  color: white;
+  color: $white;
   padding: 12px 35px;
   border-radius: 4px;
   font-weight: 400;
-  background: #790303;
+  background: $default-button-color;
   transition: background 0.3s ease;
   &:hover{
-  	color:#fff;
-  	background:#A94442;
+  	color:$white;
+  	background:$button-cancel-background;
   }
+}
+
+/* Confirmation button in modal windows */
+.btn-confirm {
+    color: $white;
+    background-color: $button-confirm-background;
+    border-color:$button-confirm-background;
+    &:hover,&:focus,&:active{
+    	color:$white;
+    }
+}
+
+/* cancel button in modal windows */
+.btn-cancel{
+ 	color: $white;
+    background-color: $button-cancel-background;
+    border-color:$button-cancel-background;
+     &:hover,&:focus,&:active{
+    	color:$white;
+    }
+}
+
+/* back button in modal windows */
+.btn-back {
+    color: $white;
+    background-color: $button-back-background;
+    border-color:$button-back-background;
+     &:hover,&:focus,&:active{
+    	color:$white;
+    }
 }

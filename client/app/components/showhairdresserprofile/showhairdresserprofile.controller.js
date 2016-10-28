@@ -14,8 +14,19 @@ class ShowhairdresserprofileController {
             this.isCustomHeaderOpen =false;
             this.selectedTimeSlot = new Date();
             this.openingHourList=["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];
-            let loggedCustomerInformation = AuthToken.parseToken(AuthToken.getToken());
-            $log.debug(' information ', loggedCustomerInformation);
+            //let loggedCustomerInformation = AuthToken.parseToken(AuthToken.getToken());
+            let loggedCustomerInformation = {};
+            if(AuthToken.getToken()){
+              Auth.getMe(`${API.dev.customerRoute}`)
+              .then((rep)=>{
+                loggedCustomerInformation =rep;
+                $log.debug(loggedCustomerInformation);
+              },(err)=>{
+                $log.error(err);
+              });
+            }
+
+          
           /**
            * Get Hairdresser by id, (must be modified to get hairdresser bu username)
            */
@@ -27,6 +38,7 @@ class ShowhairdresserprofileController {
                  $scope.this.times =[];
                 angular.forEach(response.appointments,function(resp,key){
                     $scope.this.days.push(resp.dayOfWeek);
+                    $log.debug($scope.this.days);
                     $scope.this.times[key] = [];
                     $scope.this.times[key].push(resp.slotTime);           
                 });
@@ -101,7 +113,7 @@ class ShowhairdresserprofileController {
             if(loggedCustomerInformation && loggedCustomerInformation.role == 2){
                if(val == 0){
                 $log.debug('Hairdresser dispo');
-                this.displayConfirmationModal(dayOfWeek,index,appointmentId,loggedCustomerInformation._id);
+                this.displayConfirmationModal(dayOfWeek,index,appointmentId,loggedCustomerInformation._id,loggedCustomerInformation.username,loggedCustomerInformation.lastname,loggedCustomerInformation.firstname);
                }else{
                 this.displayAlreadyReserved(dayOfWeek,index,appointmentId,val);
                 $log.debug('Hairdresser rsv');
@@ -156,7 +168,7 @@ class ShowhairdresserprofileController {
          * @param  {[type]} size [description]
          * @return {[type]}      [description]
          */
-        this.displayConfirmationModal = (dayOfWeek,index,appointmentId,customerId,size)=>{
+        this.displayConfirmationModal = (dayOfWeek,index,appointmentId,customerId,username,lastname,firstname)=>{
                   var self = this;
                   var modalInstance = $uibModal.open({
                   animation: true,
@@ -167,7 +179,7 @@ class ShowhairdresserprofileController {
                     this.selectedTimeSlot = dayOfWeek;
                     this.slotHour = self.openingHourList[index]; 
                       this.ok = ()=>{
-                        self.updateAppointmentSlot(self.hairdresser._id,appointmentId,index,customerId);
+                        self.updateAppointmentSlot(self.hairdresser._id,appointmentId,index,customerId,username,lastname,firstname);
                         self.updateCustomerAppointmentSlot(self.hairdresser._id,appointmentId,index,dayOfWeek);
                         $window.location.reload();
                        $uibModalInstance.close('cancel');
@@ -179,7 +191,7 @@ class ShowhairdresserprofileController {
                       };
                   },
                   controllerAs: '$ctrl',
-                  size: size,
+                  size: 'sm',
                   resolve: {
                     times: function () {
                       return  self.selectedTimeSlot;
@@ -242,8 +254,8 @@ class ShowhairdresserprofileController {
          * @param  {[type]} slotIndex     [description]
          * @return {[type]}               [description]
          */
-        this.updateAppointmentSlot = (hairdresserId, appointmentId,slotIndex,customerId) =>{
-          hairdresserMAnager.updateAppointmentSlot(hairdresserId, appointmentId,slotIndex,customerId)
+        this.updateAppointmentSlot = (hairdresserId, appointmentId,slotIndex,customerId,username,lastname,firstname) =>{
+          hairdresserMAnager.updateAppointmentSlot(hairdresserId, appointmentId,slotIndex,customerId,username,lastname,firstname)
           .then(function updateAppointmentSlotProfileControllerSuccessCallback(response){
               $log.info('inside the success callback');
           },function updateAppointmentSlotProfileControllerErrorCallback(err){

@@ -8,6 +8,7 @@ $button-color:#790303;
 $green:#4CAF50;
 $orange:#FF6600;
 $fafafa:#FAFAFA;
+$dark-gray:#7a7878;
 
 /** Logbook CSS */
 table,thead,tbody,tfoot,tr,td,th{
@@ -41,7 +42,7 @@ table tr td.cell-hour{
 }
 
 table tr td.active-cell{
-	background:$green;
+	background:$dark-gray;
 	transition: all .2s ease-in-out;
 	&:hover,&:focus,&:active{
 		cursor:pointer;
