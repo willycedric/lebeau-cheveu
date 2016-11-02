@@ -1,311 +1,103 @@
-	class HairdresserlogbookController {
-	  constructor(AuthToken,Auth,Access,API,$log,$state,$uibModal,hairdresserMAnager) {
+	import _ from 'lodash';
+  class HairdresserlogbookController {
+	  constructor(AuthToken,Auth,API,$log,$state,$uibModal,hairdresserMAnager,$scope) {
 	  	// hairdressers account informations
 	  	var self = this;
 	  	self.hairdresser={};
 	  	self.openingHourList=["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];
 	  	self.days = [];
-        self.times =[];
-
-	  	
+      self.times =[];
+      self.log = $log;
+      self.contentLoaded=true;
+      const availableAppointmentDays=31; //Use to limit the datepicker to one month in order to prevent user to go to far in the future
+	    self.dt = new Date();
 		//If a user is connected through the localStretegy, retrieveed the token from the localStorage
 	 	var token = AuthToken.getToken();
 	    if(token){
 	        this.username= AuthToken.parseToken(token).name;
 	    }
+      //self.log.debug('hairdresser',self.hairdresser);
+      var events=[];
+      var listOfAvailableAppointments=[];
+      Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
+      .then((rep)=>{
+          self.hairdresser = rep;
+          //datepicker logic
+         angular.forEach(self.hairdresser.appointments, (appt,key)=>{
+           events.push({date:appt.dayOfWeek,status: appt.slotType[key]=='1'?'full':'partially'})
+        });
 
-	    Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
-	    .then(function HairdresserControllerGetProfileSuccessCallback (response){
-	    		self.hairdresser= response;
-	    		angular.forEach(response.appointments,function(resp,key){
-                    self.days.push(resp.dayOfWeek);                  
-                    self.times[key] = [];
-                    self.times[key].push(resp.slotTime);           
-                });
-	    }, function HairdresserControllerGetProfileErrorCallback(err){
+         //building list of available appointments
+        angular.forEach(self.hairdresser.appointments, (appt)=>{
+            listOfAvailableAppointments.push(appt.dayOfWeek);
+        })
+      });
+    
+      self.options = {
+            customClass: function(data) {       
+            var date = data.date,
+              mode = data.mode;
+            if (mode === 'day') { 
+              var dayToCheck = new Date(date).setHours(0,0,0,0);
+              for (var i = 0; i < events.length; i++) {
+                var currentDay = new Date(events[i].date).setHours(0,0,0,0);
+                if (dayToCheck === currentDay) {
+                  return events[i].status;
+                }
+              }
+            }
+            return '';
+          },
+            minDate: null, //Allow us to select date in the past 
+            showWeeks: false,
+            datepickerMode:'day'
+      };       
 
-	    });
-
-
-
-	    /**
-	     * [Launch the appropriate modal according to the slot state]
-	     * @param  {[type]} dayOfWeek [Appointment day]
-	     * @param  {[type]} index     [index of the appointment in the day]
-	     * @param  {[type]} slotType  [slot type (empty or reserved or locked)]
-	     * @return {[type]}           [description]
-	     */
-	    self.rowClicked =(dayOfWeek,appointmentId,index,slotType) => {
-	    	$log.debug(slotType);
-	    	if( slotType == 1){
-	    		self.viewAppointmentModal(dayOfWeek,appointmentId,index,slotType);
-	    	}else if(slotType == 0){
-	    		self.viewEmptyAppointmentSlotModal(dayOfWeek,appointmentId,index,slotType);
-	    	}else if (slotType == -1){
-	    		self.viewLockedAppointmentSlotModal(dayOfWeek,appointmentId,index,slotType);
-	    	}
-	    };
-
-
-	    /**
-	     * [View the appoitment slot details, customer information, day and hours]
-	     * @param  {[type]} size      [modal size]
-	     * @param  {[type]} dayOfWeek [Appointment day]
-	     * @param  {[type]} appointmentId [Appointment id]
-	     * @param  {[type]} index     [index of the appointment in the day]
-	     * @param  {[type]} slotType  [slot type (empty or reserved or locked)]
-	     * @return {[type]}           [description]
-	     */
-	    self.viewAppointmentModal = (dayOfWeek,appointmentId,index,slotType)=>{
-	    		var topCtrl = self;
+      var today = new Date();
+      self.log.debug(events);
+      $scope.$watch('vm.dt', function(value){      
+        self.log.debug(value);
+      });
+      /**
+       * [description]
+       * @return {[type]} [description]
+       */
+      self.updateMyLogbook = ()=>{
+                  var self = this;
                   var modalInstance = $uibModal.open({
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'appointment.html',
-                  controller: function($uibModalInstance,self){
-                  		var $ctrl = this;
-                  		$ctrl.dayOfWeek = dayOfWeek;
-                  		$ctrl.appointmentHour = self.openingHourList[index];
-                  		$ctrl.appointment = {};
-
-                  		//Get the appointment based on it's Id
-                  		hairdresserMAnager.getAppointmentById(appointmentId)
-                  		.then((rep)=>{
-                  			//Getting customer informations
-                  			$ctrl.customerUsername = rep.relatedCustomers[index].customerUsername;
-                  			$ctrl.customerLastName = rep.relatedCustomers[index].customerLastName;
-                  			$ctrl.customerFirstName =rep.relatedCustomers[index].customerFirstName;
-                  			$ctrl.dayOfWeek =rep.dayOfWeek;
-                  			$ctrl.customerLocation = rep.relatedCustomers[index].customerLocation;
-
-                  			$log.debug('$ctrl.customerUsermane ', $ctrl.customerUsermane,'rep ',rep)
-                  		},(err)=>{
-                  			$log.error(err);
-                  		});
-
-                  		
-                  		$ctrl.ok = ()=>{
-                  			$log.debug('Confirmer');
-                  			$uibModalInstance.close('ok');
-                  			//Sending the confirmed appointment to the hairdresser booking array
-                  			hairdresserMAnager.updateHairdresserBooking($ctrl.customerFirstName, $ctrl.customerLastName, $ctrl.dayOfWeek,$ctrl.appointmentHour, $ctrl.customerLocation)
-                  			.then((rep)=>{
-                  				//display a confirmation modal in case of success
-                  				self.confirmAppointmentModal($ctrl.dayOfWeek,$ctrl.appointmentHour);
-                  			}, (err)=>{
-                  				//display a confirmation modal in case of error
-                  				self.errorAppointmentModal();
-                  			});
-                  		};
-                  		$ctrl.cancel = ()=>{
-                  			/*$uibModalInstance.dismiss('dismiss');*/
-                  			//Removing the appointment form the hairdresser appointments array
-                  			hairdresserMAnager.removeHairdresserAppointement(appointmentId)
-                  			.then((rep)=>{
-                  				//display a confirmation modal in case of success
-                  				self.removeAppointmentConfirmationModal($ctrl.dayOfWeek, $ctrl.appointmentHour);
-                  			}, (err)=>{
-                  				//display a confirmation modal in case of error
-                  				self.removeAppointmentErrorModal();
-                  			})
-                  			$log.debug('Annuler');
-                  			$uibModalInstance.close('annuler');
-                  		}
-                  		$ctrl.back = () =>{
-                  			$uibModalInstance.dismiss('dismiss');
-                  		}
+                  templateUrl: 'logbook.html',
+                  controller:function($uibModalInstance, hairdresser){
+                      this.ok = ()=>{                      
+                        $uibModalInstance.dismiss('close');
+                        $log.debug('clicked on the ok button');
+                      };
+                      this.cancel = ()=>{
+                        $log.debug('clicked on the cancel button');
+                        $uibModalInstance.close('cancel');
+                      };
                   },
                   controllerAs: '$ctrl',
-                  size: 'sm',
-                  resolve: {
-                    self: function () {
-                      return  topCtrl;
+                  resolve:{
+                    hairdresser: function(){
+                      return self.hairdresser;
                     }
-                  }
+                  },
+                  size:'sm'
                 });
 
                modalInstance.result.then(function (selectedItem) {
                  // $ctrl.selected = selectedItem;
                 }, function () {
-                  $log.info('Appointment Modal dismissed at: ' + new Date());
+                  $log.info('Modal dismissed at: ' + new Date());
                 });
-	    }; // end viewAppointmentModal
-
-	    
-	    /**
-	     * [View an empty appointment slot details and allow the hairdresser to locked it]
-	     * @param  {[type]} size      [modal size]
-	     * @param  {[type]} dayOfWeek [Appointment day]
-	     * @param  {[type]} appointmentId [Appointment id]
-	     * @param  {[type]} index     [index of the appointment in the day]
-	     * @param  {[type]} slotType  [slot type (empty or reserved or locked)]
-	     * @return {[type]}           [description]
-	     */
-	    self.viewEmptyAppointmentSlotModal = (dayOfWeek,appointmentId,index,slotType)=>{
-	    		  var modalInstance = $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: 'emptyappointment.html',
-                  controller: function($uibModalInstance){
-                  		var $ctrl = this;
-                  		$ctrl.ok = ()=>{
-                  			$uibModalInstance.close('ok');
-                  		};
-                  		$ctrl.cancel = ()=>{
-                  			$uibModalInstance.dismiss('dismiss');
-                  		}
-                  },
-                  controllerAs: '$ctrl',
-                  size: 'sm'
-                 /* resolve: {
-                    items: function () {
-                      return  self.message;
-                    }
-                  }*/
-                });
-
-               modalInstance.result.then(function (selectedItem) {
-                 // $ctrl.selected = selectedItem;
-                }, function () {
-                  $log.info('Empty Appointment Modal dismissed at: ' + new Date());
-                });
-	    }; // end viewEmptyAppointmentModal
-
-
-	    /**
-	     * [View an empty appointment slot details and allow the hairdresser to locked/unlocked it]
-	     * @param  {[type]} size      [modal size]
-	     * @param  {[type]} dayOfWeek [Appointment day]
-	     * @param  {[type]} appointmentId [Appointment id]
-	     * @param  {[type]} index     [index of the appointment in the day]
-	     * @param  {[type]} slotType  [slot type (empty or reserved or locked)]
-	     * @return {[type]}           [description]
-	     */
-	    self.viewLockedAppointmentSlotModal = (dayOfWeek,appointmentId,index,slotType)=>{
-	    	var modalInstance = $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: 'lockedappointment.html',
-                  controller: function($uibModalInstance){
-                  		var $ctrl = this;
-                  		$ctrl.ok = ()=>{
-                  			$uibModalInstance.close('ok');
-                  		};
-                  		$ctrl.cancel = ()=>{
-                  			$uibModalInstance.dismiss('dismiss');
-                  		}
-                  },
-                  controllerAs: '$ctrl',
-                  size: 'sm'
-                 /* resolve: {
-                    items: function () {
-                      return  self.message;
-                    }
-                  }*/
-                });
-
-               modalInstance.result.then(function (selectedItem) {
-                 // $ctrl.selected = selectedItem;
-                }, function () {
-                  $log.info('Locked Appointment Modal dismissed at: ' + new Date());
-                });
-	    }; //end veiwLockedAppointmentModal
-
-
-	    /**
-	     * Display a confirmation modal when the hairdresser has confirmed an appointment
-	     * @param {[type]} [dayofWeek] [appointment day]
-	     * @param {[type]} [appointmentHour] [appointment Hour]
-	     * @return {[type]} [description]
-	     */
-	    self.confirmAppointmentModal = (dayOfWeek, appointmentHout) =>{
-	    	var modalInstance = $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: 'appointmentconfirmation.html',
-                  controller: function($uibModalInstance){
-                  		var $ctrl = this;
-                  		$ctrl.dayOfWeek = dayOfWeek;
-                  		$ctrl.ok = ()=>{
-                  			$uibModalInstance.close('ok');
-                  		};
-                  },
-                  controllerAs: '$ctrl',
-                  size: 'sm'
-                });
-	    }; // end confirmAppointmentModal
-
-	    /**
-	     * Functiona allowing to display a modal when the appointment confirmation query can't be successfully applied
-	     * @return {[type]} [description]
-	     */
-	    self.errorAppointmentModal = () =>{
-	    	var modalInstance = $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: 'errorconfirmation.html',
-                  controller: function($uibModalInstance){
-                  		var $ctrl = this;
-                  		$ctrl.ok = ()=>{
-                  			$uibModalInstance.close('ok');
-                  		};
-                  },
-                  controllerAs: '$ctrl',
-                  size: 'sm'
-                });
-	    }; // end errorAppointmentModal
-
-	    /**
-	     * Function allowing to display a confirmation modal when an appointment has been canceled
-	     * @param  {[type]} dayOfWeek [appointment day]
-	     * @param { {[type]}} appointmentHour [appointment hour]
-	     * @return {[type]}           [description]
-	     */
-	    self.removeAppointmentConfirmationModal = (dayOfWeek, appointmentHour)=>{
-	    	var modalInstance = $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: 'removeAppointmentmodal.html',
-                  controller: function($uibModalInstance){
-                  		var $ctrl = this;
-                  		$ctrl.dayOfWeek = dayOfWeek;
-                  		$ctrl.appointmentHour = hour;
-                  		$ctrl.ok = ()=>{
-                  			$uibModalInstance.close('ok');
-                  		};
-                  },
-                  controllerAs: '$ctrl',
-                  size: 'sm'
-                });
-	    };//end removeAppointmentConfirmationModal
-
-	    self.removeAppointmentErrorModal = () =>{
-	    	var modalInstance = $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: 'removeAppointmenterrormodal.html',
-                  controller: function($uibModalInstance){
-                  		var $ctrl = this;
-                  		$ctrl.ok = ()=>{
-                  			$uibModalInstance.close('ok');
-                  		};
-                  },
-                  controllerAs: '$ctrl',
-                  size: 'sm'
-                });
-	    }; //end removeAppointmentErrorModal
-
+        };
 	};//end constructor;
 
 }
-HairdresserlogbookController.$inject =['AuthToken','Auth','Access','API','$log','$state','$uibModal','hairdresserMAnager'];
+HairdresserlogbookController.$inject =['AuthToken','Auth','API','$log','$state','$uibModal','hairdresserMAnager','$scope'];
 
 export {HairdresserlogbookController};
 

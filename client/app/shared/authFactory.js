@@ -234,6 +234,18 @@ const getMe = (route)=>{
     return deferred.promise;
 };
 
+const testGetProfile = (route) =>{
+      $log.debug('inside the testGetProfile function');
+      var promise = $http({
+        method: 'GET',
+        url: apiUrl+route
+      });
+      promise.success(function(data, status, headers, conf) {
+        return data;
+      });
+      return promise;
+    };
+
   return {
     login,
     getUserInfo,
@@ -249,7 +261,8 @@ const getMe = (route)=>{
     getUserById,
     getHairdresserById,
     updateUserProfile,
-    getMe
+    getMe,
+    testGetProfile
   };
   
 };

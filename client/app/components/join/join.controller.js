@@ -7,8 +7,6 @@ class JoinController {
     if(AuthToken.getToken()){
       this.islogged =true;
     }
-    $log.debug(this.islogged);
-    $log.debug('rhum pompom');
    
   }//End constructor
 

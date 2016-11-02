@@ -1,10 +1,8 @@
 class HairdresserController {
-  constructor(AuthToken,Auth,Access,API,$log,$state) {
+  constructor(AuthToken,Auth,Access,API,$log,$states) {
   	// hairdressers account informations
   	var self = this;
   	self.hairdresser={};
-  	
-  	
 	//If a user is connected through the localStretegy, retrieveed the token from the localStorage
  	var token = AuthToken.getToken();
     if(token){
@@ -22,6 +20,3 @@ class HairdresserController {
 }
 HairdresserController.$inject =['AuthToken','Auth','Access','API','$log','$state'];
 export {HairdresserController};
-
-
-

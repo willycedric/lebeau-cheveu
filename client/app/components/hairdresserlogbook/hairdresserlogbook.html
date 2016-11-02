@@ -21,29 +21,15 @@
 				</div><!-- row menu -->
 			</div> <!-- .col-sm-4 left-element -->
 			<div col-sm-offset-1 col-sm-8>
-						<div id="logbook">
-					    <table class="table-bordered table-striped table-condensed cf">               
-							<thead class="cf">
-								<tr>
-									<th class="hearder-label"  >Horaire</th>
-					                <th class="hearder-label" ng-repeat="d in vm.days track by $index">{{d|date :'EEE'}}</th>
-								</tr>
-							</thead>
-							<!-- Each the appountments array contains Seven appointment and each has a 11 length slotType array -->
-							<tbody>
-								<tr ng-repeat="t in vm.hairdresser.appointments[0].slotType track by $index">
-					                <td class="cell-hour">{{vm.openingHourList[$index]}}</td>
-									<td data-title="Day1" ng-class= "{'active-cell':!t,'busy-cell':t}"  ng-click = "vm.rowClicked(vm.hairdresser.appointments[0].dayOfWeek,vm.hairdresser.appointments[0]._id,$index,t)" >{{t |displayHairdresserStatut}}</td>
-									<td data-title="Day2" ng-class='{"active-cell":!vm.hairdresser.appointments[1].slotType[$index],"busy-cell":vm.hairdresser.appointments[1].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[1].dayOfWeek,vm.hairdresser.appointments[1]._id,$index,vm.hairdresser.appointments[1].slotType[$index])" >{{vm.hairdresser.appointments[1].slotType[$index]|displayHairdresserStatut}}</td>
-									<td data-title="Day3" ng-class='{"active-cell":!vm.hairdresser.appointments[2].slotType[$index],"busy-cell":vm.hairdresser.appointments[2].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[2].dayOfWeek,vm.hairdresser.appointments[2]._id,$index,vm.hairdresser.appointments[2].slotType[$index])">{{vm.hairdresser.appointments[2].slotType[$index]|displayHairdresserStatut}}</td>
-									<td data-title="Day4" ng-class='{"active-cell":!vm.hairdresser.appointments[3].slotType[$index],"busy-cell":vm.hairdresser.appointments[3].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[3].dayOfWeek,vm.hairdresser.appointments[3]._id,$index,vm.hairdresser.appointments[3].slotType[$index])"  >{{vm.hairdresser.appointments[3].slotType[$index]|displayHairdresserStatut}}</td>
-									<td data-title="Day5" ng-class='{"active-cell":!vm.hairdresser.appointments[4].slotType[$index],"busy-cell":vm.hairdresser.appointments[4].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[4].dayOfWeek,vm.hairdresser.appointments[4]._id,$index,vm.hairdresser.appointments[4].slotType[$index])"  >{{vm.hairdresser.appointments[4].slotType[$index]|displayHairdresserStatut}}</td>
-									<td data-title="Day6" ng-class='{"active-cell":!vm.hairdresser.appointments[5].slotType[$index],"busy-cell":vm.hairdresser.appointments[5].slotType[$index]}'  ng-click="vm.rowClicked(vm.hairdresser.appointments[5].dayOfWeek,vm.hairdresser.appointments[5]._id,$index,vm.hairdresser.appointments[5].slotType[$index])" >{{vm.hairdresser.appointments[5].slotType[$index]|displayHairdresserStatut}}</td>
-									<td data-title="Day7" ng-class='{"active-cell":!vm.hairdresser.appointments[6].slotType[$index],"busy-cell":vm.hairdresser.appointments[6].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[6].dayOfWeek,vm.hairdresser.appointments[6]._id,$index,vm.hairdresser.appointments[6].slotType[$index])"  >{{vm.hairdresser.appointments[6].slotType[$index]|displayHairdresserStatut}}</td>
-								</tr>                  
-							</tbody>
-						</table>
-					</div><!-- #logbook -->
+				<button class="button-default-lbc" ng-click="logbookTemplate='/logbook.html'">Agenda</button>
+				 <div id="logbook-content" ng-include src="logbookTemplate"></div>
+					<script type="text/ng-template" id="/logbook.html">
+							<div id="logbook">
+							    <div class='datepicker'>
+							      <div uib-datepicker ng-model="vm.dt" class="well well-sm" datepicker-options="vm.options"></div>
+							    </div>
+							</div> <!-- logbook -->
+				   </script>  
 			</div> <!-- right element -->			
 		</div> <!-- top row -->
 	</div> <!-- .top container -->

@@ -7,10 +7,11 @@ export const hairdresserlogbook = angular.module('hairdresserlogbook', [uiRouter
     $stateProvider.state('hairdresserlogbook', {
       url: '/hairdresser/logbook',
       template: '<hairdresserlogbook></hairdresserlogbook>',
+      constrollerAs:'vm',
       resolve:{
       	access:["Access", function(Access){ return Access.isHairdresser(1);}]
-      }
-    })
-  })
-  .directive('hairdresserlogbook',hairdresserlogbookDirective);
-
+    }, //end resolve
+    })//end state provider
+  })//end config 
+  .directive('hairdresserlogbook',hairdresserlogbookDirective)
+  
