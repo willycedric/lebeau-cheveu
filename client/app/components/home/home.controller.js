@@ -3,11 +3,20 @@ import images from '../../../../images.json';
 
 
 class HomeController {
-  constructor(Location,$stateParams,AuthToken,$rootScope,Auth) {
+  constructor(Location,$state,$stateParams,AuthToken,$rootScope,$log,Auth,searchBar) {
   	this.url ="http://res.cloudinary.com/hgtagghpz/image/upload/v1475226327/banner10_fdlxry.jpg";
   	this.nbImages = 3;//images.length;
   		//labels
 	 this.labels=labels;
+	 //list of available haircuts categories obtained from the searchBar factory
+	 this.listOfAvailableCategories = searchBar.getListOfavailableCategories();
+	//customer selected category and location
+	this.selectedHaircutCategory = null;
+	this.selectedLocation = null;
+
+	 this.$state = $state;
+	 this.$log =$log;
+	 
 
 	 //List of availables towns
 	 this.towns = Location.towns;
@@ -59,9 +68,23 @@ class HomeController {
 	    }
 
 	}; //End constructor 
-}
 
-HomeController.$inject=['Location','$stateParams','AuthToken','$rootScope','Auth'];
+	/**
+	 * [goToSearchBarView go to the searchbar component with the selected category and location]
+	 * @return {[]} []
+	 */
+	goToSearchBarView(){		
+		if(this.selectedHaircutCategory != null || this.selectedLocation !=null){
+			this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:this.selectedLocation})
+		}else{
+			//must find a way to display an error message
+			this.$log.info('the form is empty');
+		}
+		
+	}
+};
+
+HomeController.$inject=['Location','$state','$stateParams','AuthToken','$rootScope','$log','Auth','searchBar'];
 export {HomeController};
 
 

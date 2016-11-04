@@ -10,6 +10,7 @@ import {Access} from './Access';
 import {locationFactory} from './locationFactory';
 import {hairdresserAccountManager} from './hairdresserAccountManager';
 import {customerAccountManager} from './customerAccountManager';
+import {searchBar} from './searchBar';
 import angular from 'angular';
 
 
@@ -26,6 +27,7 @@ export const shared = angular.module('shared', [])
   .factory('Location',locationFactory)
   .factory('hairdresserMAnager',hairdresserAccountManager)
   .factory('customerMAnager',customerAccountManager)
+  .factory('searchBar',searchBar)
   .config(function($httpProvider){
   	$httpProvider.interceptors.push(AuthInterceptor);
   });
