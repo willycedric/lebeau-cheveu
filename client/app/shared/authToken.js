@@ -44,12 +44,42 @@ const AuthToken = ($window,$log) =>{
    			return false;
    		}
    };
+   /**
+    * [Save : Save a value to the local storage]
+    * @param  {[string]} key [description]
+    * @param  {[object]} val [description]
+    * @return {[type]}     [description]
+    */
+   const save = (key,val)=>{
+    $window.localStorage.setItem(key,val);
+   };
+
+   /**
+    * [Get: get a value from the local storage]
+    * @param  {[type]} key [description]
+    * @return {[type]}     [description]
+    */
+   const get=(key)=>{
+    return $window.localStorage[key];
+   }
+
+   /**
+    * [erarse value from the local storage]
+    * @param  {[type]} key [description]
+    * @return {[type]}     [description]
+    */
+   const erase = (key)=>{
+      $window.localStorage.removeItem(key);
+   };
   return {
   	saveToken,
   	getToken,
   	deleteToken,
   	parseToken,
-  	isAuthenticated
+  	isAuthenticated,
+    save,
+    get,
+    erase
   };
 };
 AuthToken.$inject =['$window','$log'];

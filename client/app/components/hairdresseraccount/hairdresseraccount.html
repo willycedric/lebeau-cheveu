@@ -55,18 +55,34 @@
 					<div class="row" id="preference">
 						<div class="col-sm-5 row-top left">
 							<span class="section-contains">Type de client: {{vm.hairdresser.customer_type | customerTypeFilter}}</span>
+							<span class="section-contains">Zone(s) couverte(s): <span ng-repeat="area in vm.hairdresser.activityArea track by $index"> {{area}}</span> </span>
 						</div>	
 						<div class="col-sm-5 row - top right">
-							<span class="section-contains">Categories de coiffure:<span ng-repeat="category in vm.hairdresser.categories track by $index"> {{category}} </span> <br/></span>
+							<span class="section-contains">Categorie(s) de coiffure:<span ng-repeat="category in vm.hairdresser.categories track by $index"> {{category}} </span> <br/></span>
+							<span class="section-contains">Type(s) de coiffure(s):<span ng-repeat="performance in vm.hairdresser.listOfPerformance track by $index"> {{performance}} </span> <br/></span>
 						</div>					
 					</div>
 				</div><!-- .section -->
 				<div class="section">
 					<div class=" row section-top">
 						<span class="section-t col-sm-3">
+								<h4>Description</h4>
+						</span><!-- .section-title -->
+						<span class="col-sm-3 edit-button">
+							<a class="btn-default-lbc btn-lbc" ng-click="vm.updateDescriptionModal()">Modifier</a>
+						</span><!-- .edit-button -->
+					</div> <!-- row section-top -->
+					<hr>
+					<div class="row row-top">
+						<span class="section-contains left"><span class="quote">&ldquo;</span>{{vm.hairdresser.description}}<span class="quote">&rdquo;</span></span>
+					</div><!-- .row .row-top -->
+				</div> <!-- .section -->
+				<div class="section">
+					<div class=" row section-top">
+						<span class="section-t col-sm-3">
 								<h4>Sécurité</h4>
 						</span><!-- .section-title -->
-						<span class="col-sm-4 edit-button">
+						<span class="col-sm-3 edit-button">
 							<a class="btn-default-lbc btn-lbc">Mot de passe</a>
 						</span><!-- .edit-button -->
 					</div> <!-- row section-top -->
@@ -78,7 +94,7 @@
 			</div> <!-- .col-sm-8 right element -->
 		</div> <!-- top row -->
 	</div> <!-- .top container -->
-	<script type="text/ng-template" id="haidresserProfile.html">
+	<script type="text/ng-template" id="hairdresserProfile.html">
 		 <div class="modal-header">
              <h3 class="center modal-title">Profile</h3>
         </div>
@@ -133,21 +149,29 @@
 		<h3 class="center modal-tile">Préferences </h3>
 	</div>
 	<div class="modal-body">
-		<form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="$ctrl.updatePreference($ctrl.multipleSelect1,$ctrl.multipleSelect2)">
+		<form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="$ctrl.updatePreference($ctrl.multipleSelect1,$ctrl.multipleSelect2,$ctrl.multipleSelect3,$ctrl.multipleSelect4)">
 			
 			
-					<label for="multipleSelect1"> Type de client:  </label><br>				
+					<label for="multipleSelect1" uib-tooltip="ctrl (PC) ou cmd (Mac) + Click pour sélectionner plusieur choix"> Type de client:  </label><br>				
 				    <select name="multipleSelect1" id="multipleSelect1" ng-model="$ctrl.multipleSelect1" multiple>
 				      <option value="1">Femme</option>
 				      <option value="2">Homme</option>
 				      <option value="0">Mixte</option>
 				    </select><br>
-				    <label for="multipleSelect2"> Categorie de coiffure:  </label><br>				
+			      <label for="multipleSelect3" uib-tooltip="ctrl (PC) ou cmd (Mac) + Click pour sélectionner plusieur choix"> Zone(s) couverte(s)  </label><br>				
+				    <select name="multipleSelect3" id="multipleSelect3" ng-model="$ctrl.multipleSelect3" multiple>
+				      <option ng-repeat = "zone in $ctrl.listOfIleDeFranceDepartement track by $index" value="{{$index}}">{{::zone}}</option>
+				    </select><br>
+				    <label for="multipleSelect2" uib-tooltip="ctrl (PC) ou cmd (Mac) + Click pour sélectionner plusieur choix"> Categorie de coiffure:  </label><br>				
 				    <select name="multipleSelect2" id="multipleSelect2" ng-model="$ctrl.multipleSelect2" multiple>
 				      <option value="1">Cheveux Afro</option>
 				      <option value="2">Cheveux Lisses</option>
 				      <option value="0">Cheveux Bouclés</option>
 				    </select><br>
+				      <label for="multipleSelect4" uib-tooltip="ctrl (PC) ou cmd (Mac) + Click pour sélectionner plusieur choix"> Type(s) coiffure  </label><br>				
+				    <select name="multipleSelect4" id="multipleSelect4" ng-model="$ctrl.multipleSelect4" multiple>
+				      <option ng-repeat = "haircut in $ctrl.listOfAvailableHaircut track by $index" value="{{$index}}">{{::haircut}}</option>
+				    </select><br>				   
 				    
 		<div class="container">	
 			<div class="row">
@@ -155,7 +179,28 @@
           			<input  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-primary" value="Enregistrer" >
           		</div>
           		<div class="col-sm-1">
-          			<button class="btn btn-primary" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+          			<button class="btn btn-primary " type="button" ng-click="$ctrl.cancel()">Cancel</button>
+          		</div>
+        	</div>
+		</div>
+		</form>  
+	</div>
+</script>
+<script type="text/ng-template" id="hairdresserDescription.html">
+	<div class="modal-header">
+		<h3 class="center modal-tile">Description </h3>
+	</div>
+	<div class="modal-body">
+		<form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="$ctrl.updateDescription(hairdresserDescription)">			
+					<label for="description" uib-tooltip="Entre 50 et 250 caractères "> Entrez votre description:  </label><br>	
+					<textarea  name="description" ng-model="hairdresserDescription" ng-minlength="50" ng-maxlength="250"></textarea>
+		<div class="container">	
+			<div class="row">
+			 	<div class="col-sm-offset-1 col-sm-2">
+          			<input  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-confirm btn-primary" value="Enregistrer" >
+          		</div>
+          		<div class="col-sm-1">
+          			<button class="btn btn-primary btn-cancel" type="button" ng-click="$ctrl.cancel()">Cancel</button>
           		</div>
         	</div>
 		</div>

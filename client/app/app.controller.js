@@ -78,15 +78,24 @@ class AppController {
 		                    console.error(err);
 		            });
 			}else if(AuthToken.parseToken(AuthToken.getToken()).role===1){
-				Auth.logout(`${API.dev.hairdresserRoute}`+'/logout')
-	            .then(function logoutControllerSuccessCallback(response){   
-	                $rootScope.$broadcast('connectionStatechanged',null);
-	                //set the role based profile trigger at false
-	                $scope.this.isAdmin=$scope.this.isHairdresser=$scope.this.isCustomer=false;      
-	                $window.location.href=`${API.dev.home}`;
-	            },function logoutControllerErrorCallback(err){
-	                    console.error(err);
-	            });
+
+				Auth.getMe(`${API.dev.hairdresserRoute}`)
+				.then((data)=>{
+					data.lastconnection = new Date();
+					Auth.updateUserProfile(`${API.dev.hairdresserRoute}`,data)
+					.then((rep)=>{
+						Auth.logout(`${API.dev.hairdresserRoute}`+'/logout')
+			            .then(function logoutControllerSuccessCallback(response){   
+			                $rootScope.$broadcast('connectionStatechanged',null);
+			                //set the role based profile trigger at false
+			                $scope.this.isAdmin=$scope.this.isHairdresser=$scope.this.isCustomer=false;      
+			                $window.location.href=`${API.dev.home}`;
+			            },function logoutControllerErrorCallback(err){
+			                    console.error(err);
+			            });
+					});
+				});
+				
 			}else{
 				throw new Error(' Logout from the appController, the '+AuthToken.parseToken(token).role+' is not handle yet');
 			}

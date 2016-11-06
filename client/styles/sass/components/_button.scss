@@ -36,6 +36,7 @@ $white:#fff;
     color: $white;
     background-color: $button-confirm-background;
     border-color:$button-confirm-background;
+    margin-top:3%;
     &:hover,&:focus,&:active{
     	color:$white;
     }
@@ -46,6 +47,7 @@ $white:#fff;
  	color: $white;
     background-color: $button-cancel-background;
     border-color:$button-cancel-background;
+     margin-top:3%;
      &:hover,&:focus,&:active{
     	color:$white;
     }

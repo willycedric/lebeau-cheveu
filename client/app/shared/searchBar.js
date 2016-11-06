@@ -46,6 +46,7 @@ let listOfAvailableCurlyHaircuts = ["Vanilles",
 "Cornrows",
 "Tresses enfants"];
 
+let listOfIleDeFranceDepartement = ["91-Essonne","92-Hauts-de-Seine","94-Val-de-Marne","78-Yvelines","75-Paris","77-Seine-et-Marne","93-Seine-Saint-Denis","95-Val-d'Oise"]
 let listOfAvailableCategories = ['cheveux afro','cheveux lisses',"cheveux bouclés"];
 		
 		

@@ -9,14 +9,14 @@ class ModalInstanceCtrl {
      */
     self.goToFacebookLogin = () =>{
       $window.location.href=self.facebookUrl; //redirectiong to facebook
-      $log.debug('ModalCtrl ','redirectiong to facebook Oauth');
+      //$log.debug('ModalCtrl ','redirectiong to facebook Oauth');
     };
     //toggle the display of the registration successfull message
     self.isSuccessfullRegistration=false;
     //toggle the display of the connexion successfull message
     self.isSuccessfullLogin =false;
     $rootScope.$on('successfullRegistration',function(evt,isSuccessfullRegistration){
-      $log.debug('From loginController ','Message is received');
+      //$log.debug('From loginController ','Message is received');
       if(isSuccessfullRegistration){
         self.isSuccessfullRegistration=true;
       }
@@ -61,7 +61,7 @@ class ModalInstanceCtrl {
               self.displayLoading('Login in progress'); //Display the spining modal
               Auth.login(`${API.dev.hairdresserRoute}`+'/me',data.username,data.password)
               .then(function loginControllerSuccess(data){
-                $log.debug('From the loginControllerSuccess ',data);
+                //$log.debug('From the loginControllerSuccess ',data);
                   $rootScope.$broadcast('connectionStatechanged',{data:data});
                    $uibModalInstance.close('cancel');
                   //$state.go('home',null,{reload:true});   
@@ -88,7 +88,7 @@ class ModalInstanceCtrl {
                 Auth.register(`${API.dev.customerRoute}`,user)
                       .then(function registerSuccessCallback(response){
                           if(response.status===200){
-                            $log.log('User is successfully registered');
+                            //$log.log('User is successfully registered');
                           }
                       },function registerFailureCallback(err){
                           //console.error(err);
@@ -100,7 +100,7 @@ class ModalInstanceCtrl {
                 Auth.register(`${API.dev.hairdresserRoute}`,user)
                       .then(function registerSuccessCallback(response){
                           if(response.status===200){
-                            $log.log('User is successfully registered');
+                            //$log.log('User is successfully registered');
                           }
                       },function registerFailureCallback(err){
                           //console.error(err);
@@ -145,7 +145,7 @@ class ModalInstanceCtrl {
     };
 
     self.toggleDisplayedUserForm = (formName) =>{
-      $log.debug('modalCtrl ',formName);
+      //$log.debug('modalCtrl ',formName);
         if(formName ==="customer" && self.isCustomerFormDisplayed ){
               self.isCustomerFormDisplayed = true;
         }else if (formName ==="hairdresser" && !self.isCustomerFormDisplayed){

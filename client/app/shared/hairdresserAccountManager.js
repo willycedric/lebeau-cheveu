@@ -65,20 +65,32 @@
  		 */
  		const removeHairdresserAppointement = (appointmentId)=>{
  			var deferred = $q.defer();
- 			$http.delete(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserupdatebooking',{appointmentId})
- 			.then(function removeHairdresserAppointementSuccessCallback(response){
+ 			$http.post(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserupdatebooking',{customerLastName,customerFirstNAme,appointmentDay,appointmentHour, customerLocation})
+ 			.then(function updateHairdresserBookingSuccessCallback(response){
  				deferred.resolve(response.data);
- 			}, function removeHairdresserAppointementFailureCallback(err){
+ 			}, function updateHairdresserBookingFailureCallback(err){
  				deferred.reject(new Error("An error occurs when trying to update the hairdresser booking array(err)=> ", err))
  			});
  			return deferred.promise;
- 		}
+ 		};
+
+ 		const findHairdressers = (searchParameters)=>{
+ 			var deferred = $q.defer();
+ 			$http.post(apiUrl+`${API.dev.hairdresserRoute}`+'/findHairdressers',searchParameters)
+ 			.then(function findHairdressersSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function findHairdressersFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to find Hairdressers(err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		};
 
  		return {
  			updateAppointmentSlot,
  			getAppointmentById,
  			updateHairdresserBooking,
- 			removeHairdresserAppointement
+ 			removeHairdresserAppointement,
+ 			findHairdressers
  		};
  };
 
