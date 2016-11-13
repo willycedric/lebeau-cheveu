@@ -11,13 +11,13 @@
  		 * @type {[type]}
  		 */
 		 let apiUrl=`${API.dev.homeUrl}`;
- 		const updateAppointmentSlot = (hairdresserId, appointmentId, slotIndex,customerId,username,lastname,firstname)=>{
+ 		const updateHairdresserAppointment= (hairdresserId,dayOfWeek,selectedHour,customerId,username,lastname,firstname)=>{
  				var deferred = $q.defer();
- 				$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserAppointment', {hairdresserId:hairdresserId, appointmentId:appointmentId,slotIndex:slotIndex,customerId:customerId,username:username,lastname:lastname,firstname:firstname})
+ 				$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserAppointment', {hairdresserId:hairdresserId, dayOfWeek:dayOfWeek,selectedHour:selectedHour,customerId:customerId,username:username,lastname:lastname,firstname:firstname})
  				.then(function updateAppointmentSlotSuccessCallback(response){
- 					$log.debug('no response now');
+ 					deferred.resolve(response.data);
  				}, function updateAppointmentSlotErrorCallback(err){
- 					$log.error('no response');
+ 					deferred.reject(err);
  				});
  				return deferred.promise;
  		};
@@ -47,9 +47,9 @@
  		 * @param  {[type]} customerLocation   [customer Location]
  		 * @return {[type]}                   [description]
  		 */
- 		const updateHairdresserBooking = (customerFirstNAme, customerLastName, appointmentDay, appointmentHour, customerLocation)=>{
+ 		const updateHairdresserBooking = (apt)=>{
  			var deferred = $q.defer();
- 			$http.post(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserupdatebooking',{customerLastName,customerFirstNAme,appointmentDay,appointmentHour, customerLocation})
+ 			$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserupdatebooking',apt)
  			.then(function updateHairdresserBookingSuccessCallback(response){
  				deferred.resolve(response.data);
  			}, function updateHairdresserBookingFailureCallback(err){
@@ -65,15 +65,19 @@
  		 */
  		const removeHairdresserAppointement = (appointmentId)=>{
  			var deferred = $q.defer();
- 			$http.post(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserupdatebooking',{customerLastName,customerFirstNAme,appointmentDay,appointmentHour, customerLocation})
- 			.then(function updateHairdresserBookingSuccessCallback(response){
+ 			$http.delete(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserupdatebooking',{params:{id:appointmentId}})
+ 			.then(function removeHairdresserAppointementSuccessCallback(response){
  				deferred.resolve(response.data);
- 			}, function updateHairdresserBookingFailureCallback(err){
- 				deferred.reject(new Error("An error occurs when trying to update the hairdresser booking array(err)=> ", err))
+ 			}, function removeHairdresserAppointementFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to delete the hairdresser appointment (err)=> ", err))
  			});
  			return deferred.promise;
  		};
-
+ 		/**
+ 		 * [description find hairdressers matching the search parameters]
+ 		 * @param  {[type]} searchParameters [search parameters]
+ 		 * @return {[type]}                  [list of hairdressers account matching the serach parametes]
+ 		 */
  		const findHairdressers = (searchParameters)=>{
  			var deferred = $q.defer();
  			$http.post(apiUrl+`${API.dev.hairdresserRoute}`+'/findHairdressers',searchParameters)
@@ -85,12 +89,30 @@
  			return deferred.promise;
  		};
 
+ 		/**
+ 		 * [description locked a date&time period]
+ 		 * @param  {[type]} date         [Locked date]
+ 		 * @param  {[type]} selectedHour [locked time slot]
+ 		 * @return {[type]}              [action confirmation ]
+ 		 */
+ 		const lockedHairdresserTimeSlot = (date, selectedHour)=>{
+ 			var deferred = $q.defer();
+ 			$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/lockedHairdressertimeslot',{date:date,selectedHour:selectedHour})
+ 			.then(function lockedHairdresserTimeSlotSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function lockedHairdresserTimeSlotFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to update the hairdresser locked time slot array(err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		};
+
  		return {
- 			updateAppointmentSlot,
+ 			updateHairdresserAppointment,
  			getAppointmentById,
  			updateHairdresserBooking,
  			removeHairdresserAppointement,
- 			findHairdressers
+ 			findHairdressers,
+ 			lockedHairdresserTimeSlot
  		};
  };
 

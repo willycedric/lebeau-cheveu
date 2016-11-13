@@ -5,6 +5,8 @@ $button-cancel-background:#a94442;
 $button-back-background:#333;
 $default-button-color:#790303;
 $white:#fff;
+$green:green;
+$red:red;
 
 .button-default-lbc{
  	&:hover{
@@ -63,14 +65,35 @@ $white:#fff;
     }
 }
 
+.btn-success {
+    color: $white;
+    background-color: $green;
+    border-color:$green;
+     &:hover,&:focus,&:active{
+      color:$white;
+      background-color: $green;
+    }
+}
+.btn-error {
+    color: $white;
+    background-color: $red;
+    border-color:$red;
+     &:hover,&:focus,&:active{
+      color:$white;
+      background-color: $red;
+    }
+}
 
-.full button span {
-    background-color: limegreen;
-    border-radius: 32px;
+
+
+
+.full button  {
+     background-color: limegreen;
+    border-color:limegreen;
     color: black;
   }
-  .partially button span {
+  .partially button  {
     background-color: orange;
-    border-radius: 32px;
+    border-color:orange;
     color: black;
   }

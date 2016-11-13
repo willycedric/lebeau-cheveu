@@ -2,11 +2,11 @@
 import images from '../../../../images.json';
 import {ModalInstanceCtrl} from './../login/modalCtrl';
 class ShowhairdresserprofileController {
-  constructor($stateParams,Auth,$scope,AuthToken,$window,API,$log,$uibModal,hairdresserMAnager,customerMAnager) {
+  constructor($stateParams,Auth,$scope,AuthToken,$window,API,$log,$uibModal,hairdresserMAnager,customerMAnager,ModalFactory,$q){
 
-        /**
-         * Parameters definition
-         */
+            /**
+             * Parameters definition
+             */
              $scope.this =this;
              this.nbImages = 3;//images.length;
             this.url ="http://res.cloudinary.com/hgtagghpz/image/upload/v1475226327/banner10_fdlxry.jpg"; 
@@ -14,10 +14,17 @@ class ShowhairdresserprofileController {
             this.isCustomHeaderOpen =false;
             this.selectedTimeSlot = new Date();
             this.openingHourList=["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];
+            this.hairdresserMAnager = hairdresserMAnager;
+            this.customerMAnager= customerMAnager;
+            this.$q = $q;
+            const currentDay = new Date();
             //let loggedCustomerInformation = AuthToken.parseToken(AuthToken.getToken());
             let loggedCustomerInformation = {};
-            if(AuthToken.getToken()){
-              Auth.getMe(`${API.dev.customerRoute}`)
+            //get the logged customer if a customer is logged
+            if(typeof AuthToken.getToken() == 'string'){
+              var token = AuthToken.getToken();
+              var route = AuthToken.parseToken(token).role==2?`${API.dev.customerRoute}`:`${API.dev.hairdresserRoute}`;
+              Auth.getMe(route)
               .then((rep)=>{
                 loggedCustomerInformation =rep;
                 $log.debug(loggedCustomerInformation);
@@ -25,31 +32,29 @@ class ShowhairdresserprofileController {
                 $log.error(err);
               });
             }
-
-          
           /**
-           * Get Hairdresser by id, (must be modified to get hairdresser bu username)
+           * Get Hairdresser by id, (must be modified to get hairdresser by username)
            */
-            Auth.getHairdresserById(this._id)
+          this.getHairdresser = (id) =>{
+            var self=this;
+            Auth.getHairdresserById(id)
             .then(function ShowhairdresserprofileControllerSuccessCallback(response){
               $log.log('response ', response);
-                 $scope.this.hairdresser = response;
-                 $scope.this.days = [];
-                 $scope.this.times =[];
-                angular.forEach(response.appointments,function(resp,key){
-                    $scope.this.days.push(resp.dayOfWeek);
-                    $log.debug($scope.this.days);
-                    $scope.this.times[key] = [];
-                    $scope.this.times[key].push(resp.slotTime);           
-                });
-                $log.debug($scope.this.times[0]);
+                 self.hairdresser = response;
             }, function ShowhairdresserprofileControllerFailureCallback(err){
                 console.error(err);
             });
-        /**
-         * Carousel Logic for hairdresser
-         */
+          };
+          /**
+           * 
+           */
+          this.getHairdresser(this._id);
           
+          
+            
+          /**
+           * Carousel Logic for hairdresser
+           */
             this.myInterval = 7000;
             this.noWrapSlides = false;
             this.active = 0;
@@ -76,13 +81,68 @@ class ShowhairdresserprofileController {
         /**
          * Logbook cell management logic
          */
-
+         var tomorrow = new Date();
+          tomorrow.setDate(tomorrow.getDate() + 1);
+          var afterTomorrow = new Date(tomorrow);
+          afterTomorrow.setDate(tomorrow.getDate() + 1);
+        //events
+        var events=[
+                      {
+                        date: tomorrow,
+                        status: 'full'
+                      },
+                      {
+                        date: afterTomorrow,
+                        status: 'partially'
+                      }
+        ];
+        //datapicker init date
+        this.dt = new Date();
+        //date picker option
+        this.options = {
+            customClass: function(data) {       
+            var date = data.date,
+              mode = data.mode;
+            if (mode === 'day') { 
+              var dayToCheck = new Date(date).setHours(0,0,0,0);
+              for (var i = 0; i < events.length; i++) {
+                var currentDay = new Date(events[i].date).setHours(0,0,0,0);
+                if (dayToCheck === currentDay) {
+                  return events[i].status;
+                }
+              }
+            }
+            return '';
+          },
+            minDate: null, //Allow us to select date in the past 
+            showWeeks: false,
+            datepickerMode:'day'
+      };
+      var token = AuthToken.getToken();
+      $scope.$watch('vm.dt',(newvalue, oldValue)=>{
+        if( newvalue !== oldValue){
+          token = AuthToken.getToken();
+          if(typeof token != 'string'){ //check is a customer is connected
+            this.displayModalAskingToLoggedin('sm');
+          }else if(AuthToken.parseToken(token).role !=2){
+              this.displayOnlyForCustomerModal('sm');
+          }else if( AuthToken.parseToken(token).role ==2){
+             if(newvalue< currentDay){
+                    this.dateInThePastModal();                      
+              }else{
+                var tempObj = AuthToken.parseToken(token);
+                console.log('parsed token ',tempObj);
+                this.displayConfirmationModal(tempObj._id, tempObj.username, tempObj.firstname, tempObj.lastname);
+              }
+          }
+        }//end if          
+      });
         /**
          * Function used to display the login modal when the customer is not logged in
          * @param  {[type]} size [description]
          * @return {[type]}      [description]
          */
-           this.displayLoginModal = (size)=>{
+           this.displayLoginModal = ()=>{
                   var modalInstance = $uibModal.open({
                   animation: true,
                   ariaLabelledBy: 'modal-title',
@@ -90,120 +150,65 @@ class ShowhairdresserprofileController {
                   templateUrl: 'login.html',
                   controller: ModalInstanceCtrl,
                   controllerAs: 'vm',
-                  size: size
-                 /* resolve: {
-                    items: function () {
-                      return  self.message;
-                    }
-                  }*/
-                });
-
-               modalInstance.result.then(function (selectedItem) {
-                 // $ctrl.selected = selectedItem;
-                }, function () {
-                  $log.info('Modal dismissed at: ' + new Date());
+                  size: 'sm'
                 });
                }; //end displayLoginModal
-        /**
-         * [rowClicked description]
-         * @param  {[type]} val [description]
-         * @return {[type]}     [description]
-        */
-          this.rowClicked = function(dayOfWeek,index,appointmentId,val){
-            if(loggedCustomerInformation && loggedCustomerInformation.role == 2){
-               if(val == 0){
-                $log.debug('Hairdresser dispo');
-                this.displayConfirmationModal(dayOfWeek,index,appointmentId,loggedCustomerInformation._id,loggedCustomerInformation.username,loggedCustomerInformation.lastname,loggedCustomerInformation.firstname);
-               }else{
-                this.displayAlreadyReserved(dayOfWeek,index,appointmentId,val);
-                $log.debug('Hairdresser rsv');
-               }
-            }else if(loggedCustomerInformation && loggedCustomerInformation.role == 1){
-                this.displayOnlyForCustomerModal();
-            }
-            else{
-                //prompt the user to register or login  
-                //$window.location.href=`${API.dev.login}`
-                //user must be sent back to the hairdresser profile
-                //this.displayLoginModal();
-                 this.displayModalAskingToLoggedin();
-            }
-          };
+       
         /**
          * Function used to display a modal asking for use to logged in
          * @param  {[type]} size [description]
          * @return {[type]}      [description]
          */
-        this.displayModalAskingToLoggedin = (size)=>{
-                  var self = this;
-                  var modalInstance = $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: 'confirmation.html',
-                  controller:function($uibModalInstance){
+        this.displayModalAskingToLoggedin = ()=>{
+            ModalFactory.trigger(this,'confirmation.html',function($uibModalInstance,topController){
                       this.ok = ()=>{
-                        self.displayLoginModal();
+                        topController.displayLoginModal();
                         $uibModalInstance.close('cancel');
                         //$log.debug('clicked on the ok button');
                       };
-
                       this.cancel = ()=>{
                         //$log.debug('clicked on the cancel button');
-                        $uibModalInstance.close('cancel');
+                        $uibModalInstance.dismiss('cancel');
                       };
-                  },
-                  controllerAs: '$ctrl',
-                  size: size
-                });
-
-               modalInstance.result.then(function (selectedItem) {
-                 // $ctrl.selected = selectedItem;
-                }, function () {
-                  $log.info('Modal dismissed at: ' + new Date());
-                });
+                  });
         };
         /**
          * Confirmation Modal
          * @param  {[type]} size [description]
          * @return {[type]}      [description]
          */
-        this.displayConfirmationModal = (dayOfWeek,index,appointmentId,customerId,username,lastname,firstname)=>{
-                  var self = this;
-                  var modalInstance = $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: 'slot-confirmation.html',
-                  controller:function($uibModalInstance){
-                    this.selectedTimeSlot = dayOfWeek;
-                    this.slotHour = self.openingHourList[index]; 
-                      this.ok = ()=>{
-                        self.updateAppointmentSlot(self.hairdresser._id,appointmentId,index,customerId,username,lastname,firstname);
-                        self.updateCustomerAppointmentSlot(self.hairdresser._id,appointmentId,index,dayOfWeek);
-                        $window.location.reload();
-                       $uibModalInstance.close('cancel');
-                        
+        this.displayConfirmationModal = (customerId,username,lastname,firstname)=>{
+                  ModalFactory.trigger(this,'slot-confirmation.html',function($uibModalInstance,topController){
+                    this.dt = topController.dt;
+                    this.openingHourList = topController.openingHourList; 
+                    this.showError=false;
+                      this.ok = (index)=>{
+                        if( index == undefined){
+                          this.showError =true;
+                        }else{
+                              //topController.updateHairdresserAppointment(topController.hairdresser._id,this.dt,this.openingHourList[index],customerId,username,lastname,firstname);
+                              //topController.updateCustomerAppointment(topController.hairdresser._id,this.dt,this.openingHourList[index], topController.hairdresser.username);
+                              topController.updateHairdresserThenCustomerAppointment(topController.hairdresser._id,this.dt,this.openingHourList[index],customerId,username,lastname,firstname, topController.hairdresser.username);
+                            //$window.location.reload();
+                           $uibModalInstance.close('cancel');
+                        }                      
                       };
-
                       this.cancel = ()=>{
-                        $uibModalInstance.close('cancel');
+                        $uibModalInstance.dismiss('cancel');
                       };
-                  },
-                  controllerAs: '$ctrl',
-                  size: 'sm',
-                  resolve: {
-                    times: function () {
-                      return  self.selectedTimeSlot;
-                    }
-                  }
-                });
-
-               modalInstance.result.then(function (selectedItem) {
-                 // $ctrl.selected = selectedItem;
-                }, function () {
-                  $log.info('Modal dismissed at: ' + new Date());
-                });
+                  });
+        };
+        /**
+         * [dateInThePastModal Modal displayed when a user slect a date in the pass]
+         * @type {[type]}
+         */
+        this.dateInThePastModal = () =>{
+          ModalFactory.trigger(this,'date-in-the-pass.html',function($uibModalInstance,topController){
+            this.ok = ()=>{
+              console.log('ok');
+              $uibModalInstance.close('close');
+            };
+          });
         };
         /**
          * [description]
@@ -229,7 +234,7 @@ class ShowhairdresserprofileController {
                       };
 
                       this.cancel = ()=>{
-                        $uibModalInstance.close('cancel');
+                        $uibModalInstance.dismiss('cancel');
                       };
                   },
                   controllerAs: '$ctrl',
@@ -246,37 +251,6 @@ class ShowhairdresserprofileController {
                 }, function () {
                   //$log.info('Modal dismissed at: ' + new Date());
                 });
-        };
-        /**
-         * [update the hairdresser account with the new appointment]
-         * @param  {[type]} hairdresserId [description]
-         * @param  {[type]} appointmentId  [description]
-         * @param  {[type]} slotIndex     [description]
-         * @return {[type]}               [description]
-         */
-        this.updateAppointmentSlot = (hairdresserId, appointmentId,slotIndex,customerId,username,lastname,firstname) =>{
-          hairdresserMAnager.updateAppointmentSlot(hairdresserId, appointmentId,slotIndex,customerId,username,lastname,firstname)
-          .then(function updateAppointmentSlotProfileControllerSuccessCallback(response){
-              $log.info('inside the success callback');
-          },function updateAppointmentSlotProfileControllerErrorCallback(err){
-              $log.info('inside the error callback')
-          });
-        };
-        /**
-           * [Update the appointment in the customer profile]
-         * @param  {[type]} hairdresserId [description]
-         * @param  {[type]} appointmentId [description]
-         * @param  {[type]} slotIndex     [description]
-         * @param  {[type]} customerId    [description]
-         * @return {[type]}               [description]
-         */
-        this.updateCustomerAppointmentSlot = (hairdresserId, appointmentId,slotIndex,customerId)=>{
-          customerMAnager.updateCustomerAppointmentSlot(hairdresserId, appointmentId,slotIndex,customerId)
-          .then(function updateAppointmentCustomerSlotControllerSuccessCallback(response){
-              $log.info('inside the success callback');
-          },function updateAppointmentCustomerSlotControllerErrorCallback(err){
-              $log.info('inside the error callback')
-          });
         };
 
         /**
@@ -297,7 +271,7 @@ class ShowhairdresserprofileController {
                       };
 
                       this.cancel = ()=>{
-                        $uibModalInstance.close('cancel');
+                        $uibModalInstance.dismiss('cancel');
                       };
                   },
                   controllerAs: '$ctrl',
@@ -305,15 +279,73 @@ class ShowhairdresserprofileController {
                 });
                modalInstance.result.then(function () {
                  
-                }, function () {
+                }, function (){
                  
                 });
         };
 
+      /**
+       * [description]
+       * @param  {[type]} hairdresserId       [description]
+       * @param  {[type]} dayOfWeek           [description]
+       * @param  {[type]} selectedHour        [description]
+       * @param  {[type]} customerId          [description]
+       * @param  {[type]} username            [description]
+       * @param  {[type]} lastname            [description]
+       * @param  {[type]} firstname           [description]
+       * @param  {[type]} hairdresserUsername [description]
+       * @return {[type]}                     [description]
+       */
+      this.updateHairdresserThenCustomerAppointment=(hairdresserId, dayOfWeek,selectedHour,customerId,username,lastname,firstname, hairdresserUsername)=>{
+        var self= this;
+        this.hairdresserMAnager.updateHairdresserAppointment(hairdresserId,dayOfWeek,selectedHour,customerId,username,lastname,firstname)
+              .then((id)=>{
+                 var deffered =this.$q.defer();
+                 deffered.resolve(id);
+                 return deffered.promise;
+              })
+              .then( (id)=>{
+                this.customerMAnager.updateCustomerAppointment(id,hairdresserId,dayOfWeek, selectedHour,hairdresserUsername)
+                .then(function updateAppointmentCustomerSlotControllerSuccessCallback(response){
+                    if(response.success){
+                      self.displayAppointmentConfirmationModal(true,dayOfWeek,selectedHour);
+                    }
+                },function updateAppointmentCustomerSlotControllerErrorCallback(err){
+                    self.displayAppointmentConfirmationModal(false,dayOfWeek,selectedHour);
+                    $log.error(err);
+                });
+              });
+      };
+
+      /**
+       * [Modal displayed  at the end of an appointment registration process]
+       * @param  {[type]} status       [registration status (success => true)]
+       * @param  {[type]} selectedDay  [appointment day]
+       * @param  {[type]} selectedHour [appoointment hour]
+       * @return {[type]}              [description]
+       */
+      this.displayAppointmentConfirmationModal = (status, selectedDay,selectedHour)=>{
+        $log.debug(' status ', status,'selectedHour ',selectedHour, 'selectedDay ',selectedDay);
+        ModalFactory.trigger(this,'appointment-registration-confirmation.html', function($uibModalInstance, topController){
+           $log.info('inside the confirmation success');
+           this.isSuccess= status;
+           this.selectedDay = selectedDay;
+           this.selectedHour = selectedHour;
+          this.ok = () =>{
+              $uibModalInstance.close('close')
+          }
+        });
+      };
+        
 }//end constructor
+  
+  
+
+  
+
 }
 
-ShowhairdresserprofileController.$inject=['$stateParams','Auth','$scope','AuthToken','$window','API','$log','$uibModal','hairdresserMAnager','customerMAnager'];
+ShowhairdresserprofileController.$inject=['$stateParams','Auth','$scope','AuthToken','$window','API','$log','$uibModal','hairdresserMAnager','customerMAnager','ModalFactory','$q'];
 export {ShowhairdresserprofileController};
 
 

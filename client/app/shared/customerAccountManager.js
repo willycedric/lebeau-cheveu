@@ -11,19 +11,43 @@
  		 * @type {[type]}
  		 */
 		 let apiUrl=`${API.dev.homeUrl}`;
- 		const updateCustomerAppointmentSlot = (hairdresserId, appointmentId, slotIndex,dayOfWeek)=>{
+ 		const updateCustomerAppointment = (id,hairdresserId,dayOfWeek, selectedHour,hairdresserUsername)=>{
  				var deferred = $q.defer();
- 				$http.put(apiUrl+`${API.dev.customerRoute}`+'/hairdresserAppointment', {hairdresserId:hairdresserId, appointmentId:appointmentId,slotIndex:slotIndex,dayOfWeek:dayOfWeek})
+ 				$http.put(apiUrl+`${API.dev.customerRoute}`+'/hairdresserAppointment', {id:id,hairdresserId:hairdresserId,dayOfWeek:dayOfWeek,selectedHour:selectedHour,hairdresserUsername:hairdresserUsername})
  				.then(function updateAppointmentSlotSuccessCallback(response){
- 					$log.debug('no response now');
+ 					deferred.resolve(response.data);
  				}, function updateAppointmentSlotErrorCallback(err){
- 					$log.error('no response');
+ 					deferred.reject(err);
  				});
  				return deferred.promise;
  		};
 
+ 		const updateCustomerAppointmentState = (appointmentId, customerId)=>{
+ 				var deferred = $q.defer();
+ 				$http.put(apiUrl+`${API.dev.customerRoute}`+'/hairdresserAppointmentUpdate', {appointmentId:appointmentId,customerId:customerId})
+ 				.then(function updateAppointmentSlotSuccessCallback(response){
+ 					deferred.resolve(response.data);
+ 				}, function updateAppointmentSlotErrorCallback(err){
+ 					deferred.reject(err);
+ 				});
+ 				return deferred.promise;
+ 		};
+
+ 		const removeCustomerAppointmentAndNotify = (appointmentId,customerId)=>{
+ 			var deferred = $q.defer();
+ 			$http.delete(apiUrl+`${API.dev.customerRoute}`+'/removeCustomerAppointmentAndNotify',{params:{appointmentId:appointmentId, customerId:customerId}})
+ 			.then(function removeCustomerAppointmentAndNotifySuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function removeCustomerAppointmentAndNotifyCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to delete the customer appointment (err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		};
+
  		return {
- 			updateCustomerAppointmentSlot
+ 			updateCustomerAppointment,
+ 			updateCustomerAppointmentState,
+ 			removeCustomerAppointmentAndNotify
  		};
  };
 

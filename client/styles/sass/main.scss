@@ -14,6 +14,8 @@ $default-margin-right:20%;
 $section-height:15em;
 $default-margin-top:2em;
 $default-font-weight:300;
+$green:green;
+$red:red;
 /** Margin with the previous section */
 .from-previous-section{
 	margin-top:$distance-from-previous-section;
@@ -124,6 +126,25 @@ hr{
 	text-transform:uppercase;
 	color:$white;
 }
+.modal-header-success {
+	background:$green;
+	font-weight:$default-font-weight;
+	text-align: center;
+	text-transform:uppercase;
+	color:$white;
+	padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-header-error{
+	background:$red;
+	font-weight:$default-font-weight;
+	text-align: center;
+	text-transform:uppercase;
+	color:$white;
+	padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
 /* Modal body */
 .modal-body{
 	text-align:center;
@@ -136,4 +157,7 @@ hr{
 .datepicker{
 	display:inline-block;
 	 min-height:290px;
+}
+.error{
+	color:red;
 }

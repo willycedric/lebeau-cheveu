@@ -21,7 +21,7 @@ class AppController {
 		//keep the profile menu displayed on page reload
 		if(token){
 			this.toggle=true;
-			this.username= AuthToken.parseToken(AuthToken.getToken()).name;
+			this.username= AuthToken.parseToken(AuthToken.getToken()).username;
 			//Toggle the right profile link in the menu based on the user role on page reload
 			switch(AuthToken.parseToken(AuthToken.getToken()).role){
 				case 0:
@@ -44,7 +44,7 @@ class AppController {
 			if(user){			
 				token = AuthToken.getToken(); //Get the token on successfull authentication
 				$scope.this.toggle=true;
-				$scope.this.username=AuthToken.parseToken(AuthToken.getToken()).name;
+				$scope.this.username=AuthToken.parseToken(AuthToken.getToken()).username;
 				//Toggle the right profile link in the menu based on the user role 
 				//console.log(JSON.stringify(user.data));
 				switch(AuthToken.parseToken(token).role){

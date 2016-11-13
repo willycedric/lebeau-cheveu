@@ -3,6 +3,7 @@ class CustomerController {
 	  	this.lastName=null;
 	  	this.firstName=null;
 	  	this.Auth = Auth;
+	  	this.API =API;
 		//If a user is connected through the localStretegy, retrieveed the token from the localStorage
 	 	var token = AuthToken.getToken();
 	 	//while the user still connected the token is available from the local storage	
@@ -14,7 +15,7 @@ class CustomerController {
      */	
 	 refreshCustomerProfile (self,token){
 	    		if(token){  
-	    			this.Auth.getProfile(`${API.dev.customerRoute}`+'/me')
+	    			this.Auth.getProfile(`${this.API.dev.customerRoute}`+'/me')
 		    		.then(function customerControllerGetProfileSuccess (data){		    			
 		    			self.lastName= data.lastName;		    			
 		    			self.firstName=data.firstName;

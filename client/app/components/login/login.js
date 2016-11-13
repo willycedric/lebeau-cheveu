@@ -63,7 +63,7 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
                 attrs.$observe("hairdresser", function(name){
                  return  scope.name =name;
                 });
-                console.log(scope.name);
+                //console.log(scope.name);
                 var deferred = $q.defer();
                 Auth.isUsernameAvailable(API.dev.hairdresserRoute+'/isUsernameAvailable',value)
                 .then(function isUserNameAvailableValidatorSuccess (response){

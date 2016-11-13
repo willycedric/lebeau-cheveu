@@ -57,6 +57,9 @@
 		    </div>
   		</script>
   		<script type="text/ng-template" id="confirmation.html">
+  			<div class="modal-header">
+	             <h5 class="center modal-title">Connexion requise</h5>
+	        </div>
 	        <div class="modal-body" id="modal-body">
 	           <span class="connection-required" style="text-algin:center;"> Vous devez vous connecter pour pouvoir réserver une séance</span>
 	        </div>
@@ -66,15 +69,38 @@
 	        </div>
    	  	</script>
    	  	<script type="text/ng-template" id="slot-confirmation.html">
+   	  		<div class="modal-header">
+	             <h5 class="center modal-title">Choix de la tranche horaire</h5>
+	        </div>
 	        <div class="modal-body" id="modal-body">
-	           <span class="question-modal" style="text-algin:center;"> Confirmez votre réservation du {{$ctrl.selectedTimeSlot|date}} à {{$ctrl.slotHour}}?</span>
+	           <span class="question-modal" style="text-algin:center;"> Quelle heure shouaiterez vous réserver le {{$ctrl.dt|date}} 
+		            <select ng-model="$ctrl.slectedHour" name="appoitment-hour" > 
+		          		 <option ng-repeat="hour in $ctrl.openingHourList track by $index" value="{{$index}}">{{hour}}</option>
+		            </select><br/>
+	           </span>
+	           <span ng-show="$ctrl.showError" class="error">*Vous devez choisir une tranche horaire </span>
 	        </div>
 	        <div class="modal-footer" style="text-align:center;">
-	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok($ctrl.slectedHour)">OK</button>
 	            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Annuler</button>
 	        </div>
    	  	</script>
+   	  	
+   	  	<script type="text/ng-template" id="date-in-the-pass.html">
+	   	  	<div class="modal-header">
+	             <h5 class="center modal-title">Date dans le passé</h5>
+	        </div>
+	        <div class="modal-body" id="modal-body">
+	           <p> Vous ne pouvez choisir une date dans le passé </p>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;">
+	            <button class="btn btn-primary btn-confirm" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+   	  	</script>
    	  	<script type="text/ng-template" id="slot-reservation.html">
+   	  		<div class="modal-header">
+	             <h5 class="center modal-title">Horaire indisponible</h5>
+	        </div>
 	        <div class="modal-body" id="modal-body">
 	           <span class="question-modal" style="text-algin:center;"> La période du {{$ctrl.selectedTimeSlot|date}} à {{$ctrl.slotHour}} est déja prise</span>
 	        </div>
@@ -83,11 +109,35 @@
 	        </div>
    	  	</script>
    	  	<script type="text/ng-template" id="only-customer.html">
+   	  		<div class="modal-header">
+	             <h5 class="center modal-title"> Bloqué</h5>
+	        </div>
 	        <div class="modal-body" id="modal-body">
 	           <span class="question-modal" style="text-algin:center;"> Seul les clients peuvent accéder à cette fonctionnalités</span>
 	        </div>
 	        <div class="modal-footer" style="text-align:center;">
 	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+   	  	</script>
+   	  	
+   	  	<script type="text/ng-template" id="appointment-registration-confirmation.html">
+   	  		<div class="modal-header-success"  ng-show="$ctrl.isSuccess">
+	             <h5 class="center success modal-title">Confirmation </h5>
+	        </div>
+	        <div class="modal-header-error"  ng-hide="$ctrl.isSuccess">
+	             <h5 class="center error modal-title">Erreur </h5>
+	        </div>
+	        <div class="modal-body" id="modal-body" ng-show="$ctrl.isSuccess">
+	           <span class="question-modal" style="text-algin:center;"> Votre rendez-vous du {{$ctrl.selectedDay|date}} à {{$ctrl.selectedHour}} est bien enregisté !</span>
+	        </div>
+	        <div class="modal-body" id="modal-body" ng-hide="$ctrl.isSuccess">
+	           <span class="question-modal" style="text-algin:center;"> Une erreur lors de la sauvegarde du rendez-vous !</span>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;"  ng-show="$ctrl.isSuccess">
+	            <button class="btn btn-primary btn-success" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;"  ng-hide="$ctrl.isSuccess">
+	            <button class="btn btn-primary btn-error" type="button" ng-click="$ctrl.ok()">OK</button>
 	        </div>
    	  	</script>
 
@@ -100,27 +150,10 @@
 		<div class="container">
 			<div class="row">
 				<div id="logbook">
-				    <table class="col-sm-offset-2 col-sm-8 table-bordered table-striped table-condensed cf">               
-						<thead class="cf">
-							<tr>
-								<th class="hearder-label"  >Horaire</th>
-				                <th class="hearder-label" ng-repeat="d in vm.days track by $index">{{d|date :'EEE'}}</th>
-							</tr>
-						</thead>
-						<!-- Each the appountments array contains Seven appointment and each has a 11 length slotType array -->
-						<tbody>
-							<tr ng-repeat="t in vm.hairdresser.appointments[0].slotType track by $index">
-				                <td class="cell-hour">{{vm.openingHourList[$index]}}</td>
-								<td data-title="Day1" ng-class= "{'active-cell':!t,'busy-cell':t}"  ng-click = "vm.rowClicked(vm.hairdresser.appointments[0].dayOfWeek,$index,vm.hairdresser.appointments[0]._id,t)" >{{t |displayHairdresserStatut}}<login name=""></login></td>
-								<td data-title="Day2" ng-class='{"active-cell":!vm.hairdresser.appointments[1].slotType[$index],"busy-cell":vm.hairdresser.appointments[1].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[1].dayOfWeek,$index,vm.hairdresser.appointments[1]._id,vm.hairdresser.appointments[1].slotType[$index])" >{{vm.hairdresser.appointments[1].slotType[$index]|displayHairdresserStatut}}<login name=""></login></td>
-								<td data-title="Day3" ng-class='{"active-cell":!vm.hairdresser.appointments[2].slotType[$index],"busy-cell":vm.hairdresser.appointments[2].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[2].dayOfWeek,$index,vm.hairdresser.appointments[2]._id,vm.hairdresser.appointments[2].slotType[$index])">{{vm.hairdresser.appointments[2].slotType[$index]|displayHairdresserStatut}}<login name=""></login></td>
-								<td data-title="Day4" ng-class='{"active-cell":!vm.hairdresser.appointments[3].slotType[$index],"busy-cell":vm.hairdresser.appointments[3].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[3].dayOfWeek,$index,vm.hairdresser.appointments[3]._id,vm.hairdresser.appointments[3].slotType[$index])"  >{{vm.hairdresser.appointments[3].slotType[$index]|displayHairdresserStatut}}<login name=""></login></td>
-								<td data-title="Day5" ng-class='{"active-cell":!vm.hairdresser.appointments[4].slotType[$index],"busy-cell":vm.hairdresser.appointments[4].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[4].dayOfWeek,$index,vm.hairdresser.appointments[4]._id,vm.hairdresser.appointments[4].slotType[$index])"  >{{vm.hairdresser.appointments[4].slotType[$index]|displayHairdresserStatut}}<login name=""></login></td>
-								<td data-title="Day6" ng-class='{"active-cell":!vm.hairdresser.appointments[5].slotType[$index],"busy-cell":vm.hairdresser.appointments[5].slotType[$index]}'  ng-click="vm.rowClicked(vm.hairdresser.appointments[5].dayOfWeek,$index,vm.hairdresser.appointments[5]._id,vm.hairdresser.appointments[5].slotType[$index])" >{{vm.hairdresser.appointments[5].slotType[$index]|displayHairdresserStatut}}<login name=""></login></td>
-								<td data-title="Day7" ng-class='{"active-cell":!vm.hairdresser.appointments[6].slotType[$index],"busy-cell":vm.hairdresser.appointments[6].slotType[$index]}' ng-click="vm.rowClicked(vm.hairdresser.appointments[6].dayOfWeek,$index,vm.hairdresser.appointments[6]._id,vm.hairdresser.appointments[6].slotType[$index])"  >{{vm.hairdresser.appointments[6].slotType[$index]|displayHairdresserStatut}}<login name=""></login></td>
-							</tr>                  
-						</tbody>
-					</table>
+				    <div class='datepicker'>
+				      <div uib-datepicker ng-model="vm.dt" class="well well-sm" datepicker-options="vm.options">
+				      </div>
+				    </div>
 				</div><!-- #logbook -->
 			</div> <!-- .row -->
 		</div> <!-- .container -->
