@@ -10,8 +10,8 @@
 							<div class="hairdresser-menu">
 								<ul>
 									<li class="menu-item"><a ui-sref="hairdresser" >Resumé</a></li>
-									<li class="menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.appointments.length}}</span> </a></li>
-									<li class="menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda </a></li>
+									<li class="menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.nextbookings.length}}</span> </a></li>
+									<li class="menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda <span class="badge">{{vm.hairdresser.appointments.length}}</span> </a></li>
 									<li class="menu-item"><a ui-sref="hairdresserpicture">Mes Photos </a></li>
 									<li class="menu-item"><a ui-sref="hairdresseraccount" >Mon Compte </a></li>
 									<li class="menu-item"><a ui-sref="hairdressermessage" >Message(s)<span class="badge">{{vm.hairdresser.messages.length}}</span> </a></li>
@@ -29,9 +29,9 @@
 				
 					<div class="row row-top ">
 						<div class="col-sm-5 section section-height center">				
-								<h5 class="section-t  ">Prochain Rendez-vous</h5>						
+								<h5 class="section-t" uib-tooltip="nombre de réservation confirmée(s)">Prochain Rendez-vous</h5>						
 								<hr>
-								<span class="section-contains section-number">0</span>
+								<span class="section-contains section-number"> {{vm.hairdresser.nextbookings.length}}</span>
 						</div><!-- .section -->
 						<div class="col-sm-offset-2 col-sm-5 section-height center section">
 							<h5 class="section-t ">Nombre de visite(s)</h5>

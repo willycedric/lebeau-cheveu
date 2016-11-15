@@ -58,6 +58,17 @@
  			return deferred.promise;
  		};
 
+ 		const deleteHairdresserBooking = (appointmentId)=>{
+ 			var deferred = $q.defer();
+ 			$http.delete(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserbooking',{params:{id:appointmentId}})
+ 			.then(function deleteHairdresserSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function deleteHairdresserFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to delete booking array(err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		};
+
  		/**
  		 * Function allowing to remove an appointment canceled by the hairdresser
  		 * @param  {[type]} appointmentId [description]
@@ -106,13 +117,25 @@
  			return deferred.promise;
  		};
 
+ 		const  getHairdresserNotYetConfirmedAppointmentNumber = (appointment)=>{
+ 			var count = 0;
+ 			angular.forEach(appointment, (apt)=>{
+ 				if(apt.slotState == 0){
+ 					count++;
+ 				}
+ 			});
+ 			return count;
+ 		};
+
  		return {
  			updateHairdresserAppointment,
  			getAppointmentById,
  			updateHairdresserBooking,
  			removeHairdresserAppointement,
  			findHairdressers,
- 			lockedHairdresserTimeSlot
+ 			lockedHairdresserTimeSlot,
+ 			deleteHairdresserBooking,
+ 			getHairdresserNotYetConfirmedAppointmentNumber
  		};
  };
 

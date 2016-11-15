@@ -27,7 +27,6 @@ class ShowhairdresserprofileController {
               Auth.getMe(route)
               .then((rep)=>{
                 loggedCustomerInformation =rep;
-                $log.debug(loggedCustomerInformation);
               },(err)=>{
                 $log.error(err);
               });
@@ -39,10 +38,9 @@ class ShowhairdresserprofileController {
             var self=this;
             Auth.getHairdresserById(id)
             .then(function ShowhairdresserprofileControllerSuccessCallback(response){
-              $log.log('response ', response);
                  self.hairdresser = response;
             }, function ShowhairdresserprofileControllerFailureCallback(err){
-                console.error(err);
+                $log.error(err);
             });
           };
           /**
@@ -131,7 +129,6 @@ class ShowhairdresserprofileController {
                     this.dateInThePastModal();                      
               }else{
                 var tempObj = AuthToken.parseToken(token);
-                console.log('parsed token ',tempObj);
                 this.displayConfirmationModal(tempObj._id, tempObj.username, tempObj.firstname, tempObj.lastname);
               }
           }
@@ -205,7 +202,6 @@ class ShowhairdresserprofileController {
         this.dateInThePastModal = () =>{
           ModalFactory.trigger(this,'date-in-the-pass.html',function($uibModalInstance,topController){
             this.ok = ()=>{
-              console.log('ok');
               $uibModalInstance.close('close');
             };
           });
@@ -325,9 +321,7 @@ class ShowhairdresserprofileController {
        * @return {[type]}              [description]
        */
       this.displayAppointmentConfirmationModal = (status, selectedDay,selectedHour)=>{
-        $log.debug(' status ', status,'selectedHour ',selectedHour, 'selectedDay ',selectedDay);
         ModalFactory.trigger(this,'appointment-registration-confirmation.html', function($uibModalInstance, topController){
-           $log.info('inside the confirmation success');
            this.isSuccess= status;
            this.selectedDay = selectedDay;
            this.selectedHour = selectedHour;

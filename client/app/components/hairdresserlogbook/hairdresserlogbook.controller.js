@@ -28,10 +28,9 @@
           this.hairdresser = rep;
           //datepicker logic
          angular.forEach(this.hairdresser.appointments, (appt,key)=>{
-           events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, state:appt.slotState,status: appt.slotState ==1?'full':'partially', relatedCustomer:appt.relatedCustomers})
+           events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotType ==-1?'locked':'booked', relatedCustomer:appt.relatedCustomers})
         });
       });
-    
       this.options = {
             customClass: function(data) {  
             var date = data.date,
@@ -66,7 +65,11 @@
             if(typeof appointmentOfTheDay !== undefined && appointmentOfTheDay.length>0){
                this.displayListOfAppointmentsOfTheSelectedDay(appointmentOfTheDay);
             }else{
-              this.displayEmptyAppointmentSlot(newValue);
+              if(newValue < (new Date())){ //haidresser has selected an empty date in the past
+                this.displayEmptyAppointmentInThePast(newValue);
+              }else{ 
+                this.displayEmptyAppointmentSlot(newValue);
+              }              
             }           
           }
       });      
@@ -84,16 +87,18 @@
 
           this.appointmentDetails = (apt)=>{        
                   //check the appointment state 
-                  if(apt.state === 0){//hairdresser has not yet confirm the appointment 
+                  if(apt.state === 0 && apt.type != -1){//hairdresser has not yet confirm the appointment and the appointment it's not locked
                     this.displayAppointmentConfirmationModal(apt); //prompt the hairdresser to confirm the appointment
-                    console.log('status === 0');
-                  }else if(apt.state === -1 ){ //hairdresser has already confirm the appointment
+                    
+                  }else if(apt.state === -1 && apt.type != -1){ //hairdresser has already confirm the appointment and the appointment it's not locked
                     this.displayAppointmentReminderDetails(apt); //show the hairdresser information about this upcomming appointment
-                    console.log('status === -1');
-                  }else if( apt.state === 1){ //hairdresser has already accomplish the appointment
-                    console.log('status === 1');
+                    
+                  }else if( apt.state === 1 && apt.type != -1){ //hairdresser has already accomplish the appointment and the appointment it's not locked
+                    
                     this.displayAppointmentHistoryDetails(apt);//display informations related to the old appointment
-                  }             
+                  }else if(apt.state === 0 && apt.type == -1){
+                    this.displayAppointmentLockedDetails(apt);
+                  }
                $uibModalInstance.close('child modal');
           };
           
@@ -126,6 +131,15 @@
            */
           this.displayAppointmentHistoryDetails =(apt)=>{
             self.displayAppointmentHistoryDetails(apt);
+          };
+
+          /**
+           * [display informations about a locked date&time period]
+           * @param  {[type]} apt [description]
+           * @return {[type]}     [description]
+           */
+          this.displayAppointmentLockedDetails = (apt)=>{
+            self.displayAppointmentLockedDetails(apt);
           };
  
 
@@ -258,31 +272,62 @@ displayAppointmentHistoryDetails(apt){
  */
 displayEmptyAppointmentSlot(date){
   var self= this;
-  this.ModalFactory.trigger(this,'lockedappointment', function($uibModalInstance, topController){
+  this.ModalFactory.trigger(this,'lockedappointment.html', function($uibModalInstance, topController){
     this.date = date;
+    this.openingHourList= topController.openingHourList;
+    this.showError=false;
     //If the hairdresser decide to locked a date/time period
     this.confirm = (selectedHour)=>{
-      var confirmationMessage = 'La période du '+date.toLocaleDateStrin()+' à'+selectedHour+', à bien été réservée';
-      var errorMessage = 'Erreur lors de la procédure de réservation. Veuillez essayer ultérieurement.'
-      topController.hairdresserMAnager.lockedHairdresserTimeSlot(date,selectedHour)
-      .then((rep)=>{
-          topController.displayConfirmationModal(rep.success,confirmationMessage);
-      }, (err)=>{
-        topController.displayConfirmationModal(false,errorMessage);
-      })
-      .finally(()=>{
-        $uibModalInstance.close('resolved');
-      })
-    };
+      if(selectedHour == undefined){
+        this.showError = true;
+      }else{
+        var confirmationMessage = 'La période du '+date.toLocaleDateString()+' à'+this.openingHourList[selectedHour]+', à bien été réservée';
+        var errorMessage = 'Erreur lors de la procédure de réservation. Veuillez essayer ultérieurement.'
+        topController.hairdresserMAnager.lockedHairdresserTimeSlot(date,this.openingHourList[selectedHour])
+        .then((rep)=>{
+            topController.displayConfirmationModal(rep.success,confirmationMessage);
+        }, (err)=>{
+          topController.displayConfirmationModal(false,errorMessage);
+        })
+        .finally(()=>{
+          $uibModalInstance.close('resolved');
+        });
+      }
+   };
     //cancel
     this.back = ()=>{
       $uibModalInstance.dismiss('back');
     }
-
   });
 }
 
+/**
+ * [displayEmptyAppointmentInThePast display a modal informing the hairdresser that the appointment date is on the past]
+ * @param  {[type]} date [description]
+ * @return {[type]}      [description]
+ */
+displayEmptyAppointmentInThePast(date){
+    var self=this;
+    this.ModalFactory.trigger(self,'date-in-the-pass.html',function($uibModalInstance,topController){
+      this.date = date;
+      this.ok = ()=>{
+        $uibModalInstance.close('close');
+      };
+    });
+};
 
+/**
+ * [displayAppointmentLockedDetails display a modal showing information about the locked date&time period]
+ * @param  {[type]} apt [appointment object]
+ */
+displayAppointmentLockedDetails(apt){
+  this.ModalFactory.trigger(self,'appointment-locked.html',function($uibModalInstance, topController){
+    this.apt= apt;
+    this.confirm = ()=>{
+      $uibModalInstance.close('confirm');
+    };
+  })
+};
 
 
 

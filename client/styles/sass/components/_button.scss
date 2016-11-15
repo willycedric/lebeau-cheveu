@@ -7,7 +7,7 @@ $default-button-color:#790303;
 $white:#fff;
 $green:green;
 $red:red;
-
+$gray:#ACACAC;
 .button-default-lbc{
  	&:hover{
  		color:white;
@@ -84,16 +84,29 @@ $red:red;
     }
 }
 
+.lbc-button-center{
+  float: initial;
+  text-transform:uppercase;
+  font-size:1.3em;
+  clear:none;
+}
 
 
-
-.full button  {
-     background-color: limegreen;
-    border-color:limegreen;
+.locked button  {
+     background-color: $gray;
+    border-color:$gray;
     color: black;
+    &:hover{
+       background-color: $gray;
+       border-color:$gray;
+    }
   }
-  .partially button  {
+  .booked button  {
     background-color: orange;
     border-color:orange;
     color: black;
+    &:hover{
+      background-color: orange;
+      border-color:orange;
+    }
   }

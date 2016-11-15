@@ -10,8 +10,8 @@
 							<div class="hairdresser-menu">
 								<ul>
 									<li class="menu-item"><a ui-sref="hairdresser" >Resumé</a></li>
-									<li class="menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.appointments.length}}</span> </a></li>
-									<li class="menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda </a></li>
+									<li class="menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.nextbookings.length}}</span> </a></li>
+									<li class="menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda <span class="badge">{{vm.hairdresser.appointments.length}}</span> </a></li>
 									<li class="menu-item"><a ui-sref="hairdresserpicture">Mes Photos </a></li>
 									<li class="menu-item"><a ui-sref="hairdresseraccount" >Mon Compte </a></li>
 									<li class="menu-item"><a ui-sref="hairdressermessage" >Message(s)<span class="badge">{{vm.hairdresser.messages.length}}</span> </a></li>
@@ -33,19 +33,36 @@
 			</div> <!-- right element -->			
 		</div> <!-- top row -->
 	</div> <!-- .top container -->
+	<!-- modal displayed when the date selected corresponds to an empty appointment in the past -->
+	<script type="text/ng-template" id="date-in-the-pass.html">
+	   	  	<div class="modal-header">
+	             <h5 class="center modal-title">{{$ctrl.date | date}} est dans le passé</h5>
+	        </div>
+	        <div class="modal-body" id="modal-body">
+	           <p> Vous ne pouvez choisir une date dans le passé </p>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;">
+	            <button class="btn btn-primary btn-confirm" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+   	  	</script>
    	<!-- display modal allowing an hairdresser to locked a date/time slot -->
    	<script type="text/ng-template" id="lockedappointment.html">
-			<div class="modal-header default" id="modal-header">
-				<h3 class="center modal-tile">Locked</h3>
-			</div>
-	        <div class="modal-body default" id="modal-body">
-	           <span class="connection-required" > Vous devez vous connecter pour pouvoir réserver une séance</span>
+   	  		<div class="modal-header">
+	             <h5 class="center modal-title">Choix de la tranche horaire</h5>
 	        </div>
-	        <div class="modal-footer default" >
-	            <button class="btn btn-confirm" type="button" ng-click="$ctrl.ok()">OK</button>
-	            <button class="btn btn-cancel" type="button" ng-click="$ctrl.cancel()">Annuler</button>
+	        <div class="modal-body" id="modal-body">
+	           <span class="question-modal" style="text-algin:center;">Souhaitez-vous vérouiller une tranche horaire le {{$ctrl.date|date}} ? <br/> Si oui choissez une heure :
+		            <select ng-model="$ctrl.slectedHour" name="appoitment-hour" > 
+		          		 <option ng-repeat="hour in $ctrl.openingHourList track by $index" value="{{$index}}">{{hour}}</option>
+		            </select><br/>
+	           </span>
+	           <span ng-show="$ctrl.showError" class="error">*Vous devez choisir une tranche horaire </span>
 	        </div>
-   	</script>
+	        <div class="modal-footer" style="text-align:center;">
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.confirm($ctrl.slectedHour)">OK</button>
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.back()">Annuler</button>
+	        </div>
+   	  	</script>
    	<!-- display appointment confirmation or cancelation modal -->
    	<script type="text/ng-template" id="appointmentconfirmation.html">
 			<div class="modal-header default" id="modal-header">
@@ -113,7 +130,7 @@
 	        </div>
    	   </script>
    	   <!-- Displays past appointment history -->
-   	   <script type="text/ng-template" id="appointment-appointment-history.html.html">
+   	   <script type="text/ng-template" id="appointment-appointment-history.html">
 			<div class="modal-header default" id="modal-header">
 				<h3 class="center modal-tile">Rendez-vous du {{$ctrl.apt.date|date}} à {{$ctrl.apt.time}}</h3>
 			</div>
@@ -126,4 +143,19 @@
 	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">Ok</button>
 	        </div>
    	   </script>
+   	  <!-- Modal displayed to give information about an locked appointment -->
+   	  <script type="text/ng-template" id=" appointment-locked.html">
+			<div class="modal-header default" id="modal-header">
+				<h3 class="center modal-tile">Réservé !</h3>
+			</div>
+	        <div class="modal-body default" id="modal-body">
+	           <div class="appointment-details">
+	           		<p>Vous avez réservé la période du {{$ctrl.apt.date |date}} à {{$ctrl.apt.time}}</p>
+	           </div>
+	        </div>
+	        <div class="modal-footer default">
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.confirm()">Ok</button>
+	        </div>
+   	   </script>
+
 </section><!-- hairdresser -- >

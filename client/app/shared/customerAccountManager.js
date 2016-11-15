@@ -21,7 +21,12 @@
  				});
  				return deferred.promise;
  		};
-
+ 		/**
+ 		 * [function allowing to update a customer appointment state]
+ 		 * @param  {[type]} appointmentId [description]
+ 		 * @param  {[type]} customerId    [description]
+ 		 * @return {[type]}               [description]
+ 		 */
  		const updateCustomerAppointmentState = (appointmentId, customerId)=>{
  				var deferred = $q.defer();
  				$http.put(apiUrl+`${API.dev.customerRoute}`+'/hairdresserAppointmentUpdate', {appointmentId:appointmentId,customerId:customerId})
@@ -32,7 +37,12 @@
  				});
  				return deferred.promise;
  		};
-
+ 		/**
+ 		 * [function allowing to remove an appointment before the confirmation phase]
+ 		 * @param  {[type]} appointmentId [description]
+ 		 * @param  {[type]} customerId    [description]
+ 		 * @return {[type]}               [description]
+ 		 */
  		const removeCustomerAppointmentAndNotify = (appointmentId,customerId)=>{
  			var deferred = $q.defer();
  			$http.delete(apiUrl+`${API.dev.customerRoute}`+'/removeCustomerAppointmentAndNotify',{params:{appointmentId:appointmentId, customerId:customerId}})
@@ -43,11 +53,29 @@
  			});
  			return deferred.promise;
  		};
+ 		/**
+ 		 * [function allowing to remove an user appointment with reason]
+ 		 * @param  {[type]} appointmentId [description]
+ 		 * @param  {[type]} customerId    [description]
+ 		 * @param  {[type]} reason        [description]
+ 		 * @return {[type]}               [description]
+ 		 */
+ 		const removeCustomerAppointmentWithReason = (appointmentId,customerId,reason)=>{
+ 			var deferred = $q.defer();
+ 			$http.delete(apiUrl+`${API.dev.customerRoute}`+'/removeappointmentwithreason',{params:{appointmentId:appointmentId, customerId:customerId,reason:reason}})
+ 			.then(function removeCustomerAppointmentWithReasonSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function removeCustomerAppointmentWithReasonErrorCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to delete the customer appointment (err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		};
 
  		return {
  			updateCustomerAppointment,
  			updateCustomerAppointmentState,
- 			removeCustomerAppointmentAndNotify
+ 			removeCustomerAppointmentAndNotify,
+ 			removeCustomerAppointmentWithReason
  		};
  };
 
