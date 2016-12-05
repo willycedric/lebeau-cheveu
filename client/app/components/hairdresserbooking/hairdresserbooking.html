@@ -5,21 +5,7 @@
 				<div class="row">
 					<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type | customerTypeFilter}}"></hairdresser-profile-card>
 				</div> <!-- row id card -->
-				<div class=" row menu-item">
-					<div class="left-menu">
-							<div class="hairdresser-menu">
-								<ul>
-									<li class="menu-item"><a ui-sref="hairdresser" >Resumé</a></li>
-									<li class="menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.nextbookings.length}}</span> </a></li>
-									<li class="menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda <span class="badge">{{vm.count}}</span> </a></li>
-									<li class="menu-item"><a ui-sref="hairdresserpicture">Mes Photos </a></li>
-									<li class="menu-item"><a ui-sref="hairdresseraccount" >Mon Compte </a></li>
-									<li class="menu-item"><a ui-sref="hairdressermessage" >Message(s)<span class="badge">{{vm.hairdresser.messages.length}}</span> </a></li>
-								</ul>
-							</div> <!-- end .customer-menu -->
-					</div>		<!-- 	end .left-menu -->	
-					
-				</div><!-- row menu -->
+				<hairdresser-menu></hairdresser-menu>
 			</div> <!-- .col-sm-4 left-element -->
 			<div class="col-sm-9">
 				<div class="section" ng-repeat="apt in vm.hairdresser.nextbookings track by $index" ng-show="apt.appointmentState == -1?true:false">
@@ -29,9 +15,6 @@
 					 </div>	
 					 <hr/>
 					 <div class="center section-top">
-						<span class="lbc-button-center col-sm-3">
-								<a class="btn-default-lbc btn-lbc" ng-click ="vm.updateAppointmentModal(apt)">Modifier</a>
-						</span><!-- .section-title -->
 						<span class="lbc-button-center col-sm-3 ">							
 							<a class="btn-default-lbc btn-lbc" ng-click ="vm.displayConfirmationModal(apt)">Annuler</a>
 						</span><!-- .edit-button -->
@@ -62,8 +45,8 @@
 				<span> {{$ctrl.message}} </span>
 		    </div>
 		     <div class="modal-footer" style="text-align:center;">
-	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.confirm($ctrl.apt)">Ok</a>
-	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.cancel()">Annuler</a>
+	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.confirm($ctrl.apt)">OUI</a>
+	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.cancel()">NON</a>
 	        </div>
 	</script>
 	<script type="text/ng-template" id="cancel-appointment.html">
@@ -106,5 +89,22 @@
 	        <div class="modal-footer" style="text-align:center;"  ng-hide="$ctrl.isSuccess">
 	            <button class="btn btn-primary btn-error" type="button" ng-click="$ctrl.ok()">OK</button>
 	        </div>
+	</script>
+	<script type="text/ng-template" id="update-appointment.html">
+  		<div class="modal-header">
+			<h3 class="center modal-tile">Confirmation </h3>
+		</div>
+		<div class="modal-body">
+			<p class="input-group">
+	          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+	          <span class="input-group-btn">
+	            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+	          </span>
+	        </p>
+	    </div>
+	     <div class="modal-footer" style="text-align:center;">
+	        <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.confirm($ctrl.apt)">Ok</a>
+	        <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.cancel()">Annuler</a>
+	    </div>
 	</script>
 </section><!-- hairdresser -- >

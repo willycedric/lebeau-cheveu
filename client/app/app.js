@@ -14,6 +14,9 @@ import {shop} from './components/shop/shop';
 import {login} from './components/login/login';
 import {blog} from './components/blog/blog';
 import {customer} from './components/customer/customer';
+import {customeraccount} from './components/customeraccount/customeraccount';
+import {customerbooking} from './components/customerbooking/customerbooking';
+import {customermessages} from './components/customermessages/customermessages';
 import {hairdresser} from './components/hairdresser/hairdresser';
 import {admin} from './components/admin/admin';
 import {error} from './components/error/error';
@@ -43,6 +46,9 @@ angular.module('app', [
   shared.name,
   admin.name,
   customer.name,
+  customermessages.name,
+  customerbooking.name,
+  customeraccount.name,
   hairdresser.name,
   error.name,
   cart.name,

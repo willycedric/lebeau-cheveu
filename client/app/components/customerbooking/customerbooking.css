@@ -1,8 +1,8 @@
-.customer{
+.customerbooking{
 	margin-top:40px;
 }
 
-.customer .content-widget{
+.customerbooking .content-widget{
 	min-height: 0em;
     border: none;
     background-color: #f7f7fa; /*rgba(238,238,238,0.50);*/
@@ -20,46 +20,46 @@
     -webkit-box-shadow: 0px 4px 4px -4px #888;
     box-shadow: 0px 4px 4px -4px #888;
 }
-.customer ul li {
+.customerbooking ul li {
 	list-style: none;
 }
 
-.customer .left-menu{
+.customerbooking .left-menu{
 	margin-top: 10px;
 }
-.customer .customer-menu {
+.customerbooking .customerbooking-menu {
     margin: 10px;
     padding: 0;
     width: 100%;
 }
-.customer .left-menu li{
+.customerbooking .left-menu li{
 	display:list-item;
 }
-.customer .left-menu li.menu-item{
+.customerbooking .left-menu li.menu-item{
 	margin-bottom: 4px;
 	background:#901a18;
 	padding:5px;
 	text-transform: uppercase;	
 	border:1px solid #F7F7FA;
 }
-.customer .left-menu ul li.menu-item:hover{
+.customerbooking .left-menu ul li.menu-item:hover{
 	background:#ddd;
 	cursor:pointer;
 	
 }
-.customer .left-menu li.menu-item a{
+.customerbooking .left-menu li.menu-item a{
 	color:#fafafa;
 	text-decoration: none;
 	margin-left: 8%;
 }
-.customer .left-menu li.menu-item:hover> a{
+.customerbooking .left-menu li.menu-item:hover> a{
 	cursor:pointer;
 	color:#515151;
 }
-.customer .img-circle{
+.customerbooking .img-circle{
   border: 2px solid #901a18;
 }
-.customer .image-profile{
+.customerbooking .image-profile{
 	background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0ODIuOSA0ODIuOSI+CiAgICA8cGF0aCBkPSJNMjM5LjcgMjYwLjJoMy4yYzI5LjMtLjUgNTMtMTAuOCA3MC41LTMwLjUgMzguNS00My40IDMyLjEtMTE3LjggMzEuNC0xMjQuOS0yLjUtNTMuMy0yNy43LTc4LjgtNDguNS05MC43QzI4MC44IDUuMiAyNjIuNy40IDI0Mi41IDBIMjQwLjhjLTExLjEgMC0zMi45IDEuOC01My44IDEzLjctMjEgMTEuOS00Ni42IDM3LjQtNDkuMSA5MS4xLS43IDcuMS03LjEgODEuNSAzMS40IDEyNC45IDE3LjQgMTkuNyA0MS4xIDMwIDcwLjQgMzAuNXptLTc1LjEtMTUyLjljMC0uMy4xLS42LjEtLjggMy4zLTcxLjcgNTQuMi03OS40IDc2LTc5LjRIMjQxLjljMjcgLjYgNzIuOSAxMS42IDc2IDc5LjQgMCAuMyAwIC42LjEuOC4xLjcgNy4xIDY4LjctMjQuNyAxMDQuNS0xMi42IDE0LjItMjkuNCAyMS4yLTUxLjUgMjEuNGgtMWMtMjItLjItMzguOS03LjItNTEuNC0yMS40LTMxLjctMzUuNi0yNC45LTEwMy45LTI0LjgtMTA0LjV6Ii8+CiAgICA8cGF0aCBkPSJNNDQ2LjggMzgzLjZ2LS4zYzAtLjgtLjEtMS42LS4xLTIuNS0uNi0xOS44LTEuOS02Ni4xLTQ1LjMtODAuOS0uMy0uMS0uNy0uMi0xLS4zLTQ1LjEtMTEuNS04Mi42LTM3LjUtODMtMzcuOC02LjEtNC4zLTE0LjUtMi44LTE4LjggMy4zLTQuMyA2LjEtMi44IDE0LjUgMy4zIDE4LjggMS43IDEuMiA0MS41IDI4LjkgOTEuMyA0MS43IDIzLjMgOC4zIDI1LjkgMzMuMiAyNi42IDU2IDAgLjkgMCAxLjcuMSAyLjUuMSA5LS41IDIyLjktMi4xIDMwLjktMTYuMiA5LjItNzkuNyA0MS0xNzYuMyA0MS05Ni4yIDAtMTYwLjEtMzEuOS0xNzYuNC00MS4xLTEuNi04LTIuMy0yMS45LTIuMS0zMC45IDAtLjguMS0xLjYuMS0yLjUuNy0yMi44IDMuMy00Ny43IDI2LjYtNTYgNDkuOC0xMi44IDg5LjYtNDAuNiA5MS4zLTQxLjcgNi4xLTQuMyA3LjYtMTIuNyAzLjMtMTguOC00LjMtNi4xLTEyLjctNy42LTE4LjgtMy4zLS40LjMtMzcuNyAyNi4zLTgzIDM3LjgtLjQuMS0uNy4yLTEgLjMtNDMuNCAxNC45LTQ0LjcgNjEuMi00NS4zIDgwLjkgMCAuOSAwIDEuNy0uMSAyLjV2LjNjLS4xIDUuMi0uMiAzMS45IDUuMSA0NS4zIDEgMi42IDIuOCA0LjggNS4yIDYuMyAzIDIgNzQuOSA0Ny44IDE5NS4yIDQ3LjhzMTkyLjItNDUuOSAxOTUuMi00Ny44YzIuMy0xLjUgNC4yLTMuNyA1LjItNi4zIDUtMTMuMyA0LjktNDAgNC44LTQ1LjJ6Ii8+Cjwvc3ZnPg==) no-repeat center center;
 	border-radius: 50%;
 	padding:30px;
@@ -68,7 +68,7 @@
     border: 2px solid #901a18;
 }
 
-.customer .customer-name {
+.customerbooking .customerbooking-name {
     font-size: 1.0em;
     font-weight: bold;
     letter-spacing: 0.5px;
@@ -82,7 +82,7 @@
     justify-content: center;
 }
 
-.customer .widget-title{
+.customerbooking .widget-title{
 	display: flex;
     align-items: center;
     justify-content: center;

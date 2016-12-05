@@ -117,6 +117,11 @@
  			return deferred.promise;
  		};
 
+ 		/**
+ 		 * [description]
+ 		 * @param  {[type]} appointment [description]
+ 		 * @return {[type]}             [description]
+ 		 */
  		const  getHairdresserNotYetConfirmedAppointmentNumber = (appointment)=>{
  			var count = 0;
  			angular.forEach(appointment, (apt)=>{
@@ -127,6 +132,40 @@
  			return count;
  		};
 
+ 		/**
+ 		 * [description]
+ 		 * @param  {[type]} id            [description]
+ 		 * @param  {[type]} hairdresserId [description]
+ 		 * @param  {[type]} reason        [description]
+ 		 * @param  {[type]} state         [description]
+ 		 * @return {[type]}               [description]
+ 		 */
+ 		const updateAppointmentStateWithReason = (id,hairdresserId,reason, state)=>{
+ 			var deferred = $q.defer();
+ 			$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/updateappointmentstatewithreason',{id:id,hairdresserId:hairdresserId, reason:reason,state:state})
+ 			.then(function updateAppointmentStateWithReasonSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function updateAppointmentStateWithReasonFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to update the hairdresser appointment state array(err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		}
+ 		/**
+ 		 * [description]
+ 		 * @param  {[type]} id    [description]
+ 		 * @param  {[type]} state [description]
+ 		 * @return {[type]}       [description]
+ 		 */
+ 		const updateAppointmentState = (id,state)=>{
+ 			var deferred = $q.defer();
+ 			$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/updateappointmentstate',{id:id,state:state})
+ 			.then(function updateAppointmentStateSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function updateAppointmentStateFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to update the hairdresser appointment state array(err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		}
  		return {
  			updateHairdresserAppointment,
  			getAppointmentById,
@@ -135,7 +174,9 @@
  			findHairdressers,
  			lockedHairdresserTimeSlot,
  			deleteHairdresserBooking,
- 			getHairdresserNotYetConfirmedAppointmentNumber
+ 			getHairdresserNotYetConfirmedAppointmentNumber,
+ 			updateAppointmentStateWithReason,
+ 			updateAppointmentState
  		};
  };
 

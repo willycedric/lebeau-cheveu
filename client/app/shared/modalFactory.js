@@ -1,4 +1,4 @@
-const ModalFactory = ($uibModal) =>{
+const ModalFactory = ($uibModal,$window) =>{
 
 	/**
 	 * [trigger description]
@@ -21,6 +21,8 @@ const ModalFactory = ($uibModal) =>{
 	    });
 	    modalInstance.result.then(function (selectedItem) {
 	     // $ctrl.selected = selectedItem;
+	     // Update the view
+	     //$window.location.reload();
 	    }, function () {
 	      /*$log.info('Modal dismissed at: ' + new Date());*/
 	    });
@@ -32,6 +34,6 @@ const ModalFactory = ($uibModal) =>{
 
 };
 
-ModalFactory.$inject =['$uibModal'];
+ModalFactory.$inject =['$uibModal','$window'];
 
 export {ModalFactory};

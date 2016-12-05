@@ -12,6 +12,7 @@ $card-heigiht:200px;
 $default-margin-left:3%;
 $default-margin-right:20%;
 $section-height:15em;
+$section-height-min:3em;
 $default-margin-top:2em;
 $default-font-weight:300;
 $green:green;
@@ -112,7 +113,9 @@ hr{
 .section-height{
 	height:$section-height;
 }
-
+.section-height-min{
+	height:$section-height-min;
+}
 .section-number{
 	margin-top:$default-margin-top;
 	font-size:$default-margin-top;
@@ -120,6 +123,10 @@ hr{
 	font-weight:$default-font-weight;
 }
 
+h5{
+	width:100%;
+	margin:0 auto;
+}
 
 /** Modal windows default styles */
 /* Modal header */
@@ -169,4 +176,11 @@ hr{
 .lbc-contains-emphasize{
 	font-family:'Helvetica';
 	font-size:1.3em;
+}
+
+.notification-title{
+    display: block;
+    font-size: 1.3em;
+    font-family: helvetica;
+    font-weight: 400;
 }

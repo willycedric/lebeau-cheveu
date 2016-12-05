@@ -91,6 +91,20 @@ $gray:#ACACAC;
   clear:none;
 }
 
+.btn-lbc-slim{
+  padding:5px 5px;
+  font-size:1em;
+}
+
+.btn-lbc-medium{
+    color: #fff;
+    padding: 6px 15px;
+    border-radius: 4px;
+    font-weight: 400;
+    background: #790303;
+    transition: background 0.3s ease;
+    font-size: 0.9em;
+}
 
 .locked button  {
      background-color: $gray;

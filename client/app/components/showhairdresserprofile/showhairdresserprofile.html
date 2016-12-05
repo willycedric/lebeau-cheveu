@@ -119,6 +119,17 @@
 	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
 	        </div>
    	  	</script>
+   	  	<script type="text/ng-template" id="novailable-slot.html">
+   	  		<div class="modal-header">
+	             <h5 class="center modal-title">Attention</h5>
+	        </div>
+	        <div class="modal-body" id="modal-body">
+	           <span class="question-modal" style="text-algin:center;">Plus de créneau horaire disponible pour le {{$ctrl.date|date}}</span>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;">
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+   	  	</script>
    	  	
    	  	<script type="text/ng-template" id="appointment-registration-confirmation.html">
    	  		<div class="modal-header-success"  ng-show="$ctrl.isSuccess">

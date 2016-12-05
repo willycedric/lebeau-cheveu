@@ -205,6 +205,22 @@ const getUserById = (route, id)=>{
     });
     return deferred.promise;
   }
+  /**
+ * Function used to update a customer account
+ * @param  {[type]} route [description]
+ * @param  {[type]} user  [description]
+ * @return {[type]}       [description]
+ */
+  const updateProfile = (route,user)=>{
+    var deferred =$q.defer();
+    $http.put(apiUrl+route+'/me',{user:user})
+    .then(function updateUserProfileSuccessCallback(response){
+        deferred.resolve(response.data);
+    }, function updateUserProfileErrorCallback (err){
+      deferred.reject(new Error('Error during user update '+err));
+    });
+    return deferred.promise;
+  }
 
 const getHairdresserById = (id)=>{
     var deferred = $q.defer();
@@ -262,7 +278,8 @@ const testGetProfile = (route) =>{
     getHairdresserById,
     updateUserProfile,
     getMe,
-    testGetProfile
+    testGetProfile,
+    updateProfile
   };
   
 };

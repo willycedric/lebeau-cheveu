@@ -67,17 +67,24 @@ class AppController {
 		});
 
 		this.logout = () =>{
-			if(AuthToken.parseToken(AuthToken.getToken()).role ===2){
-					Auth.logout(`${API.dev.customerRoute}`+'/logout')
-		            .then(function logoutControllerSuccessCallback(response){   
-		                $rootScope.$broadcast('connectionStatechanged',null);
-		                //set the role based profile trigger at false
-		                $scope.this.isAdmin=$scope.this.isHairdresser=$scope.this.isCustomer=false;      
-		                $window.location.href=`${API.dev.home}`;
-		            },function logoutControllerErrorCallback(err){
-		                    console.error(err);
-		            });
-			}else if(AuthToken.parseToken(AuthToken.getToken()).role===1){
+			if(AuthToken.parseToken(AuthToken.getToken()).role ===2){ //customer
+				Auth.getMe(`${API.dev.customerRoute}`)
+				.then((data)=>{
+					data.lastconnection = new Date();
+					Auth.updateUserProfile(`${API.dev.customerRoute}`,data)
+					.then((rep)=>{
+						Auth.logout(`${API.dev.customerRoute}`+'/logout')
+			            .then(function logoutControllerSuccessCallback(response){   
+			                $rootScope.$broadcast('connectionStatechanged',null);
+			                //set the role based profile trigger at false
+			                $scope.this.isAdmin=$scope.this.isHairdresser=$scope.this.isCustomer=false;      
+			                $window.location.href=`${API.dev.home}`;
+			            },function logoutControllerErrorCallback(err){
+			                    console.error(err);
+			            });
+					});
+				});					
+			}else if(AuthToken.parseToken(AuthToken.getToken()).role===1){//hairdresser
 
 				Auth.getMe(`${API.dev.hairdresserRoute}`)
 				.then((data)=>{

@@ -1,6 +1,6 @@
 
 class HairdresseraccountController {
-  constructor($uibModal,API,Auth,ModalFactory,$log) {
+  constructor($uibModal,API,Auth,ModalFactory,$log,hairdresserMAnager) {
 
   		  var self=this;
   		//List of department in Ile de France
@@ -25,6 +25,7 @@ class HairdresseraccountController {
 	    Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
 	  	.then(function hairdresserProfileSuccesscallback(rep){
 	  			self.hairdresser = rep;
+	  			 self.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(self.hairdresser.appointments);
 	  	}, function hairdresserProfileErrorCallback (err){
 	  		$log.error(new Error("hairdresser account error callback "+err));
 	  	});
@@ -164,7 +165,7 @@ class HairdresseraccountController {
 
 }//end class
 
-HairdresseraccountController.$inject =['$uibModal','API','Auth','ModalFactory','$log'];
+HairdresseraccountController.$inject =['$uibModal','API','Auth','ModalFactory','$log','hairdresserMAnager'];
 export {HairdresseraccountController};
 
 

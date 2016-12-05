@@ -1,55 +1,55 @@
 <section class="customer">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-offset-1 col-sm-3 col-lg-3">		
+			<div class="col-sm-3">		
 				<div id="customer-id-card" class="content-widget">
 					<div class="row">
-						<div ng-show='vm.photoUrl' class="col-xs-offset-4 col-xs-4">
+						<div ng-show='vm.customer.photoUrl' class="col-xs-offset-4 col-xs-4">
 							<div class="image-proe">
-								<img class='img-responsive img-circle' src='{{vm.photoUrl}}'/>
+								<img class='img-responsive img-circle' src='{{vm.customer.photoUrl}}'/>
 							</div>
 						</div>
-						<div ng-hide='vm.photoUrl' class="col-xs-offset-4 col-xs-4">
+						<div ng-hide='vm.customer.photoUrl' class="col-xs-offset-4 col-xs-4">
 							<div class="image-profile">								
 							</div>
 						</div>
 					</div>					
 					<ul>						
-						<li><span class="customer-name">{{ vm.lastName }} {{vm.firstName}}</li>					
+						<li><span class="customer-name">{{ vm.customer.lastname }} {{vm.customer.firstname}}</li>					
 					</ul> 
 				</div>		<!-- end .customer-id-card -->
 				<div class="left-menu">
-					<div class="customer-menu">
-						<ul>
-							<li class="menu-item"> <a ng-click="vm.showlistOfLastOrder()"> résumé</a></li>
-							<li class="menu-item"><a ng-click="vm.showMyAccount()">Mes informations </a></li>
-						</ul>
-					</div> <!-- end .customer-menu -->
+					<customer-menu></customer-menu>
 				</div>		<!-- 	end .left-menu -->	
 			</div><!-- col-sm-offset-1 col-sm-3 col-lg-3 -->
-			<div class=" col-sm-8 col-lg-7 customer-page-content">
-				<!-- last products viewed -->
-				<div id="last-product-viewed " class="content-widget">
-					<div class="widget-title">
-						<h3> derniers produits consultés</h3>
-					</div>
-					<ul>
-						<li><product></product></li>
-						<li><product></product></li>
-						<li><product></product></li>
-					</ul>						
-				</div> <!-- end .last-product-viewed -->
-				<!-- last hairdressers contacted -->
-				<div id="last-hairdresser-contacted" class="content-widget">
-					<div class="widget-title">
-						<h3> derniers coiffeuses consultés</h3>
-					</div>
-					<ul>
-						<li class='hairdresser-item'><span>Lorem ipsum dolor sit amet, consectetur adipisicing</span></li>
-						<li class='hairdresser-item'><span>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></li>
-						<li class='hairdresser-item'><span>csdedonsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</span></li>
-					</ul>	
-				</div>	<!-- end .last-hairdresser-contacted	 -->	
+			<div class=" col-sm-9 customer-page-content">
+				
+					<div class="row row-top" id="last-connection-date">
+						<div class="col-sm-offset-1 section section-height-min">
+							<span class="section-contains left"> Dernière connexion : {{vm.customer.lastconnection |date}}</span>
+							<span class="section-contains right">Status : {{vm.customer.accountstatus | accountstatus}}</span>
+						</div>
+					</div> <!-- row section-->					
+					<div class="row row-top ">
+						<div class="col-sm-offset-1 col-sm-5 section section-height center">				
+								<h5 class="section-t" uib-tooltip="nombre de réservation confirmée(s)">Prochain Rendez-vous</h5>						
+								<hr>
+								<span class="section-contains section-number">{{vm.getPendingAppointment(vm.customer.nextAppointment)}}</span>
+						</div><!-- .section -->
+
+						<div class="col-sm-offset-1 col-sm-5 section section-height center">				
+								<h5 class="section-t  ">Message non lu(s)</h5>						
+								<hr>
+								<span class="section-contains section-number">{{vm.getUnreadCustomerNotification(vm.customer.notifications)}}</span>
+						</div><!-- .section -->
+				  </div><!-- .row -->
+				  <div class="row row-top ">
+						<div class="col-sm-offset-1 col-sm-5 section section-height center">				
+								<h5 class="section-t" uib-tooltip="nombre de jour(s) avant l'expiration du mot de passe">Expiration du mot de passe</h5>						
+								<hr>
+								<span class="section-contains section-number"> TBD</span>
+						</div><!-- .section -->
+				  </div><!-- .row -->
 			</div><!-- end .customer-page-content -->
 		</div> <!-- end top row -->
 	</div> <!-- end top container -->  

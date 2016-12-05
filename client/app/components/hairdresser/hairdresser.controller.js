@@ -1,5 +1,5 @@
 class HairdresserController {
-  constructor(AuthToken,Auth,Access,API,$log,$states) {
+  constructor(AuthToken,Auth,Access,API,$log,$states,hairdresserMAnager) {
   	// hairdressers account informations
   	var self = this;
   	self.hairdresser={};
@@ -12,11 +12,12 @@ class HairdresserController {
     Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
     .then(function HairdresserControllerGetProfileSuccessCallback (response){
     		self.hairdresser= response;
+        self.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(self.hairdresser.appointments);
     }, function HairdresserControllerGetProfileErrorCallback(err){
 
     });
 
 };//end constructor;
 }
-HairdresserController.$inject =['AuthToken','Auth','Access','API','$log','$state'];
+HairdresserController.$inject =['AuthToken','Auth','Access','API','$log','$state','hairdresserMAnager'];
 export {HairdresserController};

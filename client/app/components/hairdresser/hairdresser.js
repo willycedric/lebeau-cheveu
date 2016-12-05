@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import {hairdresserDirective} from './hairdresser.directive';
+import menu from './hairdresser-menu.html';
 
 export const hairdresser = angular.module('hairdresser', [uiRouter])
   .config(($stateProvider) => {
@@ -13,6 +14,13 @@ export const hairdresser = angular.module('hairdresser', [uiRouter])
     })
   })
   .directive('hairdresser',hairdresserDirective)
+  .directive('hairdresserMenu',()=>{
+    return {
+      restrict:'E',
+      template:menu,
+      replace:true
+    };
+  })
   .filter('accountstatus', ()=>{
     return (accountstatus)=>{
       if(accountstatus ==1){

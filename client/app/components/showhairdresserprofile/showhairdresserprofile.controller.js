@@ -2,7 +2,7 @@
 import images from '../../../../images.json';
 import {ModalInstanceCtrl} from './../login/modalCtrl';
 class ShowhairdresserprofileController {
-  constructor($stateParams,Auth,$scope,AuthToken,$window,API,$log,$uibModal,hairdresserMAnager,customerMAnager,ModalFactory,$q){
+  constructor($stateParams,Auth,$scope,AuthToken,$window,API,$log,$uibModal,hairdresserMAnager,customerMAnager,ModalFactory,$q,DateHandler){
 
             /**
              * Parameters definition
@@ -16,7 +16,12 @@ class ShowhairdresserprofileController {
             this.openingHourList=["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];
             this.hairdresserMAnager = hairdresserMAnager;
             this.customerMAnager= customerMAnager;
+            this.Auth = Auth;
+            this.$log =$log;
             this.$q = $q;
+            this.DateHandler=DateHandler;
+            this.ModalFactory =ModalFactory;
+            this.$window = $window;
             const currentDay = new Date();
             //let loggedCustomerInformation = AuthToken.parseToken(AuthToken.getToken());
             let loggedCustomerInformation = {};
@@ -131,6 +136,7 @@ class ShowhairdresserprofileController {
                 var tempObj = AuthToken.parseToken(token);
                 this.displayConfirmationModal(tempObj._id, tempObj.username, tempObj.firstname, tempObj.lastname);
               }
+               
           }
         }//end if          
       });
@@ -176,8 +182,24 @@ class ShowhairdresserprofileController {
          */
         this.displayConfirmationModal = (customerId,username,lastname,firstname)=>{
                   ModalFactory.trigger(this,'slot-confirmation.html',function($uibModalInstance,topController){
+                    const list = ["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];
                     this.dt = topController.dt;
-                    this.openingHourList = topController.openingHourList; 
+                     this.openingHourList =null;
+                    topController.getListOfAvailableHours()
+                    .then((resp)=>{
+                          var self=this;                        
+                          const index = topController.isContained(resp,this.dt.getDate());
+                          //self.openingHourList = (index === -1)?list:resp[index].hours;
+                          if(index === -1){
+                            self.openingHourList = list;
+                          }else{
+                              console.log('index ',index);
+                             self.openingHourList=topController.displayNoAvailableSlotModal(this.dt,resp[index].hours);
+                          }
+                         
+                      });
+                    
+                   
                     this.showError=false;
                       this.ok = (index)=>{
                         if( index == undefined){
@@ -327,19 +349,153 @@ class ShowhairdresserprofileController {
            this.selectedHour = selectedHour;
           this.ok = () =>{
               $uibModalInstance.close('close')
+              this.$window.location.reload();
           }
         });
-      };
-        
+      };     
 }//end constructor
   
+  /**
+   * [getListOfAvailableHours return the list of not already booked hours for a days]
+   * @return {[type]} [description]
+   */
+  getListOfAvailableHours(){
+       var self=this;
+       var result = self.$q.defer();
+       self.Auth.getHairdresserById(self._id)
+        .then( (resp)=>{
+           var defered = self.$q.defer();
+          defered.resolve(resp);
+          return defered.promise;
+        })
+        .then((resp)=>{
+          //Return the list of appointments days and hours
+          var defered = self.$q.defer();
+          var listOfAvailableHours=[];
+          angular.forEach(resp.appointments, (appointment)=>{
+            listOfAvailableHours.push({dayOfweek:new Date(appointment.dayOfWeek),slotTime:appointment.slotTime});
+          });
+          defered.resolve(listOfAvailableHours)
+          return defered.promise;
+        })
+        .then((resp)=>{
+          //return the list of already booked hours for a days
+          var defered = self.$q.defer();
+          defered.resolve(this.getListOfAppointmentHoursByDay(resp));
+          return defered.promise;
+        })
+        .then((resp)=>{
+          var tempHourList=[];
+          var temp=[];
+          angular.forEach(resp, (elt,index)=>{
+           tempHourList=this.openingHourList;
+              angular.forEach(elt.hours, (hour)=>{
+                angular.forEach(tempHourList,(value,index)=>{
+                    if( value === hour){
+                      debugger;
+                      tempHourList.splice(index,1);
+                    }
+                });//end third inner loop
+              });//end second inner loop
+              elt.hours = tempHourList;
+          });// end top loop
+          result.resolve(resp);     
+        });
+        return result.promise; 
+  }
   
+   /**
+    * [isContained description]
+    * @param  {[type]}  obj [description]
+    * @param  {[type]}  day [description]
+    * @return {Boolean}     [description]
+    */
+   isContained (obj,day){
+    var temp=[];
+    if(obj.length === 0){
+      return -1
+    }else{
+      for(var i = 0; i< obj.length;i++){
+          temp.push(obj[i].dayOfweek);
+      }
+      return temp.indexOf(day);      
+    }
+  }
+  /**
+   * [removeDouble description]
+   * @param  {[type]} obj [description]
+   * @return {[type]}     [description]
+   */
+  getListOfAppointmentHoursByDay(obj){
+    var self=this;
+    var rep =[];
+    var rep2=[];
+    var index;
+    var count;
+    angular.forEach(obj,(elt,i)=>{
+      count =0;
+      for(var j=0; j< obj.length;j++){
+        if(i === j){
+          
+        }else{
+          if(self.DateHandler.isEqual(elt.dayOfweek,obj[j].dayOfweek)){
+            count++;
+            index = self.isContained(rep,obj[j].dayOfweek.getDate());
+            if(index!=-1){
+              if(rep[index].hours.indexOf(elt.slotTime) ==-1){
+                rep[index].hours.push(elt.slotTime);
+              }
+            }else{
+            rep.push({dayOfweek:elt.dayOfweek.getDate(),hours:[elt.slotTime]});
+          }
+        }
+      }
+    }
+    rep2[i]=count;
+    }); 
+    //adding elements wich are not doubled
+    angular.forEach(rep2,(val,index)=>{
+      if(val===0)
+      rep.push(obj[index])
+    });    
+    return rep;
+  }
+
+  /**
+   * [displayNoAvailableSlotModal return a list of available slot for the selected day or display a modal if no slot available]
+   * @param  {[type]} index             [description]
+   * @param  {[type]} availableSlotList [description]
+   * @param  {[type]} openingHourList   [description]
+   * @return {[type]}                   [description]
+   */
+  displayNoAvailableSlotModal(date,availableSlotList){
+      if(availableSlotList.length>0){
+        return availableSlotList;      
+      }else{
+        this.noAvailableSlotModal(date);
+      }
+  }
+
+  /**
+   * [noAvailableSlotModal display a modal informing the user there is no slot available for the selected day]
+   * @return {[type]} [description]
+   */
+  noAvailableSlotModal(date){ 
+      var self=this;
+      self.ModalFactory.trigger(self,'novailable-slot.html', function($uibModalInstance,$uibModalStack, topController){
+        this.date = date;
+         $uibModalStack.dismissAll('close');
+        this.ok = ()=>{
+          $uibModalInstance.close();
+        }
+      });
+  }
 
   
 
 }
 
-ShowhairdresserprofileController.$inject=['$stateParams','Auth','$scope','AuthToken','$window','API','$log','$uibModal','hairdresserMAnager','customerMAnager','ModalFactory','$q'];
+ShowhairdresserprofileController.$inject=['$stateParams','Auth','$scope','AuthToken','$window','API','$log','$uibModal','hairdresserMAnager','customerMAnager','ModalFactory','$q','DateHandler'];
 export {ShowhairdresserprofileController};
 
 

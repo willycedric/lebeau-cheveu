@@ -5,20 +5,7 @@
 				<div class="row">
 					<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type | customerTypeFilter}}"></hairdresser-profile-card>
 				</div> <!-- row id card -->
-				<div class=" row menu-item">
-					<div class="left-menu">
-							<div class="hairdresser-menu">
-								<ul>
-									<li class="menu-item"><a ui-sref="hairdresser" >Resumé</a></li>
-									<li class="menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.nextbookings.length}}</span> </a></li>
-									<li class="menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda <span class="badge">{{vm.hairdresser.appointments.length}}</span> </a></li>
-									<li class="menu-item"><a ui-sref="hairdresserpicture">Mes Photos </a></li>
-									<li class="menu-item"><a ui-sref="hairdresseraccount" >Mon Compte </a></li>
-									<li class="menu-item"><a ui-sref="hairdressermessage" >Message(s)<span class="badge">{{vm.hairdresser.messages.length}}</span> </a></li>
-								</ul>
-							</div> <!-- end .customer-menu -->
-					</div>		<!-- 	end .left-menu -->	
-				</div><!-- row menu -->
+				<hairdresser-menu></hairdresser-menu>
 			</div> <!-- .col-sm-4 left-element -->			
 		</div> <!-- top row -->
 	</div> <!-- .top container -->

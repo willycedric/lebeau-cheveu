@@ -13,6 +13,7 @@
       this.ModalFactory = ModalFactory;
       this.hairdresserMAnager = hairdresserMAnager; 
       this.customerMAnager=customerMAnager;
+      this.DateHandler = DateHandler;
       const availableAppointmentDays=31; //Use to limit the datepicker to one month in order to prevent user to go to far in the future
 	    this.dt = new Date();
 		//If a user is connected through the localStretegy, retrieveed the token from the localStorage
@@ -26,9 +27,10 @@
       Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
       .then((rep)=>{
           this.hairdresser = rep;
+          this.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(this.hairdresser.appointments);
           //datepicker logic
          angular.forEach(this.hairdresser.appointments, (appt,key)=>{
-           events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotType ==-1?'locked':'booked', relatedCustomer:appt.relatedCustomers})
+           events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotType ==-1?'locked':(appt.slotState==0?'booked':(appt.slotState==-1?'pending':'done')), relatedCustomer:appt.relatedCustomers})
         });
       });
       this.options = {
@@ -66,6 +68,8 @@
                this.displayListOfAppointmentsOfTheSelectedDay(appointmentOfTheDay);
             }else{
               if(newValue < (new Date())){ //haidresser has selected an empty date in the past
+                console.log('here i am ');
+                debugger;
                 this.displayEmptyAppointmentInThePast(newValue);
               }else{ 
                 this.displayEmptyAppointmentSlot(newValue);
@@ -73,6 +77,7 @@
             }           
           }
       });      
+      this.getTheSelectedStatus();
 	};//end constructor;
 
   /**
@@ -328,8 +333,26 @@ displayAppointmentLockedDetails(apt){
     };
   })
 };
-
-
+/**
+ * [getTheSelectedStatus description]
+ * @param  {[type]} date [description]
+ * @return {[type]}      [description]
+ */
+getTheSelectedStatus(date){
+  angular.forEach(this.hairdresser.appointments, (apt)=>{
+      if(this.DateHandler.isEqual(apt.dayOfWeek,date)){
+        if(apt.slotType == -1){
+          return 'locked';
+        }else if(apt.slotState == 0){
+          return 'booked';
+        }else if(apt.slotState==-1){
+          return 'pending';
+        }else if(apt.slotState==1){
+          return 'done';
+        }
+      }
+  })
+}
 
 }//end class
 HairdresserlogbookController.$inject =['AuthToken','Auth','API','$log','$state','$uibModal','hairdresserMAnager','customerMAnager','$scope','ModalFactory','DateHandler','$q'];

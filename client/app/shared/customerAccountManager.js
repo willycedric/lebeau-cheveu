@@ -71,11 +71,80 @@
  			return deferred.promise;
  		};
 
+ 		/**
+ 		 * [Function allowing to update the customer preferences (location)]
+ 		 * @param  {[type]} location [user location]
+ 		 * @return {[type]}          [promise]
+ 		 */
+ 		const updateCustomerPreference = (location)=>{
+ 				var deferred = $q.defer();
+ 				$http.put(apiUrl+`${API.dev.customerRoute}`+'/updatecustomerpreference', {location:location})
+ 				.then(function updateCustomerPreferenceSuccessCallback(response){
+ 					deferred.resolve(response.data);
+ 				}, function updateCustomerPreferenceErrorCallback(err){
+ 					deferred.reject(err);
+ 				});
+ 				return deferred.promise;
+ 		};
+ 		/**
+ 		 * [description]
+ 		 * @param  {[type]} message [description]
+ 		 * @return {[type]}         [description]
+ 		 */
+ 		const updateCustomerNotificationState = (message)=>{
+ 				var deferred = $q.defer();
+ 				$http.put(apiUrl+`${API.dev.customerRoute}`+'/updatecustomernotification', {message:message})
+ 				.then(function updateCustomerNotificationStateSuccessCallback(response){
+ 					deferred.resolve(response.data);
+ 				}, function updateCustomerNotificationStateErrorCallback(err){
+ 					deferred.reject(err);
+ 				});
+ 				return deferred.promise;
+ 		};
+ 		/**
+ 		 * [description]
+ 		 * @param  {[type]} id    [description]
+ 		 * @param  {[type]} state [description]
+ 		 * @return {[type]}       [description]
+ 		 */
+ 		const updateAppointmentState = (id,state) =>{
+ 			var deferred = $q.defer();
+ 				$http.put(apiUrl+`${API.dev.customerRoute}`+'/updateappointmentstate', {id:id,state:state})
+ 				.then(function updateAppointmentStateSuccessCallback(response){
+ 					deferred.resolve(response.data);
+ 				}, function updateAppointmentStateErrorCallback(err){
+ 					deferred.reject(err);
+ 				});
+ 				return deferred.promise;
+ 		}
+
+ 		/**
+ 		 * [description]
+ 		 * @param  {[type]} id            [description]
+ 		 * @param  {[type]} hairdresserId [description]
+ 		 * @param  {[type]} reason        [description]
+ 		 * @param  {[type]} state         [description]
+ 		 * @return {[type]}               [description]
+ 		 */
+ 		const updateAppointmentStateWithReason = (id,customerId,reason, state)=>{
+ 			var deferred = $q.defer();
+ 			$http.put(apiUrl+`${API.dev.customerRoute}`+'/updateappointmentstatewithreason',{id:id,customerId:customerId, reason:reason,state:state})
+ 			.then(function updateAppointmentStateWithReasonSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function updateAppointmentStateWithReasonFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to update the hairdresser appointment state array(err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		}
  		return {
  			updateCustomerAppointment,
  			updateCustomerAppointmentState,
  			removeCustomerAppointmentAndNotify,
- 			removeCustomerAppointmentWithReason
+ 			removeCustomerAppointmentWithReason,
+ 			updateCustomerPreference,
+ 			updateCustomerNotificationState,
+ 			updateAppointmentState,
+ 			updateAppointmentStateWithReason
  		};
  };
 

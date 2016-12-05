@@ -1,5 +1,5 @@
 	class HairdresserbookingController {
-	  constructor(Auth, API,$log,ModalFactory,hairdresserMAnager, customerMAnager,$q) {
+	  constructor(Auth, API,$log,ModalFactory,hairdresserMAnager, customerMAnager,$q,$window) {
 	  	// hairdressers account informations
 	  	this.hairdresser={};
 	  	this.openingHourList=["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];	  	 	
@@ -8,6 +8,7 @@
 	  	this.$q = $q;
 	  	this.hairdresserMAnager = hairdresserMAnager;
 	  	this.customerMAnager = customerMAnager;
+	  	this.$window=$window;
 	    Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
       	.then((rep)=>{
           this.hairdresser = rep;
@@ -33,7 +34,7 @@
 			 this.cancel = ()=>{
 			 	$uibModalInstance.dismiss('cancel');
 			 };
-		})
+		});
 	};
 	/**
 	 * [displayAppointmentCancelationModal description]
@@ -46,15 +47,14 @@
 			var successMessage = 'Votre rendez vous du '+(new Date(apt.appointmentDate)).toLocaleDateString()+' à '+apt.appointmentHour+', a bien été supprimé !';
 			var errorMessage = 'Erreur lors de la suppression du rendez-vous, essayer ultérieurement'
 			this.cancelAppointment = (reason)=>{
-				topController.$log.debug('reason ',reason);
-				topController.hairdresserMAnager.deleteHairdresserBooking(apt._id)
+				topController.hairdresserMAnager.updateAppointmentState(apt._id,-2)//-2 --> canceled by hairdresser
 				.then((rep)=>{
 					var defered = topController.$q.defer();
 					defered.resolve(rep);
 					return defered.promise;
 				})
 				.then((rep)=>{
-					topController.customerMAnager.removeCustomerAppointmentWithReason(apt._id, apt.customerId,reason)
+					topController.customerMAnager.updateAppointmentStateWithReason(apt._id, apt.customerId,reason,-2)//-2 --> canceled by hairdresser
 					.then((rep)=>{
 						topController.displaySuccessModal(rep.success,successMessage);
 					},(err)=>{
@@ -83,12 +83,13 @@
 			this.message =msg;
 			this.isSuccess =state;
 			this.ok = () =>{
+				topController.$window.location.reload();
 				$uibModalInstance.close('ok');
 			};
 		});
 	};
 }
-	HairdresserbookingController.$inject =['Auth','API', '$log', 'ModalFactory','hairdresserMAnager','customerMAnager','$q'];
+	HairdresserbookingController.$inject =['Auth','API', '$log', 'ModalFactory','hairdresserMAnager','customerMAnager','$q','$window'];
 export {HairdresserbookingController};
 
 
