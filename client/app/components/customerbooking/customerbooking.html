@@ -76,9 +76,21 @@
 		    </div>
 		     <div class="modal-footer" style="text-align:center;">
 	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.confirm($ctrl.apt)">OUI</a>
-	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.cancel()">NON</a>
+	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.cancel($ctrl.apt)">NON</a>
 	        </div>
 	</script>
+    <script type="text/ng-template" id=" appoitnment-date-close.html">
+			<div class="modal-header-warning">
+				<h3 class="center modal-tile">Avertissement</h3>
+			</div>
+			<div class="modal-body">
+				<span> {{$ctrl.message}} </span>
+		    </div>
+		     <div class="modal-footer" style="text-align:center;">
+	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.ok($ctrl.apt)">OK</a>
+	        </div>
+	</script>
+   
 	<script type="text/ng-template" id="confirmation-modal.html">
    	  		<div class="modal-header-success"  ng-show="$ctrl.isSuccess">
 	             <h5 class="center success modal-title">Confirmation </h5>

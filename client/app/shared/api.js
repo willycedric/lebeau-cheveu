@@ -4,7 +4,8 @@ export const api = {
 		home:'http://localhost:4500/#/home',
 		error:'http://localhost:4500/#/error',
 		customerRoute:'/api/users',
-		hairdresserRoute:'/api/hairdressers'
+		hairdresserRoute:'/api/hairdressers',
+        openingHourList:["9h:00","12h:00","15h:00","18h:00","21h:00"]
 	},
 	test:{
 		homeUrl:'https://lebeaucheveu-bachend.herokuapp.com',

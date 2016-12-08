@@ -13,7 +13,7 @@ class ShowhairdresserprofileController {
             this._id = $stateParams.id;
             this.isCustomHeaderOpen =false;
             this.selectedTimeSlot = new Date();
-            this.openingHourList=["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];
+            this.openingHourList= API.dev.openingHourList;
             this.hairdresserMAnager = hairdresserMAnager;
             this.customerMAnager= customerMAnager;
             this.Auth = Auth;
@@ -22,6 +22,7 @@ class ShowhairdresserprofileController {
             this.DateHandler=DateHandler;
             this.ModalFactory =ModalFactory;
             this.$window = $window;
+            this.API = API;
             const currentDay = new Date();
             //let loggedCustomerInformation = AuthToken.parseToken(AuthToken.getToken());
             let loggedCustomerInformation = {};
@@ -182,7 +183,7 @@ class ShowhairdresserprofileController {
          */
         this.displayConfirmationModal = (customerId,username,lastname,firstname)=>{
                   ModalFactory.trigger(this,'slot-confirmation.html',function($uibModalInstance,topController){
-                    const list = ["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];
+                    const list =topController.API.dev.openingHourList; //["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];
                     this.dt = topController.dt;
                      this.openingHourList =null;
                     topController.getListOfAvailableHours()
@@ -349,8 +350,8 @@ class ShowhairdresserprofileController {
            this.selectedHour = selectedHour;
           this.ok = () =>{
               $uibModalInstance.close('close')
-              this.$window.location.reload();
-          }
+              topController.$window.location.reload();
+          };
         });
       };     
 }//end constructor
@@ -387,12 +388,14 @@ class ShowhairdresserprofileController {
         .then((resp)=>{
           var tempHourList=[];
           var temp=[];
+           console.log(resp);
+           debugger;
           angular.forEach(resp, (elt,index)=>{
-           tempHourList=this.openingHourList;
+           tempHourList=this.API.dev.openingHourList;
               angular.forEach(elt.hours, (hour)=>{
                 angular.forEach(tempHourList,(value,index)=>{
                     if( value === hour){
-                      debugger;
+                      //debugger;
                       tempHourList.splice(index,1);
                     }
                 });//end third inner loop

@@ -17,6 +17,7 @@ $default-margin-top:2em;
 $default-font-weight:300;
 $green:green;
 $red:red;
+$warning-color:#d98f07;
 /** Margin with the previous section */
 .from-previous-section{
 	margin-top:$distance-from-previous-section;
@@ -136,6 +137,19 @@ h5{
 	text-align: center;
 	text-transform:uppercase;
 	color:$white;
+}
+
+ .modal-header-warning{
+    background:$warning-color;
+    font-weight:$default-font-weight;
+	text-align: center;
+	text-transform:uppercase;
+	color:$white;
+	padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+     btn-default-lbc{
+          background:$warning-color;
+     }
 }
 .modal-header-success {
 	background:$green;

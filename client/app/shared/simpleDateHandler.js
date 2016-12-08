@@ -1,3 +1,6 @@
+//import moment from './../node_modules/moment/moment';
+import moment from 'moment';
+
 const DateHandler = () =>{
 
 	const isEqual = (day1, day2)=>{
@@ -24,9 +27,12 @@ const DateHandler = () =>{
 	    	return false;
 	    }
 	};
+    
+   
 
 	return {
-		isEqual
+		isEqual,
+        moment
 	};
 };
 

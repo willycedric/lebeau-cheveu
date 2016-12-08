@@ -1,14 +1,15 @@
 class CustomerbookingController {
-	  constructor(Auth,API,ModalFactory,$log,$q,hairdresserMAnager,customerMAnager) {
+	  constructor(Auth,API,ModalFactory,$log,$q,hairdresserMAnager,customerMAnager,DateHandler) {
 	 
-	  	this.Auth = Auth;
-	  	this.API =API;
-	  	this.ModalFactory =ModalFactory;
-	  	this.$log=$log;
-	  	this.$q = $q;
-	  	this.customerMAnager=customerMAnager;
-	  	this.hairdresserMAnager=hairdresserMAnager;
-		
+    this.Auth = Auth;
+    this.API =API;
+    this.ModalFactory =ModalFactory;
+    this.$log=$log;
+    this.$q = $q;
+    this.customerMAnager=customerMAnager;
+    this.hairdresserMAnager=hairdresserMAnager;
+     this.DateHandler= DateHandler;
+
 	 	//while the user still connected the token is available from the local storage	
      	//this.refreshCustomerProfile(this,token);        
 		Auth.getProfile(`${API.dev.customerRoute}`+'/me')
@@ -24,6 +25,7 @@ class CustomerbookingController {
 	displayConfirmationModal(appointment){
 		var self=this;
 		this.ModalFactory.trigger(self,'action-confirmation.html', function($uibModalInstance,topController){
+           
 			this.apt=appointment;
 			this.message = 'Voulez vous annulez le rendez-vous du ' + (new Date(appointment.dayOfWeek)).toLocaleDateString()+' à '+appointment.selectedHour+' ?';
 			 this.confirm = (apt)=>{
@@ -31,47 +33,65 @@ class CustomerbookingController {
 			 	$uibModalInstance.close('confirm');
 			 };
 			 this.cancel = ()=>{
-			 	$uibModalInstance.dismiss('cancel');
+			 	$uibModalInstance.dismiss('cancel');                
+              
 			 };
 		}); 
 	}
 
 	/**
 	 * [displayAppointmentCancelationModal description]
-	 * @param  {[type]} apt [description]
+	 * @param  {[type]} apt [description]@
 	 * @return {[type]}     [description]
 	 */
 	displayAppointmentCancelationModal(apt){
 		var self=this;
-		self.ModalFactory.trigger(self,'cancel-appointment.html', function($uibModalInstance,topController){
-			var successMessage = 'Votre rendez vous du '+(new Date(apt.dayOfWeek)).toLocaleDateString()+' à '+apt.selectedHour+', a bien été supprimé !';
-			var errorMessage = 'Erreur lors de la suppression du rendez-vous, essayer ultérieurement'
-			var state=-3; //cancel by the customer 
-			this.cancelAppointment = (reason)=>{
-				topController.customerMAnager.updateAppointmentState(apt._id,state)
-				.then((rep)=>{
-					var defered = topController.$q.defer();
-					defered.resolve(rep);
-					return defered.promise;
-				})
-				.then((rep)=>{
-					topController.hairdresserMAnager.updateAppointmentStateWithReason(apt._id, apt.haidresserId,reason,state)
-					.then((rep)=>{
-						topController.displaySuccessModal(rep.success,successMessage);
-					},(err)=>{
-						topController.displaySuccessModal(false,errorMessage);
-					})
-					.finally(()=>{
-						$uibModalInstance.close('done');
-					})
-				})
-			};
-			this.cancel = () =>{
-				$uibModalInstance.dismiss('cancel');
-			};
-		});
+        var currentDate = self.DateHandler.moment(new Date());
+        var aptDate = self.DateHandler.moment(apt.dayOfWeek);
+        if(aptDate.diff(currentDate,'days')<1){ //is the date is too close from the appointment date display a modal
+            self.displayAppointmentDateToCloseModal(apt);
+        }else{
+                self.ModalFactory.trigger(self,'cancel-appointment.html', function($uibModalInstance,topController){
+                var successMessage = 'Votre rendez vous du '+(new Date(apt.dayOfWeek)).toLocaleDateString()+' à '+apt.selectedHour+', a bien été supprimé !';
+                var errorMessage = 'Erreur lors de la suppression du rendez-vous, essayer ultérieurement'
+                var state=-3; //cancel by the customer 
+                this.cancelAppointment = (reason)=>{
+                    topController.customerMAnager.updateAppointmentState(apt._id,state)
+                    .then((rep)=>{
+                        var defered = topController.$q.defer();
+                        defered.resolve(rep);
+                        return defered.promise;
+                    })
+                    .then((rep)=>{
+                        topController.hairdresserMAnager.updateAppointmentStateWithReason(apt._id, apt.haidresserId,reason,state)
+                        .then((rep)=>{
+                            topController.displaySuccessModal(rep.success,successMessage);
+                        },(err)=>{
+                            topController.displaySuccessModal(false,errorMessage);
+                        })
+                        .finally(()=>{
+                            $uibModalInstance.close('done');
+                        })
+                    })
+                };
+                this.cancel = () =>{
+                    $uibModalInstance.dismiss('cancel');
+                };
+            });
+        }
+		
 	};
-
+    
+    
+    displayAppointmentDateToCloseModal(apt){
+        var self = this;
+        self.ModalFactory.trigger(self,'appoitnment-date-close.html',function($uibModalInstance,topController){
+             this.message = 'vous ne pouvez pas annuler un rendez à moins de 24h. Votre rendez-vous est maintenu le '+new Date(apt.dayOfWeek).toLocaleDateString();
+            this.ok = () =>{
+                $uibModalInstance.close('ok');
+            };
+        });
+    };
 	/**
 	 * [displaySuccessModal description]
 	 * @param  {[type]} state   [description]
@@ -119,7 +139,7 @@ class CustomerbookingController {
 
 }//end class
 
-CustomerbookingController.$inject =['Auth','API','ModalFactory','$log','$q','hairdresserMAnager','customerMAnager'];
+CustomerbookingController.$inject =['Auth','API','ModalFactory','$log','$q','hairdresserMAnager','customerMAnager','DateHandler'];
 
 export {CustomerbookingController};
 

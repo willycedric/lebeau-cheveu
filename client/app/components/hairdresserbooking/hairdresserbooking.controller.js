@@ -1,14 +1,15 @@
 	class HairdresserbookingController {
-	  constructor(Auth, API,$log,ModalFactory,hairdresserMAnager, customerMAnager,$q,$window) {
+	  constructor(Auth, API,$log,ModalFactory,hairdresserMAnager, customerMAnager,$q,$window,DateHandler) {
 	  	// hairdressers account informations
 	  	this.hairdresser={};
-	  	this.openingHourList=["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];	  	 	
+	  	this.openingHourList=API.dev.openingHourList;	  	 	
 	  	this.ModalFactory = ModalFactory;
 	  	this.$log = $log;
 	  	this.$q = $q;
 	  	this.hairdresserMAnager = hairdresserMAnager;
 	  	this.customerMAnager = customerMAnager;
 	  	this.$window=$window;
+        this.DateHandler = DateHandler;
 	    Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
       	.then((rep)=>{
           this.hairdresser = rep;
@@ -43,33 +44,50 @@
 	 */
 	displayAppointmentCancelationModal(apt){
 		var self=this;
-		self.ModalFactory.trigger(self,'cancel-appointment.html', function($uibModalInstance,topController){
-			var successMessage = 'Votre rendez vous du '+(new Date(apt.appointmentDate)).toLocaleDateString()+' à '+apt.appointmentHour+', a bien été supprimé !';
-			var errorMessage = 'Erreur lors de la suppression du rendez-vous, essayer ultérieurement'
-			this.cancelAppointment = (reason)=>{
-				topController.hairdresserMAnager.updateAppointmentState(apt._id,-2)//-2 --> canceled by hairdresser
-				.then((rep)=>{
-					var defered = topController.$q.defer();
-					defered.resolve(rep);
-					return defered.promise;
-				})
-				.then((rep)=>{
-					topController.customerMAnager.updateAppointmentStateWithReason(apt._id, apt.customerId,reason,-2)//-2 --> canceled by hairdresser
-					.then((rep)=>{
-						topController.displaySuccessModal(rep.success,successMessage);
-					},(err)=>{
-						topController.displaySuccessModal(false,errorMessage);
-					})
-					.finally(()=>{
-						$uibModalInstance.close('done');
-					})
-				})
-			};
-			this.cancel = () =>{
-				$uibModalInstance.dismiss('cancel');
-			};
-		});
+        var aptDate = self.DateHandler.moment(apt.appointmentDate);
+        var currentDate = self.DateHandler.moment(new Date());
+        if(aptDate.diff(currentDate,'days')<2){//at least 48h are mandatory to cancel an appointment
+            self.displayAppointmentDateToCloseModal(apt);
+        }else{
+                self.ModalFactory.trigger(self,'cancel-appointment.html',                               function($uibModalInstance,topController){
+                    var successMessage = 'Votre rendez vous du '+(new Date(apt.appointmentDate)).toLocaleDateString()+' à '+apt.appointmentHour+', a bien été supprimé !';
+                    var errorMessage = 'Erreur lors de la suppression du rendez-vous, essayer ultérieurement'
+                    this.cancelAppointment = (reason)=>{
+                        topController.hairdresserMAnager.updateAppointmentState(apt._id,-2)//-2 --> canceled by hairdresser
+                        .then((rep)=>{
+                            var defered = topController.$q.defer();
+                            defered.resolve(rep);
+                            return defered.promise;
+                        })
+                        .then((rep)=>{
+                            topController.customerMAnager.updateAppointmentStateWithReason(apt._id, apt.customerId,reason,-2)//-2 --> canceled by hairdresser
+                            .then((rep)=>{
+                                topController.displaySuccessModal(rep.success,successMessage);
+                            },(err)=>{
+                                topController.displaySuccessModal(false,errorMessage);
+                            })
+                            .finally(()=>{
+                                $uibModalInstance.close('done');
+                            })
+                        })
+                    };
+                    this.cancel = () =>{
+                        $uibModalInstance.dismiss('cancel');
+                    };
+            });
+        }
+		
 	};
+        
+     displayAppointmentDateToCloseModal(apt){
+        var self = this;
+        self.ModalFactory.trigger(self,'appoitnment-date-close.html',function($uibModalInstance,topController){
+             this.message = 'vous ne pouvez pas annuler un rendez à moins de 48h. Votre rendez-vous est maintenu le '+new Date(apt.appointmentDate).toLocaleDateString();
+            this.ok = () =>{
+                $uibModalInstance.close('ok');
+            };
+        });
+    };
 
 	/**
 	 * [displaySuccessModal description]
@@ -89,7 +107,7 @@
 		});
 	};
 }
-	HairdresserbookingController.$inject =['Auth','API', '$log', 'ModalFactory','hairdresserMAnager','customerMAnager','$q','$window'];
+	HairdresserbookingController.$inject =['Auth','API', '$log', 'ModalFactory','hairdresserMAnager','customerMAnager','$q','$window','DateHandler'];
 export {HairdresserbookingController};
 
 
