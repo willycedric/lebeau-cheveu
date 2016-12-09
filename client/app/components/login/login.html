@@ -144,7 +144,7 @@
                               <!-- username -->
                               <div class="field-wrap" ng-class="{ 'has-error' : registerForm.username.$invalid && !registerForm.username.$pristine }">
                                   <label class="label-displayed" for="username"></label>
-                                  <input type="text" name="username" id="username"  ng-model ="vm.user.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required username-validator>
+                                  <input type="text" name="username" id="register-username"  ng-model ="vm.user.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required username-validator>
                                   <!-- in case of an error the message below is displayed as part of the list of message errors -->
                                   <span ng-if='registerForm.username.$pending.uniqueusername' class='text-info'>Vérification de la disponibilité ...</span>
                                   <span ng-show='registerForm.username.$invalid&& !registerForm.username.$error.uniqueusername &&!registerForm.username.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
@@ -153,21 +153,21 @@
                                  <!-- firstname -->
                                 <div class="field-wrap" ng-class="{ 'has-error' : registerForm.firstname.$invalid && !registerForm.firstname.$pristine }">
                                   <label class="label-displayed" for="firstname"></label>
-                                  <input type="text" name="firstname" id="firstname"  ng-model ="vm.user.firstname" tabindex="1"  placeholder="prénom " value="" required>
+                                  <input type="text" name="firstname" id="register-firstname"  ng-model ="vm.user.firstname" tabindex="1"  placeholder="prénom " value="" required>
                                   <!-- in case of an error the message below is displayed as part of the list of message errors -->
                                   <span ng-show='registerForm.firstname.$invalid &&!registerForm.firstname.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
                                 </div>
                                  <!-- lastname -->
                                 <div class="field-wrap" ng-class="{ 'has-error' : registerForm.lastname.$invalid && !registerForm.lastname.$pristine }">
                                   <label class="label-displayed" for="lastname"></label>
-                                  <input type="text" name="lastname" id="lastname"  ng-model ="vm.user.lastname" tabindex="1"  placeholder="nom" value="" required>
+                                  <input type="text" name="lastname" id="register-lastname"  ng-model ="vm.user.lastname" tabindex="1"  placeholder="nom" value="" required>
                                   <!-- in case of an error the message below is displayed as part of the list of message errors -->
                                   <span ng-show='registerForm.lastname.$invalid &&!registerForm.lastname.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
                                 </div>
                                  <!-- email -->
                                 <div class="field-wrap" ng-class="{ 'has-error' : registerForm.email.$invalid && !registerForm.email.$pristine }">
                                   <label class="label-displayed" for="email"></label>
-                                  <input type="text" name="email" id="email"  ng-model ="vm.user.email" tabindex="1"  placeholder="email" value="" required email-validator>
+                                  <input type="text" name="email" id="register-email"  ng-model ="vm.user.email" tabindex="1"  placeholder="email" value="" required email-validator>
                                   <!-- in case of an error the message below is displayed as part of the list of message errors -->
                                   <span ng-show="registerForm.email.$invalid && !registerForm.email.$error.email &&!registerForm.email.$pristine" class="text-danger">L'email est requis </span>
                                   <span ng-show='registerForm.email.$invalid && registerForm.email.$error.email && !registerForm.email.$pristine' class='text-warning'>L'email saisi n'est pas valide</span>
@@ -175,7 +175,7 @@
                                  <!-- password-->
                                 <div class="field-wrap" ng-class="{ 'has-error' : registerForm.password.$invalid && !registerForm.password.$pristine }">
                                   <label class="label-displayed" for="password"></label>
-                                  <input type="password" name="password" id="password"  ng-model ="vm.user.password" tabindex="1"  placeholder="mot de passe" value="dsds" required password-validator>
+                                  <input type="password" name="password" id="register-password"  ng-model ="vm.user.password" tabindex="1"  placeholder="mot de passe" value="dsds" required password-validator>
                                   <!-- in case of an error the message below is displayed as part of the list of message errors -->
                                   <span ng-show="registerForm.password.$invalid && !registerForm.password.$error.password&&!registerForm.password.$pristine" class="text-danger">Le mot de passe est requis</span>
                                   <span ng-show='registerForm.password.$error.password && !registerForm.password.$pristine' class='text-warning'>Le mot de passe saisi doit contenir au minimum 8 caractères alphabétiques et/ou numériques</span>
@@ -183,14 +183,14 @@
                                  <!-- password confirmation -->
                                 <div class="field-wrap" ng-class="{ 'has-error' : registerForm.passwordConfirmation.$invalid && !registerForm.passwordConfirmation.$pristine }">
                                   <label class="label-displayed" for="passwordConfirmation"></label>
-                                  <input type="password" name="passwordConfirmation" id="passwordConfirmation"  ng-model ="vm.user.passwordConfirmation" tabindex="1"  placeholder="confirmation du mot de passe" value="" required password-confirmation>
+                                  <input type="password" name="passwordConfirmation" id="register-password-confirmation"  ng-model ="vm.user.passwordConfirmation" tabindex="1"  placeholder="confirmation du mot de passe" value="" required password-confirmation>
                                   <!-- in case of an error the message below is displayed as part of the list of message errors -->
                                   <span ng-show="registerForm.passwordConfirmation.$invalid && registerForm.passwordConfirmation.$error.passwordconfirmation &&!registerForm.passwordConfirmation.$pristine" class="text-danger">les mots de passe doivent être identique. </span>
                                   
                                 </div>
                                 <div class='field-wrap hairdresser-checkbox'>
                                   <span  class='hairdresser-label'  for='role'>Êtes-vous un(e) coiffeuse/coiffeur ?</span>
-                                  <input type='checkbox' tabindex="3"  name='role'  ng-model="vm.user.role" ng-init="vm.user.role=2"  ng-true-value='1' ng-false-value='2' id="role">
+                                  <input type='checkbox' tabindex="3"  name='role'  ng-model="vm.user.role" ng-init="vm.user.role=2"  ng-true-value='1' ng-false-value='2' id="register-role">
                                </div>
                                 <div class="form-group push-tiny--top">
                                   <div class="row">

@@ -388,9 +388,11 @@ class ShowhairdresserprofileController {
         .then((resp)=>{
           var tempHourList=[];
           var temp=[];
-           console.log(resp);
-           debugger;
+           console.log("response => ", resp);
+          
           angular.forEach(resp, (elt,index)=>{
+            console.log(elt);
+            debugger;
            tempHourList=this.API.dev.openingHourList;
               angular.forEach(elt.hours, (hour)=>{
                 angular.forEach(tempHourList,(value,index)=>{
