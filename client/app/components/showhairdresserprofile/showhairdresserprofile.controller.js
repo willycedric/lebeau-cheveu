@@ -68,7 +68,7 @@ class ShowhairdresserprofileController {
             }
 
             this.onSlideChanged = function (nextSlide, direction, nextIndex) {
-                //console.log("slide changed: ",nextIndex);
+               
             }
 
         /**
@@ -171,26 +171,24 @@ class ShowhairdresserprofileController {
          * @return {[type]}      [description]
          */
         this.displayConfirmationModal = (customerId,username,lastname,firstname)=>{
-                  ModalFactory.trigger(this,'slot-confirmation.html',function($uibModalInstance,topController){
-                    //const list =topController.API.dev.openingHourList; //["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];
+          var self = this;
+          var appointmentDate = self.DateHandler.moment(self.dt); //date wishes for the appointment
+          var currentDay = self.DateHandler.moment(new Date()); //current date
+                  if( appointmentDate.diff(currentDay, 'days') === 0){
+                    self.displayNotTheSameDadyModal(); //prevent customer to book an hairdresser for the same day
+                  }else{
+                    ModalFactory.trigger(self,'slot-confirmation.html',function($uibModalInstance,topController){
                     this.dt = topController.dt;
-                     //this.openingHourList =list;
                     topController.getAvailableSloteTimeForTheSelectedDay(this.dt)
-                    .then((resp)=>{  
-                        console.log(resp);                       
+                    .then((resp)=>{                      
                          this.openingHourList=topController.displayNoAvailableSlotModal(this.dt,resp);                         
-                      });
-                  //topController.getAvailableSloteTimeForTheSelectedDay(this.dt);
-
-                    
+                      });                  
                    
-                    this.showError=false;
+                      this.showError=false;
                       this.ok = (index)=>{
                         if( index == undefined){
                           this.showError =true;
                         }else{
-                              //topController.updateHairdresserAppointment(topController.hairdresser._id,this.dt,this.openingHourList[index],customerId,username,lastname,firstname);
-                              //topController.updateCustomerAppointment(topController.hairdresser._id,this.dt,this.openingHourList[index], topController.hairdresser.username);
                               topController.updateHairdresserThenCustomerAppointment(topController.hairdresser._id,this.dt,this.openingHourList[index],customerId,username,lastname,firstname, topController.hairdresser.username);
                             //$window.location.reload();
                            $uibModalInstance.close('cancel');
@@ -200,6 +198,7 @@ class ShowhairdresserprofileController {
                         $uibModalInstance.dismiss('cancel');
                       };
                   });
+                }                  
         };
         /**
          * [dateInThePastModal Modal displayed when a user slect a date in the pass]
@@ -339,63 +338,12 @@ class ShowhairdresserprofileController {
       };     
 }//end constructor
   
-  /**
-   * [getListOfAvailableHours return the list of not already booked hours for a days]
-   * @return {[type]} [description]
-   */
-  /*getListOfAvailableHours(){
-       var self=this;
-       var result = self.$q.defer();
-       self.Auth.getHairdresserById(self._id)
-        .then( (resp)=>{
-           var defered = self.$q.defer();
-          defered.resolve(resp);
-          return defered.promise;
-        })
-        .then((resp)=>{
-          //Return the list of appointments days and hours
-          var defered = self.$q.defer();
-          var listOfAvailableHours=[];
-          angular.forEach(resp.appointments, (appointment)=>{
-            listOfAvailableHours.push({dayOfweek:new Date(appointment.dayOfWeek),slotTime:appointment.slotTime});
-          });
-          defered.resolve(listOfAvailableHours)
-          return defered.promise;
-        })
-        .then((resp)=>{
-          //return the list of already booked hours for a days
-          var defered = self.$q.defer();
-          defered.resolve(this.getListOfAppointmentHoursByDay(resp));
-          return defered.promise;
-        })
-        .then((resp)=>{
-          var tempHourList=[];
-          var temp=[];
-           console.log("response => ", resp);
-          
-          angular.forEach(resp, (elt,index)=>{
-            console.log(elt);
-            debugger;
-           tempHourList=this.API.dev.openingHourList;
-              angular.forEach(elt.hours, (hour)=>{
-                angular.forEach(tempHourList,(value,index)=>{
-                    if( value === hour){
-                      //debugger;
-                      tempHourList.splice(index,1);
-                    }
-                });//end third inner loop
-              });//end second inner loop
-              elt.hours = tempHourList;
-          });// end top loop
-          result.resolve(resp);     
-        });
-        return result.promise; 
-  }*/
-  /**
-   * [getAvailableSloteTimeForTheSelectedDay description]
-   * @param  {[type]} selectedDay [description]
-   * @return {[type]}             [description]
-   */
+  
+   /**
+    * [getAvailableSloteTimeForTheSelectedDay description]
+    * @param  {[type]} selectedDay [description]
+    * @return {[type]}             [description]
+    */
   getAvailableSloteTimeForTheSelectedDay(selectedDay){
        var self=this;
        var result = self.$q.defer();
@@ -440,62 +388,6 @@ class ShowhairdresserprofileController {
         $log.error(err);
     });
   };
-   /**
-    * [isContained description]
-    * @param  {[type]}  obj [description]
-    * @param  {[type]}  day [description]
-    * @return {Boolean}     [description]
-    */
-   isContained (obj,day){
-    var temp=[];
-    if(obj.length === 0){
-      return -1
-    }else{
-      for(var i = 0; i< obj.length;i++){
-          temp.push(obj[i].dayOfWeek);
-      }
-      return temp.indexOf(day);      
-    }
-  }
-  /**
-   * [removeDouble description]
-   * @param  {[type]} obj [description]
-   * @return {[type]}     [description]
-   */
-  getListOfAppointmentHoursByDay(obj){
-    var self=this;
-    var rep =[];
-    var rep2=[];
-    var index;
-    var count;
-    angular.forEach(obj,(elt,i)=>{
-      count =0;
-      for(var j=0; j< obj.length;j++){
-        if(i === j){
-          
-        }else{
-          if(elt.dayOfWeek.diff(obj[j].dayOfWeek,'days')===0){
-            count++;
-            index = self.isContained(rep,obj[j].dayOfWeek.date());
-            if(index!=-1){
-              if(rep[index].hours.indexOf(elt.hour) ==-1){
-                rep[index].hours.push(elt.hour);
-              }
-            }else{
-            rep.push({dayOfWeek:elt.dayOfWeek,hours:[elt.hour]});
-          }
-        }
-      }
-    }
-    rep2[i]=count;
-    }); 
-    //adding elements wich are not doubled
-    angular.forEach(rep2,(val,index)=>{
-      if(val===0)
-      rep.push(obj[index])
-    });    
-    return rep;
-  }
 
   /**
    * [displayNoAvailableSlotModal return a list of available slot for the selected day or display a modal if no slot available]
@@ -506,11 +398,24 @@ class ShowhairdresserprofileController {
    */
   displayNoAvailableSlotModal(date,availableSlotList){
       if(availableSlotList.length>0){
-        console.log('je suis ici');
         return availableSlotList;      
       }else{
         this.noAvailableSlotModal(date);
       }
+  }
+
+  /**
+   * [displayNotTheSameDadyModal Modal displayed when a customer attempt to book an hairdresser for the current day]
+   * @return {[type]} [description]
+   */
+  displayNotTheSameDadyModal(){
+    var self= this;
+    self.ModalFactory.trigger(self,'not-same-day.html', function($uibModalInstance, topController){
+      this.message = " Vous ne pouvez pas réserver un(e) coiffeuse/coiffeur à moins de 48h. Essayer d'envoyer un message privé."
+      this.ok = () =>{
+        $uibModalInstance.close('Ok');
+      }
+    });
   }
 
   /**

@@ -58,6 +58,17 @@
 	            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Annuler</button>
 	        </div>
    	  	</script>
+   	  	<script type="text/ng-template" id="not-same-day.html">
+  			<div class="modal-header-warning">
+	             <h5 class="center modal-title">Attention</h5>
+	        </div>
+	        <div class="modal-body" id="modal-body">
+	           <span style="text-algin:center;">{{$ctrl.message}}</span>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;">
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+   	  	</script>
    	  	<script type="text/ng-template" id="slot-confirmation.html">
    	  		<div class="modal-header">
 	             <h5 class="center modal-title">Choix de la tranche horaire</h5>
@@ -77,7 +88,7 @@
    	  	</script>
    	  	
    	  	<script type="text/ng-template" id="date-in-the-pass.html">
-	   	  	<div class="modal-header">
+	   	  	<div class="modal-header-warning">
 	             <h5 class="center modal-title">Date dans le passé</h5>
 	        </div>
 	        <div class="modal-body" id="modal-body">
@@ -99,7 +110,7 @@
 	        </div>
    	  	</script>
    	  	<script type="text/ng-template" id="only-customer.html">
-   	  		<div class="modal-header">
+   	  		<div class="modal-header-warning">
 	             <h5 class="center modal-title"> Bloqué</h5>
 	        </div>
 	        <div class="modal-body" id="modal-body">
@@ -110,7 +121,7 @@
 	        </div>
    	  	</script>
    	  	<script type="text/ng-template" id="novailable-slot.html">
-   	  		<div class="modal-header">
+   	  		<div class="modal-header-warning">
 	             <h5 class="center modal-title">Attention</h5>
 	        </div>
 	        <div class="modal-body" id="modal-body">
