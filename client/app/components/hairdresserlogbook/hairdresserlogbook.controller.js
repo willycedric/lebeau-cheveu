@@ -1,6 +1,6 @@
 	import _ from 'lodash';
   class HairdresserlogbookController {
-	  constructor(AuthToken,Auth,API,$log,$state,$uibModal,hairdresserMAnager,customerMAnager,$scope,ModalFactory, DateHandler,$q) {
+	  constructor(AuthToken,Auth,API,$log,$state,$uibModal,hairdresserMAnager,customerMAnager,$scope,ModalFactory, DateHandler,$q,$window) {
 	  	// hairdressers account informations
 	  	
 	  	this.hairdresser={};
@@ -14,6 +14,7 @@
       this.hairdresserMAnager = hairdresserMAnager; 
       this.customerMAnager=customerMAnager;
       this.DateHandler = DateHandler;
+      this.$window = $window;
       const availableAppointmentDays=31; //Use to limit the datepicker to one month in order to prevent user to go to far in the future
 	    this.dt = new Date();
 		//If a user is connected through the localStretegy, retrieveed the token from the localStorage
@@ -68,8 +69,6 @@
                this.displayListOfAppointmentsOfTheSelectedDay(appointmentOfTheDay);
             }else{
               if(newValue < (new Date())){ //haidresser has selected an empty date in the past
-                console.log('here i am ');
-                debugger;
                 this.displayEmptyAppointmentInThePast(newValue);
               }else{ 
                 this.displayEmptyAppointmentSlot(newValue);
@@ -101,7 +100,7 @@
                   }else if( apt.state === 1 && apt.type != -1){ //hairdresser has already accomplish the appointment and the appointment it's not locked
                     
                     this.displayAppointmentHistoryDetails(apt);//display informations related to the old appointment
-                  }else if(apt.state === 0 && apt.type == -1){
+                  }else if(apt.state === 0 && apt.type === -1){
                     this.displayAppointmentLockedDetails(apt);
                   }
                $uibModalInstance.close('child modal');
@@ -188,6 +187,7 @@
             })
             .finally(()=>{
                $uibModalInstance.close('ok');
+               topController.$window.location.reload();
             });
           //updating customer booking
          
@@ -355,7 +355,7 @@ getTheSelectedStatus(date){
 }
 
 }//end class
-HairdresserlogbookController.$inject =['AuthToken','Auth','API','$log','$state','$uibModal','hairdresserMAnager','customerMAnager','$scope','ModalFactory','DateHandler','$q'];
+HairdresserlogbookController.$inject =['AuthToken','Auth','API','$log','$state','$uibModal','hairdresserMAnager','customerMAnager','$scope','ModalFactory','DateHandler','$q','$window'];
 
 export {HairdresserlogbookController};
 
