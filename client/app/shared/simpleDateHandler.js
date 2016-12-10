@@ -27,12 +27,30 @@ const DateHandler = () =>{
 	    	return false;
 	    }
 	};
+
+	/**
+	 * [description]
+	 * @param  {[type]} day1 [description]
+	 * @param  {[type]} day2 [description]
+	 * @return {[type]}      [description]
+	 */
+	const isDateEqual = (day1, day2)=>{
+		var date1 = moment(day1.toString());
+		var date2 = moment(day2.toString());
+
+		if(date1.diff(date2, '') == 0){
+			return true;
+		}else{
+			return false;
+		}
+	};
     
    
 
 	return {
 		isEqual,
-        moment
+        moment,
+        isDateEqual
 	};
 };
 

@@ -37,18 +37,7 @@ class ShowhairdresserprofileController {
                 $log.error(err);
               });
             }
-          /**
-           * Get Hairdresser by id, (must be modified to get hairdresser by username)
-           */
-          this.getHairdresser = (id) =>{
-            var self=this;
-            Auth.getHairdresserById(id)
-            .then(function ShowhairdresserprofileControllerSuccessCallback(response){
-                 self.hairdresser = response;
-            }, function ShowhairdresserprofileControllerFailureCallback(err){
-                $log.error(err);
-            });
-          };
+          
           /**
            * 
            */
@@ -183,22 +172,16 @@ class ShowhairdresserprofileController {
          */
         this.displayConfirmationModal = (customerId,username,lastname,firstname)=>{
                   ModalFactory.trigger(this,'slot-confirmation.html',function($uibModalInstance,topController){
-                    const list =topController.API.dev.openingHourList; //["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];
+                    //const list =topController.API.dev.openingHourList; //["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];
                     this.dt = topController.dt;
-                     this.openingHourList =null;
-                    topController.getListOfAvailableHours()
-                    .then((resp)=>{
-                          var self=this;                        
-                          const index = topController.isContained(resp,this.dt.getDate());
-                          //self.openingHourList = (index === -1)?list:resp[index].hours;
-                          if(index === -1){
-                            self.openingHourList = list;
-                          }else{
-                              console.log('index ',index);
-                             self.openingHourList=topController.displayNoAvailableSlotModal(this.dt,resp[index].hours);
-                          }
-                         
+                     //this.openingHourList =list;
+                    topController.getAvailableSloteTimeForTheSelectedDay(this.dt)
+                    .then((resp)=>{  
+                        console.log(resp);                       
+                         this.openingHourList=topController.displayNoAvailableSlotModal(this.dt,resp);                         
                       });
+                  //topController.getAvailableSloteTimeForTheSelectedDay(this.dt);
+
                     
                    
                     this.showError=false;
@@ -360,7 +343,7 @@ class ShowhairdresserprofileController {
    * [getListOfAvailableHours return the list of not already booked hours for a days]
    * @return {[type]} [description]
    */
-  getListOfAvailableHours(){
+  /*getListOfAvailableHours(){
        var self=this;
        var result = self.$q.defer();
        self.Auth.getHairdresserById(self._id)
@@ -407,8 +390,56 @@ class ShowhairdresserprofileController {
           result.resolve(resp);     
         });
         return result.promise; 
-  }
-  
+  }*/
+  /**
+   * [getAvailableSloteTimeForTheSelectedDay description]
+   * @param  {[type]} selectedDay [description]
+   * @return {[type]}             [description]
+   */
+  getAvailableSloteTimeForTheSelectedDay(selectedDay){
+       var self=this;
+       var result = self.$q.defer();
+       self.Auth.getHairdresserById(self._id)
+        .then( (resp)=>{
+           var defered = self.$q.defer();
+           defered.resolve(resp);
+           return defered.promise;
+        })
+        .then((resp)=>{
+          //Return the list of appointments days and hours
+          var defered = self.$q.defer();
+          var listOfAvailableHours=[];
+          angular.forEach(resp.appointments, (appointment)=>{
+            listOfAvailableHours.push({dayOfWeek: self.DateHandler.moment(appointment.dayOfWeek),hour:appointment.slotTime});
+          });
+          defered.resolve(listOfAvailableHours)
+          return defered.promise;
+        })
+        .then((resp)=>{
+            var tempHourList = []; 
+            angular.copy(self.API.dev.openingHourList,tempHourList);
+            angular.forEach(resp,(value, index)=>{
+              if( value.dayOfWeek.diff( self.DateHandler.moment(selectedDay),'days') === 0){
+                  tempHourList.splice(tempHourList.indexOf(value.hour),1);
+                }
+            });
+            result.resolve(tempHourList);
+        });
+        return result.promise;
+  };
+
+  /**
+  * Get Hairdresser by id, (must be modified to get hairdresser by username)
+  */
+  getHairdresser(id){
+    var self=this;
+    self.Auth.getHairdresserById(id)
+    .then(function ShowhairdresserprofileControllerSuccessCallback(response){
+         self.hairdresser = response;
+    }, function ShowhairdresserprofileControllerFailureCallback(err){
+        $log.error(err);
+    });
+  };
    /**
     * [isContained description]
     * @param  {[type]}  obj [description]
@@ -421,7 +452,7 @@ class ShowhairdresserprofileController {
       return -1
     }else{
       for(var i = 0; i< obj.length;i++){
-          temp.push(obj[i].dayOfweek);
+          temp.push(obj[i].dayOfWeek);
       }
       return temp.indexOf(day);      
     }
@@ -443,15 +474,15 @@ class ShowhairdresserprofileController {
         if(i === j){
           
         }else{
-          if(self.DateHandler.isEqual(elt.dayOfweek,obj[j].dayOfweek)){
+          if(elt.dayOfWeek.diff(obj[j].dayOfWeek,'days')===0){
             count++;
-            index = self.isContained(rep,obj[j].dayOfweek.getDate());
+            index = self.isContained(rep,obj[j].dayOfWeek.date());
             if(index!=-1){
-              if(rep[index].hours.indexOf(elt.slotTime) ==-1){
-                rep[index].hours.push(elt.slotTime);
+              if(rep[index].hours.indexOf(elt.hour) ==-1){
+                rep[index].hours.push(elt.hour);
               }
             }else{
-            rep.push({dayOfweek:elt.dayOfweek.getDate(),hours:[elt.slotTime]});
+            rep.push({dayOfWeek:elt.dayOfWeek,hours:[elt.hour]});
           }
         }
       }
@@ -475,6 +506,7 @@ class ShowhairdresserprofileController {
    */
   displayNoAvailableSlotModal(date,availableSlotList){
       if(availableSlotList.length>0){
+        console.log('je suis ici');
         return availableSlotList;      
       }else{
         this.noAvailableSlotModal(date);
