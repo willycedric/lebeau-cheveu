@@ -238,6 +238,7 @@ displayConfirmationModal(status,message){
     this.message =message;
     this.ok=()=>{
       $uibModalInstance.close('ok');
+      topController.$window.location.reload();
     };
   });
 }
@@ -276,33 +277,52 @@ displayAppointmentHistoryDetails(apt){
  * @param  {[type]} date [date locked]
  */
 displayEmptyAppointmentSlot(date){
-  var self= this;
-  this.ModalFactory.trigger(this,'lockedappointment.html', function($uibModalInstance, topController){
-    this.date = date;
-    this.openingHourList= topController.openingHourList;
-    this.showError=false;
-    //If the hairdresser decide to locked a date/time period
-    this.confirm = (selectedHour)=>{
-      if(selectedHour == undefined){
-        this.showError = true;
-      }else{
-        var confirmationMessage = 'La période du '+date.toLocaleDateString()+' à'+this.openingHourList[selectedHour]+', à bien été réservée';
-        var errorMessage = 'Erreur lors de la procédure de réservation. Veuillez essayer ultérieurement.'
-        topController.hairdresserMAnager.lockedHairdresserTimeSlot(date,this.openingHourList[selectedHour])
-        .then((rep)=>{
-            topController.displayConfirmationModal(rep.success,confirmationMessage);
-        }, (err)=>{
-          topController.displayConfirmationModal(false,errorMessage);
-        })
-        .finally(()=>{
-          $uibModalInstance.close('resolved');
-        });
-      }
-   };
-    //cancel
-    this.back = ()=>{
-      $uibModalInstance.dismiss('back');
-    }
+    const selectedDate = this.DateHandler.moment( new Date(date.toString())); //convert the vanilla javascript date to moment.js format
+    let tempDate=[];
+    angular.forEach(this.hairdresser.lockedDays, (val, index)=>{
+      var tempDay = this.DateHandler.moment( new Date(val));
+      tempDate.push(tempDay.dayOfYear());
+    });
+    if( tempDate.indexOf(selectedDate.dayOfYear()) != -1){
+      this.displayDateLockedModal(date);
+    }else{
+        this.ModalFactory.trigger(this,'lockedappointment.html', function($uibModalInstance, topController){
+        //If the hairdresser decide to locked a date/time period
+        this.confirm = (selectedHour)=>{     
+            var confirmationMessage = 'La journée du '+date.toLocaleDateString()+' à bien été vérouillée.';
+            var errorMessage = 'Erreur lors de la procédure de réservation. Veuillez essayer ultérieurement.'
+            
+            topController.hairdresserMAnager.lockedHairdresserTimeSlot(selectedDate)
+            .then((rep)=>{
+                topController.displayConfirmationModal(rep.success,confirmationMessage);
+            }, (err)=>{
+              topController.displayConfirmationModal(false,errorMessage);
+            })
+            .finally(()=>{
+              $uibModalInstance.close('resolved');
+            });    
+       };
+        //cancel
+        this.back = ()=>{
+          $uibModalInstance.dismiss('back');
+        }
+      });
+  }  
+}
+
+/**
+ * [displayDateLockedModal Modal displayed to inform the hairdresser that a date has been locked]
+ * @param  {[type]} date [description]
+ * @return {[type]}      [description]
+ */
+displayDateLockedModal(date){
+  var self = this;
+  self.ModalFactory.trigger(self,'lockedappointment-details.html', function($uibModalInstance,topController){
+      this.date = date;
+      this.hairdrressername = topController.hairdresser.username;
+      this.ok = ()=>{
+        $uibModalInstance.close('Ok');
+      };
   });
 }
 

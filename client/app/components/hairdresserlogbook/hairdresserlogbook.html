@@ -35,21 +35,29 @@
    	<!-- display modal allowing an hairdresser to locked a date/time slot -->
    	<script type="text/ng-template" id="lockedappointment.html">
    	  		<div class="modal-header">
-	             <h5 class="center modal-title">Choix de la tranche horaire</h5>
+	             <h5 class="center modal-title">Vérouiller une journée</h5>
 	        </div>
 	        <div class="modal-body" id="modal-body">
-	           <span class="question-modal" style="text-algin:center;">Souhaitez-vous vérouiller une tranche horaire le {{$ctrl.date|date}} ? <br/> Si oui choissez une heure :
-		            <select ng-model="$ctrl.slectedHour" name="appoitment-hour" > 
-		          		 <option ng-repeat="hour in $ctrl.openingHourList track by $index" value="{{$index}}">{{hour}}</option>
-		            </select><br/>
-	           </span>
-	           <span ng-show="$ctrl.showError" class="error">*Vous devez choisir une tranche horaire </span>
+	           <span class="question-modal" style="text-algin:center;">Souhaitez-vous vérouiller  la journée  du  {{$ctrl.date|date}} ? </span>
 	        </div>
 	        <div class="modal-footer" style="text-align:center;">
-	            <button class="btn btn-primary" type="button" ng-click="$ctrl.confirm($ctrl.slectedHour)">OK</button>
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.confirm()">Vérouiller</button>
 	            <button class="btn btn-primary" type="button" ng-click="$ctrl.back()">Annuler</button>
 	        </div>
-   	  	</script>
+  	</script>
+  	<!-- display a modal about details of a day locked by the hairdresser -->
+	<script type="text/ng-template" id="lockedappointment-details.html">
+  		<div class="modal-header-warning">
+         <h5 class="center modal-title"> Journée réservée </h5>
+        </div>
+        <div class="modal-body" id="modal-body">
+           <span class="question-modal" style="text-algin:center;">Vous avez réservée la journée du  {{$ctrl.date|date}}. </span>
+        </div>
+        <div class="modal-footer" style="text-align:center;">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+        </div>
+  	</script>
+  	
    	<!-- display appointment confirmation or cancelation modal -->
    	<script type="text/ng-template" id="appointmentconfirmation.html">
 			<div class="modal-header default" id="modal-header">

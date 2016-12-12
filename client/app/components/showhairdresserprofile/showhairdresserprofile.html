@@ -152,6 +152,18 @@
 	            <button class="btn btn-primary btn-error" type="button" ng-click="$ctrl.ok()">OK</button>
 	        </div>
    	  	</script>
+   	  	<!-- display a modal about details of a day locked by the hairdresser -->
+	<script type="text/ng-template" id="lockedappointment-details.html">
+  		<div class="modal-header-warning">
+         <h5 class="center modal-title"> Journée réservée </h5>
+        </div>
+        <div class="modal-body" id="modal-body">
+           <span class="question-modal" style="text-algin:center;">La la journée du  {{$ctrl.date|date}} est réservée par {{$ctrl.hairdresserUsername}}.</span>
+        </div>
+        <div class="modal-footer" style="text-align:center;">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+        </div>
+  	</script>
 
 		 <uib-accordion close-others="oneAtATime">
 			<div uib-accordion-group class="panel-default" is-open="vm.isCustomHeaderOpen" template-url="group-template.html">

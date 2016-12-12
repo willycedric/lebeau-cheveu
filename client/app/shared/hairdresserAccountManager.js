@@ -106,9 +106,9 @@
  		 * @param  {[type]} selectedHour [locked time slot]
  		 * @return {[type]}              [action confirmation ]
  		 */
- 		const lockedHairdresserTimeSlot = (date, selectedHour)=>{
+ 		const lockedHairdresserTimeSlot = (date)=>{
  			var deferred = $q.defer();
- 			$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/lockedHairdressertimeslot',{date:date,selectedHour:selectedHour})
+ 			$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/lockedHairdressertimeslot',{date:date})
  			.then(function lockedHairdresserTimeSlotSuccessCallback(response){
  				deferred.resolve(response.data);
  			}, function lockedHairdresserTimeSlotFailureCallback(err){
