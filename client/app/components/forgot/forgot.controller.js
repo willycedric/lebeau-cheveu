@@ -9,6 +9,9 @@ class ForgotController {
      * @param  {[user.email]} user.email [user's email]
      */
     this.passwordReset =(user)=>{
+
+      console.log(' passwordReset --> ');
+
     	Auth.passwordForgot('/api/users/forgot',user.email)
     	.then( function forgotControllerSuccessCallbalck(response){
     			console.log(response)
@@ -19,7 +22,7 @@ class ForgotController {
     };
 
     this.updatePassword=(user)=>{
-
+      console.log(' updatePassword --> ');
       if(user.password === user.passwordConfirmation){
         user.passwordToken=$stateParams.token;
          Auth.updatePassword('/api/users/updatePassword',user)
@@ -39,6 +42,7 @@ class ForgotController {
      * @param  {[string]} token [reset token generate by the server]
      */
     this.resetPassword = (token,vm) =>{
+      console.log(' resetPassword -->');
       Auth.resetPassword('/api/users/reset',token)
       .then(function resetPasswordControllerSuccessCallback(response){
           if(response.data.error){
