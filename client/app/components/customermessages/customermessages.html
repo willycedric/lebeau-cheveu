@@ -1,7 +1,7 @@
 <section class="customermessages">
  <div class="container">
 		<div class="row">
-			<div class="col-sm-offset-1 col-sm-3 col-lg-3">		
+			<div class=" col-sm-3">		
 				<div id="customer-id-card" class="content-widget">
 					<div class="row">
 						<div ng-show='vm.customer.photoUrl' class="col-xs-offset-4 col-xs-4">
@@ -22,7 +22,7 @@
 					<customer-menu></customer-menu>
 				</div>		<!-- 	end .left-menu -->	
 			</div><!-- col-sm-offset-1 col-sm-3 col-lg-3 -->
-			<div class=" col-sm-8 col-lg-7 customer-page-content" ng-hide="vm.getUnreadCustomerNotification(vm.customer.notifications)==0?true:false">
+			<div class="col-sm-offset-1 col-sm-8 customer-page-content" ng-hide="vm.getUnreadCustomerNotification(vm.customer.notifications)==0?true:false">
 				<div  ng-repeat="message in vm.customer.notifications">
 						<div class="row row-top section " ng-show="!message.read">				
 							<span class="notification-title">{{message.title}}</span><br/>
@@ -30,7 +30,7 @@
 						</div><!-- .row .section -->
 			  	</div><!-- ng-repeat -->
 			</div><!-- end .customer-page-content -->
-			<div class=" col-sm-8 col-lg-7 customer-page-content" ng-hide="vm.getUnreadCustomerNotification(vm.customer.notifications)">				
+			<div class=" col-sm-offset-1 col-sm-8  customer-page-content" ng-hide="vm.getUnreadCustomerNotification(vm.customer.notifications)">				
 						<div class="row row-top section ">				
 							<span class="notification-title">Vous n'avez pas de message(s) récent(s)</span><br/>
 						</div><!-- .section -->			  	

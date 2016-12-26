@@ -3,10 +3,10 @@
 			<div class="hairdresser-menu">
 				<ul>
 					<li class="menu-item"><a ui-sref="hairdresser" >Resumé</a></li>
-					<li class="menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.hairdresser.nextbookings.length}}</span> </a></li>
+					<li class="menu-item"> <a ui-sref="hairdresserbooking"> Mes réservations<span class="badge">{{vm.getPendingAppointment(vm.hairdresser.nextbookings)}}</span> </a></li>
 					<li class="menu-item"><a ui-sref="hairdresserlogbook" >Mon Agenda <span class="badge">{{vm.count}}</span> </a></li>
 					<li class="menu-item"><a ui-sref="hairdresserpicture">Mes Photos </a></li>
-					<li class="menu-item"><a ui-sref="hairdresseraccount" >Mon Compte </a></li>
+					<li class="menu-item"><a ui-sref="hairdresseraccount" >Mes paramètres </a></li>
 					<li class="menu-item"><a ui-sref="hairdressermessage" >Message(s)<span class="badge">{{vm.hairdresser.messages.length}}</span> </a></li>
 				</ul>
 			</div> <!-- end .customer-menu -->

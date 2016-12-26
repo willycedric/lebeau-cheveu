@@ -6,7 +6,20 @@
 					<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type | customerTypeFilter}}"></hairdresser-profile-card>
 				</div> <!-- row id card -->
 				<hairdresser-menu></hairdresser-menu>
-			</div> <!-- .col-sm-4 left-element -->			
+			</div> <!-- .col-sm-4 left-element -->
+			<div class=" col-sm-offset-1 col-sm-8 hairdresser-page-content" ng-hide="vm.getUnreadCustomerNotification(vm.hairdresser.notifications)==0?true:false">
+				<div  ng-repeat="message in vm.hairdresser.notifications">
+						<div class="row row-top section " ng-show="!message.read">				
+							<span class="notification-title">{{message.title}}</span><br/>
+							<a class="btn-default-lbc btn-lbc btn-lbc-slim" ng-click="vm.showCustomerNotification(message)">Lire</a>
+						</div><!-- .row .section -->
+			  	</div><!-- ng-repeat -->
+			</div><!-- end .hairdresser-page-content -->
+			<div class=" col-sm-offset-1 col-sm-8  hairdresser-page-content" ng-hide="vm.getUnreadHairdresserNotification(vm.hairdresser.notifications)">				
+						<div class="row row-top section ">				
+							<span class="notification-title">Vous n'avez pas de message(s) récent(s)</span><br/>
+						</div><!-- .section -->			  	
+			</div><!-- end .hairdresser-page-content -->			
 		</div> <!-- top row -->
 	</div> <!-- .top container -->
 </section><!-- hairdresser -- >

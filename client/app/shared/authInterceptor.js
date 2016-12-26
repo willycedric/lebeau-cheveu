@@ -38,13 +38,13 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$injector,$window,$log)=>{
 			}
 
 			return config;
-		},
+		}
 		/**
 		 * [responseError send the appropriate event in case of error status code in the response]
 		 * @param  {[object]} rejection [response rejection object]
 		 * @return {[object]}           [response rejection object]
 		 */
-		responseError:function(rejection){
+		/*responseError:function(rejection){
 			switch(rejection.status){
 				case 401:
 					$rootScope.$broadcast('onUauthorizedRequestEvent',{code:401});
@@ -77,7 +77,7 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$injector,$window,$log)=>{
 				break;
 			}
 			return $q.reject(rejection);
-		}
+		}*/
 	};
 
 };

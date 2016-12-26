@@ -433,6 +433,10 @@ class ShowhairdresserprofileController {
       });
   }
 
+  displayContactModal(){
+    console.log("inside the contact modal");
+  }
+
   
 
 }

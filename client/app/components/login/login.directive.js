@@ -17,6 +17,7 @@ export const loginDirective = ($uibModal,$log)=> {
           scope.name = value;
          //$log.debug(scope.name);
         });
+         
 
         $(elt).find('.form').find('input, textarea').on('keyup blur focus', function (e) {  
               var $this = $(this),

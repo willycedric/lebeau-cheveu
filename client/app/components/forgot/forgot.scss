@@ -1,0 +1,51 @@
+$default-padding:4%;
+$white:#fafafa;
+$default-button-color:#790303;
+$default-button-color-hover:#901a18;
+.forgot .forgot-row-top-4{
+	margin-top:4%;
+}
+
+.forgot .forgot-row-top-10 {
+	margin-top:10
+}
+
+.forgot .mail-confirmation-body{
+	padding:$default-padding;
+	background:$white;
+}
+
+.forgot .section-content {
+	font-size:1em;
+	font-weight:100;
+}
+
+.forgot-default-background{
+	background:$white;
+}
+.forgort-grey-background{
+	background:rgba(227,227,227,0.8);
+}
+
+.forgot .btn-lbc {
+	background: none;
+    border: none;
+    color: $default-button-color;
+    padding: 0;
+    font-weight: 100;
+    font-size: 1em;
+    &:hover{
+    	text-decoration:none;
+    	color:$default-button-color-hover;
+    	background:none;
+    }
+    &:focus{
+    	outline:none;
+    }
+}
+
+.forgot .login-t{
+	margin-top:6%;
+	text-align:left;
+	letter-spacing:0.1em;
+}

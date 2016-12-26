@@ -7,7 +7,7 @@
 				</div> <!-- row id card -->
 				<hairdresser-menu></hairdresser-menu>
 			</div> <!-- .col-sm-4 left-element -->
-			<div class="col-sm-9">
+			<div class="col-sm-offset-1 col-sm-8">
 				<div class="section" ng-repeat="apt in vm.hairdresser.nextbookings track by $index" ng-show="apt.appointmentState == -1?true:false">
 					<div class="row" id="details" >
 					  <div class="row-top">
@@ -16,9 +16,16 @@
 					 <hr/>
 					 <div class="center section-top">
 						<span class="lbc-button-center col-sm-3 ">							
-							<a class="btn-default-lbc btn-lbc" ng-click ="vm.displayConfirmationModal(apt)">Annuler</a>
+							<a class="btn-default-lbc btn-lbc btn-lbc-medium" ng-click ="vm.displayConfirmationModal(apt)">Annuler</a>
 						</span><!-- .edit-button -->
 					 </div> <!-- row section-top -->				
+				   </div><!-- .row -->
+			   </div> <!-- .section -->
+			    <div ng-hide="vm.getPendingAppointment(vm.hairdresser.nextbookings)" >
+					<div class="" >
+					 <div class="row row-top section ">				
+							<span class="notification-title">Vous n'avez pas de rendez-vous prévu.</span><br/>
+						</div><!-- .section -->			
 				   </div><!-- .row -->
 			   </div> <!-- .section -->
 			</div><!-- right element -->	

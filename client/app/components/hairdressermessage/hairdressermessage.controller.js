@@ -21,6 +21,20 @@
 
 
 	};//end constructor;
+	/**
+	 * [getUnreadNotification return the number of unread notification]
+	 * @param  {[type]} customer [description]
+	 * @return {[type]}          [description]
+	 */
+	getUnreadHairdresserNotification(notifications){
+		let count=0;
+		angular.forEach(notifications, (notif)=>{
+			if(!notif.read){
+				count++;
+			}
+		});
+		return count;
+	}
 	}
 	HairdressermessageController.$inject =['AuthToken','Auth','Access','API','$log','$state','hairdresserMAnager'];
 

@@ -1,5 +1,6 @@
 <section class="customer">
-	<div class="container">
+	<!-- section displayed when the user account is activated --> 
+	<div class="container" ng-show="vm.customer.accountstatus">
 		<div class="row">
 			<div class="col-sm-3">		
 				<div id="customer-id-card" class="content-widget">
@@ -53,4 +54,20 @@
 			</div><!-- end .customer-page-content -->
 		</div> <!-- end top row -->
 	</div> <!-- end top container -->  
+	<!-- this section is displayed when the user account is not activated --> 
+	<div class="container" ng-hide="vm.customer.accountstatus">
+		<div class="row">
+			<div class="col-sm-offset-3 col-sm-6 " >
+				<div class=" section section-height-min ">
+					<h5 class= "section-t-lower"> Compte désactivé</h5>
+				</div> <!-- .section -->
+				<div class=" section section-padding-3">
+					<p class="section-content"> Votre compte est actuellement désactivé. S'il s'agit d'un compte nouvellement créé, veuillez l'activer en cliquant sur le lien que vous avez reçu lors de votre inscription, si non contacter le support.</p>
+					
+						<a class="btn-lbc btn-default"> Contacter le support </a>
+				
+				</div>	<!-- .section -->
+			</div>
+		</div>
+	</div> <!-- end .container -->
 </section>

@@ -2,9 +2,7 @@
   class HairdresserlogbookController {
 	  constructor(AuthToken,Auth,API,$log,$state,$uibModal,hairdresserMAnager,customerMAnager,$scope,ModalFactory, DateHandler,$q,$window) {
 	  	// hairdressers account informations
-	  	
 	  	this.hairdresser={};
-	  	this.openingHourList=["9h:00","10h:00","11h:00","12h:00","13h:00","14h:00","15h:00","16h:00","17h:00","18h:00","19h:00"];
 	  	this.days = [];
       this.times =[];
       this.$log = $log;
@@ -15,6 +13,9 @@
       this.customerMAnager=customerMAnager;
       this.DateHandler = DateHandler;
       this.$window = $window;
+      this.loadLogbook = false;
+      this.spinner="http://i.imgur.com/Xqtymmo.gif";
+      this.url ="logbook.html"
       const availableAppointmentDays=31; //Use to limit the datepicker to one month in order to prevent user to go to far in the future
 	    this.dt = new Date();
 		//If a user is connected through the localStretegy, retrieveed the token from the localStorage
@@ -23,7 +24,7 @@
 	        this.username= AuthToken.parseToken(token).name;
 	    }
       //this.log.debug('hairdresser',this.hairdresser);
-      var events=[];
+      this.events=[];
       var appointmentOfTheDay=[];
       Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
       .then((rep)=>{
@@ -31,35 +32,23 @@
           this.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(this.hairdresser.appointments);
           //datepicker logic
          angular.forEach(this.hairdresser.appointments, (appt,key)=>{
-           events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotType ==-1?'locked':(appt.slotState==0?'booked':(appt.slotState==-1?'pending':'done')), relatedCustomer:appt.relatedCustomers})
+           this.events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers})
         });
-      });
-      this.options = {
-            customClass: function(data) {  
-            var date = data.date,
-              mode = data.mode;
-            if (mode === 'day') { 
-              var dayToCheck = new Date(date).setHours(0,0,0,0);
-              for (var i = 0; i < events.length; i++) {
-                var currentDay = new Date(events[i].date).setHours(0,0,0,0);
-                if (dayToCheck === currentDay) {
-                  return events[i].status;
-                }
-              }
-            }
-            return '';
-          },
-            minDate: null, //Allow us to select date in the past 
-            showWeeks: false,
-            datepickerMode:'day'
-      };            
-
+         //this.getStatusOfTheDay(this.getBookedAppointmentOftheDay());
+        this.$log.debug(this.events);
+      })
+      .finally(()=>{
+         this.defineCalendarOption()
+         .then(()=>{
+            this.loadLogbook=true;
+          });          
+      });          
       //Logic to handle hairdresser click on the logbook 
       $scope.$watch('vm.dt', (newValue, oldValue)=>{      
           if(newValue !== oldValue){
             appointmentOfTheDay=[];
             //checking if the selected date belongs to the hairdresser's appointment list
-            angular.forEach(events, (apt,key)=>{
+            angular.forEach(this.events, (apt,key)=>{
                if(DateHandler.isEqual(apt.date,newValue)){ //there is a date with an appointment
                   appointmentOfTheDay.push(apt);                   
                }
@@ -372,6 +361,96 @@ getTheSelectedStatus(date){
         }
       }
   })
+}
+defineCalendarOption(){
+  var self = this;
+  var deferred = this.$q.defer(); 
+  self.options = {
+            customClass: function(data) {  
+            var date = data.date,
+              mode = data.mode;
+            if (mode === 'day') { 
+              var dayToCheck = new Date(date).setHours(0,0,0,0);
+              for (var i = 0; i < self.events.length; i++) {
+                var currentDay = new Date(self.events[i].date).setHours(0,0,0,0);
+                if (dayToCheck === currentDay) {
+                  return self.events[i].status;
+                }
+              } 
+            }
+            return '';
+          },
+            minDate: null, //Allow us to select date in the past 
+            showWeeks: false,
+            datepickerMode:'day'
+      };
+    deferred.resolve(true);
+    return deferred.promise;
+}
+/**
+ * [getStatusOfTheDay Set all the appointment status of the day according to the most dominant  creteria]
+ * @param  {[type]} listOfAppointmentOftheDay [description]
+ * @return {[type]}     [description]
+ */
+getBookedAppointmentOftheDay(){
+  var deferred = this.$q.defer();
+  let statusType = [
+     { status:'booked',
+      count:0
+    },
+    {
+      status:'pending',
+      count:0
+    },
+    {
+      status:'done',
+      count:0
+    }
+  ];
+  angular.forEach(this.events,(apt,index)=>{
+    var currentDate = new Date(this.events[index].date).setHours(0,0,0,0);
+  
+      var dayToCheck = new Date(apt.date).setHours(0,0,0,0);
+      if( currentDate === dayToCheck){
+        if(apt.status === 'booked'){
+            statusType[0].count++;
+        }else if(apt.status === 'pending'){
+          statusType[1].count++;
+        }else if(apt.status === 'done'){
+          statusType[2].count++;
+        }
+      }
+    
+  });
+  deferred.resolve(statusType);
+  return deferred.promise;
+}
+
+/**
+ * [getStatusOfTheDay description]
+ * @param  {[type]} statusPromise             [description]
+ * @param  {[type]} listOfAppointmentOftheDay [description]
+ * @return {[type]}                           [description]
+ */
+getStatusOfTheDay(statusType){
+  statusType.then((type)=>{
+      console.log(type[0].count)
+      if(type[0].count > 0){ //booked
+          angular.forEach(this.events, (apt)=>{
+              apt.status ='booked'
+          });
+      }else if( type[0].count === 0 && type[1].count === 0 && type[2].count > 0 ){ //done
+        angular.forEach(this.events, (apt)=>{
+              apt.status ='done'
+          });
+      }else if( type[0].count === 0 && type[1].count > 0 ){ //pending
+        angular.forEach(this.events, (apt)=>{
+              apt.status ='pending'
+          });
+      }
+  }, (err)=>{
+    this.$log.error(' getStatusOfTheDay ', err);
+  });
 }
 
 }//end class

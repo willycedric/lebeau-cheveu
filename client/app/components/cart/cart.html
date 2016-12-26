@@ -1,3 +1,20 @@
-<section class="cart">
-  <h1>Hey from {{ vm.greeting }}</h1>
-</section>
+<section class="hairdresser">
+	<div class="container" ng-show="vm.user.accountstatus">
+		 <h1>Hey {{ vm.greeting }}</h1>
+	</div> <!-- .top container -->
+	<div class="container" ng-hide="vm.user.accountstatus">
+		<div class="row">
+			<div class="col-sm-offset-3 col-sm-6 " >
+				<div class=" section section-height-min ">
+					<h5 class= "section-t-lower"> Compte désactivé</h5>
+				</div> <!-- .section -->
+				<div class=" section section-padding-3">
+					<p class="section-content"> Votre compte est actuellement désactivé. S'il s'agit d'un compte nouvellement créé, veuillez l'activer en cliquant sur le lien que vous avez reçu lors de votre inscription, si non contacter le support.</p>
+					
+						<a class="btn-lbc btn-default"> Contacter le support </a>
+				
+				</div>	<!-- .section -->
+			</div>
+		</div>
+	</div> <!-- end .container -->
+</section><!-- hairdresser -- >

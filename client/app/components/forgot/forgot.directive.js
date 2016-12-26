@@ -1,6 +1,7 @@
 import './forgot.css';
 import {ForgotController as controller} from './forgot.controller';
 import template from './forgot.html';
+import './forgot.scss';
 
 export const forgotDirective = ()=> {
 	 return{

@@ -16,13 +16,12 @@ Scenario Outline: create a customer  account with valide credentials
 
  Examples: 
 	|username | firstname | lastname | email | password | password2|
-	|customer1|MARIE|DUVAL|lebeaucheveu+marie@gmail.com|root2016|root2016|
+	|customer1|MARIE|DUVAL|w.dongmo+marie@gmail.com|root2016|root2016|
 	#|jeannedupont|JEANNE|DUPONT|lebeaucheveu+jeanne@gmail.com|root2016|root2016|
 
 
-
 Scenario Outline: create an hairdresser  account with valide credentials
-  Given I am using the app
+ Given I am using the app
   And I click on the button login
   And I click on singup link
   When User I enter the username <username>
@@ -35,8 +34,8 @@ Scenario Outline: create an hairdresser  account with valide credentials
   Then I click on the button save
 
  Examples: 
-	|username | firstname | lastname | email | password | password2|
-	|hairdresser1|Pascal|Marieval|lebeaucheveu+pascal@gmail.com|root2016|root2016|
-	
-	
-	
+  |username | firstname | lastname | email | password | password2|
+  |hairdresser1|Pascal|Marieval|w.dongmo+pascal@gmail.com|root2016|root2016|
+  
+  
+  

@@ -49,10 +49,11 @@
         if(aptDate.diff(currentDate,'days')<2){//at least 48h are mandatory to cancel an appointment
             self.displayAppointmentDateToCloseModal(apt);
         }else{
-                self.ModalFactory.trigger(self,'cancel-appointment.html',                               function($uibModalInstance,topController){
+                self.ModalFactory.trigger(self,'cancel-appointment.html',function($uibModalInstance,topController){
                     var successMessage = 'Votre rendez vous du '+(new Date(apt.appointmentDate)).toLocaleDateString()+' à '+apt.appointmentHour+', a bien été supprimé !';
-                    var errorMessage = 'Erreur lors de la suppression du rendez-vous, essayer ultérieurement'
+                    var errorMessage = 'Erreur lors de la suppression de votre rendez-vous, veuillez essayer ultérieurement.'
                     this.cancelAppointment = (reason)=>{
+                    	topController.$log.debug('reason ', reason);
                         topController.hairdresserMAnager.updateAppointmentState(apt._id,-2)//-2 --> canceled by hairdresser
                         .then((rep)=>{
                             var defered = topController.$q.defer();
@@ -106,6 +107,21 @@
 			};
 		});
 	};
+
+	/**
+	 * [getPendingAppointment description]
+	 * @param  {[type]} appointments [description]
+	 * @return {[type]}              [description]
+	 */
+	getPendingAppointment(appointments){
+		let count=0;
+		angular.forEach(appointments, (apt)=>{
+			if(apt.appointmentState === -1){
+				count++;
+			}
+		});
+		return count;
+	}
 }
 	HairdresserbookingController.$inject =['Auth','API', '$log', 'ModalFactory','hairdresserMAnager','customerMAnager','$q','$window','DateHandler'];
 export {HairdresserbookingController};

@@ -1,6 +1,7 @@
 <section class="forgot">
- <div class="container">
-	    <div ng-hide="vm.isUser" class="row">
+ <div class="container top-5">
+ 		<!-- username for password update form -->
+	    <div ng-hide="vm.confirmationOfMailSent || vm.isUser" class="row">
 	      <div class="col-md-6 col-md-offset-3">
 		        <div class="panel panel-forgot">
 		          <div class="panel-heading">
@@ -18,24 +19,30 @@
 		          <div class="panel-body">
 		            <div class="row">
 		              <div class="col-lg-12">
-			                <form id="password-form" role="form" style="display: block;">
-			                  <div class="form-group">
-			                    <input type="text" name="email" id="email"  ng-model ="user.email" tabindex="1" class="form-control" placeholder="email" value="">
-			                  </div>             
+			                <form id="password-form" role="form" name="forgotForm" style="display: block;">
+			                  <!-- username -->
+                              <div class="field-wrap" ng-class="{ 'has-error' : registerForm.username.$invalid && !registerForm.username.$pristine }">
+                                  <label class="label-displayed" for="username"></label>
+                                  <input type="text" name="username" id="username"  ng-model ="user.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required>
+                                  <!-- in case of an error the message below is displayed as part of the list of message errors -->
+                                  <span ng-show='registerForm.username.$invalid&& !registerForm.username.$error.uniqueusername &&!registerForm.username.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
+                              </div>            
 			                  <div class="form-group">
 			                    <div class="row">
 			                      <div class="col-sm-6 col-sm-offset-3">
-			                        <input type="submit" name="password-submit" id="password-submit" tabindex="4" class="form-control btn btn-forgot" value="Réinitialiser" ng-click="vm.passwordReset(user)">
+			                        <input type="submit" name="password-submit" id="password-submit" tabindex="4" class="btn-default btn-lbc top-3" value="Réinitialiser" ng-click="vm.passwordReset(user)">
 			                      </div>
 			                    </div>
 			                  </div>
 			                </form>
-		                </div>
+		               </div>
 		            </div>
 		        </div>
 		    </div>
 		</div>
 	</div> <!-- end .row -->
+
+	<!-- password update form -->
 	<div ng-show="vm.isUser" class="row">
 	      <div class="col-md-6 col-md-offset-3">
 		        <div class="panel panel-forgot">
@@ -75,8 +82,50 @@
 		    </div>
 		</div>
 	</div> <!-- end .row -->
-
+	<!-- message of confirmation of email sent -->
+	<div  ng-show="vm.confirmationOfMailSent" id="mail-confirmation">
+		<div class="row">
+			<div class="col-sm-offset-3 col-sm-6 mail-confirmation-body">
+				<div class="row">				
+						<p class="lebeaucheveu-logo"> </p>
+				</div>  <!-- .row -->
+				<div class="row forgot-row-top-4 ">
+					<p class="section-content">
+						Un émail  vous a été envoyé.
+					</p>
+				</div>
+				<div class="row forgot-row-top">
+						<p class="section-content">
+							{{vm.message}}
+						</p>
+				</div> <!-- .forgot-row-top-->
+			</div>
+		</div> <!-- .row -->
+		<div class="row ">
+			<div class="col-sm-offset-3 col-sm-6 forgot-row-top-10 forgort-grey-background">
+					<div class="row">
+						<div class="col-sm-8">
+							<p class="section-content">
+								Vous n'avez pas encore de compte <span class="app-name">Lebeaucheveu</span> ? 
+							</p>
+						</div>
+						<div class="col-sm-4">
+							<p class="section-content"><login name="inscription" type="link" class="login-t">créer un compte ici </login></p>
+						</div>
+					</div> <!-- .row -->					
+			</div> <!-- .forgot-row-top-->
+		</div> <!-- .row -->
+	</div> <!-- #mail-confirmation -->
 </div>
-                  
-                
+ <script type="text/ng-template" id="forgot-information.html">
+          <div class="modal-header-success">
+               <h5 class="center modal-title">Confirmation</h5>
+          </div>
+          <div class="modal-body" id="modal-body">
+             {{$ctrl.message}}
+          </div>
+          <div class="modal-footer" style="text-align:center;">
+              <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.ok()">OK</a>
+          </div>
+  </script>                
 </section>

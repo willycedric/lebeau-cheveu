@@ -23,16 +23,16 @@
                       <li ng-show="vm.toggle" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{vm.username}} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li ng-show="vm.isCustomer"><a ui-sref="customer">Profil</a></li>
-                                <li ng-show="vm.isAdmin"><a ui-sref="admin">Profil</a></li>
-                                <li ng-show="vm.isHairdresser"><a ui-sref="hairdresser">Profil</a></li>
+                                <li ng-show="vm.isCustomer"><a ui-sref="customer">Mon compte</a></li>
+                                <li ng-show="vm.isAdmin"><a ui-sref="admin">Mon compte</a></li>
+                                <li ng-show="vm.isHairdresser"><a ui-sref="hairdresser">Mon compte</a></li>
                                 <li><a ui-sref="cart">Achats</a></li>
                                 <li class="divider"></li>
                                 <li ng-click="vm.logout()"><a class="logout-link" >Deconnexion</a></li>
                             </ul>
                         </li>
                       <li ng-show="!vm.toggle" class="active login-link">
-                          <a id ="login-link" href="#" ><login name="Connexion"></login></a>
+                          <a id ="login-link" href="#" ><login name="Connexion" class="login-t"></login></a>
                       </li>
                     </ul>         
                  <!-- </div> --><!-- end menu-sublink -->                

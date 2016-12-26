@@ -72,9 +72,9 @@ const authFactory = ($http, $window,$q,API,AuthToken,$log) =>{
     return userInfo;
   };
 
-  const passwordForgot = (route,email)=>{
+  const passwordForgot = (route,username)=>{
     var deferred = $q.defer();
-    $http.post(apiUrl+route,{email:email})
+    $http.post(apiUrl+route,{username:username})
             .then(function forgotSuccessCallback(response){
                 deferred.resolve(response);
             }, function forgotErrorCallback(err){
@@ -93,6 +93,23 @@ const authFactory = ($http, $window,$q,API,AuthToken,$log) =>{
     });
     return deferred.promise;
   };
+
+  /**
+   * [Function used to send the token to the backend in order to activate the user account ]
+   * @param  {[type]} route [backend  api route]
+   * @param  {[type]} token [temporary token]
+   * @return {[type]}       [action confirmation boolean]
+   */
+  const activateAccount = (route, token) =>{
+    var deferred = $q.defer();
+    $http.post(apiUrl+route,{token:token})
+    .then(function resetPasswordSuccessCallback(response){
+        deferred.resolve(response.data);
+    }, function resetPasswordFailureCallback(err){
+        deferred.reject(err);
+    });
+    return deferred.promise;
+  }
 
   const updatePassword = (route,user)=>{
     console.log(JSON.stringify(user));
@@ -279,7 +296,8 @@ const testGetProfile = (route) =>{
     updateUserProfile,
     getMe,
     testGetProfile,
-    updateProfile
+    updateProfile,
+    activateAccount
   };
   
 };

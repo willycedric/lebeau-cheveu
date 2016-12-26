@@ -31,6 +31,7 @@ import {hairdresserlogbook} from './components/hairdresserlogbook/hairdresserlog
 import {hairdresserpicture} from './components/hairdresserpicture/hairdresserpicture';
 import {hairdressermessage} from './components/hairdressermessage/hairdressermessage';
 import {searchbar} from './components/searchbar/searchbar';
+import {accountactivation} from './components/accountactivation/accountactivation';
 
 import {shared} from './shared/shared';
 
@@ -61,7 +62,8 @@ angular.module('app', [
   hairdresserlogbook.name,
   hairdresserpicture.name,
   hairdressermessage.name,
-  searchbar.name
+  searchbar.name,
+  accountactivation.name
   ])
 .directive('app', appDirective);
 

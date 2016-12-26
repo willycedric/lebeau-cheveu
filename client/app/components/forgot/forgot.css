@@ -32,8 +32,8 @@
     transition: all 0.1s linear;
 }
 .forgot .panel-forgot>.panel-heading a.active{
-    color: #6DC3BB;
-    font-size: 18px;
+    color: #790303;
+    font-size: 1.3em;
 }
 .forgot .panel-forgot>.panel-heading hr{
     margin-top: 10px;

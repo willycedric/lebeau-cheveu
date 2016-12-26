@@ -7,16 +7,13 @@
 				</div> <!-- row id card -->
 				<hairdresser-menu></hairdresser-menu>
 			</div> <!-- .col-sm-4 left-element -->
-			<div col-sm-offset-1 col-sm-8>
-				<button class="button-default-lbc" ng-click="logbookTemplate='/logbook.html'">Agenda</button>
-				 <div id="logbook-content" ng-include src="logbookTemplate"></div>
-					<script type="text/ng-template" id="/logbook.html">
-							<div id="logbook">
-							    <div class='datepicker'>
-							      <div uib-datepicker ng-model="vm.dt" class="well well-sm" datepicker-options="vm.options"></div>
-							    </div>
-							</div> <!-- logbook -->
-				   </script>  
+			<div class="col-sm-offset-1 col-sm-8">
+				<div ng-hide="vm.loadLogbook">
+					<img class="logbook-spinner" ng-src={{vm.spinner}}>					 
+				</div>
+				<div ng-if="vm.loadLogbook">			
+					<div id="logbook-content" ng-include="vm.url"></div>
+				</div>			 
 			</div> <!-- right element -->			
 		</div> <!-- top row -->
 	</div> <!-- .top container -->
@@ -76,18 +73,33 @@
    	</script>
    	<!-- displays list of appoitment(s) for a selected day -->
    	<script type="text/ng-template" id="appointment-list.html">
-			<div class="modal-header default" id="modal-header">
-				<h3 class="center modal-tile">Rendez-vous du {{$ctrl.appointmentOfTheDay[0].date|date}}</h3>
-			</div>
-	        <div class="modal-body default" id="modal-body">
-	           <div ng-repeat ="apt in $ctrl.appointmentOfTheDay track by $index">
-	           		<p> {{apt.date |date}} à {{apt.time}} avec {{apt.relatedCustomer.customerFirstname}} {{apt.relatedCustomer.customerLastname}} </p>
-	           		<button class="btn btn-primary" ng-click="$ctrl.appointmentDetails(apt)">Détails</button>
-	           </div>
+   		<div class="modal-header default" id="modal-header">
+					<h3 class="center modal-tile">Rendez-vous du {{$ctrl.appointmentOfTheDay[0].date|date}}</h3>
+		</div>
+   		<div  ng-repeat ="apt in $ctrl.appointmentOfTheDay track by $index">
+			<div  ng-if="apt.type == -1" >
+				<!-- <div class="modal-header default" id="modal-header">
+					<h3 class="center modal-tile">Journée vérouillée</h3>
+				</div>-->
+		        <div class="modal-body default" id="modal-body">
+		           <div>
+		           		<p> Vous avez vérouillé la journée du {{apt.date|date}}.</p>
+		           </div>
+		        </div>
 	        </div>
-	        <div class="modal-footer default">
-	            <button class="btn btn-cancel" type="button" ng-click="$ctrl.cancel()">Retour</button>
+	        <div  ng-if="apt.type != -1" >
+				
+		        <div class="modal-body default" id="modal-body">
+		           <div>
+		           		<p> {{apt.date |date}} à {{apt.time}} avec {{apt.relatedCustomer.customerFirstname}} {{apt.relatedCustomer.customerLastname}} </p>
+		           		<button class="btn btn-primary" ng-click="$ctrl.appointmentDetails(apt)">Détails</button>
+		           </div>
+		        </div>
 	        </div>
+	    </div>
+        <div class="modal-footer default">
+            <button class="btn btn-cancel" type="button" ng-click="$ctrl.cancel()">Retour</button>
+        </div>
    	</script>
    	<!-- displays haidresser appointment confirmation or cancelation, action's confirmation message -->
    	<script type="text/ng-template" id="appointment-update-confirmation.html">

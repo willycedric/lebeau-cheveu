@@ -1,8 +1,9 @@
 class ModalInstanceCtrl {
-  constructor($uibModal,$uibModalStack,$uibModalInstance,$log,$http,API,$window,$q,Auth,$state,$rootScope,$scope) {
+  constructor($uibModal,$uibModalStack,$uibModalInstance,$log,$http,API,$window,$q,Auth,$state,$rootScope,$scope,ModalFactory) {
     var self = this;   
     //facebook authentication route
     self.facebookUrl = `${API.dev.homeUrl}`+'/api/users/auth/facebook';
+    self.ModalFactory = ModalFactory;
     /**
      * Function used to redirect the user to the facebook login Oauth provider
      * @return {[type]} [description]
@@ -19,6 +20,7 @@ class ModalInstanceCtrl {
       //$log.debug('From loginController ','Message is received');
       if(isSuccessfullRegistration){
         self.isSuccessfullRegistration=true;
+        self.displayInformationModal();
       }
     });
     
@@ -33,13 +35,19 @@ class ModalInstanceCtrl {
       //The form must be valid in order to be send to the API
       if(customerLoginForm.$valid){       
           Auth.login(`${API.dev.customerRoute}`+'/me',data.username,data.password)
-              .then(function loginControllerSuccess(data){
+              .then( (data)=>{ 
+                  console.log(' data ', data);
                   $rootScope.$broadcast('connectionStatechanged',{data:data});
                    self.lauchLoginForm();                
-              },function loginControllerError(err){
-                  //console.error(err);
-              }).finally(function(){
-                $uibModalStack.dismissAll('closing'); //remove the spining modal                
+              }, (err)=>{
+                if(parseInt(err.status) === 401){
+                  self.displayWrongCredentialModal();
+                }
+              }).finally( (data)=>{   
+                console.log(' finally data', data);            
+               // if(AuthToken.parseToken())   
+                $state.go('customer');
+                $uibModalStack.dismissAll('closing'); //remove the spining modal           
               }); 
         
       }else{
@@ -54,21 +62,19 @@ class ModalInstanceCtrl {
      * @param  {[type]} role                 [description]
      * @return {[type]}                      [description]
      */
-    self.logHairdresser = (data,hairdresserLoginForm)=>{
-      $log.debug('User data ', JSON.stringify(data));
+    self.logHairdresser = (data,hairdresserLoginForm)=>{      
       //The form must be valid in order to be send to the API
       if(hairdresserLoginForm.$valid){
               self.displayLoading('Login in progress'); //Display the spining modal
               Auth.login(`${API.dev.hairdresserRoute}`+'/me',data.username,data.password)
-              .then(function loginControllerSuccess(data){
+              .then((data)=>{
                 //$log.debug('From the loginControllerSuccess ',data);
                   $rootScope.$broadcast('connectionStatechanged',{data:data});
                    $uibModalInstance.close('cancel');
                   //$state.go('home',null,{reload:true});   
-              },function loginControllerError(err){
-                  //console.error(err);
-              }).finally(function(){
-                 $uibModalStack.dismissAll('closing'); //remove the spining modal 
+              }).finally(()=>{
+                $state.go('hairdresser');
+                 $uibModalStack.dismissAll('closing'); //remove the spining modal
               });         
       }else{
         console.error('The login form is not valid');
@@ -81,7 +87,7 @@ class ModalInstanceCtrl {
      * 
      */
     self.registerNewAccount = (user, registerForm)=>{
-            $log.debug(JSON.stringify(user));
+           
             if(registerForm.$valid){ 
               if(user.role == 2){ //customers registration
                 self.displayLoading('Registration in progress');
@@ -113,11 +119,12 @@ class ModalInstanceCtrl {
     };
 
     /**
-     * Redirect user to the forgotten password view
-     * @return {[type]} [description]
+     * [description]
+     * @param  {[type]} role [1 for hairdresser and 2 for customer, user to route password reset form to the correct model]
      */
-    self.passwordForgot = () =>{
-        $state.go('forgot');
+    self.passwordForgot = (role) =>{
+        $state.go('forgot',{role:role});
+        $uibModalStack.dismissAll('closing');
     };
 
     /**
@@ -179,6 +186,34 @@ class ModalInstanceCtrl {
         };
    
   }//End constructor 
+
+  /**
+   * [displayInformationModal description]
+   * @return {[type]} [description]
+   */
+  displayInformationModal(){
+      var self = this;
+      self.ModalFactory.trigger(self,'registration-information.html',function($uibModalInstance,topController){
+          this.message ='Votre compte vient \'être créé avec succès. \nVeuillez vous connecter à l\'adresse mail que vous avez fourni lors de votre inscription pour activer votre compte ';
+          this.ok = ()=>{
+              $uibModalInstance.close('OK');
+          }
+      });
+  }
+
+  /**
+   * [displayWrongCredentialModal description]
+   * @return {[type]} [description]
+   */
+  displayWrongCredentialModal(){
+    var self = this;
+    self.ModalFactory.trigger(self,'wrong-credentials.html', function($uibModalInstance, topController){
+      this.message = 'Votre nom d\'utilisateur et/ou votre mot de passe est incorrect. Veuillez recommencer avec des identifiants correctes';
+      this.ok = ()=>{
+        $uibModalInstance.close('ok');
+      };
+    })
+  }
 }
-ModalInstanceCtrl.$inject = ['$uibModal','$uibModalStack','$uibModalInstance','$log','$http','API','$window','$q','Auth','$state','$rootScope','$scope'];
+ModalInstanceCtrl.$inject = ['$uibModal','$uibModalStack','$uibModalInstance','$log','$http','API','$window','$q','Auth','$state','$rootScope','$scope','ModalFactory'];
 export {ModalInstanceCtrl};
