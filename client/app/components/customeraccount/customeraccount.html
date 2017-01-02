@@ -80,6 +80,20 @@
 						<span class="section-contains left">Votre mot de passe expire dans: {{vm.customer.passwordExpirationDate}}</span>
 					</div><!-- .row .row-top -->
 				</div> <!-- .section -->
+				<div class="section">
+					<div class=" row section-top">
+						<span class="section-t col-sm-3">
+								<h4>Supprimer mon compte</h4>
+						</span><!-- .section-title -->
+						<span class="col-sm-3 edit-button">
+							<a class="btn-default-lbc btn-lbc" ng-click="vm.accountDeletionConfirmation()">Supprimer</a>
+						</span><!-- .edit-button -->
+					</div> <!-- row section-top -->
+					<hr>
+					<div class="row row-top">
+						<span class="section-contains left"></span>
+					</div><!-- .row .row-top -->
+				</div> <!-- .section -->
 			</div><!-- end .customer-page-content -->
 		</div> <!-- end top row -->
 	</div> <!-- end top container --> 
@@ -193,6 +207,19 @@
 	        </div>
 	        <div class="modal-footer" style="text-align:center;"  ng-hide="$ctrl.isSuccess">
 	            <button class="btn btn-primary btn-error" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+	</script>
+	
+	<script type="text/ng-template" id="account-deletion-confirmation.html">
+			<div class="modal-header-warning">
+				<h3 class="center modal-tile">Confirmation</h3>
+			</div>
+			<div class="modal-body">
+				<span> {{$ctrl.message}} </span>
+		    </div>
+		     <div class="modal-footer" style="text-align:center;">
+	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.ok($ctrl.apt)">OK</a>
+	             <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.cancel($ctrl.apt)">Annuler</a>
 	        </div>
 	</script>
 </section>

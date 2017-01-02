@@ -23,6 +23,7 @@ class ShowhairdresserprofileController {
             this.ModalFactory =ModalFactory;
             this.$window = $window;
             this.API = API;
+            this.events=[];
             this.$uibModal = $uibModal;
             const currentDay = new Date();
             //let loggedCustomerInformation = AuthToken.parseToken(AuthToken.getToken());
@@ -61,13 +62,9 @@ class ShowhairdresserprofileController {
                 id: currIndex++
               }); 
             };
-
-            $log.debug(slides);
-
             for (let i = 0; i < this.nbImages; i++) {
               this.addSlide(i);
             }
-
             this.onSlideChanged = function (nextSlide, direction, nextIndex) {
                
             }
@@ -80,7 +77,7 @@ class ShowhairdresserprofileController {
           var afterTomorrow = new Date(tomorrow);
           afterTomorrow.setDate(tomorrow.getDate() + 1);
         //events
-        var events=[
+      /*  var events=[
                       {
                         date: tomorrow,
                         status: 'full'
@@ -89,7 +86,25 @@ class ShowhairdresserprofileController {
                         date: afterTomorrow,
                         status: 'partially'
                       }
-        ];
+        ];*/
+       
+      /*this.events=[];
+      var appointmentOfTheDay=[];
+      Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
+      .then((rep)=>{
+          this.hairdresser = rep;
+          this.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(this.hairdresser.appointments);
+          //datepicker logic
+         angular.forEach(this.hairdresser.appointments, (appt,key)=>{
+           this.events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers})
+        });        
+      })
+      .finally(()=>{
+         this.defineCalendarOption()
+         .then(()=>{
+            this.loadLogbook=true;
+          });          
+      }); */
         //datapicker init date
         this.dt = new Date();
         //date picker option
@@ -99,10 +114,10 @@ class ShowhairdresserprofileController {
               mode = data.mode;
             if (mode === 'day') { 
               var dayToCheck = new Date(date).setHours(0,0,0,0);
-              for (var i = 0; i < events.length; i++) {
-                var currentDay = new Date(events[i].date).setHours(0,0,0,0);
+              for (var i = 0; i < this.events.length; i++) {
+                var currentDay = new Date(this.events[i].date).setHours(0,0,0,0);
                 if (dayToCheck === currentDay) {
-                  return events[i].status;
+                  return this.events[i].status;
                 }
               }
             }
@@ -285,14 +300,16 @@ class ShowhairdresserprofileController {
         displayConfirmationModal(customerId,username,lastname,firstname){
           var self = this;
           //check if the hairdresser has locked some days
-          let tempDays = [];
-          angular.forEach(self.hairdresser.lockedDays, (val, index)=>{
-            var tempDate = self.DateHandler.moment(new Date(val));
-            tempDays.push(tempDate.dayOfYear());
+          let hairdresserLockedDays = [];
+          angular.forEach(self.hairdresser.appointments, (val, index)=>{
+            if(!val.hasOwnProperty('slotTime')){
+               var tempDate = self.DateHandler.moment(new Date(val.dayOfWeek));
+                hairdresserLockedDays.push(tempDate.dayOfYear());
+            }
           });
           var appointmentDate = self.DateHandler.moment(self.dt); //date wishes for the appointment
           var currentDay = self.DateHandler.moment(new Date()); //current date
-                  if(tempDays.indexOf(appointmentDate.dayOfYear()) != -1){
+                  if(hairdresserLockedDays.indexOf(appointmentDate.dayOfYear()) != -1){
                     self.displayLockedAppointmentDetails(self.dt);
                   }
                   else if( appointmentDate.diff(currentDay, 'days') === 0){
@@ -368,6 +385,10 @@ class ShowhairdresserprofileController {
     self.Auth.getHairdresserById(id)
     .then(function ShowhairdresserprofileControllerSuccessCallback(response){
          self.hairdresser = response;
+          angular.forEach(self.hairdresser.appointments, (appt,key)=>{
+           self.events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers})
+        });  
+        console.log(self.events); 
     }, function ShowhairdresserprofileControllerFailureCallback(err){
         $log.error(err);
     });
@@ -437,7 +458,35 @@ class ShowhairdresserprofileController {
     console.log("inside the contact modal");
   }
 
-  
+/**
+ * [defineCalendarOption description]
+ * @return {[type]} [description]
+ */
+defineCalendarOption(){
+  var self = this;
+  var deferred = this.$q.defer(); 
+  self.options = {
+            customClass: function(data) {  
+            var date = data.date,
+              mode = data.mode;
+            if (mode === 'day') { 
+              var dayToCheck = new Date(date).setHours(0,0,0,0);
+              for (var i = 0; i < self.events.length; i++) {
+                var currentDay = new Date(self.events[i].date).setHours(0,0,0,0);
+                if (dayToCheck === currentDay) {
+                  return self.events[i].status;
+                }
+              } 
+            }
+            return '';
+          },
+            minDate: null, //Allow us to select date in the past 
+            showWeeks: false,
+            datepickerMode:'day'
+      };
+    deferred.resolve(true);
+    return deferred.promise;
+}  
 
 }
 

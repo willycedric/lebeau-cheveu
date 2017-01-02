@@ -136,6 +136,19 @@
  			});
  			return deferred.promise;
  		}
+
+ 		const deleteUserAccount = (id)=>{
+ 			console.log('user id ', id);
+ 			var deferred = $q.defer();
+ 			$http.delete(apiUrl+`${API.dev.customerRoute}`+'/'+id)
+ 			.then(function deleteCustomerAccountSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function deleteCustomerAccountFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to delete an user account  array(err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		};
+
  		return {
  			updateCustomerAppointment,
  			updateCustomerAppointmentState,
@@ -144,7 +157,8 @@
  			updateCustomerPreference,
  			updateCustomerNotificationState,
  			updateAppointmentState,
- 			updateAppointmentStateWithReason
+ 			updateAppointmentStateWithReason,
+ 			deleteUserAccount
  		};
  };
 

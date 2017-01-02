@@ -166,6 +166,22 @@
  			});
  			return deferred.promise;
  		}
+
+ 		/**
+ 		 * [function used to delete an hairdresser account]
+ 		 * @param  {[type]} id [hairdresser id]
+ 		 * @return {[type]}    [description]
+ 		 */
+ 		const deleteHairdresserAccount = (id)=>{
+ 			var deferred = $q.defer();
+ 			$http.delete(apiUrl+`${API.dev.hairdresserRoute}`+'/'+id)
+ 			.then(function deleteHairdresserSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function deleHairdresserFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to update the hairdresser appointment state array(err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		}
  		return {
  			updateHairdresserAppointment,
  			getAppointmentById,
@@ -176,7 +192,8 @@
  			deleteHairdresserBooking,
  			getHairdresserNotYetConfirmedAppointmentNumber,
  			updateAppointmentStateWithReason,
- 			updateAppointmentState
+ 			updateAppointmentState,
+ 			deleteHairdresserAccount
  		};
  };
 

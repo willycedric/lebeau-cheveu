@@ -1,6 +1,6 @@
 
 class HairdresseraccountController {
-  constructor($uibModal,API,Auth,ModalFactory,$log,hairdresserMAnager) {
+  constructor($uibModal,API,Auth,ModalFactory,$log,hairdresserMAnager,AuthToken,$state,$window) {
 
   		  var self=this;
   		//List of department in Ile de France
@@ -22,6 +22,12 @@ class HairdresseraccountController {
 	 	/**
 	 	 * 
 	 	 */
+	 	self.ModalFactory=ModalFactory;
+	 	self.AuthToken=AuthToken;
+	 	self.$state =$state;
+	 	self.$window=$window;
+	 	self.hairdresserMAnager= hairdresserMAnager;
+
 	    Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
 	  	.then(function hairdresserProfileSuccesscallback(rep){
 	  			self.hairdresser = rep;
@@ -163,9 +169,58 @@ class HairdresseraccountController {
 				}
 			}
 
+			/**
+			 * [deleteHairdresserAccount description]
+			 * @return {[type]} [description]
+			 */
+			deleteHairdresserAccount(id){
+				var self = this;
+				self.ModalFactory.trigger(self,'delete-account.html', function($uibModalInstance,topController){
+					this.message = 'Etes-vous sûre de vouloir supprimer votre compte ?';
+
+					this.ok = () =>{
+						const  successMessage = 'votre compte a été supprimé avec succès.';
+						const  errMessage = 'Une erreur est survenue lors de la suppression de votre compte utilisateur.';
+
+						topController.hairdresserMAnager.deleteHairdresserAccount(id)
+						.then(()=>{
+							topController.AuthToken.erase('jwtToken');
+						},()=>{
+							topController.displayConfirmationModal(errorMessage,false);
+						})
+						.finally(()=>{
+							topController.$state.go('home');
+							topController.displayConfirmationModal(successMessage,true);
+						})
+						$uibModalInstance.close('OK');
+					};
+
+					this.cancel = () =>{
+						$uibModalInstance.dismiss('cancel');
+					};
+				});
+			}
+
+	/**
+	 * [displayConfirmationModal Function used to display a confirmation message on error or success]
+	 * @param  {[type]} message [message displayed in the modal]
+	 * @param  {[type]} flag    [success (true) or error (false) flag]
+	 */
+	displayConfirmationModal(message,flag){
+		var self = this;
+		self.ModalFactory.trigger(self,'confirmation-modal.html', function($uibModalInstance,topController){
+			this.message = message;
+			this.isSuccess=flag;
+			this.ok = ()=>{
+				self.$window.location.reload();
+				$uibModalInstance.close('close');
+			};
+		});
+	}
+
 }//end class
 
-HairdresseraccountController.$inject =['$uibModal','API','Auth','ModalFactory','$log','hairdresserMAnager'];
+HairdresseraccountController.$inject =['$uibModal','API','Auth','ModalFactory','$log','hairdresserMAnager','AuthToken','$state','$window'];
 export {HairdresseraccountController};
 
 

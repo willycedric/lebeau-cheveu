@@ -1,5 +1,5 @@
 class CustomeraccountController {
-	  constructor(Auth,API,ModalFactory,customerMAnager,$window) {
+	  constructor(Auth,API,ModalFactory,customerMAnager,$window,$state,AuthToken) {
 	  	this.lastName=null;
 	  	this.firstName=null;
 	  	this.Auth = Auth;
@@ -7,6 +7,8 @@ class CustomeraccountController {
 	  	this.$window = $window;
 	  	this.ModalFactory=ModalFactory;
 	  	this.customerMAnager = customerMAnager;
+	  	this.$state = $state;
+	  	this.AuthToken= AuthToken;
 
 	 	//while the user still connected the token is available from the local storage	
      	//this.refreshCustomerProfile(this,token);        
@@ -145,8 +147,48 @@ class CustomeraccountController {
 		});
 		return count;
 	}
+	/**
+	 * [accountDeletionConfirmation description]
+	 * @return {[type]} [description]
+	 */
+	accountDeletionConfirmation(){
+		var self = this;
+		self.ModalFactory.trigger(self,'account-deletion-confirmation.html',function($uibModalInstance,topController){
+			/**
+			 * [description]
+			 * @return {[type]} [description]
+			 */
+			this.message="Êtes-vous sûre de vouloir supprimer votre compte?";
+			this.ok = ()=>{
+				const successMessage = 'Votre compte a bien été supprimé .';
+				const failureMessage = 'Une erreur s\'est propduite durant la suppression de votre compte';
+				topController.customerMAnager.deleteUserAccount(topController.customer._id)
+				.then(()=>{
+					topController.AuthToken.erase('jwtToken');					
+					
+					//topController.$window.location.reload();					
+				}, ()=>{
+					topController.displayConfirmationModal(failureMessage,false);
+				})
+				.finally(()=>{
+					
+					topController.displayConfirmationModal(successMessage,true);
+					topController.$state.go('home');
+				});
+				$uibModalInstance.close('OK');
+			};
+
+			/**
+			 * [description]
+			 * @return {[type]} [description]
+			 */
+			this.cancel = () =>{
+				$uibModalInstance.dismiss('cancel');
+			}
+		})
+	}
 }//End class
 
-CustomeraccountController.$inject =['Auth','API','ModalFactory','customerMAnager','$window'];
+CustomeraccountController.$inject =['Auth','API','ModalFactory','customerMAnager','$window','$state','AuthToken'];
 
 export {CustomeraccountController};

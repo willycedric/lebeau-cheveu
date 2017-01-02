@@ -33,9 +33,7 @@
           //datepicker logic
          angular.forEach(this.hairdresser.appointments, (appt,key)=>{
            this.events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers})
-        });
-         //this.getStatusOfTheDay(this.getBookedAppointmentOftheDay());
-        this.$log.debug(this.events);
+        });        
       })
       .finally(()=>{
          this.defineCalendarOption()
@@ -362,6 +360,10 @@ getTheSelectedStatus(date){
       }
   })
 }
+/**
+ * [defineCalendarOption description]
+ * @return {[type]} [description]
+ */
 defineCalendarOption(){
   var self = this;
   var deferred = this.$q.defer(); 
@@ -387,71 +389,7 @@ defineCalendarOption(){
     deferred.resolve(true);
     return deferred.promise;
 }
-/**
- * [getStatusOfTheDay Set all the appointment status of the day according to the most dominant  creteria]
- * @param  {[type]} listOfAppointmentOftheDay [description]
- * @return {[type]}     [description]
- */
-getBookedAppointmentOftheDay(){
-  var deferred = this.$q.defer();
-  let statusType = [
-     { status:'booked',
-      count:0
-    },
-    {
-      status:'pending',
-      count:0
-    },
-    {
-      status:'done',
-      count:0
-    }
-  ];
-  angular.forEach(this.events,(apt,index)=>{
-    var currentDate = new Date(this.events[index].date).setHours(0,0,0,0);
-  
-      var dayToCheck = new Date(apt.date).setHours(0,0,0,0);
-      if( currentDate === dayToCheck){
-        if(apt.status === 'booked'){
-            statusType[0].count++;
-        }else if(apt.status === 'pending'){
-          statusType[1].count++;
-        }else if(apt.status === 'done'){
-          statusType[2].count++;
-        }
-      }
-    
-  });
-  deferred.resolve(statusType);
-  return deferred.promise;
-}
 
-/**
- * [getStatusOfTheDay description]
- * @param  {[type]} statusPromise             [description]
- * @param  {[type]} listOfAppointmentOftheDay [description]
- * @return {[type]}                           [description]
- */
-getStatusOfTheDay(statusType){
-  statusType.then((type)=>{
-      console.log(type[0].count)
-      if(type[0].count > 0){ //booked
-          angular.forEach(this.events, (apt)=>{
-              apt.status ='booked'
-          });
-      }else if( type[0].count === 0 && type[1].count === 0 && type[2].count > 0 ){ //done
-        angular.forEach(this.events, (apt)=>{
-              apt.status ='done'
-          });
-      }else if( type[0].count === 0 && type[1].count > 0 ){ //pending
-        angular.forEach(this.events, (apt)=>{
-              apt.status ='pending'
-          });
-      }
-  }, (err)=>{
-    this.$log.error(' getStatusOfTheDay ', err);
-  });
-}
 
 }//end class
 HairdresserlogbookController.$inject =['AuthToken','Auth','API','$log','$state','$uibModal','hairdresserMAnager','customerMAnager','$scope','ModalFactory','DateHandler','$q','$window'];
