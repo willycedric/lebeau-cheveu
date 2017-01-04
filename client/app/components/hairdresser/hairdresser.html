@@ -15,7 +15,7 @@
 					</div> <!-- row section-->			
 				
 					<div class="row row-top ">
-						<div class="col-sm-5 section section-height center">				
+						<div class="col-sm-5 section section-height section-widget center" ng-click="vm.goToBooking()">				
 								<h5 class="section-t" uib-tooltip="nombre de réservation confirmée(s)">Prochain Rendez-vous</h5>						
 								<hr>
 								<span class="section-contains section-number"> {{vm.hairdresser.nextbookings.length}}</span>
@@ -27,7 +27,7 @@
 						</div><!-- .section -->
 				  </div><!-- .row -->
 				  <div class="row row-top ">
-						<div class="col-sm-5 section section-height center">				
+						<div class="col-sm-5 section section-height center section-widget" ng-click="vm.goToMessage()">				
 								<h5 class="section-t  ">Message non lu(s)</h5>						
 								<hr>
 								<span class="section-contains section-number">0</span>
@@ -44,7 +44,7 @@
 								<hr>
 								<span class="section-contains section-number">01/01/1990</span>
 						</div><!-- .section -->
-						<div class="col-sm-offset-2 col-sm-5 section-height center section">
+						<div class="col-sm-offset-2 col-sm-5 section-height center section section-widget" ng-click="vm.goToPicture()">
 							<h5 class="section-t ">Nombre de photos</h5>
 							<hr>
 								<span class="section-contains section-number">0</span>

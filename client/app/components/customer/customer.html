@@ -32,13 +32,13 @@
 						</div>
 					</div> <!-- row section-->					
 					<div class="row row-top ">
-						<div class="col-sm-offset-1 col-sm-5 section section-height center">				
+						<div class="col-sm-offset-1 col-sm-5 section section-height section-widget center" ng-click="vm.goToBooking()">				
 								<h5 class="section-t" uib-tooltip="nombre de réservation confirmée(s)">Prochain Rendez-vous</h5>						
 								<hr>
 								<span class="section-contains section-number">{{vm.getPendingAppointment(vm.customer.nextAppointment)}}</span>
 						</div><!-- .section -->
 
-						<div class="col-sm-offset-1 col-sm-5 section section-height center">				
+						<div class="col-sm-offset-1 col-sm-5 section section-height section-widget center" ng-click="vm.goToMessage()">				
 								<h5 class="section-t  ">Message non lu(s)</h5>						
 								<hr>
 								<span class="section-contains section-number">{{vm.getUnreadCustomerNotification(vm.customer.notifications)}}</span>

@@ -1,8 +1,9 @@
 class HairdresserController {
-  constructor(AuthToken,Auth,Access,API,$log,$states,hairdresserMAnager) {
+  constructor(AuthToken,Auth,Access,API,$log,$states,hairdresserMAnager,$window) {
   	// hairdressers account informations
   	var self = this;
   	self.hairdresser={};
+    this.$window = $window;
 	//If a user is connected through the localStretegy, retrieveed the token from the localStorage
  	var token = AuthToken.getToken();
     if(token){
@@ -33,6 +34,29 @@ class HairdresserController {
     });
     return count;
   }
-}
-HairdresserController.$inject =['AuthToken','Auth','Access','API','$log','$state','hairdresserMAnager'];
+    /**
+   * [goToBooking description]
+   * @return {[type]} [description]
+   */
+  goToBooking(){
+    this.$window.location.href="#/hairdresser/booking";
+  }
+
+  /**
+   * [goToMessage description]
+   * @return {[type]} [description]
+   */
+  goToMessage(){
+    this.$window.location.href="#/hairdressermessage";
+  }
+  /**
+   * [goToPicture description]
+   * @return {[type]} [description]
+   */
+  goToPicture(){
+    this.$window.location.href="#/hairdresser/picture";
+  }
+} 
+
+HairdresserController.$inject =['AuthToken','Auth','Access','API','$log','$state','hairdresserMAnager','$window'];
 export {HairdresserController};

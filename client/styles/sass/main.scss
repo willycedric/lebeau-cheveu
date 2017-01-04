@@ -243,3 +243,9 @@ h5{
 	font-style:italic;
 	font-size:0.9em;
 }
+
+.section-widget{
+	&:hover{
+		cursor:pointer;
+	}
+}
