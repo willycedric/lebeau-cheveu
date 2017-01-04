@@ -187,6 +187,42 @@ class CustomeraccountController {
 			}
 		})
 	}
+	/**
+	 * [deleteLocation function allowing to delete a user location]
+	 * @param  {[ObjectID]} locationId [user location ID]
+	 * @return {[N/A]}            [N/A]
+	 */
+	deleteLocation(locationId){
+			var self= this;
+			if(self.customer.locations.length > 1){
+				self.ModalFactory.trigger(self,'delete-location-confirmation.html', function($uibModalInstance,topController){
+					this.message = "Voulez supprimer cette addresse ?";
+					this.ok = ()=>{
+						var successMessage= "L\'adresse a bien été supprimée.";
+						var errorMessage ="Une erreur s\'est propduite lors de la supression de l\'adresse";
+						topController.customerMAnager.deleteCustomerLocation(locationId)
+						.then(()=>{
+							topController.displayConfirmationModal(successMessage,true); 
+							$uibModalInstance.close('ok'); 
+						}, ()=>{
+						topController.displayConfirmationModal(errorMessage,false);
+						$uibModalInstance.close('error');
+						});
+					};
+
+					this.cancel = () =>{
+						$uibModalInstance.dismiss('cancel');
+					}
+				});
+		}else{
+			self.ModalFactory.trigger(self,'unique-location.html',function($uibModalInstance,topController){
+				this.message = "Vous devez avoir au moins une adresse enregistrée.";
+				this.ok = ()=>{
+					$uibModalInstance.close('ok');
+				};
+			});
+		}
+	}
 }//End class
 
 CustomeraccountController.$inject =['Auth','API','ModalFactory','customerMAnager','$window','$state','AuthToken'];

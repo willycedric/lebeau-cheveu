@@ -136,9 +136,12 @@
  			});
  			return deferred.promise;
  		}
-
+ 		/**
+ 		 * [Function used to delete a user account]
+ 		 * @param  {[ObjectID]} id [customer ID]
+ 		 * @return {[N/A]}    [N/A]
+ 		 */
  		const deleteUserAccount = (id)=>{
- 			console.log('user id ', id);
  			var deferred = $q.defer();
  			$http.delete(apiUrl+`${API.dev.customerRoute}`+'/'+id)
  			.then(function deleteCustomerAccountSuccessCallback(response){
@@ -149,6 +152,18 @@
  			return deferred.promise;
  		};
 
+ 		const deleteCustomerLocation = (id)=>{
+ 			console.log('id -->',id);
+ 			var deferred = $q.defer();
+ 			$http.delete(apiUrl+`${API.dev.customerRoute}`+'/deleteuserlocation',{params:{id:id}})
+ 			.then(function deleteCustomerLocationSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function deleteCustomerLocationFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to delete an user account  array(err)=> ", err))
+ 			});
+ 			return deferred.promise;
+ 		}
+
  		return {
  			updateCustomerAppointment,
  			updateCustomerAppointmentState,
@@ -158,7 +173,8 @@
  			updateCustomerNotificationState,
  			updateAppointmentState,
  			updateAppointmentStateWithReason,
- 			deleteUserAccount
+ 			deleteUserAccount,
+ 			deleteCustomerLocation
  		};
  };
 

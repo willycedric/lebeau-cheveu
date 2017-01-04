@@ -62,7 +62,8 @@
 					<hr/>
 					<div class="row" id="preference">
 						<div class="col-sm-5 row-top left" ng-repeat ="location in vm.customer.locations track by $index">
-							<span class="section-contains">Adresse {{$index+1 }}: {{::location.address }} {{::location.zipcode}} {{::location.city}}</span> <button class="btn btn-edit btn-primary" type="button" ng-click="vm.updateLocation(location)">Modifier</button>			
+							<span class="section-contains">Adresse {{$index+1 }}: {{::location.address }} {{::location.zipcode}} {{::location.city}}</span> <button class="btn btn-edit btn-primary" type="button" ng-click="vm.updateLocation(location)">Modifier</button>
+							<button class="btn btn-edit btn-primary" type="button" ng-click="vm.deleteLocation(location._id)">Supprimer</button>			
 						</div>						
 					</div> <!-- preferences -->
 				</div><!-- .section -->
@@ -182,7 +183,7 @@
 	              			<input  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-primary" value="Enregistrer" >
 	              		</div>
 	              		<div class="col-sm-1">
-	              			<button class="btn btn-primary" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+	              			<button class="btn btn-primary" type="button" ng-click="$ctrl.cancel()">supprimer</button>
 	              		</div>
 	            	</div>
 	           </div>
@@ -222,4 +223,30 @@
 	             <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.cancel($ctrl.apt)">Annuler</a>
 	        </div>
 	</script>
+	<script type="text/ng-template" id="delete-location-confirmation.html">
+			<div class="modal-header">
+				<h3 class="center modal-tile">Confirmation</h3>
+			</div>
+			<div class="modal-body">
+				<span> {{$ctrl.message}} </span>
+		    </div>
+		     <div class="modal-footer" style="text-align:center;">
+	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.ok()">OK</a>
+	             <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.cancel()">Annuler</a>
+	        </div>
+	</script>
+	
+	<script type="text/ng-template" id="unique-location.html">
+			<div class="modal-header-warning">
+				<h3 class="center modal-tile"></h3>
+			</div>
+			<div class="modal-body">
+				<span> {{$ctrl.message}} </span>
+		    </div>
+		     <div class="modal-footer" style="text-align:center;">
+	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.ok()">OK</a>
+	        </div>
+	</script>
+	
+	
 </section>
