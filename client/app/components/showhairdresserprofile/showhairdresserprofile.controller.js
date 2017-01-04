@@ -480,6 +480,7 @@ displayLocationSelectionModal(hairdresserId,dayOfWeek,selectedHour,hairdresserUs
 
     this.ok = (selectedLocationIndex)=>{
         topController.updateHairdresserThenCustomerAppointment(hairdresserId,dayOfWeek,selectedHour,hairdresserUsername,selectedLocationIndex);
+        $uibModalInstance.close('ok');
     };
 
     this.cancel = ()=>{
