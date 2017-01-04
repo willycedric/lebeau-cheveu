@@ -35,6 +35,20 @@
 		});
 		return count;
 	}
+	/**
+	 * [getPendingAppointment description]
+	 * @param  {[type]} appointments [description]
+	 * @return {[type]}              [description]
+	 */
+	getPendingAppointment(appointments){
+		let count=0;
+		angular.forEach(appointments, (apt)=>{
+			if(apt.appointmentState === -1){
+				count++;
+			}
+		});
+		return count;
+	}
 	}
 	HairdressermessageController.$inject =['AuthToken','Auth','Access','API','$log','$state','hairdresserMAnager'];
 

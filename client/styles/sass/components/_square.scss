@@ -1,0 +1,29 @@
+$square-dimension:6px;
+
+.frame-square {
+  border: 1px solid #000;
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px;
+  width: $square-dimension;
+  height: $square-dimension;
+}
+
+.legend-square-white{
+	@extend .frame-square;
+	 background: #fff;
+}
+
+.legend-square-green{
+	@extend .frame-square;
+	 background: green;
+}
+.legend-square-red{
+	@extend .frame-square;
+	 background: red;
+}
+
+.legend-square-orange{
+	@extend .frame-square;
+	 background: orange;
+}

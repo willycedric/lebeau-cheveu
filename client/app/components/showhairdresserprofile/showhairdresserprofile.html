@@ -11,10 +11,10 @@
 			</div> <!-- .row -->
 		</div><!-- .container -->
 	</section><!-- #profil -->
-	<section id="carousel" class="content-widget">
+	<section id="carousel" class="">
 		<div class="container">          
 	        <div class="row">
-	        	<h4 class="panel-title" style="color:#790303; text-align:center;margin-bottom:5px;">Mes dernières réalisations </h4>
+	        	<h4 class="panel-title">Mes dernières réalisations </h4>
 	          <div class="col-xs-offset-1 col-xs-10">
 	              <uib-carousel active="vm.active" interval="vm.myInterval" on-carousel-change="vm.onSlideChanged(nextSlide, direction,nextIndex)"no-wrap="vm.noWrapSlides">
 	                <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
@@ -28,24 +28,69 @@
 	        </div>        <!-- .row -->
 	    </div><!-- .container-fluid-fluid -->   
 	</section><!-- carousel -->
-	<section id="logbook" class="content-widget">
-		<!-- Accordion template -->
-		<script type="text/ng-template" id="group-template.html">
-		    <div class="panel panel-default">
-		      <div class="panel-heading">
-		        <h4 class="panel-title" style="color:#790303; text-align:center;">
-		          <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
-		            <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
-		              {{heading}}
-		            </span>
-		          </a>
-		        </h4>
-		      </div>
-		      <div class="panel-collapse collapse" uib-collapse="!isOpen">
-		        <div class="panel-body" style="text-align: right" ng-transclude></div>
-		      </div>
-		    </div>
-  		</script>
+	<section id="logbook" class="">
+		<div class="container">
+			<div class="row">
+				<h4>Mes prochaines disponibilités </h4>
+				<div ng-hide="vm.loadLogbook">
+					<img class="logbook-spinner" ng-src={{vm.spinner}}>					 
+				</div>
+				<div ng-if="vm.loadLogbook">	
+					<div id="logbook-content" ng-include="vm.url"></div>
+				</div>	
+			</div> <!-- .row -->
+			<div class="row">
+				<div class="col-sm-3">
+					<span class="legend-square-white"></span>
+					<span class="legend-explanation">Touts les cr&eacuteneau sont disponibles </span>
+				</div>
+				<div class=" col-sm-3 ">
+					<span class="legend-square-green"></span>
+					<span class="legend-explanation"> Au moins un rendez-vous non confirm&eacute </span>
+				</div>
+				<div class="col-sm-3 ">
+					<span class="legend-square-red"></span>
+					<span class="legend-explanation">Journ&eacutee non disponible </span>
+				</div>
+				<div class="col-sm-3 ">
+					<span class="legend-square-orange"></span>
+					<span class="legend-explanation">Au moins un rendez-vous confirm&eacute</span>
+				</div>
+			</div>  <!-- .row -->
+		</div> <!-- .container -->
+	</section>
+	<section id="performance-advice" class="top-5">
+	<div class="container">
+	<div class="row">
+		<div class=" section col-sm-6 col-xs-12 performance ">
+			<div class="">
+				<h3 style="text-align:center;">Prestation et tarif</h3>
+			</div>
+			<hr/>
+			<p class="row-top">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+		<div class="col-sm-5 section col-sm-offset-1  section col-xs-12 advice">
+			<div >
+				<h3 style="text-align:center;">Avis</h3>
+			</div>
+			<hr/>
+			<p class="row-top">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+	</div><!-- .row -->
+	</div><!-- .container -->  	
+	</section><!-- #prestation-avis -->
+
   		<script type="text/ng-template" id="confirmation.html">
   			<div class="modal-header">
 	             <h5 class="center modal-title">Connexion requise</h5>
@@ -164,57 +209,21 @@
             <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
         </div>
   	</script>
-
-		 <uib-accordion close-others="oneAtATime">
-			<div uib-accordion-group class="panel-default" is-open="vm.isCustomHeaderOpen" template-url="group-template.html">
-      <uib-accordion-heading>
-        Mes prochaines disponibilités <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': vm.isCustomHeaderOpen, 'glyphicon-chevron-right': !vm.isCustomHeaderOpen}"></i>
-      </uib-accordion-heading>
-  <!-- 	<hairdresser-logbook days = "vm.days" hours = "vm.openingHourList" times = "vm.times"></hairdresser-logbook> -->
-		<div class="container">
-			<div class="row">
-				<div id="logbook">
-				    <div class='datepicker'>
-				      <div uib-datepicker ng-model="vm.dt" class="well well-sm" datepicker-options="vm.options">
-				      </div>
-				    </div>
-				</div><!-- #logbook -->
-			</div> <!-- .row -->
-		</div> <!-- .container -->
-    </div><!-- uib-accordion-group-->
-	</uib-accordion>
-	</section>
-	<section id="performance-advice">
-	<div class="container">
-	<div class="row">
-		<div class=" section col-sm-6 col-xs-12 performance ">
-			<div class="">
-				<h3 style="text-align:center;">Prestation et tarif</h3>
-			</div>
-			<hr/>
-			<p class="row-top">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		</div>
-		<div class="col-sm-5 section col-sm-offset-1  section col-xs-12 advice">
-			<div >
-				<h3 style="text-align:center;">Avis</h3>
-			</div>
-			<hr/>
-			<p class="row-top">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		</div>
-	</div><!-- .row -->
-	</div><!-- .container -->  	
-	</section><!-- #prestation-avis -->
+  	<script type="text/ng-template" id="location-selection.html">
+  		<div class="modal-header">
+         <h5 class="center modal-title"></h5>
+        </div>
+        <div class="modal-body" id="modal-body">
+           <span class="question-modal" style="text-algin:center;">{{$ctrl.message}}</span>
+           <select ng-model="$ctrl.selectedLocationIndex" name="appoitment-location" > 
+		          		 <option ng-repeat="location in $ctrl.locations track by $index" value="{{$index}}">{{location.address}}</option>
+            </select><br/>
+        </div>
+        <div class="modal-footer" style="text-align:center;">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok($ctrl.selectedLocationIndex)">OK</button>
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.cancel()">Retour</button>
+        </div>
+  	</script>
 	</div><!-- showhairdresserprofile -->
 
 

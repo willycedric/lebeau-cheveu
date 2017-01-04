@@ -11,9 +11,9 @@
  		 * @type {[type]}
  		 */
 		 let apiUrl=`${API.dev.homeUrl}`;
- 		const updateHairdresserAppointment= (hairdresserId,dayOfWeek,selectedHour,customerId,username,lastname,firstname)=>{
+ 		const updateHairdresserAppointment= (hairdresserId,dayOfWeek,selectedHour,locationIndex)=>{
  				var deferred = $q.defer();
- 				$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserAppointment', {hairdresserId:hairdresserId, dayOfWeek:dayOfWeek,selectedHour:selectedHour,customerId:customerId,username:username,lastname:lastname,firstname:firstname})
+ 				$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/hairdresserAppointment', {hairdresserId:hairdresserId, dayOfWeek:dayOfWeek,selectedHour:selectedHour,locationIndex:locationIndex})
  				.then(function updateAppointmentSlotSuccessCallback(response){
  					deferred.resolve(response.data);
  				}, function updateAppointmentSlotErrorCallback(err){

@@ -19,8 +19,22 @@ class HairdresserpictureController {
 
 	    });
 
-
 	};//end constructor;
+	
+    /**
+	 * [getPendingAppointment description]
+	 * @param  {[type]} appointments [description]
+	 * @return {[type]}              [description]
+	 */
+	getPendingAppointment(appointments){
+		let count=0;
+		angular.forEach(appointments, (apt)=>{
+			if(apt.appointmentState === -1){
+				count++;
+			}
+		});
+		return count;
+	}
 }
 HairdresserpictureController.$inject =['AuthToken','Auth','Access','API','$log','$state','hairdresserMAnager'];
 

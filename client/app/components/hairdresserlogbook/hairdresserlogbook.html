@@ -8,12 +8,32 @@
 				<hairdresser-menu></hairdresser-menu>
 			</div> <!-- .col-sm-4 left-element -->
 			<div class="col-sm-offset-1 col-sm-8">
-				<div ng-hide="vm.loadLogbook">
-					<img class="logbook-spinner" ng-src={{vm.spinner}}>					 
-				</div>
-				<div ng-if="vm.loadLogbook">			
-					<div id="logbook-content" ng-include="vm.url"></div>
-				</div>			 
+				<div class="row">
+					<div ng-hide="vm.loadLogbook">
+						<img class="logbook-spinner" ng-src={{vm.spinner}}>					 
+					</div>
+					<div ng-if="vm.loadLogbook">	
+						<div id="logbook-content" ng-include="vm.url"></div>
+					</div>	
+				</div><!-- .row -->
+				<div class="row row-left-25">
+					<div class="col-sm-2">
+						<span class="legend-square-white"></span>
+						<span class="legend-explanation">Touts les cr&eacuteneau sont disponibles </span>
+					</div>
+					<div class=" col-sm-2 ">
+						<span class="legend-square-green"></span>
+						<span class="legend-explanation"> Au moins un rendez-vous non confirm&eacute </span>
+					</div>
+					<div class="col-sm-2">
+						<span class="legend-square-red"></span>
+						<span class="legend-explanation">Journ&eacutee non disponible </span>
+					</div>
+					<div class="col-sm-2">
+						<span class="legend-square-orange"></span>
+						<span class="legend-explanation">Au moins un rendez-vous confirm&eacute</span>
+					</div>
+				</div> <!-- .row -->						 
 			</div> <!-- right element -->			
 		</div> <!-- top row -->
 	</div> <!-- .top container -->

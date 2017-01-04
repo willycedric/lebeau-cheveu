@@ -390,6 +390,21 @@ defineCalendarOption(){
     return deferred.promise;
 }
 
+/**
+   * [getPendingAppointment description]
+   * @param  {[type]} appointments [description]
+   * @return {[type]}              [description]
+   */
+  getPendingAppointment(appointments){
+    let count=0;
+    angular.forEach(appointments, (apt)=>{
+      if(apt.appointmentState === -1){
+        count++;
+      }
+    });
+    return count;
+  }
+
 
 }//end class
 HairdresserlogbookController.$inject =['AuthToken','Auth','API','$log','$state','$uibModal','hairdresserMAnager','customerMAnager','$scope','ModalFactory','DateHandler','$q','$window'];

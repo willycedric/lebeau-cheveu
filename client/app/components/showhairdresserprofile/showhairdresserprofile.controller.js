@@ -25,6 +25,9 @@ class ShowhairdresserprofileController {
             this.API = API;
             this.events=[];
             this.$uibModal = $uibModal;
+            this.loadLogbook = false;
+            this.spinner="http://i.imgur.com/Xqtymmo.gif";
+            this.url ="logbook.html"
             const currentDay = new Date();
             //let loggedCustomerInformation = AuthToken.parseToken(AuthToken.getToken());
             let loggedCustomerInformation = {};
@@ -76,57 +79,13 @@ class ShowhairdresserprofileController {
           tomorrow.setDate(tomorrow.getDate() + 1);
           var afterTomorrow = new Date(tomorrow);
           afterTomorrow.setDate(tomorrow.getDate() + 1);
-        //events
-      /*  var events=[
-                      {
-                        date: tomorrow,
-                        status: 'full'
-                      },
-                      {
-                        date: afterTomorrow,
-                        status: 'partially'
-                      }
-        ];*/
        
-      /*this.events=[];
+       
       var appointmentOfTheDay=[];
-      Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
-      .then((rep)=>{
-          this.hairdresser = rep;
-          this.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(this.hairdresser.appointments);
-          //datepicker logic
-         angular.forEach(this.hairdresser.appointments, (appt,key)=>{
-           this.events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers})
-        });        
-      })
-      .finally(()=>{
-         this.defineCalendarOption()
-         .then(()=>{
-            this.loadLogbook=true;
-          });          
-      }); */
+     
         //datapicker init date
         this.dt = new Date();
-        //date picker option
-        this.options = {
-            customClass: function(data) {       
-            var date = data.date,
-              mode = data.mode;
-            if (mode === 'day') { 
-              var dayToCheck = new Date(date).setHours(0,0,0,0);
-              for (var i = 0; i < this.events.length; i++) {
-                var currentDay = new Date(this.events[i].date).setHours(0,0,0,0);
-                if (dayToCheck === currentDay) {
-                  return this.events[i].status;
-                }
-              }
-            }
-            return '';
-          },
-            minDate: null, //Allow us to select date in the past 
-            showWeeks: false,
-            datepickerMode:'day'
-      };
+        
       var token = AuthToken.getToken();
       $scope.$watch('vm.dt',(newvalue, oldValue)=>{
         if( newvalue !== oldValue){
@@ -135,14 +94,16 @@ class ShowhairdresserprofileController {
             this.displayModalAskingToLoggedin('sm');
           }else if(AuthToken.parseToken(token).role !=2){
               this.displayOnlyForCustomerModal('sm');
-          }else if( AuthToken.parseToken(token).role ==2){
+          }else if( AuthToken.parseToken(token).role ==2){ //customer
              if(newvalue< currentDay){
                     this.dateInThePastModal();                      
               }else{
-                var tempObj = AuthToken.parseToken(token);
-                this.displayConfirmationModal(tempObj._id, tempObj.username, tempObj.firstname, tempObj.lastname);
+                this.Auth.getMe(`${API.dev.customerRoute}`)
+                .then((customer)=>{                   
+                       this.displayConfirmationModal(customer.locations);                    
+                });
+                               
               }
-               
           }
         }//end if          
       });    
@@ -253,16 +214,16 @@ class ShowhairdresserprofileController {
        * @param  {[type]} hairdresserUsername [description]
        * @return {[type]}                     [description]
        */
-      updateHairdresserThenCustomerAppointment(hairdresserId, dayOfWeek,selectedHour,customerId,username,lastname,firstname, hairdresserUsername){
+      updateHairdresserThenCustomerAppointment(hairdresserId, dayOfWeek,selectedHour,hairdresserUsername,locationIndex){
         var self= this;
-        this.hairdresserMAnager.updateHairdresserAppointment(hairdresserId,dayOfWeek,selectedHour,customerId,username,lastname,firstname)
+        this.hairdresserMAnager.updateHairdresserAppointment(hairdresserId,dayOfWeek,selectedHour,locationIndex)
               .then((id)=>{
                  var deffered =this.$q.defer();
                  deffered.resolve(id);
                  return deffered.promise;
               })
               .then( (id)=>{
-                this.customerMAnager.updateCustomerAppointment(id,hairdresserId,dayOfWeek, selectedHour,hairdresserUsername)
+                this.customerMAnager.updateCustomerAppointment(id,hairdresserId,dayOfWeek, selectedHour,hairdresserUsername,locationIndex)
                 .then(function updateAppointmentCustomerSlotControllerSuccessCallback(response){
                     if(response.success){
                       self.displayAppointmentConfirmationModal(true,dayOfWeek,selectedHour);
@@ -297,7 +258,7 @@ class ShowhairdresserprofileController {
          * @param  {[type]} size [description]
          * @return {[type]}      [description]
          */
-        displayConfirmationModal(customerId,username,lastname,firstname){
+        displayConfirmationModal(locations){
           var self = this;
           //check if the hairdresser has locked some days
           let hairdresserLockedDays = [];
@@ -327,7 +288,15 @@ class ShowhairdresserprofileController {
                         if( index == undefined){
                           this.showError =true;
                         }else{
-                              topController.updateHairdresserThenCustomerAppointment(topController.hairdresser._id,this.dt,this.openingHourList[index],customerId,username,lastname,firstname, topController.hairdresser.username);
+                              //When there is more than one location registered prompt the user to choose for his/her appointment location then send the location index
+                              //to the function in charge to store the appointment in the hairdresser and customer model. 
+                              if( locations.length > 1){
+                                topController.displayLocationSelectionModal(topController.hairdresser._id,this.dt,this.openingHourList[index],topController.hairdresser.username,locations);
+                              }else{
+                                // when there is just one location registered send the location index=0 to the handlers functions
+                                topController.updateHairdresserThenCustomerAppointment(topController.hairdresser._id,this.dt,this.openingHourList[index],topController.hairdresser.username,0);
+                              }
+                              
                             //$window.location.reload();
                            $uibModalInstance.close('cancel');
                         }                      
@@ -383,15 +352,19 @@ class ShowhairdresserprofileController {
   getHairdresser(id){
     var self=this;
     self.Auth.getHairdresserById(id)
-    .then(function ShowhairdresserprofileControllerSuccessCallback(response){
+    .then((response)=>{
          self.hairdresser = response;
           angular.forEach(self.hairdresser.appointments, (appt,key)=>{
            self.events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers})
         });  
-        console.log(self.events); 
-    }, function ShowhairdresserprofileControllerFailureCallback(err){
-        $log.error(err);
-    });
+          console.log(self.events);
+    })
+    .finally(()=>{
+         this.defineCalendarOption()
+         .then(()=>{
+            this.loadLogbook=true;
+          });          
+      });
   };
 
   /**
@@ -487,6 +460,34 @@ defineCalendarOption(){
     deferred.resolve(true);
     return deferred.promise;
 }  
+
+/**
+ * [displayLocationSelectionModal Prompt the user to select the appointment location when there is more than one location
+ * registered in the customer profile informations]
+ * @param  {[ObjectID]} hairdresserId       [hairdresser id]
+ * @param  {[date]} dayOfWeek           [selected day of week]
+ * @param  {[int]} selectedHour        [selected time slot]
+ * @param  {[string]} hairdresserUsername [hairdresser user name]
+ * @param  {[Object]} locations           [customer locations]
+ * @return {[N/A]}                     [N/A]
+ */
+displayLocationSelectionModal(hairdresserId,dayOfWeek,selectedHour,hairdresserUsername,locations){
+  var self = this;
+  self.ModalFactory.trigger(self, 'location-selection.html', function($uibModalInstance,topController){
+
+    this.message = "Veuillez sélectionner le lieux de rendez-vous.";
+    this.locations = locations;
+
+    this.ok = (selectedLocationIndex)=>{
+        topController.updateHairdresserThenCustomerAppointment(hairdresserId,dayOfWeek,selectedHour,hairdresserUsername,selectedLocationIndex);
+    };
+
+    this.cancel = ()=>{
+      $uibModalInstance.dismiss('cancel');
+    };
+
+  })
+};
 
 }
 
