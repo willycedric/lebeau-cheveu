@@ -1,7 +1,7 @@
 export const api = {
 	dev:{
-		homeUrl:'http://localhost:3000',
-		home:'http://localhost:4500/#/home',
+		homeUrl:'https://lebeaucheveu-backend.herokuapp.com',
+		home:'https://lebeaucheveu.herokuapp.com/#!/home/',
 		error:'http://localhost:4500/#/error',
 		customerRoute:'/api/users',
 		hairdresserRoute:'/api/hairdressers',
