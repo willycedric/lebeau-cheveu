@@ -1,7 +1,7 @@
 node_modules
 *.log
 DS_Store
-dist
+#dist
 client/lib
 sever/config
 data

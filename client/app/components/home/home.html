@@ -3,7 +3,7 @@
     <div class="container-fulid">          
         <div class="row">
           <div class="col-xs-12">
-              <uib-carousel active="vm.active" interval="vm.myInterval" on-carousel-change="vm.onSlideChanged(nextSlide, direction,nextIndex)"no-wrap="vm.noWrapSlides">
+              <uib-carousel template-url="carousel.template.html" active="vm.active" interval="vm.myInterval" on-carousel-change="vm.onSlideChanged(nextSlide, direction,nextIndex)"no-wrap="vm.noWrapSlides">
                 <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
                   <div class="carousel-caption">
                       <p >{{slide.text}}</p>
