@@ -9,3 +9,5 @@ frontEnd.sublime-project
 frontEnd.sublime-workspace
 node_modules
 .idea
+/nbproject/private/
+/nbporoject
