@@ -24,9 +24,9 @@ const posts = ($http, API, $q) => {
       let url = `${API.url}/posts`;
 
       if (query.id) {
-        url += `${query.id}`
+        url += `${query.id}`;
       } else if (query.title) {
-        url += `?title=${query.title}`
+        url += `?title=${query.title}`;
       }
 
       return $http.get(url)

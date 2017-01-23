@@ -21,7 +21,7 @@ const AuthToken = ($window,$log) =>{
    */
   const deleteToken = () =>{
   	$window.localStorage.removeItem("jwtToken");
-  }
+  };
   /**
    * [parse the token receivede from the server in order to obtain user's information]
    * @param  {[string]} token [access token]
@@ -61,7 +61,7 @@ const AuthToken = ($window,$log) =>{
     */
    const get=(key)=>{
     return $window.localStorage[key];
-   }
+   };
 
    /**
     * [erarse value from the local storage]

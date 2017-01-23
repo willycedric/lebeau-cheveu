@@ -7,23 +7,23 @@ export const api = {
 		hairdresserRoute:'/api/hairdressers',
         openingHourList:["9h:00","12h:00","15h:00","18h:00","21h:00"]
 	}*/
-	dev:{
+	/*dev:{
 		homeUrl:'http://localhost:3000',
 		home:'http://localhost:4500',
 		customerRoute:'/api/users',
 		hairdresserRoute:'/api/hairdressers'
-	},
-	/*test:{
+	},*/
+	test:{
 		homeUrl:'https://lebeaucheveu-bachend.herokuapp.com',
 		home:'https://lebeaucheveu.herokuapp.com/#/home',
 		error:'https://lebeaucheveu.herokuapp.com/#/error'
-	}*/
-	test:{
+	},
+	/*test:{
 		homeUrl:'http://localhost:3000/',
 		home:'http://localhost:4500/',
 		customerRoute:'/api/users',
 		hairdresserRoute:'/api/hairdressers'
-	},
+	}*/
 	location:'//maps.googleapis.com/maps/api/geocode/json',
 	log:true
 };
