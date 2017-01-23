@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- don't forget the basics of angular here! -->
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> <!-- users are not allowed to zoom -->
+  <title>Lebeaucheveu</title>
+  <style>
+  	body {
+		  width: 100%;
+		  height: 100%;
+		  overflow-x:hidden;
+		}
+
+		.slideout-menu {
+		  position: fixed;
+		  left: 0;
+		  top: 0;
+		  bottom: 0;
+		  right: 0;
+		  z-index: 0;
+		  width: 256px;
+		  overflow-y: auto;
+		  -webkit-overflow-scrolling: touch;
+		  display: none;
+		}
+
+		.slideout-panel {
+		  position: relative;
+		  z-index: 1;
+		}
+
+		.slideout-open,
+		.slideout-open body,
+		.slideout-open .slideout-panel {
+		  overflow: hidden;
+		}
+ </style>
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/67edca2dd3.js"></script>
+</head>
+<body style="background:#EEEEEE;">
+  <app></app>
+  <!-- don't you dare load up any other script tags here -->
+  <script src="bundle.js"></script>
+</body>
+</html>
