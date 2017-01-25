@@ -290,15 +290,29 @@ input[name="location-xs"]{
 }
 
 .home select {
-  /* background: transparent;*/
-   border: none;
-   font-size: 14px;
-   height: 29px;
-   padding: 5px; /* If you add too much padding here, the options won't show in IE */
-   width: 268px;
-  margin: -2px;   
-  height: 50px;
-  text-align: center;
+    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>");
+    background-repeat:no-repeat;
+    background-position: right 10px top 15px;
+    background-size: 16px 16px;
+    background-color:#eee;
+    font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
+    height: 40px;
+    padding: 5px;
+    width: 40%;
+    margin: -4px;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-align: center;
+    outline: none;
+    position:relative;
+    float:left;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border:0;
+    outline:0;
 }
 
 .home .no-rounder{
@@ -362,27 +376,25 @@ input[name="location-xs"]{
     /*-------------------------------------*/	
     
     .form-wrapper {
-        width: 40%;
+        width: 60%;
         margin: 0 auto;
         background: #444;
         background: rgba(0,0,0,.2);
-        -moz-box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
-        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
-        box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+        padding: 0px;
     }
     
     .home .form-wrapper > input {
-        width: 77%;
-        height: 40px;
-        text-align:center;
-        float: left;    
-        font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
-        border: 0;
-        background: #eee;
-        -moz-border-radius: 3px 0 0 3px;
-        -webkit-border-radius: 3px 0 0 3px;
-        border-radius: 3px 0 0 3px;      
-    }
+    width: 40%;
+    height: 40px;
+    text-align: center;
+    float: left;
+    font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
+    border: 0;
+    background: #eee;
+    -moz-border-radius: 3px 0 0 3px;
+    -webkit-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}
     
     .home .form-wrapper > input:focus {
         outline: 0;
@@ -412,23 +424,25 @@ input[name="location-xs"]{
     }    
     
     .home .form-wrapper > button {
-		overflow: visible;
-        position: relative;
-        float: right;
-        border: 0;
-        padding: 0;
-        cursor: pointer;
-        height: 40px;
-        width: 23%;
-        font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
-        color: #fff;
-        text-transform: uppercase;
-        background: #790303;
-        -moz-border-radius: 0 3px 3px 0;
-        -webkit-border-radius: 0 3px 3px 0;
-        border-radius: 0 3px 3px 0;      
-        text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
-    }   
+    overflow: visible;
+    position: relative;
+    /* float: right; */
+    margin-left:-8px;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    height: 40px;
+    width: 22%;
+    font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
+    color: #fff;
+    text-transform: uppercase;
+    background: #790303;
+    -moz-border-radius: 0 3px 3px 0;
+    -webkit-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+    text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
+    outline: none;
+}
       
     .home .form-wrapper > button:hover{		
         background: #e54040;
@@ -436,7 +450,8 @@ input[name="location-xs"]{
       
     .home .form-wrapper > button:active,
     .home .form-wrapper > button:focus{   
-        background: #c42f2f;    
+        background: #c42f2f; 
+        outline: none;
     }
     
     .home .form-wrapper > button:before {

@@ -16,6 +16,7 @@ class HomeController {
 
 	 this.$state = $state;
 	 this.$log =$log;
+         this.selected =true;
 	 
 
 	 //List of availables towns
@@ -51,7 +52,7 @@ class HomeController {
 
 	  this.onSlideChanged = function (nextSlide, direction, nextIndex) {
 		    //console.log("slide changed: ",nextIndex);
-	  }
+	  };
 
 
 	   //If a user is connected throught oauth, the token is retrieved from the url
@@ -74,7 +75,7 @@ class HomeController {
 	 * @return {[]} []
 	 */
 	goToSearchBarView(){		
-		if(this.selectedHaircutCategory != null || this.selectedLocation !=null){
+		if(this.selectedHaircutCategory !== null || this.selectedLocation !==null){
                     console.log('selectedHaircutCategory ',this.selectedHaircutCategory, 'selectedLocation ',this.selectedLocation);
 			this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:this.selectedLocation});
 		}else{
