@@ -75,7 +75,8 @@ class HomeController {
 	 */
 	goToSearchBarView(){		
 		if(this.selectedHaircutCategory != null || this.selectedLocation !=null){
-			this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:this.selectedLocation})
+                    console.log('selectedHaircutCategory ',this.selectedHaircutCategory, 'selectedLocation ',this.selectedLocation);
+			this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:this.selectedLocation});
 		}else{
 			//must find a way to display an error message
 			this.$log.info('the form is empty');

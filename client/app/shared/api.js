@@ -1,18 +1,18 @@
 export const api = {
-	dev:{
+	/*dev:{
 		homeUrl:'https://lebeaucheveu-backend.herokuapp.com',
 		home:'https://lebeaucheveu.herokuapp.com/#/home/',
 		error:'http://localhost:4500/#/error',
 		customerRoute:'/api/users',
 		hairdresserRoute:'/api/hairdressers',
         openingHourList:["9h:00","12h:00","15h:00","18h:00","21h:00"]
-	},
-	/*dev:{
+	},*/
+	dev:{
 		homeUrl:'http://localhost:3000',
 		home:'http://localhost:4500',
 		customerRoute:'/api/users',
 		hairdresserRoute:'/api/hairdressers'
-	},*/
+	},
 	/*test:{
 		homeUrl:'https://lebeaucheveu-bachend.herokuapp.com',
 		home:'https://lebeaucheveu.herokuapp.com/#/home',
@@ -27,3 +27,7 @@ export const api = {
 	location:'//maps.googleapis.com/maps/api/geocode/json',
 	log:true
 };
+
+//AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk
+//AIzaSyBGsbEKC8lC5RirMa0N1n60YBL3503d6TY -> good
+//AIzaSyBGsbEKC8lC5RirMa0N1n60YBL3503d6TY

@@ -18,14 +18,11 @@
     <div class="container-fluid">
        <div class="row hidden-xs">
           <div class="hero-footer ">  
+              <!-- 
                 <form class="form-inline form-lbc">
                   <div class="form-group">
                     <label for="exampleInputName2" class="sr-only">Location</label>
                     <input type="text"  name="exampleInputName2" ng-model="vm.selectedLocation" placeholder="Où?" uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control location">
-                    <!-- <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-                    <div ng-show="noResults">
-                      <i class="glyphicon glyphicon-remove"></i> No Results Found
-                    </div> -->
                   </div>
                   <div class="form-group">
                     <select  ng-model="vm.selectedHaircutCategory" id="haircut-type" name="haircut" class="no-rounder">
@@ -33,7 +30,11 @@
                     </select>
                   </div>
                   <a class="btn-lbc" ng-click= "vm.goToSearchBarView()">Rechercher</a>
-                </form>
+                </form> -->
+              <form class="form-wrapper cf" ng-submit="vm.goToSearchBarView()">          
+                    <input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
+                      <button type="submit">GO</button>
+             </form>
           </div> <!--  .hero-footer  -->
        </div> <!-- .row .hidden-xs -->
        <div class="row  visible-xs">       

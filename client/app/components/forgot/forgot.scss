@@ -49,3 +49,18 @@ $default-button-color-hover:#901a18;
 	text-align:left;
 	letter-spacing:0.1em;
 }
+
+.forgot .btn-forgot {
+    margin-top:5%;
+    background-color:$default-button-color;
+    outline: none;
+    color: #fff;
+    font-weight: normal;
+    padding: 14px 0;
+    text-transform: uppercase;
+    border-color: $default-button-color;
+    &:hover{
+        background-color:$default-button-color-hover;
+         border-color:$default-button-color;
+    }
+}

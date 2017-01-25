@@ -61,7 +61,7 @@
 		          <div class="panel-body">
 		            <div class="row">
 		              <div class="col-lg-12">
-			                <form id="password-form" role="form" style="display: block;">
+			                <form id="password-form" role="form" style="display: block;" ng-submit="vm.updatePassword(vm.user)">
 			                  <div class="form-group">
 			                    <input type="password" name="password" id="password"  ng-model ="vm.user.password" tabindex="1" class="form-control" placeholder="mot de passe" value="">
 			                  </div>
@@ -71,7 +71,7 @@
 			                  <div class="form-group">
 			                    <div class="row">
 			                      <div class="col-sm-6 col-sm-offset-3">
-			                        <input type="submit" name="password-submit" id="password-submit" tabindex="4" class="form-control btn btn-forgot" value="Envoyer" ng-click="vm.updatePassword(vm.user)">
+			                        <input type="submit" name="password-submit" id="password-submit" tabindex="4" class="form-control btn btn-forgot" value="Modifier">
 			                      </div>
 			                    </div>
 			                  </div>
@@ -127,5 +127,25 @@
           <div class="modal-footer" style="text-align:center;">
               <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.ok()">OK</a>
           </div>
-  </script>                
+  </script>  
+  <script type="text/ng-template" id="success-modal.html">
+                <div class="modal-header-success"  ng-show="$ctrl.isSuccess">
+	             <h5 class="center success modal-title">Confirmation </h5>
+	        </div>
+	        <div class="modal-header-error"  ng-hide="$ctrl.isSuccess">
+	             <h5 class="center error modal-title">Erreur </h5>
+	        </div>
+	        <div class="modal-body" id="modal-body" ng-show="$ctrl.isSuccess">
+	           <span class="question-modal" style="text-algin:center;"> {{$ctrl.message}}</span>
+	        </div>
+	        <div class="modal-body" id="modal-body" ng-hide="$ctrl.isSuccess">
+	           <span class="question-modal" style="text-algin:center;"> {{$ctrl.message}} !</span>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;"  ng-show="$ctrl.isSuccess">
+	            <button class="btn btn-primary btn-success" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;"  ng-hide="$ctrl.isSuccess">
+	            <button class="btn btn-primary btn-error" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+	</script>
 </section>

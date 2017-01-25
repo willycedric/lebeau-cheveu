@@ -62,20 +62,4 @@
     box-shadow: none;
     border-color: #ccc;
 }
-.forgot .btn-forgot {
-    background-color:#6DC3BB;
-    outline: none;
-    color: #fff;
-    font-size: 14px;
-    height: auto;
-    font-weight: normal;
-    padding: 14px 0;
-    text-transform: uppercase;
-    border-color: #6DC3BB;
-}
-.forgot .btn-forgot:hover,
-.forgot .btn-forgot:focus {
-    color: #fff;
-    background-color: #22AA22;
-    border-color:  #22AA22;
-}
+

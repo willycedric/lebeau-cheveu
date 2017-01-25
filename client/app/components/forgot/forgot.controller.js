@@ -1,11 +1,12 @@
 class ForgotController {
-  constructor(Auth,$stateParams,$log,ModalFactory) {
+  constructor(Auth,$stateParams,$log,ModalFactory,$state) {
     this.user={};
     this.errorMessage=null;
     this.isUser=false;
     this.isError=false;
     this.Auth = Auth;
-    this.$stateParams=$stateParams
+    this.$state = $state;
+    this.$stateParams=$stateParams;
     this.ModalFactory=ModalFactory;
     this.confirmationOfMailSent = false;
     this.message = 'Veuillez vous connecter à l\'adresse mail que vous avez indiquée lors de votre inscription à fin de  modifier votre mot de passe.';
@@ -66,15 +67,19 @@ class ForgotController {
      * @return {[type]}      [description]
      */
     updatePassword(user){
+        var self = this;
       if(this.user.role === 2){ //in case of customer
          if(user.password === user.passwordConfirmation){
          
           user.passwordToken=this.$stateParams.token;
            this.Auth.updatePassword('/api/users/updatePassword',user)
           .then(function updatePasswordControllerSuccessCallback(response){
-              console.log(response.data.message);
+              var successMessage = "Votre mot de passe a été mis à jour avec succès !";
+              self.displayPasswordResetConfirmationModal(true,successMessage);
+              
           },function updatePasswordControllerFailureCallback(err){
-              console.error(err);
+              var errorMessage ="Une erreur s\'est produite pendant la mise à jour de votre mot de passe. \n Veuillez remcommencer ultérieurement.";
+              self.displayPasswordResetConfirmationModal(false,errorMessage);
           });
         }else{
           console.log("password doesn't match");
@@ -147,8 +152,23 @@ class ForgotController {
       };
     });
   }
+  /**
+   * display a confirmation modal when a password a successfully updated and route the user to the app home page
+   * @returns {undefined}
+   */
+  displayPasswordResetConfirmationModal(status,message){
+      var self = this;
+      self.ModalFactory.trigger(self,'success-modal.html',function($uibModalInstance, topController ){
+             this.message = message;
+             this.isSuccess = status;
+          this.ok = () =>{
+              topController.$state.go('home');
+              $uibModalInstance.close('OK');
+          };
+      });
+  }
 } //end class
-ForgotController.$inject=['Auth','$stateParams','$log','ModalFactory'];
+ForgotController.$inject=['Auth','$stateParams','$log','ModalFactory','$state'];
 export {ForgotController};
 
 

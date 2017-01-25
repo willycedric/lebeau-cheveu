@@ -28,6 +28,7 @@ class SearchbarController {
   	//list of Available haircuts
   	this.listOfavailableHaircuts = null;
   	this.availableHaircutCategories =this.searchBar.getListOfavailableCategories();
+        this.$log.log("availableHaircutCategories ",this.availableHaircutCategories);
   	//Load the righ haircut list according to the parameters sent by the custome on the home search form
   	this.loadTheRightHaircutList();
 
@@ -48,7 +49,7 @@ class SearchbarController {
    * @return {[type]} [description]
    */
   loadTheRightHaircutList(){
-  	this.$log.debug('available categories ',this.availableHaircutCategories)
+  	this.$log.debug('available categories ',this.availableHaircutCategories);
   	if(this.selectedCategory === this.availableHaircutCategories[0]){ //afro haircuts
   		this.listOfavailableHaircuts = this.searchBar.getListOfavailableAfroHaircuts();
   	}else if (this.selectedCategory === this.availableHaircutCategories[1]) { //european haircuts

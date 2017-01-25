@@ -6,6 +6,7 @@ const locationFactory = ($http, API) =>{
 		        sensor: false
 		      }
 		    }).then(function(response){
+                       // console.log('From the factory ', response.data.results);
 		      return response.data.results.map(function(item){
 		        return item.formatted_address;
 		      });
