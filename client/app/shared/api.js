@@ -1,12 +1,12 @@
 export const api = {
-	/*dev:{
+	dev:{
 		homeUrl:'https://lebeaucheveu-backend.herokuapp.com',
 		home:'https://lebeaucheveu.herokuapp.com/#/home/',
 		error:'http://localhost:4500/#/error',
 		customerRoute:'/api/users',
 		hairdresserRoute:'/api/hairdressers',
         openingHourList:["9h:00","12h:00","15h:00","18h:00","21h:00"]
-	},*/
+	},/*
 	dev:{
 		homeUrl:'http://localhost:3000',
 		home:'http://localhost:4500',
