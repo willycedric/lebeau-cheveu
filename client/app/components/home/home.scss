@@ -5,7 +5,14 @@ $details-height:18%;
 $details-background:#999; /* or c8c8c8*/
 $shadow-color:#5F5F5F;
 $border-style:dashed;
-
+$home-margin-top:0;
+$home-section-padding:40px;
+$how-to-use-background-color:#c98;
+$motivation-background-color:#c23;
+$haircuts-example-background-color:#ccc;
+$customer-advice-background-color:#c05;
+$legal-notice-background-color:#c06;
+$how-to-use-margin:0;
 /** How it work section */
 .step-badge{
 	width:$circle-radius;
@@ -104,3 +111,35 @@ $border-style:dashed;
         .show {
             opacity: 1;
         }
+
+/** Section color overlay **/
+
+#how-to-use{
+    background: $how-to-use-background-color;
+    margin: $how-to-use-margin;
+    padding: $home-section-padding;
+}
+
+#motivation{
+    background: $motivation-background-color;
+    margin: $how-to-use-margin;
+    padding: $home-section-padding;
+}
+
+#haircuts-example{
+    background: $haircuts-example-background-color;
+    margin: $how-to-use-margin;
+    padding: $home-section-padding;
+}
+
+#customer-advice{
+    background: $customer-advice-background-color;
+    margin: $how-to-use-margin;
+    padding: $home-section-padding;
+}
+
+#legal-notice{
+    background: $legal-notice-background-color;
+    margin: $how-to-use-margin;
+    padding: $home-section-padding;
+}

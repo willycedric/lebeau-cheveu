@@ -1,118 +1,65 @@
 <div class="home">
-   <section id="carousel">
-    <div class="container-fulid">          
-        <div class="row">
-          <div class="col-xs-12">
-              <uib-carousel template-url="carousel.template.html" active="vm.active" interval="vm.myInterval" on-carousel-change="vm.onSlideChanged(nextSlide, direction,nextIndex)"no-wrap="vm.noWrapSlides">
-                <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
-                  <div class="carousel-caption">
-                      <p >{{slide.text}}</p>
-                 </div> <!-- .carousel-caption -->
-                   <img class='carousel-img' style="width: 100%;height: auto;" ng-src="{{slide.image}}" >
-              </uib-slide>
-            </uib-carousel>
-         </div>
-        </div>        <!-- .row -->
-    </div><!-- .container-fluid-fluid -->
-    <div class="overlay">
-    <div class="container-fluid">
-       <div class="row hidden-xs">
-          <div class="hero-footer ">  
-              <!-- 
-                <form class="form-inline form-lbc">
-                  <div class="form-group">
-                    <label for="exampleInputName2" class="sr-only">Location</label>
-                    <input type="text"  name="exampleInputName2" ng-model="vm.selectedLocation" placeholder="Où?" uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control location">
-                  </div>
-                  <div class="form-group">
-                    <select  ng-model="vm.selectedHaircutCategory" id="haircut-type" name="haircut" class="no-rounder">
-                    <option ng-repeat = "haircut in vm.listOfAvailableCategories"  value="{{haircut}}">{{haircut}}</option>
-                    </select>
-                  </div>
-                  <a class="btn-lbc" ng-click= "vm.goToSearchBarView()">Rechercher</a>
-                </form> -->
-              <form class="form-wrapper cf" ng-submit="vm.goToSearchBarView()"> 
-                        <select  ng-model="vm.selectedHaircutCategory" id="haircut-type" name="haircut" class="no-rounder">
-                            <optgroup label="categories">
-                                <option selected="selected">Quelle catégorie de coiffure?</option>
-                                <option ng-repeat = "haircut in vm.listOfAvailableCategories"  value="{{haircut}}">{{haircut}}</option>
-                            </optgroup>
-                         </select>
-                        <input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
-                    
-                      <button type="submit">GO</button>
-             </form>
-          </div> <!--  .hero-footer  -->
-       </div> <!-- .row .hidden-xs -->
-       <div class="row  visible-xs">       
-              <div class="hero-footer">  
-                  <form class="form-inline">                  
-                      <div class="col-xs-8">
-                        <div class="form-group">
-                          <label for="exampleInputName2" class="sr-only">Name</label>
-                           <input type="text"  name="exampleInputName2" ng-model="vm.asyncSelected" placeholder="Où?" uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control location">
-                        </div>  
-                      </div>
-                      <div class="col-xs-4">
-                         <a href="#"> <span class="icon-search-lbc"></span></a>
-                      </div>                               
-                  </form> <!-- form -->
-              </div> <!--  .hero-footer  -->        
-        </div><!-- .row .visible-xs-->    
-      </div><!-- .container-fluid -->    
-    </div> <!-- .overlay --> 
-   </section> <!-- #carousel -->
-   <section class="how-it-work from-previous-section">
+   <section id="section-carousel">
+    <div class="container-fulid">
+        <div class="row" id="carousel">
+            
+        </div>
+        <div class="row" id="search-fields">
+            
+        </div>
+    </div>
+   </section> <!-- #section-carousel -->
+   <section  id="how-to-use" class="how-it-works from-previous-section">
       <div class="container">
           <div class="hidden-xs">
               <div class="row">
-                  <a class="how-work button-default-lbc btn-lbc"  >Comment ça marche </a>
-                  <div id="how-it-work" class="hide">
+                 <!-- <a class="how-work button-default-lbc btn-lbc"  >Comment ça marche </a>-->
+                  <div id="how-it-work" class="">
                     <h3 class="section-title head" >Comment ça marche </h3>
-                      <div class="col-sm-4 col-md-4" id="first-step">
+                      <div class="col-sm-4 col-md-4" id="first-steps">
                    
-                    <div class="step-details">
-                      <div class="txt hide">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    <div class="step-detail">
+                      <div class="txts ">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                      </div><!-- #txt -->                      
-                    </div> <!-- .step-details-->
+                      </div><!-- #txts -->                      
+                    </div> <!-- .step-detail-->
                      <div class="step-badge">
                       <span> 1 </span>
                     </div><!-- .step-badge -->
                   </div><!-- first-step -->
-                   <div class="col-sm-4 col-md-4" id="second-step">
+                   <div class="col-sm-4 col-md-4" id="second-steps">
                       
-                      <div class="step-details">
-                        <div class="txt hide">
+                      <div class="step-detail">
+                        <div class="txts ">
                           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                           quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                           consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                           cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </div><!-- #txt -->
-                      </div><!-- .step-details-->
-                      <div class="step-badge hide">
+                        </div><!-- #txts -->
+                      </div><!-- .step-detail-->
+                      <div class="step-badge ">
                          <span> 2</span>
                       </div><!-- step-badge -->
                   </div><!-- .second-step -->
-                   <div class="col-sm-4 col-md-4"id="third-step">
+                   <div class="col-sm-4 col-md-4"id="third-steps">
                       
-                       <div class="step-details">
-                        <div class="txt hide">
+                       <div class="step-detail">
+                        <div class="txts ">
                           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                           quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                           consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                           cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </div><!-- #txt -->
-                      </div><!-- .step-details-->
-                      <div class="step-badge hide">
+                        </div><!-- #txts -->
+                      </div><!-- .step-detail-->
+                      <div class="step-badge ">
                          <span> 3 </span>
                       </div><!-- .step-badge -->
                   </div><!-- .third-step-->
@@ -122,26 +69,6 @@
           </div> <!-- .hidden-xs -->
       </div>
    </section>
-
-   <!-- <section id="haircut-categories" class="from-previous-section" style="background:#EDEFED">
-    <div class="container">
-       <div class="row">
-        <div class="col-xs-12">
-            <h3 class="section-title"> Nos Prestations</h3>
-        </div>
-      </div> 
-      <div class="row">
-        <div class="col-sm-4 col-xs-12">
-          <simple-card url={{vm.url}} name="" description="Cheveux Afro"></simple-card>
-        </div> 
-        <div class="col-sm-4 col-xs-12">
-          <simple-card url={{vm.url}} name="" description="Cheveux Lisses"></simple-card>
-        </div> 
-        <div class="col-sm-4 col-xs-12">
-          <simple-card url={{vm.url}} name="" description="Cheveux blouclés"></simple-card>
-        </div>  
-      </div> 
-    </div> -->
   </section> <!-- haircut-categories--> 
   <section id="motivation" class="section-start">
     <div class="container-fluid">
