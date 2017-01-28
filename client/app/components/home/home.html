@@ -5,7 +5,17 @@
             
         </div>
         <div class="row" id="search-fields">
-            
+            <form class="form-wrapper cf" ng-submit="vm.goToSearchBarView()"> 
+                        <select  ng-model="vm.selectedHaircutCategory" id="haircut-type" name="haircut" class="no-rounder">
+                            <optgroup label="categories">
+                                <option selected="selected">Quelle catégorie de coiffure?</option>
+                                <option ng-repeat = "haircut in vm.listOfAvailableCategories"  value="{{haircut}}">{{haircut}}</option>
+                            </optgroup>
+                         </select>
+                        <input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
+                    
+                      <button type="submit">GO</button>
+             </form>
         </div>
     </div>
    </section> <!-- #section-carousel -->
