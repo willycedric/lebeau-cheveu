@@ -1,93 +1,31 @@
-<div id="app">
-  <div class="container-fluid"> 
-    <div class="row" >
-            <div id='cssmenu'>         
-                <div class="active logo" ui-sref-active="active">
-                       <a ui-sref="home" style='font-family:Lobster'> <span class="lebeaucheveu-logo"></span></a>
-                         <a ui-sref="home" style='font-family:Lobster'>Lebeaucheveu</a>              
-                </div>
-              
-                <div id="head-mobile"></div>
-                <div class="button"></div>
-                <!-- <div class="menu-sublink"> -->              
-                   <ul>
-                      <li ui-sref-active="active" class="active become-hairdresser">            
-                            <a class="a-link" ui-sref="join">Proposez vos services</a>
-                      </li>
-                      <li ui-sref-active="active" class="active">            
-                            <a class="a-link" ui-sref="catalog">Catalogues</a>
-                      </li>
-                      <li ui-sref-active="active" class="active">
-                          <a id="blog-link" ui-sref="blog">Blog</a>
-                      </li>
-                      <li ng-show="vm.toggle" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{vm.username}} <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li ng-show="vm.isCustomer"><a ui-sref="customer">Mon compte</a></li>
-                                <li ng-show="vm.isAdmin"><a ui-sref="admin">Mon compte</a></li>
-                                <li ng-show="vm.isHairdresser"><a ui-sref="hairdresser">Mon compte</a></li>
-                                <li><a ui-sref="cart">Achats</a></li>
-                                <li class="divider"></li>
-                                <li ng-click="vm.logout()"><a class="logout-link" >Deconnexion</a></li>
-                            </ul>
-                        </li>
-                      <li ng-show="!vm.toggle" class="active login-link">
-                          <a id ="login-link" href="#" ><login name="Connexion" class="login-t"></login></a>
-                      </li>
-                    </ul>         
-                 <!-- </div> --><!-- end menu-sublink -->                
-            </div><!-- end cssmenu -->
-    </div>
-    <div class="row">
-        <nav id="menu">
-          <header>
-            <h2>Menu</h2>
-          </header>
-        </nav>
-    </div> <!-- end nav row -->
-  </div><!-- end container-fluid -->
+<section class="app">
+       <nav class="navbar navbar-default transparent navbar-static-top" role="navigation" id="navbar-main">
+          <div class="container">
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navCollapse">
+                      <span class="sr-only">Toggle Navigation</span>
+                      <span class="fa fa-chevron-down"></span> Menu
+                  </button>
+                  <a class="navbar-brand" href="#"><span class="fa fa-paw"></span>  Paws Brand, Inc.</a>
+              </div>
+              <div class="collapse navbar-collapse" id="navCollapse">
+                  <ul class="nav navbar-nav navbar-right">
+                      <li class="active"><a href="#">Home</a></li>
+                      <li><a href="#">Services</a></li>
+                      <li><a href="#">Projects</a></li>
+                      <li><a href="#">Company</a></li>
+                      <li><a href="#">Contact</a></li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+      <!--end nav bar-->
   
 
-  <div class="container-fluid">
+  <div class="">
        <main class="main" id="panel">
-          <button class="toggle-button">☰</button>
-          <div ui-view id="view" ng-class="vm.transition"></div>
+          <div ui-view id="view"></div>
        </main><!-- end main -->
   </div>
-  <div class="container-fluid">       
-      <!--[ footer ] -->  
-      <div class="row page-bottom">
-              <div class="col-md-6 col-lg-6 col-xs-6">
-                <div id="legal-issues">
-                   <ul class="text-center">
-                    <li>                      
-                        <a href="#">{{vm.labels.english.L_W_USER_GUIDE}}</a>                     
-                    </li>
-                    <li>                     
-                        <a href="#">{{vm.labels.english.L_W_TERMS_OF_USE}}</a>                      
-                    </li>
-                    <li>                      
-                        <a href="#">{{vm.labels.english.L_W_NEWS_LETTER}}</a>                    
-                    </li>
-                  </ul>
-               </div><!-- end #legal-issues -->
-              </div>
-              <div class="col-md-6 col-lg-6 col-xs-6">
-                <div id="social-networks">
-                 <ul class="text-center">
-                    <li>
-                        <a href="#"><i class="fa fa-facebook-official" aria-hidden="tue"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-instagram" aria-hidden="tue"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-twitter-square" aria-hidden="tue"></i></a>
-                    </li>
-                 </ul>
-                </div> <!-- end #social-network --> 
-              </div>         
-      </div>  <!-- end .row footer -->
-      <!-- end [ footer ] -->
- </div> <!-- end .container-fluid -->
-</div>
+  
+</section>

@@ -1,24 +1,30 @@
 <div class="home">
-   <section id="section-carousel">
-    <div class="container-fulid">
-        <div class="row" id="carousel">
-            
-        </div>
-        <div class="row" id="search-fields">
-            <form class="form-wrapper cf" ng-submit="vm.goToSearchBarView()"> 
-                        <select  ng-model="vm.selectedHaircutCategory" id="haircut-type" name="haircut" class="no-rounder">
-                            <optgroup label="categories">
-                                <option selected="selected">Quelle catégorie de coiffure?</option>
-                                <option ng-repeat = "haircut in vm.listOfAvailableCategories"  value="{{haircut}}">{{haircut}}</option>
-                            </optgroup>
-                         </select>
-                        <input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
-                    
-                      <button type="submit">GO</button>
-             </form>
-        </div>
-    </div>
-   </section> <!-- #section-carousel -->
+ <!--begin bg-carousel-->
+      <div id="bg-fade-carousel" class="carousel carousel-fade" data-ride="carousel">
+      <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+              <div class="item active">
+                  <div class="slide1"></div>
+              </div>
+              <div class="item">
+                  <div class="slide2"></div>
+              </div>
+              <div class="item">
+                  <div class="slide3"></div>
+              </div>
+          </div><!-- .carousel-inner --> 
+          <div class="container carousel-overlay text-center">
+              <h1>Get Kittens Free All Week Long</h1>
+              <p class="lead">Special orders also available upon request.  Check out our pricing.</p>
+              <a class="btn btn-lg btn-success fp-buttons" href="#">
+                  <span class="fa fa-dollar"></span> Get Pricing
+              </a>
+              <a class="btn btn-lg btn-success fp-buttons" href="#">
+                  <span class="fa fa-check"></span> Sign Up
+              </a>
+          </div>
+      </div><!-- .carousel --> 
+      <!--end bg-carousel-->
    <section  id="how-to-use" class="how-it-works from-previous-section">
       <div class="container">
           <div class="hidden-xs">

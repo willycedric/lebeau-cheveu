@@ -14,6 +14,8 @@ export const homeDirective = ()=> {
 	    	//console.log("value entered: ",$(elt).find('.location').val());
 	    	var secondStepDelay=3000;
 	    	var thirdStepDelay=6000;
+                //$(elt).find(".carousel").carousel();
+                console.log($(elt).find(".carousel").pang());
 	    	//first step
 	    	$(elt).find(".how-work").on('click', function(evt){
 	    		$(this).addClass('hide');
