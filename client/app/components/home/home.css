@@ -128,3 +128,129 @@
 
 /*** end carousel css *******/
 
+/***  search form ***/
+    
+    a {
+        color: #ccc;
+    }
+    
+    /*-------------------------------------*/
+    
+    
+
+    /*-------------------------------------*/	
+    
+    .form-wrapper {
+        width: 60%;
+        margin: 0 auto;
+        background: #444;
+        background: rgba(0,0,0,.2);
+        padding: 0px;
+    }
+    
+    .home .form-wrapper > input {
+    width: 40%;
+    height: 60px;
+    text-align: center;
+    float: left;
+    font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
+    border: 0;
+    background: #eee;
+    -moz-border-radius: 3px 0 0 3px;
+    -webkit-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}
+.home select{
+    
+}
+    .home .form-wrapper > input:focus {
+        outline: 0;
+        background: #fff;
+        -moz-box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+        -webkit-box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+        box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+    }
+    
+    .home .form-wrapper > input:-webkit-input-placeholder {
+       color: #999;
+       font-weight: normal;
+       font-style: italic;
+       
+    }
+    
+    .home .form-wrapper > input:-moz-placeholder {
+        color: #999;
+        font-weight: normal;
+        font-style: italic;
+    }
+    
+    .home .form-wrapper > input:-ms-input-placeholder {
+        color: #999;
+        font-weight: normal;
+        font-style: italic;
+    }    
+    
+    .home .form-wrapper > button {
+    overflow: visible;
+    position: relative;
+    /* float: right; */
+    margin-left:-8px;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    height: 40px;
+    width: 22%;
+    font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
+    color: #fff;
+    text-transform: uppercase;
+    background: #790303;
+    -moz-border-radius: 0 3px 3px 0;
+    -webkit-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+    text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
+    outline: none;
+}
+      
+    .home .form-wrapper > button:hover{		
+        background: #e54040;
+    }	
+      
+    .home .form-wrapper > button:active,
+    .home .form-wrapper > button:focus{   
+        background: #c42f2f; 
+        outline: none;
+    }
+    
+    .home .form-wrapper > button:before {
+        content: '';
+        position: absolute;
+        border-width: 8px 8px 8px 0;
+        border-style: solid solid solid none;
+        border-color: transparent #790303 transparent;
+        top: 12px;
+        left: -6px;
+    }
+    
+    .home .form-wrapper > button:hover:before{
+        border-right-color: #e54040;
+    }
+    
+    .home .form-wrapper > button:focus:before{
+        border-right-color: #c42f2f;
+    }    
+    
+    .home .form-wrapper > button::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
+.byline p{
+  text-align:center;
+  color:#c6c6c6;
+  font: bold 18px Arial, Helvetica, Sans-serif;
+  text-shadow: 0 2px 3px rgba(0,0,0,0.1);
+}
+
+.byline p a{
+  color:#d83c3c;
+  text-decoration:none;
+}
