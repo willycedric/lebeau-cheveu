@@ -12,14 +12,17 @@ $motivation-background-color:#c23;
 $haircuts-example-background-color:#ccc;
 $customer-advice-background-color:#c05;
 $legal-notice-background-color:#c06;
+$home-section-height:35em;;
 $how-to-use-margin:0;
+$section-default-background-color-1:rgba(15, 124, 125, 0.65);//rgb(13,167,169);
+$section-default-background-color-2:rgba(204,204,204,0.39);
 /** How it work section */
 .step-badge{
 	width:$circle-radius;
 	height:$circle-radius;
 	border-radius:50%;
 	color:$white;
-	background:$button-color;
+	background:$section-default-background-color-1;
 	margin:0 auto;
 	text-align:center;
 	position:relative;
@@ -115,35 +118,40 @@ $how-to-use-margin:0;
 /** Section color overlay **/
 
 #how-to-use{
-    background: $how-to-use-background-color;
+    background: $section-default-background-color-2;
     margin: $how-to-use-margin;
     padding: $home-section-padding;
+    color:#333;
 }
 
 #motivation{
-    background: $motivation-background-color;
+    background: $section-default-background-color-1;
     margin: $how-to-use-margin;
     padding: $home-section-padding;
 }
 
 #haircuts-example{
-    background: $haircuts-example-background-color;
+    background: $section-default-background-color-2;
     margin: $how-to-use-margin;
     padding: $home-section-padding;
 }
 
 #customer-advice{
-    background: $customer-advice-background-color;
+    background: $section-default-background-color-1;
     margin: $how-to-use-margin;
     padding: $home-section-padding;
 }
 
 #legal-notice{
-    background: $legal-notice-background-color;
+    background: $section-default-background-color-2;
     margin: $how-to-use-margin;
     padding: $home-section-padding;
+    
 }
-
+.home section {
+    height:$home-section-height;
+    color:$white;
+}
 
 
 

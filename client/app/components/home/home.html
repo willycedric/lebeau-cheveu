@@ -13,19 +13,33 @@
                   <div class="slide3"></div>
               </div>
           </div><!-- .carousel-inner --> 
+          
           <div class="container carousel-overlay text-center">
-             <form class="form-wrapper cf" ng-submit="vm.goToSearchBarView()"> 
-                        <select  ng-model="vm.selectedHaircutCategory" id="haircut-type" name="haircut" class="no-rounder">
-                            <optgroup label="categories">
-                                <option selected="selected">Quelle catégorie de coiffure?</option>
-                                <option ng-repeat = "haircut in vm.listOfAvailableCategories"  value="{{haircut}}">{{haircut}}</option>
-                            </optgroup>
-                         </select>
-                        <input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
-                    
-                      <button type="submit">GO</button>
-             </form>
-          </div>
+              <div class="row catch-phrase-top">
+                  <div class=" col-sm-offset-3 col-sm-3" id="home-start-change">
+                      <h1><i>LeBeauCheveu</i></h1>
+                  </div>
+              </div><!-- .row-->
+              <div class="row">
+                  <div class=" catch-phrase-low col-sm-offset-3 col-sm-6">
+                      <h2><i>Ne vous déplacez plus pour vous faire belle.</i></h2>
+                  </div>
+              </div><!-- .row-->
+            
+             <div class="row">
+                        <form class="form-wrapper cf" ng-submit="vm.goToSearchBarView()"> 
+                                   <select  ng-model="vm.selectedHaircutCategory" id="haircut-type" name="haircut" class="no-rounder">
+                                       <optgroup label="categories">
+                                           <option selected="selected">Quelle catégorie de coiffure?</option>
+                                           <option ng-repeat = "haircut in vm.listOfAvailableCategories"  value="{{haircut}}">{{haircut}}</option>
+                                       </optgroup>
+                                    </select>
+                                   <input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
+
+                                 <button type="submit">GO</button>
+                        </form>
+              </div><!-- .row -->
+         </div>
       </div><!-- .carousel --> 
       <!--end bg-carousel-->
    <section  id="how-to-use" class="how-it-works from-previous-section">
@@ -144,17 +158,6 @@
           <card-with-user description="une nouvelle coiffure " url={{vm.url}} user={{vm.url}}></card-with-user>
         </div>
       </div> <!-- .row -->
-      <div class="row">
-        <div class=" col-sm-4">
-          <card-with-user description="une nouvelle coiffure " url={{vm.url}} user={{vm.url}}></card-with-user>
-          </div>
-        <div class="col-sm-4">
-          <card-with-user description="une nouvelle coiffure " url={{vm.url}} user={{vm.url}}></card-with-user>
-        </div>
-        <div class="col-sm-4">
-          <card-with-user  description="une nouvelle coiffure " url={{vm.url}} user={{vm.url}}></card-with-user>
-        </div>
-      </div><!-- .row -->    
     </div><!-- .container-fluid -->    
     <div class="container-fluid visible-xs">
         <div class="row">

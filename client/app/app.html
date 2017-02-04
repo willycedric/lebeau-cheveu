@@ -1,26 +1,53 @@
 <section class="app">
-       <nav class="navbar navbar-default transparent navbar-static-top" role="navigation" id="navbar-main">
+       
+    <div class="container">
+        <div  class="row">            
+        <nav class="navbar navbar-default transparent navbar-static-top" role="navigation" id="navbar-main">
           <div class="container">
               <div class="navbar-header">
                   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navCollapse">
                       <span class="sr-only">Toggle Navigation</span>
                       <span class="fa fa-chevron-down"></span> Menu
                   </button>
-                  <a class="navbar-brand" href="#"><span class="fa fa-paw"></span>  Paws Brand, Inc.</a>
+                 <a class="navbar-brand" href="#">
+                     <object type="image/svg+xml" data="logo.svg" class="logo">
+                         <a href="#"></a>
+                     </object>
+                 </a>
               </div>
               <div class="collapse navbar-collapse" id="navCollapse">
                   <ul class="nav navbar-nav navbar-right">
                       <!--<li class="active"><a href="#">Home</a></li>-->
-                      <li><a href="#">Nous rejoindre</a></li>
-                      <li><a href="#">Catalogue</a></li>
-                      <li><a href="#">Blog</a></li>
-                      <li><a href="#">Connexion</a></li>
+                      <li ui-sref-active="active" class="active become-hairdresser">
+                          <a class="a-link" ui-sref="join">Proposez vos services</a>
+                      </li>
+                       <li ui-sref-active="active" class="active">            
+                            <a class="a-link" ui-sref="catalog">Catalogues</a>
+                      </li>
+                      <li ui-sref-active="active" class="active">
+                          <a id="blog-link" ui-sref="blog">Blog</a>
+                      </li>
+                      <li ng-show="vm.toggle" class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{vm.username}} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li ng-show="vm.isCustomer"><a ui-sref="customer">Mon compte</a></li>
+                                <li ng-show="vm.isAdmin"><a ui-sref="admin">Mon compte</a></li>
+                                <li ng-show="vm.isHairdresser"><a ui-sref="hairdresser">Mon compte</a></li>
+                                <li><a ui-sref="cart">Achats</a></li>
+                                <li class="divider"></li>
+                                <li ng-click="vm.logout()"><a class="logout-link" >Deconnexion</a></li>
+                            </ul>
+                        </li>
+                     <li ng-show="!vm.toggle" ui-sref-active="active" class="login-link">
+                          <a id ="login-link" href="#" ><login name="Connexion" class="login-t"></login></a>
+                      </li>
                   </ul>
               </div>
           </div>
       </nav>
       <!--end nav bar-->
-  
+        </div>
+    </div>
 
   <div class="">
        <main class="main" id="panel">

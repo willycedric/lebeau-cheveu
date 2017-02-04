@@ -1,5 +1,11 @@
+ body .join{
+    padding-top:53px;
+}
 .section {
-	dispplay:block;
+	display:block;
+}
+.join{
+   min-height: 560px; 
 }
 
 

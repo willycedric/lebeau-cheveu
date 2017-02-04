@@ -1,4 +1,7 @@
 
+.app{
+    font-familly:FuturaPT-Book, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 /**** New css rules *****/
 .app .navbar {
     position: absolute;
@@ -7,7 +10,8 @@
     right: 0;
 }
 .app .navbar-default.transparent {
-    background-color: transparent;
+    background-color: transparent; 
+    position:fixed;
 }
 /****************************/
 /*                          */
@@ -15,27 +19,45 @@
 /*                          */
 /****************************/
 .app .navbar-default .navbar-brand {
-    color: rgba(0,180,0,1);      
+    color: #fff;
+    font-family: FuturaPT-Book;
 }
 .app .navbar-default .navbar-brand:hover {
-    color: rgba(0,180,0,1);      
+    color: rgba(121,3,3,0.2);      
 }
 .app .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
-    color: #fff;
-    background-color: rgba(0,180,0,.5);
+   background-color: rgba(255,255,255,0.8);
+    color: rgb(13,167,169);
+    font-weight: lighter;
     
 }
 .app .navbar-default .navbar-nav>li>a {
     color: #fff;
-    text-transform: uppercase;
+    text-transform: none;
     text-shadow: 1px 1px 1px rgba(0,0,0,.75);
     border-radius: 4px;
     padding: 10px 15px;
     margin: 5px 0px;
+    border-color: transparent;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin-bottom: 0;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 0;
+    user-select: none;
+    text-align: center;
+    font-size: 1.1em;
+    letter-spacing: 0px;
+    line-height: 4.6em;
+    font-weight: Lighter;
+    font-family: FuturaPT-Book;
+    /* line-height: 0px; */
 }
 .app .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
-    color: #fff;
-    background-color: rgba(0,180,0,.25);
+    background-color:transparent;
+    color: rgb(13,167,169);
+    font-weight: lighter;
 }
 .app .navbar-collapse.in {
     background-color: rgba(255,255,255,.5);
@@ -44,7 +66,7 @@
     border-color: transparent;
 }
 .app .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-    background-color: rgba(0,180,0,.5);
+    background-color: rgba(121,3,3,0.2);
 }
 .app .navbar-toggle {
     padding: 9px 10px;
@@ -52,4 +74,132 @@
     margin-right: 15px;
     margin-bottom: 8px;
     color: #fff;
+}
+
+@media (min-width: 1000px){
+   .navbar .navbar-nav>li>a {
+    font-size: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-transform:none;
+}
+}
+
+.app .btn-lbc {
+    background:transparent;
+    color:#fff;
+    font-size:1.1em;
+    letter-spacing: 0px;
+    font-family: FuturaPT-Book;
+}
+.app .btn-lbc a{
+    font-size: 1.3em;
+    letter-spacing: 1.5px;
+    line-height: 1.2em;
+    font-weight: Lighter;
+    font-family: FuturaPT-Book;;
+}
+.app .btn-lbc:hover,.app .btn-lbc:focus{
+    background-color: transparent;
+    color:rgb(13,167,169);
+}
+
+@media (min-width:600px) {
+    .navbar-nav {
+        float: left;
+        margin: 0
+    }
+    .navbar-nav>li {
+        float: left
+    }
+    .navbar-nav>li>a {
+        padding-top: 19px;
+        padding-bottom: 19px
+    }
+    .navbar-nav.navbar-right:last-child {
+        margin-right: -15px
+    }
+}
+
+@media (min-width:600px) {
+    .navbar-left {
+        float: left!important
+    }
+    .navbar-right {
+        float: right!important
+    }
+}
+
+
+/******* web app logo  ****/
+
+.logo {
+    width: 250px;
+    height: 200px;
+    position: absolute;
+    margin-top: -25px;
+}
+a.logo {
+  position:relative;
+  display:inline-block;
+}
+a.logo:after {
+  content: ""; 
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left:0;
+}
+
+/** logo fallback **/
+.no-svg .logo {
+  width: 200px;
+  height: 164px;
+  background-image: url(../../dist/logo.png);
+} 
+
+object{
+    pointer-events: none;
+}
+
+
+
+/***** css font  ****/
+@font-face {
+    font-family: FuturaPT-Book;
+    src: url(../../dist/3069A7_0_0.eot);
+    src: url(../../dist/3069A7_0_0.eot?#iefix) format('embedded-opentype'), url(../../dist/3069A7_0_0.woff2) format('woff2'), url(../../dist/3069A7_0_0.woff) format('woff'), url(../../dist/3069A7_0_0.ttf) format('truetype')
+}
+
+@font-face {
+    font-family: FuturaPT-Medium;
+    src: url(../../dist/3069A7_2_0.eot);
+    src: url(../../dist/3069A7_2_0.eot?#iefix) format('embedded-opentype'), url(../../dist/3069A7_2_0.woff2) format('woff2'), url(../../dist/3069A7_2_0.woff) format('woff'), url(../../dist/3069A7_2_0.ttf) format('truetype')
+}
+
+@font-face {
+    font-family: FuturaPT-Italic;
+    src: url(../../dist/30F6BD_0_0.eot);
+    src: url(../../dist/30F6BD_0_0.eot?#iefix) format('embedded-opentype'), url(../../dist/30F6BD_0_0.woff2) format('woff2'), url(../../dist/30F6BD_0_0.woff) format('woff'), url(../../dist/30F6BD_0_0.ttf) format('truetype')
+}
+
+@font-face {
+    font-family: FuturaPT-ItalicLimited;
+    src: url(../../dist/FuturaPT-BookObl.eot);
+    src: url(../../dist/FuturaPT-BookObl.eot?#iefix) format('embedded-opentype'), url(../../dist/FuturaPT-BookObl.woff2) format('woff2'), url(../../dist/FuturaPT-BookObl.woff) format('woff'), url(../../dist/FuturaPT-BookObl.ttf) format('truetype')
+}
+
+@font-face {
+    font-family: Asterisk;
+    src: url(../../dist/asterisk.eot);
+    src: url(../../dist/asterisk.eot?#iefix) format('embedded-opentype'), url(../../dist/asterisk.woff2) format('woff2'), url(../../dist/asterisk.woff) format('woff'), url(../../dist/asterisk.ttf) format('truetype')
+}
+
+@font-face {
+    font-family: rb;
+    src: url(../../dist/rb.eot);
+    src: url(../../dist/rb.eot#iefix) format('embedded-opentype'), url(../../dist/rb.woff2) format('woff2'), url(../../dist/rb.ttf) format('truetype'), url(../../dist/rb.woff) format('woff'), url(../../dist/rb.svg#rb) format('svg');
+    font-weight: 400;
+    font-style: normal
 }

@@ -1,6 +1,17 @@
+ body {
+    padding-top:0px;
+}
 .home .banner{
    /*margin-top:15em;*/
     text-align: center;
+}
+/*** icon ***/
+.home .logo-lbc{
+    background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CiAgICA8cGF0aCBzdHlsZT0iZmlsbDpncmV5IiBkPSJNMTUuNSAgMTRoLS43OWwtLjI4LS4yN0MxNS40MSAxMi41OSAxNiAxMS4xMSAxNiA5LjUgMTYgNS45MSAxMy4wOSAzIDkuNSAzUzMgNS45MSAzIDkuNSA1LjkxIDE2IDkuNSAxNmMxLjYxIDAgMy4wOS0uNTkgNC4yMy0xLjU3bC4yNy4yOHYuNzlsNSA0Ljk5TDIwLjQ5IDE5bC00Ljk5LTV6bS02IDBDNy4wMSAxNCA1IDExLjk5IDUgOS41UzcuMDEgNSA5LjUgNSAxNCA3LjAxIDE0IDkuNSAxMS45OSAxNCA5LjUgMTR6Ii8+Cjwvc3ZnPg==) no-repeat center center;
+    padding:25px;
+    position: absolute;
+    top: 18px;
+    margin: -19px;
 }
 
 /********* Carousel css *******/
@@ -143,8 +154,7 @@
     .form-wrapper {
         width: 60%;
         margin: 0 auto;
-        background: #444;
-        background: rgba(0,0,0,.2);
+        background: #eee;
         padding: 0px;
     }
     
@@ -160,9 +170,31 @@
     -webkit-border-radius: 3px 0 0 3px;
     border-radius: 3px 0 0 3px;
 }
-.home select{
-    
-}
+    .home select {
+        /*background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>");*/
+        background-repeat:no-repeat;
+        background-position: right 10px top 15px;
+        background-size: 16px 16px;
+        background-color:#eee;
+        font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
+        height: 60px;
+        padding: 5px;
+        width: 40%;
+        margin-left: -6px;
+        margin-bottom: 0;
+        margin-top: 0;
+        text-align: center;
+        outline: none;
+        position:relative;
+        /*float:left;*/
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border:0;
+        outline:0;
+    }
     .home .form-wrapper > input:focus {
         outline: 0;
         background: #fff;
@@ -193,17 +225,17 @@
     .home .form-wrapper > button {
     overflow: visible;
     position: relative;
-    /* float: right; */
+    float: right; 
     margin-left:-8px;
     border: 0;
     padding: 0;
     cursor: pointer;
-    height: 40px;
-    width: 22%;
+    height: 60px;
+    width: 20%;
     font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
     color: #fff;
     text-transform: uppercase;
-    background: #790303;
+    background: rgba(13,167,169,0.8);
     -moz-border-radius: 0 3px 3px 0;
     -webkit-border-radius: 0 3px 3px 0;
     border-radius: 0 3px 3px 0;
@@ -212,12 +244,12 @@
 }
       
     .home .form-wrapper > button:hover{		
-        background: #e54040;
+        background: rgb(13,167,169);
     }	
       
     .home .form-wrapper > button:active,
     .home .form-wrapper > button:focus{   
-        background: #c42f2f; 
+        background: rgb(13,167,169); 
         outline: none;
     }
     
@@ -226,17 +258,17 @@
         position: absolute;
         border-width: 8px 8px 8px 0;
         border-style: solid solid solid none;
-        border-color: transparent #790303 transparent;
-        top: 12px;
+        border-color: transparent rgba(13,167,169,0.35) transparent;
+        top: 22px;
         left: -6px;
     }
     
     .home .form-wrapper > button:hover:before{
-        border-right-color: #e54040;
+        border-right-color: rgb(13,167,169);
     }
     
     .home .form-wrapper > button:focus:before{
-        border-right-color: #c42f2f;
+        border-right-color: rgb(13,167,169);
     }    
     
     .home .form-wrapper > button::-moz-focus-inner {
@@ -253,4 +285,25 @@
 .byline p a{
   color:#d83c3c;
   text-decoration:none;
+}
+.catch-phrase-top{
+    width: 100%;
+    margin:0 auto;
+}
+.catch-phrase-low{
+    width:100%;
+    margin:0 auto;
+    margin-bottom:2em;
+}
+
+.catch-phrase-low i{
+    font-size: 0.7em;
+    font-family: FuturaPT-Book,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.catch-phrase-top  i{
+    font-family:FuturaPT-Italic, "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1.9em;
+    letter-spacing: 5px;
+    line-height: 0em;
+    font-style: italic;
 }
