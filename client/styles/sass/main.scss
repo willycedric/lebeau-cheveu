@@ -21,6 +21,10 @@ $green:green;
 $red:red;
 $warning-color:#d98f07;
 /** Margin with the previous section */
+
+h3,h4,h5,h1,h2{
+    font-family:FuturaPT-Medium,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 .from-previous-section{
 	margin-top:$distance-from-previous-section;
 }
@@ -248,4 +252,11 @@ h5{
 	&:hover{
 		cursor:pointer;
 	}
+}
+.row-bottom-5em{
+    margin-bottom: 5em;
+}
+
+.row-top-5em{
+    margin-top:5em;
 }
