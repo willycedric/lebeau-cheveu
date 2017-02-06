@@ -47,21 +47,43 @@
   display: block;
 }
 
-.cacthing-details h4{
+.home .cacthing-details h4{
     margin-top:2em;
     font-family:FuturaPT-Medium,"Helvetica Neue",Helvetica,Arial,sans-serif;
     letter-spacing:1.3px; 
 }
-.text-muted{
+.home .text-muted{
     font-family: FuturaPT-Book,"Helvetica Neue",Helvetica,Arial,sans-serif;
     color:#979797;
     font-size:1.1em;
     padding:6%;
 }
-.img-responsives{
+.home .text{
+    font-family: FuturaPT-Book,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding:4% 6% 0% 6%;
+    text-align: left;
+    font-size:1.3em;
+}
+
+.home .btn-home {
+        background: #0da7a9;
+        border-color: #0da7a9;
+        color: white;
+        border:0;
+        border-radius:0;
+        font-family: FuturaPT-Book,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.home .btn-home:hover{
+    background: rgba(13, 167, 169, 0.69) ;
+    border-color: transparent;
+    border:0;
+    border-radius: 0;
+}
+.home .img-responsives{
     max-width: 100%;
     display: block;
     height: auto;
+    font-family: FuturaPT-Book,"Helvetica Neue",Helvetica,Arial,sans-serif;
     
 }
 /********* Carousel css *******/
