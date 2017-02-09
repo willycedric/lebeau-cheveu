@@ -94,16 +94,16 @@
     background-attachment: fixed;
 }
 .home .slide1 {
-    background-image: url(http://static.wixstatic.com/media/c44689058810919906a109842749a7d1.jpg/v1/fill/w_1440,h_610/c44689058810919906a109842749a7d1.jpg);
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),url(http://static.wixstatic.com/media/c44689058810919906a109842749a7d1.jpg/v1/fill/w_1440,h_610/c44689058810919906a109842749a7d1.jpg);
 }
 .home .slide2 {
-    background-image: url(http://static.wixstatic.com/media/2cd6d838743ada92612f88f385e26952.jpg/v1/fill/w_1280,h_853/2cd6d838743ada92612f88f385e26952.jpg);
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),url(http://static.wixstatic.com/media/2cd6d838743ada92612f88f385e26952.jpg/v1/fill/w_1280,h_853/2cd6d838743ada92612f88f385e26952.jpg);
 }
 .home .slide3 {
-    background-image: url(http://static.wixstatic.com/media/24912a5942079acbdc64ff9d4dca5b44.jpg/v1/fill/w_1280,h_853/24912a5942079acbdc64ff9d4dca5b44.jpg);
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),url(http://static.wixstatic.com/media/24912a5942079acbdc64ff9d4dca5b44.jpg/v1/fill/w_1280,h_853/24912a5942079acbdc64ff9d4dca5b44.jpg);
 }
 .home .slide4 {
-    background-image: url(http://static.wixstatic.com/media/59a5f4b420bdc0f1818d53c389eda264.jpg/v1/fill/w_1000,h_741/59a5f4b420bdc0f1818d53c389eda264.jpg);
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),url(http://static.wixstatic.com/media/59a5f4b420bdc0f1818d53c389eda264.jpg/v1/fill/w_1000,h_741/59a5f4b420bdc0f1818d53c389eda264.jpg);
 }
 
 /* Carousel Fade Effect */

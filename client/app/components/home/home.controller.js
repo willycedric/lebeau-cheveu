@@ -132,6 +132,13 @@ class HomeController {
             
             return (list.indexOf(index)=== -1)?defaultColor:customColor;
          }
+         /**
+          * [goToJoinState description]
+          * @return {[type]} [description]
+          */
+         goToJoinState(){
+         	this.$state.go("join");
+         }
 };
 
 HomeController.$inject=['Location','$state','$stateParams','AuthToken','$rootScope','$log','Auth','searchBar','Map'];
