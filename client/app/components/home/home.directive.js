@@ -11,7 +11,9 @@ export const homeDirective = ()=> {
 	 	restrict:'E',
 	 	scope: {},
 	    link: function(scope, elt, atts){
-                $(document).ready(function(){       
+                $(document).ready(function(){  
+                  $(".lebeaucheveu-logo").css('left','0');
+                  $(".lebeaucheveu-logo").css('margin-top','0');       
                     var scroll_start = 0;
                     var startchange = $(elt).find('#home-start-change');
                     var offset = startchange.offset();

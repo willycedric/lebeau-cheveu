@@ -12,10 +12,11 @@ $motivation-background-color:#c23;
 $haircuts-example-background-color:#ccc;
 $customer-advice-background-color:#c05;
 $legal-notice-background-color:#c06;
-$home-section-height:60em;;
+$home-section-height:50em;
 $how-to-use-margin:0;
-$section-default-background-color-1:rgba(15, 124, 125, 0.65);//rgb(13,167,169);
-$section-default-background-color-2:rgba(204,204,204,0.39);
+$section-default-background-color-1:rgba(229, 229, 229, 0.29);//rgba(15, 124, 125, 0.65);//rgb(13,167,169);
+$section-default-background-color-2:rgba(240, 240, 240, 0.25);
+$footer-background-color:#435e64;
 /** How it work section */
 .step-badge{
 	width:$circle-radius;
@@ -137,21 +138,19 @@ $section-default-background-color-2:rgba(204,204,204,0.39);
 }
 
 #customer-advice{
-    background: $section-default-background-color-1;
+    background: #fdfaef;
     margin: $how-to-use-margin;
     padding: $home-section-padding;
 }
 
 #legal-notice{
-    background: $section-default-background-color-2;
+    background: $footer-background-color;
     margin: $how-to-use-margin;
-    padding: $home-section-padding;
-    
+    padding: $home-section-padding;    
 }
 .home section {
     height:$home-section-height;
     color:$white;
 }
-
 
 

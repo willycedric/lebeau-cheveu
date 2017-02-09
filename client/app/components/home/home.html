@@ -100,7 +100,7 @@
               <div class="col-sm-8">
                   <div class="row">
                       <div class="col-sm-offset-1  col-sm-11">
-                          <h3> Comment ça marche ? </h3>
+                          <h3 class="section-title"> Comment ça marche ? </h3>
                           <p class="text">
                               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -108,7 +108,7 @@
                           consequat.
                           </p>
                       </div>
-                      <button class="btn-lbc-default">En savoir plus </button>
+                      <button class="btn-lbc-default btn-home" ng-click="vm.goToJoinState()">En savoir plus </button>
                   </div><!-- end .row -->
               </div>
           </div><!-- end .row -->
@@ -116,53 +116,32 @@
    </section>
   </section> <!-- haircut-categories--> 
   <section id="motivation" class="section-start">
-    <div class="container-fluid">
-        <div class="row">
-          <div class="col-xs-12">
-               <h3 class="section-title"> Rejoignez nous</h3>
-          </div>
-        </div> <!-- .row -->
-        <div class="row hidden-xs">
-            <div class="col-sm-offset-2 col-sm-4">            
-                      <img class="img-responsive" src="http://equalizersoccer.com/wp-content/uploads/2014/11/USATSI_8101145_168380843_lowres.jpg"/>
-            </div>  
-            <div class="col-sm-4">
-              <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </div>      
-        </div> <!-- .row .hidden-xs -->
-        <div class="row visible-xs">
-          <div class="col-xs-12">
-            <figure>
-              <img class="img-responsive" src="http://equalizersoccer.com/wp-content/uploads/2014/11/USATSI_8101145_168380843_lowres.jpg"/>  
-            </figure>  
-          </div>
-          <div class="col-xs-12">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </div> <!-- .row .visible-xs -->
-    </div> <!-- .container-fluid -->     
+    <div class="container">
+        <div class="row">          
+            <div class="col-md-6 map">
+                    <svg  version="1.1" id="Calque_1" xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width=400 height=400 viewBox="0 0 600 650" overflow="visible" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" enable-background="new 0 0 300 300" xml:space="preserve" class="mapSvg">   
+                      <a  ng-repeat="zone in vm.zonePaths track by $index" xlink:href="{{zone.url}}" ng-mouseover="vm.displayRegionName(zone.title)" ng-mouseleave="vm.name =''">
+                        <path id="{{zone.title}}"title="{{zone.title}}" d="{{vm.obj[$index]}}"  fill="{{vm.svgPathFiller(zone.id,vm.truncateTo2CharactersHairdresserDepartementList,'#0DA7A9','#D1F5FF')}}" stroke="{{vm.mapstroke}}" stroke-width="{{vm.mapstroke_width}}"/>
+                      </a>    
+                    </svg>
+                    <div class="path-name">
+                        {{vm.name}}
+                    </div>
+            </div><!-- end map -->
+        </div> <!-- .row -->        
+    </div> <!-- .container -->     
   </section> <!-- #motivation -->
   <section id="haircuts-example" class="from-previous-section">
     <div class="container-fluid hidden-xs">
-        <div class="row">
+        <div class="row ">
           <div class="col-xs-12">
               <h3 class="section-title"> Dernières créations </h3>
           </div>
        </div> <!-- .row -->
-      <div class="row">
+      <div class="row row-top-5em">
         <div class="col-sm-4">
           <card-with-user description="une nouvelle coiffure " url={{vm.url}}  user={{vm.url}}></card-with-user>
-          </div>
+        </div>
         <div class=" col-sm-4">
           <card-with-user description="une nouvelle coiffure " url={{vm.url}} user={{vm.url}}></card-with-user>
         </div>
@@ -172,7 +151,7 @@
       </div> <!-- .row -->
     </div><!-- .container-fluid -->    
     <div class="container-fluid visible-xs">
-        <div class="row">
+        <div class="row row-top-5em">
         <div class="col-xs-12">
           <card-with-user description="une nouvelle coiffure " url={{vm.url}} user={{vm.url}}></card-with-user>
           </div>
@@ -187,123 +166,88 @@
   </section> <!-- #haircuts-example -->  
   <section id="customer-advice" class="from-previous-section">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row row-top-5em">
           <div class="col-xs-12">             
                <h3 class="section-title"> Des clients satisfaits</h3>
           </div>
         </div> <!-- .row -->
-        <div class="row">
+        <div class="row row-top-5em">
           <div class="col-xs-12 col-sm-4">   
             <figure class="left">       
-              <img src="{{vm.url}}" class="img-responsive avatar-circle">
+              <img src="{{vm.url}}" class="img-responsive block-center bottom-3em avatar-circle">
             </figure>
-            <p><span class="quote">&ldquo;</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            <p class="quote"><span>&ldquo;</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco .<span class="quote">&rdquo;</span></p>
+            quis nostrud exercitation ullamco .<span>&rdquo;</span></p>
           </div>
           <div class="col-xs-12 col-sm-4">
             <figure class="left">       
-                <img src="{{vm.url}}" class="img-responsive avatar-circle">
+                <img src="{{vm.url}}" class="img-responsive   block-center bottom-3em avatar-circle">
             </figure>
-            <p> <span class="quote">&ldquo;</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            <p class="quote"> <span>&ldquo;</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco.<span class="quote">&rdquo;</span></p>
+            quis nostrud exercitation ullamco.<span>&rdquo;</span></p>
           </div>
           <div class="col-xs-12 col-sm-4">
              <figure class="left">       
-              <img src="{{vm.url}}" class="img-responsive avatar-circle">
+              <img src="{{vm.url}}" class="img-responsive   block-center bottom-3em avatar-circle">
             </figure>
-            <p> <span class="quote">&ldquo;</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            <p class="quote"> <span>&ldquo;</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco.. <span class="quote">&rdquo;</span></p>
+            quis nostrud exercitation ullamco.. <span>&rdquo;</span></p>
           </div>
       </div><!-- .row -->
     </div> <!-- .container-fluid -->
   </section>
-  <footer id="legal-notice" class="from-previous-section">
-    <div class="container-fluid hidden-xs">
-      <div class="row">
+  <footer id="legal-notice">
+    <div class="container">
+      <div class="row row-top-5em">
         <div class="col-xs-12">
-          <h3 class="section-title"> Mention légales</h3>
+         <!-- <h3 class="section-title"> Mention légales</h3>-->
         </div>
       </div> <!-- .row -->
-      <div class="row">
-        <div class="col-sm-3">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      <div class="row row-top-5em">
+        <div class=" col-sm-offset-1 col-sm-2">
+          <div class="legal-mention-contains">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
         </div>
-        <div class="col-sm-3">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <div class=" col-sm-offset-1 col-sm-2">
+          <div class="legal-mention-contains">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
         </div>
-        <div class="col-sm-3">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <div class="col-sm-offset-1 col-sm-2">
+            <div class="legal-mention-contains">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
         </div>
-        <div class="col-sm-3">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <div class="col-sm-offset-1 col-sm-2">
+          <div class="legal-mention-contains">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
         </div>
       </div>
     </div> <!-- .container-fluid .hidden-xs -->
-    <div class="container-fluid visible-xs">
-      <div class="row">
-          <div class="col-xs-12">
-             <h3 class="section-title"> Mention légales</h3>
-          </div>
-      </div> <!-- .row -->
-      <div class="row">
-        <div class="col-xs-6">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-        <div class="col-xs-6">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-      </div><!-- .row -->
-       <div class="row">
-        <div class="col-xs-6">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-        <div class="col-xs-6">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-      </div><!-- .row -->
-    </div><!-- .container-fluid .visible-xs -->
   </footer>
 </div> 

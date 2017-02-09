@@ -35,19 +35,15 @@ h3,h4,h5,h1,h2{
 }
 
 .section-title{
-	text-align:center;
-	font-weight:600;
-	font-size:1.3em;
-	font-family:Helvetica,Arial;
-	margin-bottom:4%;
+	font-family:FuturaPT-Medium,"Helvetica Neue",Helvetica,Arial,sans-serif;
 	color:#333;
-	transform:scale(0.9);
-	&:hover,&:focus{
-		cursor:pointer;
-		transform:scale(1);
-	}
+    font-size:2.3em;
 }
-
+.quote{
+	font-family:FuturaPT-Italic,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	color:#435E64;
+    font-size:1.5em;
+}
 .section-content{
 	margin:3%;
 	font-size:1.3em;
@@ -242,10 +238,18 @@ h5{
 .top-3{
 	margin-top:3%;
 }
+.bottom-3em{
+	margin-bottom:3em;
+}
 
 .legend-explanation{
 	font-style:italic;
 	font-size:0.9em;
+}
+
+.block-center{
+	width:100%;
+	margin:0 auto 3em auto;
 }
 
 .section-widget{

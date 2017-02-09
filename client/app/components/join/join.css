@@ -1,16 +1,186 @@
- body .join{
-    padding-top:53px;
-}
-.section {
-	display:block;
-}
 .join{
-   min-height: 560px; 
+	padding-top: 8em;
 }
 
 
-@media screen and (min-width: 1300px){
-	.banner .next-section{
-		margin-top: 250px;
+#navbar-support{
+	position:relative;
+	z-index:1;
+}
+.jumbotron-support{
+	background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),url("../../../../dist/mother_daughter_2_crop_1.jpg");
+	height:40em;
+	margin-top: -8em;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+@media (max-width:999px) {
+    #navbar-support {
+        margin-bottom: 20px;
+    }
+    #navbar-support .btn-navigation {
+        padding: 11px 20px 13px;
+    }
+    #navbar-support .navbar-account-row {
+        background-color: transparent!important;
+        padding-bottom: 20px;
+        padding-right: 0;
+    }
+    #navbar-support .nav-inline>li {
+        display: block!important;
+        width: 100%;
+        text-align: left;
+        border-right: 0;
+    }
+    #navbar-support .nav-inline>li.active {
+        display: none!important
+    }
+    #navbar-support .nav-inline>li>a {
+        padding: 10px 20px;
+    }
+    .jumbotron #navbar-support .navbar-account-row {
+        border-bottom: 0;
+    }
+    .nav-chevron>li>a {
+        font-size: 18px;
+    }
+}
+
+@media all and (min-width:1000px) {
+	#navbar-support{
+		padding-top:30px;
+		padding-bottom: 30px;
+		margin-top: 8em;
 	}
+
+    .nav-chevron>li>a {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    #navbar-support {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    #navbar-support #support-menu {
+        display: block!important;
+        height: auto!important;
+    }
 }
+
+#navbar-support .btn-navigation {
+        padding-left: 15px;
+        padding-right: 15px;
+}
+
+.btn-navigation {
+    color: #e3232e!important;
+    background-color: transparent;
+    text-align: left;
+    border: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-family: FuturaPT-Medium, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400
+}
+
+.btn-navigation:focus,
+.btn-navigation:hover,
+.open>.dropdown-toggle.btn-navigation {
+    color: #e3232e!important;
+    background-color: transparent;
+    border-color: #dedede
+}
+.btn-navigation.active,
+.btn-navigation:active,
+.open>.dropdown-toggle.btn-navigation {
+    color: #911117!important;
+    background-color: transparent;
+    border-color: #dedede;
+    background-image: none
+}
+
+.btn-navigation.disabled,
+.btn-navigation.disabled.active,
+.btn-navigation.disabled:active,
+.btn-navigation.disabled:focus,
+.btn-navigation.disabled:hover,
+.btn-navigation[disabled],
+.btn-navigation[disabled].active,
+.btn-navigation[disabled]:active,
+.btn-navigation[disabled]:focus,
+.btn-navigation[disabled]:hover,
+fieldset[disabled] .btn-navigation,
+fieldset[disabled] .btn-navigation.active,
+fieldset[disabled] .btn-navigation:active,
+fieldset[disabled] .btn-navigation:focus,
+fieldset[disabled] .btn-navigation:hover {
+    color: #911117!important;
+    background-color: transparent;
+    border-color: #dedede
+}
+
+.btn-navigation .badge {
+    color: transparent;
+    background-color: #e3232e
+}
+
+.btn-navigation .rb {
+    font-size: 8px
+}
+
+.btn-navigation .rb:before {
+    font-family: rb;
+    content: "\e92a"
+}
+
+.btn-navigation.collapsed .rb:before {
+    content: "\e928"
+}
+
+.nav-lines>li {
+    border-right: 1px solid #c6c6c6
+}
+
+.nav-lines>li:last-child {
+    border-right: 0!important
+}
+.jumbotron .jumbotron-content{
+	height: inherit;
+    width: 100%;
+    position: relative;
+}
+.nav-lines>li>a {
+    color: #0da7a9;
+    font-size: 18px;
+    padding: 4px 40px;
+    font-family: FuturaPT-Medium, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400
+}
+.nav-inline>li {
+    display: inline-block;
+}
+
+.nav-lines>li>a:focus,
+.nav-lines>li>a:hover {
+    color: #fafafa;
+    background:transparent;
+}
+
+.nav-lines>li.active a {
+    color: #e3232e;
+    text-decoration: underline
+}
+
+.jumbotron ul {
+    color: #fff;
+    font-size: 15px;
+    text-align: center;
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+.jumbotron .nav-lines>li {
+    border-right: 1px solid rgba(255,255,255,.59);
+}
+
