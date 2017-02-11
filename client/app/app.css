@@ -10,7 +10,7 @@
     right: 0;
 }
 .app .navbar-default.transparent {
-    background-color: transparent; 
+    background-color: rgba(255,255,255,0.34); 
     position:fixed;
 }
 /****************************/

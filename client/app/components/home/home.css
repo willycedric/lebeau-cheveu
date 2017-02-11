@@ -240,20 +240,25 @@
     height: 60px;
     text-align: center;
     float: left;
-    font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
+    font: bold 15px FuturaPT-Book,'lucida sans', 'trebuchet MS', 'Tahoma';
     border: 0;
+    color:#333 !important;
     background: #eee;
     -moz-border-radius: 3px 0 0 3px;
     -webkit-border-radius: 3px 0 0 3px;
     border-radius: 3px 0 0 3px;
 }
+.home .form-wrapper > input[type=text]{
+  color:#333;
+}
     .home select {
-        /*background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>");*/
+        background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' fill='#0da7a9' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>");
         background-repeat:no-repeat;
-        background-position: right 10px top 15px;
+        background-position: right 10px top 22px;
         background-size: 16px 16px;
         background-color:#eee;
-        font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
+        color:#333;
+        font: bold 15px FuturaPT-Book,'lucida sans', 'trebuchet MS', 'Tahoma';
         height: 60px;
         padding: 5px;
         width: 40%;
@@ -281,22 +286,18 @@
     }
     
     .home .form-wrapper > input:-webkit-input-placeholder {
-       color: #999;
-       font-weight: normal;
-       font-style: italic;
-       
+       color: #333;
+       font:bold 15px FuturaPT-Book,'lucida sans', 'trebuchet MS', 'Tahoma';       
     }
     
     .home .form-wrapper > input:-moz-placeholder {
-        color: #999;
-        font-weight: normal;
-        font-style: italic;
+        color: #333;
+       font:bold 15px FuturaPT-Book,'lucida sans', 'trebuchet MS', 'Tahoma';
     }
     
     .home .form-wrapper > input:-ms-input-placeholder {
-        color: #999;
-        font-weight: normal;
-        font-style: italic;
+        color: #333;
+       font:bold 15px FuturaPT-Book,'lucida sans', 'trebuchet MS', 'Tahoma';
     }    
     
     .home .form-wrapper > button {
@@ -309,7 +310,7 @@
     cursor: pointer;
     height: 60px;
     width: 20%;
-    font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
+    font: bold 15px/40px FuturaPT-Book ,'lucida sans', 'trebuchet MS', 'Tahoma';
     color: #fff;
     text-transform: uppercase;
     background: rgba(13,167,169,0.8);
