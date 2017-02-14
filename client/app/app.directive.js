@@ -1,6 +1,5 @@
 import './app.css';
 import $ from 'jquery';
-import Slideout from 'slideout/dist/slideout.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import template from './app.html';
 import {AppController as controller} from './app.controller';

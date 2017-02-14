@@ -13,6 +13,7 @@ import {customerAccountManager} from './customerAccountManager';
 import {searchBar} from './searchBar';
 import {ModalFactory} from './modalFactory';
 import {DateHandler} from './simpleDateHandler';
+import {ZonePath} from './zonePath';
 import angular from 'angular';
 
 
@@ -32,6 +33,7 @@ export const shared = angular.module('shared', [])
   .factory('searchBar',searchBar)
   .factory('ModalFactory',ModalFactory)
   .factory('DateHandler',DateHandler)
+  .factory('ZonePath',ZonePath)
   .config(function($httpProvider){
   	$httpProvider.interceptors.push(AuthInterceptor);
   });

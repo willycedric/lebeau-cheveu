@@ -39,7 +39,7 @@ gulp.task('todo', function() {
     .pipe(todo({silent: false, verbose: true}));
 });
 
-gulp.task('build', ['label'], function() {
+gulp.task('build', function() {
   return gulp.src(paths.entry)
     .pipe(webpack(require('./webpack.config')))
     .pipe(gulp.dest(paths.dest));
