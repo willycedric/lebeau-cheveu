@@ -1,4 +1,4 @@
-export const servicesocalizedMessagesModule = angular.module('servicesocalizedMessagesModule', []).factory('localizedMessages', ['$interpolate', 'I18N.MESSAGES', function ($interpolate, i18nmessages) {
+export const servicesLocalizedMessagesModule = angular.module('servicesLocalizedMessagesModule', []).factory('localizedMessages', ['$interpolate', 'I18N.MESSAGES', function ($interpolate, i18nmessages) {
 
   var handleNotFound = function (msg, msgKey) {
     return msg || '?' + msgKey + '?';

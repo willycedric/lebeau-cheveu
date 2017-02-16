@@ -1,6 +1,6 @@
 export const servicesHairdresserResourceModule = angular.module('servicesHairdresserResourceModule', ['security.service']).factory('hairdresserResource', ['$http', '$q', '$log', 'security', function ($http, $q, $log, security) {
   // local variable
-  var baseUrl = '/api';
+ const baseUrl = 'http://localhost:3500/api';
   var processResponse = function(res){
     return res.data;
   };

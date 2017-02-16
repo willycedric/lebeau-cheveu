@@ -50,23 +50,24 @@
                                  </div>-->
                               </div><!-- #facebook -->
                               <p class="background-line push--top push--bottom">
-                                      <span> Connectez vous avec votre nom d'utilisateur </span>
+                                      <span> Connectez vous avec votre nom d utilisateur </span>
                               </p> 
-                              <form autocomplete="off"  role="login" name="customerLoginForm" novalidate style="display: block;" ng-submit="vm.logCustomer(vm.user,customerLoginForm)">
+                              <form autocomplete="off"  role="login" name="customerLoginForm" novalidate style="display: block;" ng-submit="vm.submit(vm.user,customerLoginForm)">
+                                  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
                                    <div class="field-wrap" ng-class="{ 'has-error' : customerLoginForm.username.$invalid && !customerLoginForm.username.$pristine }">
                                     <label class="label-displayed" for="username"></label>
-                                    <input type="text" data-actor="customer" name="username" id="username" autocomplete="false"  ng-model ="vm.user.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required username-existence>
+                                    <input type="text" data-actor="customer" name="username" id="username" autocomplete="false"  ng-model ="vm.user.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required>
                                     <!-- in case of an error the message below is displayed as part of the list of message errors -->
-                                    <span ng-if='customerLoginForm.username.$pending.existusername' class='text-info'>Vérification de la disponibilité ...</span>
-                                    <span ng-show='customerLoginForm.username.$invalid && !customerLoginForm.username.$error.existusername &&!customerLoginForm.username.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
-                                    <span ng-show="customerLoginForm.username.$invalid && customerLoginForm.username.$error.existusername&&!customerLoginForm.username.$pristine" class="text-warning">Ce nom d'utilisateur n'existe pas.</span>
+                                    <!-- <span ng-if='customerLoginForm.username.$pending.existusername' class='text-info'>Vérification de la disponibilité ...</span>
+                                    <span ng-show='customerLoginForm.username.$invalid && !customerLoginForm.username.$error.existusername &&!customerLoginForm.username.$pristine' class='text-danger'>Le nom dutilisateur est requis </span>
+                                    <span ng-show="customerLoginForm.username.$invalid && customerLoginForm.username.$error.existusername&&!customerLoginForm.username.$pristine" class="text-warning">Ce nom d'utilisateur n'existe pas.</span> -->
                                   </div>
                                   <div class="field-wrap" ng-class="{ 'has-error' : customerLoginForm.password.$invalid && !customerLoginForm.password.$pristine }">
                                     <label class="label-displayed" for="password"></label>
-                                    <input type="password" name="password" id="password"  autocomplete="false"  ng-model ="vm.user.password" tabindex="2"  placeholder="mot de passe" value="" required password-validator>
+                                    <input type="password" name="password" id="password"  autocomplete="false"  ng-model ="vm.user.password" tabindex="2"  placeholder="mot de passe" value="" required >
                                     <!-- in case of an error the message below is displayed as part of the list of message errors -->
-                                    <span ng-show="customerLoginForm.password.$invalid && !customerLoginForm.password.$error.password&&!customerLoginForm.password.$pristine" class="text-danger">Le mot de passe est requis</span>
-                                    <span ng-show='customerLoginForm.password.$error.password && !customerLoginForm.password.$pristine' class='text-warning'>Le mot de passe saisi doit contenir au minimum 8 caractères alphabétiques et/ou numériques</span>
+                                    <!-- <span ng-show="customerLoginForm.password.$invalid && !customerLoginForm.password.$error.password&&!customerLoginForm.password.$pristine" class="text-danger">Le mot de passe est requis</span>
+                                    <span ng-show='customerLoginForm.password.$error.password && !customerLoginForm.password.$pristine' class='text-warning'>Le mot de passe saisi doit contenir au minimum 8 caractères alphabétiques et/ou numériques</span>-->
 </div>          
                                   <div class="row">
                                     <div class=" ">

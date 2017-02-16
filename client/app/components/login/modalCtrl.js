@@ -1,9 +1,13 @@
 class ModalInstanceCtrl {
-  constructor($uibModal,$uibModalStack,$uibModalInstance,$log,$http,API,$window,$q,Auth,$state,$rootScope,$scope,ModalFactory) {
+  constructor($uibModal,$uibModalStack,$uibModalInstance,$log,$http,API,$window,$q,Auth,$state,$rootScope,$scope,ModalFactory, $location,SOCIAL,utility, security) {
     var self = this;   
     //facebook authentication route
     self.facebookUrl = `${API.dev.homeUrl}`+'/api/users/auth/facebook';
     self.ModalFactory = ModalFactory;
+    self.utility = utility;
+    self.security = security;
+    self.$location = $location;
+    self.SOCIAL = SOCIAL;
     /**
      * Function used to redirect the user to the facebook login Oauth provider
      * @return {[type]} [description]
@@ -184,8 +188,67 @@ class ModalInstanceCtrl {
                   }
                 });
         };
+
+
+    /// New controller definition goes here
+    /// model def
+    self.user ={};
+    self.alerts =[];
+    self.errfor =[]
+    self.social = angular.equals({}, self.SOCIAL)?null:self.SOCIAL;
+
+    //method def
+    self.hasError = self.utility.hasError;
+    self.showError = self.utility.showError;
+    self.canSave = self.utility.canSave;
+
+    self.closeAlert =(ind)=>{
+      self.alerts.splice(ind,1);
+    };
+
+    self.submit = ()=>{
+      self.alerts = [];
+      self.security.login(self.user.username, self.user.password)
+      .then(self.loginSuccess,self.loginError);
+    };
    
   }//End constructor 
+
+  /**
+   * 
+   */
+  loginSuccess(data)
+  {
+    var self=this;
+      if(data.success){
+        //account/user created, redirect...
+        var url = data.defaultReturnUrl || '/';
+        return self.$location.path(url);
+      }else{
+        //error due to server side validation
+        self.errfor = data.errfor;
+        angular.forEach(data.errfor, function(err, field){
+          self.loginForm[field].$setValidity('server', false);
+        });
+        angular.forEach(data.errors, function(err, index){
+          self.alerts.push({
+            type: 'danger',
+            msg: err
+          });
+        });
+      }
+    }
+    /**
+     * 
+     */
+    loginError()
+    {
+      var self = this;
+      self.alerts.push({
+        type: 'danger',
+        msg: 'Error logging you in, Please try again'
+      });
+    }
 
   /**
    * [displayInformationModal description]
@@ -215,5 +278,5 @@ class ModalInstanceCtrl {
     })
   }
 }
-ModalInstanceCtrl.$inject = ['$uibModal','$uibModalStack','$uibModalInstance','$log','$http','API','$window','$q','Auth','$state','$rootScope','$scope','ModalFactory'];
+ModalInstanceCtrl.$inject = ['$uibModal','$uibModalStack','$uibModalInstance','$log','$http','API','$window','$q','Auth','$state','$rootScope','$scope','ModalFactory','$location','SOCIAL','utility','security'];
 export {ModalInstanceCtrl};

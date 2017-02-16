@@ -12,8 +12,20 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
   .config(($stateProvider) => {
     $stateProvider.state('login', {
       url: '/login',
-      template:'<login></login>'
-    })
+      template:'<login></login>',
+      title:'Connexion',
+      resolve:{
+        UnauthenticatedUser: ['$q', '$location', 'securityAuthorization', function($q, $location, securityAuthorization){
+          var promise = securityAuthorization.requireUnauthenticatedUser()
+            .catch(function(){
+              // user is authenticated, redirect
+              $location.path('/account');
+              return $q.reject();
+            });
+          return promise;
+        }]
+      }
+    });
   })
   .config(($logProvider)=> {
     $logProvider.debugEnabled(true);

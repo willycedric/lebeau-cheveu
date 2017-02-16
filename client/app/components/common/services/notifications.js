@@ -1,4 +1,4 @@
-export const servicesNnotificationsModule = angular.module('servicesNnotificationsModule', []).factory('notifications', ['$rootScope', function ($rootScope) {
+export const servicesNotificationsModule = angular.module('servicesNotificationsModule', []).factory('notifications', ['$rootScope', function ($rootScope) {
 
   var notifications = {
     'STICKY' : [],

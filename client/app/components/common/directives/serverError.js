@@ -1,8 +1,7 @@
 // A simple directive to handle server side form validation
 // http://codetunes.com/2013/server-form-validation-with-angular/
  const directivesServerErrorModule = angular.module('directivesServerErrorModule', []);
-
- /* directivesServerErrorModule.directive('serverError', [ function () {
+  directivesServerErrorModule.directive('serverError', [ function () {
     return {
       restrict: 'A',
       require: '?ngModel',
@@ -15,5 +14,5 @@
         });
       }
     };
-  }]);*/
-// {directivesServerErrorModule};
+  }]);
+export {directivesServerErrorModule};

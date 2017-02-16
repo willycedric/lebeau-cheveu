@@ -1,6 +1,6 @@
 
-import {servicesocalizedMessagesModule} from './../../services/localizedMessages';
-export const securityLoginFormModule = angular.module('securityLoginForm', [servicesocalizedMessagesModule.name, 'ui.bootstrap'])
+import {servicesLocalizedMessagesModule} from './../../services/localizedMessages';
+export const securityLoginFormModule = angular.module('securityLoginForm', [servicesLocalizedMessagesModule.name, 'ui.bootstrap'])
 
 // The LoginFormController provides the behaviour behind a reusable form to allow users to authenticate.
 // This controller and its template (login/form.tpl.html) are used in a modal dialog box by the security service.

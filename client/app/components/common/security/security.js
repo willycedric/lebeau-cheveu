@@ -15,7 +15,7 @@ export const securityServiceModule = angular.module('securityServiceModule', [
     url = url || '/';
     $location.path(url);
   }
-
+const baseUrl =  'http://localhost:3500';
   // Login form dialog stuff
   var loginDialog = null;
   function openLoginDialog() {
@@ -80,7 +80,7 @@ export const securityServiceModule = angular.module('securityServiceModule', [
   var service = {
 
     signup: function(data){
-      return $http.post('/api/signup', data).then(processResponse, processError);
+      return $http.post(baseUrl+'/api/signup', data).then(processResponse, processError);
     },
 
     // Get the first reason for needing a login
@@ -94,12 +94,12 @@ export const securityServiceModule = angular.module('securityServiceModule', [
     },
 
     socialDisconnect: function(provider){
-      var url = '/api/account/settings/' + provider.toLowerCase() + '/disconnect';
+      var url = baseUrl+'/api/account/settings/' + provider.toLowerCase() + '/disconnect';
       return $http.get(url).then(function(res){ return res.data; });
     },
 
     socialConnect: function(provider, code){
-      var url = '/api/account/settings/' + provider.toLowerCase() + '/callback';
+      var url = baseUrl+'/api/account/settings/' + provider.toLowerCase() + '/callback';
       if(code){
         url += '?code=' + code;
       }
@@ -107,7 +107,7 @@ export const securityServiceModule = angular.module('securityServiceModule', [
     },
 
     socialLogin: function(provider, code){
-      var url = '/api/login/' + provider.toLowerCase() + '/callback';
+      var url =baseUrl+'/api/login/' + provider.toLowerCase() + '/callback';
       if(code){
         url += '?code=' + code;
       }
@@ -124,7 +124,8 @@ export const securityServiceModule = angular.module('securityServiceModule', [
 
     // Attempt to authenticate a user by the given username and password
     login: function(username, password) {
-      var request = $http.post('/api/login', {
+      console.log('From the login controller ', username,password);
+      var request = $http.post(baseUrl+'/api/login', {
         username: username,
         password: password
       });
@@ -148,18 +149,18 @@ export const securityServiceModule = angular.module('securityServiceModule', [
 
     // Logout the current user and redirect
     logout: function(redirectTo) {
-      $http.post('/api/logout').then(function() {
+      $http.post(baseUrl+'/api/logout').then(function() {
         service.currentUser = null;
         redirect(redirectTo);
       });
     },
 
     loginForgot: function(data){
-      return $http.post('/api/login/forgot', data).then(processResponse, processError);
+      return $http.post(baseUrl+'/api/login/forgot', data).then(processResponse, processError);
     },
 
     loginReset: function(id, email, data){
-      var url = '/api/login/reset/' + email + '/' + id;
+      var url =baseUrl+'/api/login/reset/' + email + '/' + id;
       return $http.put(url, data).then(processResponse, processError);
     },
 
@@ -174,7 +175,7 @@ export const securityServiceModule = angular.module('securityServiceModule', [
       } else {
         // no outstanding backend call nor local currentUser
         deferredCurrentUser = $q.defer();
-        $http.get('/api/current-user').then(function(response){
+        $http.get(baseUrl+'/api/current-user').then(function(response){
           service.currentUser = response.data.user;
           deferredCurrentUser.resolve(service.currentUser);
           deferredCurrentUser = null;

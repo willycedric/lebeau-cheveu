@@ -12,7 +12,8 @@ angular.module('accountSettingsModule',
   securityServiceModule.name, 
   securityAuthorizationModule.name, 
   servicesAccountResourceModule.name,
-   servicesUtilityModule.name]);
+   servicesUtilityModule.name
+   ]);
 angular.module('accountSettingsModule',[ngRoute]).config(['$routeProvider', 'securityAuthorizationProvider', function($routeProvider){
   $routeProvider
     .when('/account/settings', {

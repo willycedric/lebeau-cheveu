@@ -1,4 +1,4 @@
-angular.module('services.httpRequestTracker', []);
+angular.module('servicesHttpRequestTrackerModule', []);
 export const servicesHttpRequestTrackerModule = angular.module('servicesHttpRequestTrackerModule').factory('httpRequestTracker', ['$http', function($http){
 
   var httpRequestTracker = {};
