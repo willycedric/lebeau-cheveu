@@ -1,6 +1,7 @@
 import uiBootstrap from 'angular-ui-bootstrap';
 import {securityRetryQueueModule} from './retryQueue';
 import {securityLoginModule} from './login/login';
+import template from './login/form.tpl.html';
 // Based loosely around work by Witold Szczerba - https://github.com/witoldsz/angular-http-auth
 export const securityServiceModule = angular.module('securityServiceModule', [
   securityRetryQueueModule.name,    // Keeps track of failed requests that need to be retried once the user logs in
@@ -24,8 +25,8 @@ const baseUrl =  'http://localhost:3500';
     }
     //loginDialog = $modal.dialog();
     //loginDialog.open('security/login/form.tpl.html', 'LoginFormController').then(onLoginDialogClose);
-    loginDialog = $modal.open({
-      templateUrl: 'security/login/form.tpl.html',
+    loginDialog = $uibModal.open({
+      template,
       controller: 'LoginFormController'
     });
     loginDialog.result.then(onLoginDialogClose, onLoginDialogDismiss);

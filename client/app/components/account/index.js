@@ -1,10 +1,14 @@
 import {accountIndexModule} from './account';
 import {accountSettingsModule} from './settings/account-settings';
 import {accountVerificationModule} from './verification/account-verification';
+import {accountbooking}  from './booking/accountbooking';
+import {accountmessages} from './messages/accountmessages';
 export const account = angular.module('account', [
   accountIndexModule.name,
   accountSettingsModule.name,
-  accountVerificationModule.name
+  accountVerificationModule.name,
+  accountbooking.name,
+  accountmessages.name
 ])
 .directive('serverError', [ function () {
     return {

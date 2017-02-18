@@ -1,0 +1,102 @@
+<section class="customerbooking">
+ <div class="container">
+		<div class="row">
+			<div class="col-sm-3">		
+				<div >
+					<account-id></account-id>
+				</div>		<!-- end .customer-id-card -->
+				<div class="left-menu">
+					<customer-menu></customer-menu>
+				</div>		<!-- 	end .left-menu -->	
+			</div><!-- col-sm-offset-1 col-sm-3 col-lg-3 -->
+			<div class="col-sm-offset-1  col-sm-8 customer-page-content">
+				<div ng-show="vm.getPendingAppointment(vm.customer.nextAppointment)" ng-repeat="apt in vm.customer.nextAppointment track by $index">
+					<div class=" section row" id="details" ng-show="apt.appointmentState==0?true:false">
+					  <div class="row-top">
+						<span class="section-contains lbc-contains-emphasize"> Le {{apt.dayOfWeek| date }} à {{apt.selectedHour}} avec {{apt.hairdresserUsername}} au {{apt.location}}</span>
+					 </div>	
+					 <hr/>
+					 <div class="center section-top">
+						<span class="lbc-button-center col-sm-3 ">							
+							<a class="btn-default-lbc btn-lbc btn-lbc-medium" ng-click ="vm.displayConfirmationModal(apt)">Annuler</a>
+						</span><!-- .edit-button -->
+					 </div> <!-- row section-top -->				
+				   </div><!-- .row -->
+			   </div> <!-- .section -->
+			   <div ng-hide="vm.getPendingAppointment(vm.customer.nextAppointment)" >
+					<div class="" >
+					  <div class="row row-top section ">				
+							<span class="notification-title">Vous n'avez pas de rendez-vous prévu.</span><br/>
+						</div><!-- .section -->			
+				   </div><!-- .row -->		
+				   </div><!-- .row -->
+			   </div> <!-- .section -->
+			</div><!-- end .customer-page-content -->
+		</div> <!-- end top row -->
+	</div> <!-- end top container --> 
+	<script type="text/ng-template" id="cancel-appointment.html">
+			<div class="modal-header">
+				<h3 class="center modal-tile">Annulation </h3>
+			</div>
+			<div class="modal-body">
+			<form autocomplete="off" role="reason"  id="reason-form"  name="reasonForm"  novalidate ng-submit="$ctrl.cancelAppointment(customerReason)">			
+						<label for="reason" uib-tooltip="Entrez au minimum 20 caractères"> Entrez La raison:  </label><br>	
+						<textarea  name="reason" ng-model="customerReason" ng-minlength="50"></textarea>
+			<div class="container">	
+				<div class="row">
+				 	<div class="col-sm-offset-1 col-sm-2">
+	          			<input  type="submit"  name="reason-submit" id="reason-submit" tabindex="2" class="btn btn-confirm btn-primary" value="Enregistrer" >
+	          		</div>
+	          		<div class="col-sm-1">
+	          			<button class="btn btn-primary btn-cancel" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+	          		</div>
+	        	</div>
+			</div>
+			</form>  
+		</div>
+	</script>
+	<script type="text/ng-template" id="action-confirmation.html">
+			<div class="modal-header">
+				<h3 class="center modal-tile">Confirmation </h3>
+			</div>
+			<div class="modal-body">
+				<span> {{$ctrl.message}} </span>
+		    </div>
+		     <div class="modal-footer" style="text-align:center;">
+	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.confirm($ctrl.apt)">OUI</a>
+	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.cancel($ctrl.apt)">NON</a>
+	        </div>
+	</script>
+    <script type="text/ng-template" id=" appoitnment-date-close.html">
+			<div class="modal-header-warning">
+				<h3 class="center modal-tile">Avertissement</h3>
+			</div>
+			<div class="modal-body">
+				<span> {{$ctrl.message}} </span>
+		    </div>
+		     <div class="modal-footer" style="text-align:center;">
+	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.ok($ctrl.apt)">OK</a>
+	        </div>
+	</script>
+   
+	<script type="text/ng-template" id="confirmation-modal.html">
+   	  		<div class="modal-header-success"  ng-show="$ctrl.isSuccess">
+	             <h5 class="center success modal-title">Confirmation </h5>
+	        </div>
+	        <div class="modal-header-error"  ng-hide="$ctrl.isSuccess">
+	             <h5 class="center error modal-title">Erreur </h5>
+	        </div>
+	        <div class="modal-body" id="modal-body" ng-show="$ctrl.isSuccess">
+	           <span class="question-modal" style="text-algin:center;"> {{$ctrl.message}}</span>
+	        </div>
+	        <div class="modal-body" id="modal-body" ng-hide="$ctrl.isSuccess">
+	           <span class="question-modal" style="text-algin:center;"> {{$ctrl.message}} !</span>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;"  ng-show="$ctrl.isSuccess">
+	            <button class="btn btn-primary btn-success" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;"  ng-hide="$ctrl.isSuccess">
+	            <button class="btn btn-primary btn-error" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+	</script>
+</section>

@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import {appDirective} from './app.directive';
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
+import ngCookies from 'angular-cookies';
 import ngAnimate from 'angular-animate';
 import uiBootstrap from 'angular-ui-bootstrap';
 import ngRoute from 'angular-route';
@@ -24,8 +25,10 @@ angular.module('app', [
   ngRoute,
   ngAnimate,
   uiBootstrap,
+  ngCookies,
   config.name,
   baseModule.name,
+    shared.name,
   account.name,
   servicesI18nNotificationsModule.name,
   servicesHttpRequestTrackerModule.name,
@@ -33,17 +36,53 @@ angular.module('app', [
   home.name,
   login.name,
   join.name,
-  shared.name,
   signupModule.name,
   loginModule.name
 ])
-.config(['$httpProvider','XSRF_COOKIE_NAME', function($httpProvider, XSRF_COOKIE_NAME){
-    $httpProvider.defaults.xsrfCookieName = XSRF_COOKIE_NAME;
+.provider(
+        'csrfCD',
+        function() {
+            'use strict';
+            var headerName = 'X-XSRF-TOKEN';
+            var cookieName = 'XSRF-TOKEN';
+            var allowedMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
+
+            this.setHeaderName = function(n) {
+                headerName = n;
+            };
+            this.setCookieName = function(n) {
+                cookieName = n;
+            };
+            this.setAllowedMethods = function(n) {
+                allowedMethods = n;
+            };
+            this.$get = ['$cookies', function($cookies) {
+                return {
+                    'request': function(config) {
+                        if (allowedMethods.indexOf(config.method) !== -1) {
+                            // Read the cookie and set the header
+                            config.headers[headerName] = $cookies[cookieName];
+                        }
+                        return config;
+                    }
+                };
+            }];
+})
+.config(function($httpProvider) {
+
+        // set csrf for cross origin requests
+        $httpProvider.defaults.withCredentials = true;
+        $httpProvider.interceptors.push('csrfCD');
+})
+.config(['$httpProvider','XSRF_COOKIE_NAME', 'csrfCDProvider',function($httpProvider, XSRF_COOKIE_NAME,csrfCDProvider){
+    //$httpProvider.defaults.xsrfCookieName = XSRF_COOKIE_NAME;
     $httpProvider.defaults.withCredentials = true;
-    $httpProvider.defaults.headers.common = {};
-    $httpProvider.defaults.headers.post = {};
-    $httpProvider.defaults.headers.put = {};
-    $httpProvider.defaults.headers.patch = {};
+    // $httpProvider.defaults.headers.common = {};
+    // $httpProvider.defaults.headers.post = {};
+    // $httpProvider.defaults.headers.put = {};
+    // $httpProvider.defaults.headers.patch = {};
+    csrfCDProvider.setHeaderName('X-XSRF-TOKEN');
+    csrfCDProvider.setCookieName(XSRF_COOKIE_NAME);
     //$httpProvider.defaults.useXDomain = true;
     //delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }])

@@ -1,0 +1,21 @@
+<section class="hairdresser-booking">
+  <div class="">
+    <div class="">
+      <div class="">
+        <div class=" menu-item">
+          <div>
+              <div class="hairdresser-menu">
+                <ul>
+                  <li class="menu-item"><a ui-sref="account" >Resumé</a></li>
+                  <li class="menu-item"> <a ui-sref="accountbooking"> Mes réservations<span class="badge">{{vm.getPendingAppointment(vm.customer.nextAppointment)}}</span> </a></li>
+                  <li class="menu-item"><a ui-sref="accountsettings" >Mes Paramètres </a></li>
+                  <li class="menu-item"><a ui-sref="accountmessages" >Message(s)<span class="badge">{{vm.getUnreadCustomerNotification(vm.customer.notifications)}}</span> </a></li>
+                </ul>
+              </div> <!-- end .customer-menu -->
+          </div>    <!--  end .left-menu -->  
+          
+        </div><!-- row menu -->
+      </div> <!-- .col-sm-4 left-element -->
+    </div> <!-- top row -->
+  </div> <!-- .top container -->
+</section><!-- hairdresser -- >

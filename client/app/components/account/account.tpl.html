@@ -1,50 +1,60 @@
+<section class="customer">
+    <!-- section displayed when the user account is activated --> 
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">    
+            <div>
+             <account-id><account-id>
+            </div>  <!-- end .customer-id-card -->              
+            <div class="left-menu">           
+                <customer-menu></customer-menu>
+            </div>      <!--    end .left-menu -->  
+            </div><!-- col-sm-offset-1 col-sm-3 col-lg-3 -->
+            <div class=" col-sm-9 customer-page-content">
+                
+                    <div class="row row-top" id="last-connection-date">
+                        <div class="col-sm-offset-1 section section-height-min">
+                            <span class="section-contains left"> Dernière connexion : {{vm.customer.lastconnection |date}}</span>
+                            <span class="section-contains right">Status :</span>
+                        </div>
+                    </div> <!-- row section-->                  
+                    <div class="row row-top ">
+                        <div class="col-sm-offset-1 col-sm-5 section section-height section-widget center" ng-click="vm.goToBooking()">             
+                                <h5 class="section-t" uib-tooltip="nombre de réservation confirmée(s)">Prochain Rendez-vous</h5>                        
+                                <hr>
+                                <span class="section-contains section-number">{{vm.getPendingAppointment(vm.customer.nextAppointment)}}</span>
+                        </div><!-- .section -->
 
-    <div class="row" id="account">
-        <div class="col-sm-6">
-            <div class="page-header"><h1>My Account</h1></div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="well stat">
-                        <div class="stat-value day-of-year" ng-bind="dayOfYear"></div>
-                        <div class="stat-label">Day of Year</div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="well stat">
-                        <div class="stat-value day-of-month" ng-bind="dayOfMonth"></div>
-                        <div class="stat-label">Day of Month</div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="well stat">
-                        <div class="stat-value week-of-year" ng-bind="weekOfYear"></div>
-                        <div class="stat-label">Week of Year</div>
-                    </div>
-                </div>
+                        <div class="col-sm-offset-1 col-sm-5 section section-height section-widget center" ng-click="vm.goToMessage()">             
+                                <h5 class="section-t  ">Message non lu(s)</h5>                      
+                                <hr>
+                                <span class="section-contains section-number">{{vm.getUnreadCustomerNotification(vm.customer.notifications)}}</span>
+                        </div><!-- .section -->
+                  </div><!-- .row -->
+                  <div class="row row-top ">
+                        <div class="col-sm-offset-1 col-sm-5 section section-height center">                
+                                <h5 class="section-t" uib-tooltip="nombre de jour(s) avant l'expiration du mot de passe">Expiration du mot de passe</h5>                        
+                                <hr>
+                                <span class="section-contains section-number"> TBD</span>
+                        </div><!-- .section -->
+                  </div><!-- .row -->
+            </div><!-- end .customer-page-content -->
+        </div> <!-- end top row -->
+    </div> <!-- end top container -->  
+    <!-- this section is displayed when the user account is not activated --> 
+   <!-- <div class="container" ng-hide="vm.customer.accountstatus">
+        <div class="row">
+            <div class="col-sm-offset-3 col-sm-6 " >
+                <div class=" section section-height-min ">
+                    <h5 class= "section-t-lower"> Compte désactivé</h5>
+                </div> 
+                <div class=" section section-padding-3">
+                    <p class="section-content"> Votre compte est actuellement désactivé. S'il s'agit d'un compte nouvellement créé, veuillez l'activer en cliquant sur le lien que vous avez reçu lors de votre inscription, si non contacter le support.</p>
+                    
+                        <a class="btn-lbc btn-default"> Contacter le support </a>
+                
+                </div>  
             </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="well stat">
-                        <div class="stat-value day-of-week" ng-bind="dayOfWeek"></div>
-                        <div class="stat-label">Day of Week</div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="well stat">
-                        <div class="stat-value week-year" ng-bind="weekYear"></div>
-                        <div class="stat-label">Week Year</div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="well stat">
-                        <div class="stat-value hour-of-day" ng-bind="hourOfDay"></div>
-                        <div class="stat-label">Hour of Day</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 special">
-            <div class="page-header"><h1>Go Faster Everyday</h1></div>
-            <i class="fa fa-dashboard super-awesome"></i></div>
-    </div>
-
+        </div>-->
+    </div> <!-- end .container -->
+</section>

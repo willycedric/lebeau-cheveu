@@ -1,10 +1,11 @@
-import ngRoute from 'angular-route';
+import uiRouter from 'angular-ui-router';
 import {config} from './../../../config';
 import {accountSettingsSocialModule} from './social/index';
 import {securityServiceModule} from './../../common/security/security';
 import {securityAuthorizationModule} from './../../common/security/authorization';
 import {servicesAccountResourceModule} from './../../common/services/accountResource';
 import {servicesUtilityModule} from '../../common/services/utility';
+import template from './account-settings.tpl.html';
 //import {directivesServerErrorModule} from '../../common/directives/serverError';
 angular.module('accountSettingsModule', 
   [config.name, 
@@ -12,12 +13,14 @@ angular.module('accountSettingsModule',
   securityServiceModule.name, 
   securityAuthorizationModule.name, 
   servicesAccountResourceModule.name,
-   servicesUtilityModule.name
+   servicesUtilityModule.name,
+   uiRouter
    ]);
-angular.module('accountSettingsModule',[ngRoute]).config(['$routeProvider', 'securityAuthorizationProvider', function($routeProvider){
-  $routeProvider
-    .when('/account/settings', {
-      templateUrl: 'account/settings/account-settings.tpl.html',
+angular.module('accountSettingsModule').config(['$stateProvider', 'securityAuthorizationProvider', function($stateProvider){
+  $stateProvider
+    .state('accountsettings', {
+      url:'/account/settings',
+      template,
       controller: 'AccountSettingsCtrl',
       title: 'Account Settings',
       resolve: {
@@ -26,6 +29,7 @@ angular.module('accountSettingsModule',[ngRoute]).config(['$routeProvider', 'sec
           var redirectUrl;
           var promise = securityAuthorization.requireVerifiedUser()
             .then(accountResource.getAccountDetails, function(reason){
+              console.log(reason);
               //rejected either user is unverified or un-authenticated
               redirectUrl = reason === 'unverified-client'? '/account/verification': '/login';
               return $q.reject();

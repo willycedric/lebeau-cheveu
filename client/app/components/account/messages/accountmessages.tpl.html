@@ -1,0 +1,38 @@
+<section class="customermessages">
+ <div class="container">
+		<div class="row">
+			<div class=" col-sm-3">		
+				<div >
+					<account-id></account-id>
+				</div>		<!-- end .customer-id-card -->
+				<div class="left-menu">
+					<customer-menu></customer-menu>
+				</div>		<!-- 	end .left-menu -->	
+			</div><!-- col-sm-offset-1 col-sm-3 col-lg-3 -->
+			<div class="col-sm-offset-1 col-sm-8 customer-page-content" ng-hide="vm.getUnreadCustomerNotification(vm.customer.notifications)==0?true:false">
+				<div  ng-repeat="message in vm.customer.notifications">
+						<div class="row row-top section " ng-show="!message.read">				
+							<span class="notification-title">{{message.title}}</span><br/>
+							<a class="btn-default-lbc btn-lbc btn-lbc-slim" ng-click="vm.showCustomerNotification(message)">Lire</a>
+						</div><!-- .row .section -->
+			  	</div><!-- ng-repeat -->
+			</div><!-- end .customer-page-content -->
+			<div class=" col-sm-offset-1 col-sm-8  customer-page-content" ng-hide="vm.getUnreadCustomerNotification(vm.customer.notifications)">				
+						<div class="row row-top section ">				
+							<span class="notification-title">Vous n'avez pas de message(s) récent(s)</span><br/>
+						</div><!-- .section -->			  	
+			</div><!-- end .customer-page-content -->
+		</div> <!-- end top row -->
+	</div> <!-- end top container --> 
+	<script type="text/ng-template" id="customer-notification.html">
+		<div class="modal-header">
+			<h3 class="center modal-tile">Message </h3>
+		</div>
+		<div class="modal-body">
+			{{$ctrl.message.message}}
+		</div>
+		<div class="modal-footer" style="text-align:center;">
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+        </div>
+	</script>
+</section>

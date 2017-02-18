@@ -2,25 +2,40 @@
 import uiRouter from 'angular-ui-router';
 import moment from 'moment';
 import {securityAuthorizationModule} from './../common/security/authorization';
+import {CustomerController as controller} from './account.controller';
+import './account-menu.scss';
+import './account.css';
+import './account.scss';
+import template from './account.tpl.html';
+import menuTemplate from './account-menu.html';
+import idCardTemplate from './account-id.tpl.html';
+
 angular.module('accountIndexModule', [uiRouter,securityAuthorizationModule.name]);
-angular.module('accountIndexModule')
+export const accountIndexModule =  angular.module('accountIndexModule')
   .config(($stateProvider,securityAuthorizationProvider)=>{
     $stateProvider.state('account',{
       url:'/account',
-      templateUrl:'account.tpl.html',
-      controller:'AccountCtrl',
+      template,
+      controller,
+      controllerAs:'vm',
       title:'Account Area',
       resolve: {
         authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser
       }
     });
   });
-export const accountIndexModule = angular.module('accountIndexModule').controller('AccountCtrl', [ '$scope' ,
-  function($scope){
-    $scope.dayOfYear = moment().format('DDD');
-    $scope.dayOfMonth = moment().format('D');
-    $scope.weekOfYear = moment().format('w');
-    $scope.dayOfWeek = moment().format('d');
-    $scope.weekYear = moment().format('gg');
-    $scope.hourOfDay = moment().format('H');
-  }]);
+  angular.module('accountIndexModule')
+  .directive('accountId',()=>{
+    return {
+      restrict:'E',
+      template:idCardTemplate,
+      replace:true
+    };
+  })
+  .directive('customerMenu',()=>{
+    return {
+      restrict:'E',
+      template:menuTemplate,
+      replace:true
+    };
+  });

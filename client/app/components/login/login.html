@@ -53,7 +53,7 @@
                                       <span> Connectez vous avec votre nom d utilisateur </span>
                               </p> 
                               <form autocomplete="off"  role="login" name="customerLoginForm" novalidate style="display: block;" ng-submit="vm.submit(vm.user,customerLoginForm)">
-                                  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+                                  <div uib-alert ng-repeat="alert in vm.alerts" class="{{'alert-'+alert.type}}"close="vm.closeAlert($index)">{{alert.msg}}</div>
                                    <div class="field-wrap" ng-class="{ 'has-error' : customerLoginForm.username.$invalid && !customerLoginForm.username.$pristine }">
                                     <label class="label-displayed" for="username"></label>
                                     <input type="text" data-actor="customer" name="username" id="username" autocomplete="false"  ng-model ="vm.user.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required>
@@ -89,20 +89,20 @@
                             <div id="login" ng-hide="vm.isCustomerFormDisplayed"> 
 
                               <p class="background-line push--top push--bottom">
-                                      <span> Connectez vous avec votre nom d'utilisateur </span>
+                                      <span> Connectez vous avec votre nom d utilisateur </span>
                               </p>               
                               <form autocomplete="off"  role="login" name="hairdresserLoginForm" novalidate style="display: block;" ng-submit="vm.logHairdresser(vm.hairdresser,hairdresserLoginForm)">                                    
                                 <div  class="field-wrap" ng-class="{ 'has-error' : hairdresserLoginForm.username.$invalid && !hairdresserLoginForm.username.$pristine }">
                                   <label class="label-displayed" for="username"></label>
-                                  <input type="text"  data-actor="hairdresser" name="username" id="username" autocomplete="false"  ng-model ="vm.hairdresser.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required username-existence>
+                                  <input type="text"  data-actor="hairdresser" name="username" id="username" autocomplete="false"  ng-model ="vm.hairdresser.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required >
                                   <!-- in case of an error the message below is displayed as part of the list of message errors -->
                                   <span ng-if='hairdresserLoginForm.username.$pending.existusername' class='text-info'>Vérification de la disponibilité ...</span>
-                                  <span ng-show='hairdresserLoginForm.username.$invalid && !hairdresserLoginForm.username.$error.existusername &&!hairdresserLoginForm.username.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
+                                  <span ng-show='hairdresserLoginForm.username.$invalid && !hairdresserLoginForm.username.$error.existusername &&!hairdresserLoginForm.username.$pristine' class='text-danger'>Le nom d utilisateur est requis </span>
                                   <span ng-show="hairdresserLoginForm.username.$invalid && hairdresserLoginForm.username.$error.existusername&&!hairdresserLoginForm.username.$pristine" class="text-warning">Ce nom d'utilisateur n'existe pas.</span>
                                 </div>          
                                 <div class="field-wrap" ng-class="{ 'has-error' : hairdresserLoginForm.password.$invalid && !hairdresserLoginForm.password.$pristine }">
                                       <label class="label-displayed" for="password"></label>
-                                      <input type="password" name="password" id="password"  autocomplete="false"  ng-model ="vm.hairdresser.password" tabindex="2"  placeholder="mot de passe" value="" required password-validator>
+                                      <input type="password" name="password" id="password"  autocomplete="false"  ng-model ="vm.hairdresser.password" tabindex="2"  placeholder="mot de passe" value="" required>
                                       <!-- in case of an error the message below is displayed as part of the list of message errors -->
                                       <span ng-show="hairdresserLoginForm.password.$invalid && !hairdresserLoginForm.password.$error.password&&!hairdresserLoginForm.password.$pristine" class="text-danger">Le mot de passe est requis</span>
                                       <span ng-show='hairdresserLoginForm.password.$error.password && !hairdresserLoginForm.password.$pristine' class='text-warning'>Le mot de passe saisi doit contenir au minimum 8 caractères alphabétiques et/ou numériques</span>
@@ -145,7 +145,7 @@
                               <!-- username -->
                               <div class="field-wrap" ng-class="{ 'has-error' : registerForm.username.$invalid && !registerForm.username.$pristine }">
                                   <label class="label-displayed" for="username"></label>
-                                  <input type="text" name="username" id="register-username"  ng-model ="vm.user.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required username-validator>
+                                  <input type="text" name="username" id="register-username"  ng-model ="vm.user.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required >
                                   <!-- in case of an error the message below is displayed as part of the list of message errors -->
                                   <span ng-if='registerForm.username.$pending.uniqueusername' class='text-info'>Vérification de la disponibilité ...</span>
                                   <span ng-show='registerForm.username.$invalid&& !registerForm.username.$error.uniqueusername &&!registerForm.username.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>

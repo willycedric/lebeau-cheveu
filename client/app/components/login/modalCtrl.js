@@ -1,30 +1,30 @@
 class ModalInstanceCtrl {
   constructor($uibModal,$uibModalStack,$uibModalInstance,$log,$http,API,$window,$q,Auth,$state,$rootScope,$scope,ModalFactory, $location,SOCIAL,utility, security) {
-    var self = this;   
+
     //facebook authentication route
-    self.facebookUrl = `${API.dev.homeUrl}`+'/api/users/auth/facebook';
-    self.ModalFactory = ModalFactory;
-    self.utility = utility;
-    self.security = security;
-    self.$location = $location;
-    self.SOCIAL = SOCIAL;
+    this.facebookUrl = `${API.dev.homeUrl}`+'/api/users/auth/facebook';
+    this.ModalFactory = ModalFactory;
+    this.utility = utility;
+    this.security = security;
+    this.$location = $location;
+    this.SOCIAL = SOCIAL;
     /**
      * Function used to redirect the user to the facebook login Oauth provider
      * @return {[type]} [description]
      */
-    self.goToFacebookLogin = () =>{
-      $window.location.href=self.facebookUrl; //redirectiong to facebook
+    this.goToFacebookLogin = () =>{
+      $window.location.href=this.facebookUrl; //redirectiong to facebook
       //$log.debug('ModalCtrl ','redirectiong to facebook Oauth');
     };
     //toggle the display of the registration successfull message
-    self.isSuccessfullRegistration=false;
+    this.isSuccessfullRegistration=false;
     //toggle the display of the connexion successfull message
-    self.isSuccessfullLogin =false;
+    this.isSuccessfullLogin =false;
     $rootScope.$on('successfullRegistration',function(evt,isSuccessfullRegistration){
       //$log.debug('From loginController ','Message is received');
       if(isSuccessfullRegistration){
-        self.isSuccessfullRegistration=true;
-        self.displayInformationModal();
+        this.isSuccessfullRegistration=true;
+        this.displayInformationModal();
       }
     });
     
@@ -33,8 +33,8 @@ class ModalInstanceCtrl {
      * @param  {[type]} data [User's required information for login]
      * @return {[type]}      [Form object used for validation purpose]
      */
-   self.logCustomer = (data,customerLoginForm)=>{
-      self.displayLoading('Login in progress'); //Display the spining modal
+   this.logCustomer = (data,customerLoginForm)=>{
+      this.displayLoading('Login in progress'); //Display the spining modal
       //$log.debug('User data ', JSON.stringify(data));
       //The form must be valid in order to be send to the API
       if(customerLoginForm.$valid){       
@@ -42,10 +42,10 @@ class ModalInstanceCtrl {
               .then( (data)=>{ 
                   console.log(' data ', data);
                   $rootScope.$broadcast('connectionStatechanged',{data:data});
-                   self.lauchLoginForm();                
+                   this.lauchLoginForm();                
               }, (err)=>{
                 if(parseInt(err.status) === 401){
-                  self.displayWrongCredentialModal();
+                  this.displayWrongCredentialModal();
                 }
               }).finally( (data)=>{   
                 console.log(' finally data', data);            
@@ -66,10 +66,10 @@ class ModalInstanceCtrl {
      * @param  {[type]} role                 [description]
      * @return {[type]}                      [description]
      */
-    self.logHairdresser = (data,hairdresserLoginForm)=>{      
+    this.logHairdresser = (data,hairdresserLoginForm)=>{      
       //The form must be valid in order to be send to the API
       if(hairdresserLoginForm.$valid){
-              self.displayLoading('Login in progress'); //Display the spining modal
+              this.displayLoading('Login in progress'); //Display the spining modal
               Auth.login(`${API.dev.hairdresserRoute}`+'/me',data.username,data.password)
               .then((data)=>{
                 //$log.debug('From the loginControllerSuccess ',data);
@@ -90,11 +90,11 @@ class ModalInstanceCtrl {
      * @param  {[type]} registerForm [Form object used for validation purpose]
      * 
      */
-    self.registerNewAccount = (user, registerForm)=>{
+    this.registerNewAccount = (user, registerForm)=>{
            
             if(registerForm.$valid){ 
               if(user.role == 2){ //customers registration
-                self.displayLoading('Registration in progress');
+                this.displayLoading('Registration in progress');
                 Auth.register(`${API.dev.customerRoute}`,user)
                       .then(function registerSuccessCallback(response){
                           if(response.status===200){
@@ -106,7 +106,7 @@ class ModalInstanceCtrl {
                          $uibModalStack.dismissAll('closing'); //remove the spining modal 
                       }); 
               }else{ //hairdressers registration
-                self.displayLoading('Registration in progress');
+                this.displayLoading('Registration in progress');
                 Auth.register(`${API.dev.hairdresserRoute}`,user)
                       .then(function registerSuccessCallback(response){
                           if(response.status===200){
@@ -126,7 +126,7 @@ class ModalInstanceCtrl {
      * [description]
      * @param  {[type]} role [1 for hairdresser and 2 for customer, user to route password reset form to the correct model]
      */
-    self.passwordForgot = (role) =>{
+    this.passwordForgot = (role) =>{
         $state.go('forgot',{role:role});
         $uibModalStack.dismissAll('closing');
     };
@@ -135,41 +135,41 @@ class ModalInstanceCtrl {
      * [Redirect the user to the login view]
      * 
      */
-    self.goToLoginView = () =>{
+    this.goToLoginView = () =>{
       $state.go('login',null,{reload:true});
     }
 
     //Control to dismiss the modal 
-     self.lauchLoginForm = () => {
+     this.lauchLoginForm = () => {
           $uibModalInstance.dismiss('cancel');          
     };
 
-    self.cancel = function () {
+    this.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
 
-    self.isLoginFormDisplayed = true;
-    self.isCustomerFormDisplayed =true;
+    this.isLoginFormDisplayed = true;
+    this.isCustomerFormDisplayed =true;
 
-    self.toggleDisplayedForm = ()=>{
-      self.isLoginFormDisplayed =!self.isLoginFormDisplayed;
+    this.toggleDisplayedForm = ()=>{
+      this.isLoginFormDisplayed =!this.isLoginFormDisplayed;
     };
 
-    self.toggleDisplayedUserForm = (formName) =>{
+    this.toggleDisplayedUserForm = (formName) =>{
       //$log.debug('modalCtrl ',formName);
-        if(formName ==="customer" && self.isCustomerFormDisplayed ){
-              self.isCustomerFormDisplayed = true;
-        }else if (formName ==="hairdresser" && !self.isCustomerFormDisplayed){
-          self.isCustomerFormDisplayed =false;
+        if(formName ==="customer" && this.isCustomerFormDisplayed ){
+              this.isCustomerFormDisplayed = true;
+        }else if (formName ==="hairdresser" && !this.isCustomerFormDisplayed){
+          this.isCustomerFormDisplayed =false;
         }else{
-           self.isCustomerFormDisplayed=!self.isCustomerFormDisplayed;
+           this.isCustomerFormDisplayed=!this.isCustomerFormDisplayed;
          }     
     };
     /**
      * [description]
      * @return {[type]} [description]
      */
-    self.displayLoading = (message)=>{              
+    this.displayLoading = (message)=>{              
                   var modalInstance = $uibModal.open({
                   animation: true,
                   ariaLabelledBy: 'modal-title',
@@ -192,24 +192,51 @@ class ModalInstanceCtrl {
 
     /// New controller definition goes here
     /// model def
-    self.user ={};
-    self.alerts =[];
-    self.errfor =[]
-    self.social = angular.equals({}, self.SOCIAL)?null:self.SOCIAL;
+    this.user ={};
+    this.alerts =[];
+    this.errfor =[]
+    this.social = angular.equals({}, this.SOCIAL)?null:this.SOCIAL;
 
     //method def
-    self.hasError = self.utility.hasError;
-    self.showError = self.utility.showError;
-    self.canSave = self.utility.canSave;
+    this.hasError = this.utility.hasError;
+    this.showError = this.utility.showError;
+    this.canSave = this.utility.canSave;
 
-    self.closeAlert =(ind)=>{
-      self.alerts.splice(ind,1);
+    this.closeAlert =(ind)=>{
+      this.alerts.splice(ind,1);
     };
 
-    self.submit = ()=>{
-      self.alerts = [];
-      self.security.login(self.user.username, self.user.password)
-      .then(self.loginSuccess,self.loginError);
+    this.submit = ()=>{
+      this.alerts = [];
+      this.security.login(this.user.username, this.user.password)
+      .then((data)=>{
+        var self =this;
+        if(data.success){
+        //account/user created, redirect...
+        var url = data.defaultReturnUrl || '/';
+         $uibModalStack.dismissAll('closing');
+        return self.$location.path(url);
+        }else{
+          //error due to server side validation
+          self.errfor = data.errfor;
+          angular.forEach(data.errfor, function(err, field){
+            self.loginForm[field].$setValidity('server', false);
+          });
+          angular.forEach(data.errors, function(err, index){
+            self.alerts.push({
+              type: 'danger',
+              msg: err
+            });
+          });
+        }
+      },
+      ()=>{
+          var self = this;
+        self.alerts.push({
+          type: 'danger',
+          msg: 'Error logging you in, Please try again'
+        });
+      });
     };
    
   }//End constructor 
@@ -223,7 +250,7 @@ class ModalInstanceCtrl {
       if(data.success){
         //account/user created, redirect...
         var url = data.defaultReturnUrl || '/';
-        return self.$location.path(url);
+        return this.$location.path(url);
       }else{
         //error due to server side validation
         self.errfor = data.errfor;
@@ -256,7 +283,7 @@ class ModalInstanceCtrl {
    */
   displayInformationModal(){
       var self = this;
-      self.ModalFactory.trigger(self,'registration-information.html',function($uibModalInstance,topController){
+      this.ModalFactory.trigger(this,'registration-information.html',function($uibModalInstance,topController){
           this.message ='Votre compte vient \'être créé avec succès. \nVeuillez vous connecter à l\'adresse mail que vous avez fourni lors de votre inscription pour activer votre compte ';
           this.ok = ()=>{
               $uibModalInstance.close('OK');
@@ -270,7 +297,7 @@ class ModalInstanceCtrl {
    */
   displayWrongCredentialModal(){
     var self = this;
-    self.ModalFactory.trigger(self,'wrong-credentials.html', function($uibModalInstance, topController){
+    this.ModalFactory.trigger(this,'wrong-credentials.html', function($uibModalInstance, topController){
       this.message = 'Votre nom d\'utilisateur et/ou votre mot de passe est incorrect. Veuillez recommencer avec des identifiants correctes';
       this.ok = ()=>{
         $uibModalInstance.close('ok');
