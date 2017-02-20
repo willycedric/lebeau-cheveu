@@ -16,7 +16,7 @@ angular.module('accountVerificationModule').config(['$routeProvider', function($
         upsertVerificationToken: ['$q', '$location', 'accountResource', 'securityAuthorization', function($q, $location, restResource, securityAuthorization){
           //lazy upsert verification only for un-verified user, otherwise redirect to /account
           var redirectUrl;
-          var promise = securityAuthorization.requireUnverifiedUser()
+          var promise = securityAuthorization.requireAccountUser()
             .then(restResource.upsertVerification, function(reason){
               //rejected either user is verified already or isn't authenticated
               redirectUrl = reason === 'verified-client'? '/account': '/login';

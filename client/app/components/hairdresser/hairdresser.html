@@ -1,9 +1,9 @@
-<section class="hairdresser">
-	<div class="container" ng-show="vm.hairdresser.accountstatus">
+<section class="hairdresser section-padding">
+	<div class="container">
 		<div class="row">
 			<div class="col-sm-3">
 				<div class="row">
-					<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type | customerTypeFilter}}"></hairdresser-profile-card>
+					<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type }}"></hairdresser-profile-card>
 				</div> <!-- row id card -->
 				<hairdresser-menu></hairdresser-menu>
 			</div> <!-- .col-sm-4 left-element -->
@@ -54,19 +54,19 @@
 			</div><!-- right elemnt -->			
 		</div> <!-- top row -->
 	</div> <!-- .top container -->
-	<div class="container" ng-hide="vm.hairdresser.accountstatus">
+	<!--<div class="container" ng-hide="vm.hairdresser.accountstatus">
 		<div class="row">
 			<div class="col-sm-offset-3 col-sm-6 " >
 				<div class=" section section-height-min ">
 					<h5 class= "section-t-lower"> Compte désactivé</h5>
-				</div> <!-- .section -->
+				</div> 
 				<div class="section-padding-3">
 					<p class="section-content"> Votre compte est actuellement désactivé. S'il s'agit d'un compte nouvellement créé, veuillez l'activer en cliquant sur le lien que vous avez reçu lors de votre inscription, si non contacter le support.</p>
 					
 						<a class="btn-lbc btn-default"> Contacter le support </a>
 				
-				</div>	<!-- .section -->
+				</div>	
 			</div>
 		</div>
-	</div> <!-- end .container -->
+	</div>  <!--end .container  hairdresser account hidden is account not activated -->
 </section><!-- hairdresser -- >

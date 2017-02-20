@@ -1,0 +1,22 @@
+
+@import "../../styles/sass/main";
+
+$admin-nav-bar-left:12em;
+
+ .admin-navbar{
+	margin-left: $admin-nav-bar-left;
+	margin-top: 0.5em;
+	margin-left: 12em;
+    color: #fafafa;
+    font-family: FuturaPT-Book;
+    font-size: 1.5em;
+}
+
+.admin-navbar-top{
+	line-height: 5em;
+}
+
+.admin-navbar > ul > li >a{
+	color:#fafafa;
+	font-family: FuturaPT-Book;
+}

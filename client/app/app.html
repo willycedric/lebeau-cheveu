@@ -1,65 +1,129 @@
 <section class="app">       
-    <div class="container">
-        <div  class="row">            
-        <nav class="navbar navbar-default transparent navbar-static-top" role="navigation" id="navbar-main">
-          <div class="container">
-              <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navCollapse">
-                      <span class="sr-only">Toggle Navigation</span>
-                      <span class="fa fa-chevron-down"></span> Menu
-                  </button>
-                 <a class="navbar-brand" ui-sref="home">
-                     <span class="lebeaucheveu-logo"></span>
-                 </a>
-              </div>
-              <div class="collapse navbar-collapse" id="navCollapse">
-                  <ul class="nav navbar-nav navbar-right">
-                      <!--<li class="active"><a href="#">Home</a></li>-->
-                      <!--<li ui-sref-active="active" class="active become-hairdresser">
-                          <a class="a-link" ui-sref="join">Proposez vos services</a>
-                      </li>-->
-                       <li ui-sref-active="active" class="active">            
-                            <a class="a-link" ui-sref="catalog">Catalogues</a>
-                      </li>
-                      <li ui-sref-active="active" class="active">
-                          <a id="blog-link" ui-sref="blog">Blog</a>
-                      </li>
-                      <li ng-show="vm.toggle" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{vm.username}} <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li ng-show="vm.isCustomer"><a ui-sref="customer">Mon compte</a></li>
-                                <li ng-show="vm.isAdmin"><a ui-sref="admin">Mon compte</a></li>
-                                <li ng-show="vm.isHairdresser"><a ui-sref="hairdresser">Mon compte</a></li>
-                                <li><a ui-sref="cart">Achats</a></li>
-                                <li class="divider"></li>
-                                <li ng-click="vm.logout()"><a class="logout-link" >Deconnexion</a></li>
-                            </ul>
-                        </li>
-                     <li ng-show="!vm.toggle" ui-sref-active="active" class="login-link">
-                          <a id ="login-link" href="#" ><login name="Connexion" class="login-t"></login></a>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-      </nav>
-      <!--end nav bar-->
+  <div ng-controller="HeaderCtrl">
+    <div class="navbar navbar-default navbar-static-top" role="navigation" id="navbar-main" ng-if="!isAdmin()">
+        <div class="container">
+            <div class="navbar-header">
+                <a ui-sref="home" class="navbar-brand">                    
+                    <span class="lebeaucheveu-logo"></span>
+                </a>
+                <button class="navbar-toggle btn navbar-btn" ng-init="menuCollapsed = true" ng-click="menuCollapsed = !menuCollapsed">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" collapse="menuCollapsed" ng-click="menuCollapsed = true">
+                <ul class="nav navbar-nav navbar-right">
+                    <li ui-sref-active="active" class="active">            
+                          <a class="a-link" ui-sref="catalog">Catalogues</a>
+                    </li>
+                    <li ui-sref-active="active" class="active">
+                        <a id="blog-link" ui-sref="blog">Blog</a>
+                    </li>
+                    <li   ng-if="!isAuthenticated()" ui-sref-active="active" class="login-link">
+                        <a id ="login-link" href="#" ><login name="Connexion" class="login-t"></login></a>
+                    </li>
+                     <li ng-if="isAuthenticated()">                        
+                        <a href="#" id="dropdowMenu1" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">JON DOE <b class="caret"></b></a>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">                                  
+                              <li ng-if="isAccount()"><a ui-sref="account">Mon compte </a></li> 
+                              <li ng-if="isHairdresser()"><a ui-sref="hairdresser">Mon compte </a></li>
+                              <li ng-if="isAdminLogged()"><a ui-sref="admin">Mon compte </a></li>
+                              <li ng-click="logout()"><a class="logout-link" >Déconnexion</a></li>
+                          </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-
-    <div class="">
-         <main class="main" id="panel">
-            <div ui-view id="view"></div>
-         </main><!-- end main -->
-    </div>
-    <footer id="legal-notice">
-      <div class="container">
-        <div class="row row-top-5em">
-          <div class="col-xs-12">
-           <!-- <h3 class="section-title"> Mention légales</h3>-->
+    <div class="navbar navbar-inverse admin-navbar-top navbar-fixed-top" ng-if="isAdmin()" ng-controller="AdminHeaderCtrl">
+          <div class="container">
+              <div class="navbar-header">
+                  <a ui-sref="admin" class="navbar-brand-admin">                      
+                      <span class="lebeaucheveu-logo"></span>
+                  </a>
+                  <button class="navbar-toggle btn navbar-btn" ng-click="toggleAdminMenu()">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+              </div> 
+              <div class="navbar-collapse collapse" collapse="adminMenuCollapsed">
+                  <ul class="nav admin-navbar  navbar-nav">
+                      <li class="dropdown" dropdown is-open="status.isopen">
+                        <a  class="dropdown-toggle navbar-dropdown-admin" data-toggle="dropdown">System&nbsp;<span class="caret"></span></a>
+                      <!--  <a class="dropdown-toggle" data-toggle="dropdown" >a<span class="caret"></span></a>-->
+                          <ul class="dropdown-menu">
+                              <li class="dropdown-header">Pivoted Settings</li>
+                              <li><a ui-sref="adminstatuses" ng-click="closeAdminMenu()">Statuses</a></li>
+                              <li><a ui-sref="admincategories" ng-click="closeAdminMenu()">Categories</a></li>
+                              <li class="divider"></li>
+                              <li class="dropdown-header">User Admin</li>
+                              <li><a ui-sref="adminusers" ng-click="closeAdminMenu()">Users</a></li>
+                              <li><a ui-sref="adminaccounts" ng-click="closeAdminMenu()">Accounts</a></li>
+                              <li><a ui-sref="adminadministrators" ng-click="closeAdminMenu()">Administrators</a></li>
+                              <li><a ui-sref="adminadmingroups" ng-click="closeAdminMenu()">Admin Groups</a></li>
+                          </ul>
+                      </li>
+                    </ul>
+                  <form name="form" class="navbar-form navbar-right">
+                      <div class="dropdown" dropdown is-open="resultIsOpen">
+                          <input name="search" type="text" placeholder="search" class="form-control" ng-model="query" ng-model-options="{ debounce: 500 }" ng-change="update()">
+                          <ul class="dropdown-menu">
+                              <li class="dropdown-header" ng-show="showDropdownHeader('noDocsMatched')">no docs matched</li>
+                              <li class="dropdown-header" ng-show="showDropdownHeader('Users')">Users</li>
+                              <li ng-repeat="user in result.users">
+                                  <a class="dropdown-toggle" data-toggle="dropdown" ng-bind="user.username" ng-href="/admin/users/{{user._id}}" ng-click="closeAdminMenu()"></a>
+                              </li>
+                              <li class="dropdown-header" ng-show="showDropdownHeader('Accounts')">Accounts</li>
+                              <li ng-repeat="account in result.accounts">
+                                  <a ng-bind="account.name.full"  data-toggle="dropdow"  ng-href="/admin/accounts/{{account._id}}" ng-click="closeAdminMenu()"></a>
+                              </li>
+                              <li class="dropdown-header" ng-show="showDropdownHeader('Administrators')">Administrators</li>
+                              <li ng-repeat="admin in result.administrators">
+                                  <a ng-bind="admin.name.full" ng-href="/admin/administrators/{{admin._id}}" ng-click="closeAdminMenu()"></a>
+                              </li>
+                          </ul>
+                      </div>                    
+                  </form>                  
+              </div>
           </div>
-        </div> <!-- .row -->
-        <div class="row row-top-5em">
-          <div class=" col-sm-offset-1 col-sm-2">
+      </div>
+  </div>
+  <div>
+       <main class="main" id="panel">
+          <div ui-view id="view"></div>
+       </main><!-- end main -->
+  </div>
+  <footer id="legal-notice">
+    <div class="container">
+      <div class="row row-top-5em">
+        <div class="col-xs-12">
+         <!-- <h3 class="section-title"> Mention légales</h3>-->
+        </div>
+      </div> <!-- .row -->
+      <div class="row row-top-5em">
+        <div class=" col-sm-offset-1 col-sm-2">
+          <div class="legal-mention-contains">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
+        <div class=" col-sm-offset-1 col-sm-2">
+          <div class="legal-mention-contains">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
+        <div class="col-sm-offset-1 col-sm-2">
             <div class="legal-mention-contains">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
               tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -68,38 +132,18 @@
               cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
               proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </div>
-          </div>
-          <div class=" col-sm-offset-1 col-sm-2">
-            <div class="legal-mention-contains">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-          </div>
-          <div class="col-sm-offset-1 col-sm-2">
-              <div class="legal-mention-contains">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </div>
-          </div>
-          <div class="col-sm-offset-1 col-sm-2">
-            <div class="legal-mention-contains">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
+        </div>
+        <div class="col-sm-offset-1 col-sm-2">
+          <div class="legal-mention-contains">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </div>
         </div>
-      </div> <!-- .container-fluid .hidden-xs -->
+      </div>
+    </div> <!-- .container-fluid .hidden-xs -->
   </footer>  
 </section>

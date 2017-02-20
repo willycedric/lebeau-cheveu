@@ -11,6 +11,12 @@ export const securityAuthorizationModule = angular.module('securityAuthorization
   requireAdminUser: ['securityAuthorization', function(securityAuthorization) {
     return securityAuthorization.requireAdminUser();
   }],
+  requireAccountUser: ['securityAuthorization', function(securityAuthorization) {
+    return securityAuthorization.requireAccountUser();
+  }],
+  requireHaidresserUser: ['securityAuthorization', function(securityAuthorization) {
+    return securityAuthorization.requireHaidresserUser();
+  }],
 
   requireAuthenticatedUser: ['securityAuthorization', function(securityAuthorization) {
     return securityAuthorization.requireAuthenticatedUser();
@@ -58,6 +64,32 @@ export const securityAuthorizationModule = angular.module('securityAuthorization
           if ( !security.isAuthenticated() ) {
             return queue.pushRetryFn('unauthenticated-client', service.requireAdminUser);
           }else if( !security.isAdmin() ){
+            return $q.reject('unauthorized-client');
+          }
+        });
+        return promise;
+      },
+      // Require that there is an administrator logged in
+      // (use this in a route resolve to prevent non-administrators from entering that route)
+      requireAccountUser: function() {
+        var promise = security.requestCurrentUser().then(function(userInfo) {
+          if ( !security.isAuthenticated() ) {
+            return queue.pushRetryFn('unauthenticated-client', service.requireAccountUser);
+          }else if( !security.isAccount() ){
+            return $q.reject('unauthorized-client');
+          }
+        });
+        return promise;
+      },
+      // Require that there is an administrator logged in
+      // (use this in a route resolve to prevent non-administrators from entering that route)
+      requireHairdresserUser: function() {
+        var promise = security.requestCurrentUser().then(function(userInfo) {
+          if ( !security.isAuthenticated() ) {
+            console.log('im here too');
+            return queue.pushRetryFn('unauthenticated-client', service.requireHairdresserUser);
+          }else if(!security.isHairdresser()){
+            console.log('im not here ', security.isHairdresser());
             return $q.reject('unauthorized-client');
           }
         });

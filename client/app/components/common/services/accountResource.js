@@ -19,6 +19,7 @@ export const servicesAccountResourceModule = angular.module('servicesAccountReso
   };
 
   resource.getAccountDetails = function(){
+    console.log('getAccountDetails');
     return $http.get(baseUrl + '/account/settings').then(processResponse, processError);
   };
   resource.setAccountDetails = function(data){

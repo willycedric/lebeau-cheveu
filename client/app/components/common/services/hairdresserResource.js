@@ -1,4 +1,6 @@
-export const servicesHairdresserResourceModule = angular.module('servicesHairdresserResourceModule', ['security.service']).factory('hairdresserResource', ['$http', '$q', '$log', 'security', function ($http, $q, $log, security) {
+import {securityServiceModule} from './../security/security';
+
+export const servicesHairdresserResourceModule = angular.module('servicesHairdresserResourceModule', [securityServiceModule.name]).factory('hairdresserResource', ['$http', '$q', '$log', 'security', function ($http, $q, $log, security) {
   // local variable
  const baseUrl = 'http://localhost:3500/api';
   var processResponse = function(res){
@@ -17,9 +19,22 @@ export const servicesHairdresserResourceModule = angular.module('servicesHairdre
     return $http.post(baseUrl + '/sendMessage', data).then(processResponse, processError);
   };
 
-  resource.getAccountDetails = function(){
+  resource.getSettings = function(){
     return $http.get(baseUrl + '/hairdresser/settings').then(processResponse, processError);
   };
+
+  resource.getBookings= function(){
+    return $http.get(baseUrl + '/hairdresser/bookings').then(processResponse, processError);
+  };
+
+  resource.getMessages = function(){
+    return $http.get(baseUrl + '/hairdresser/messages').then(processResponse, processError);
+  };
+
+  resource.getPictures = function(){
+    return $http.get(baseUrl + '/hairdresser/pictures').then(processResponse, processError);
+  };
+
   resource.setAccountDetails = function(data){
     return $http.put(baseUrl + '/hairdresser/settings', data).then(processResponse, processError);
   };

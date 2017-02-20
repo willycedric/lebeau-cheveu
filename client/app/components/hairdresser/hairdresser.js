@@ -2,18 +2,66 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import {hairdresserDirective} from './hairdresser.directive';
 import menu from './hairdresser-menu.html';
+import {hairdresserlogbook} from './logbook/hairdresserlogbook';
+import {hairdressermessage} from './messages/hairdressermessage';
+import {hairdresserbooking} from './bookings/hairdresserbooking';
+import {hairdresserpicture} from './pictures/hairdresserpicture';
+import {hairdresseraccount} from './settings/hairdresseraccount';
+import {servicesHairdresserResourceModule} from './../common/services/hairdresserResource';
+import {securityAuthorizationModule} from './../common/security/authorization';
+import hairdresserProfileCard from './haidresser-profile-card.html';
+import './hairdresser-profile-card.css';
+export const hairdresser = angular.module('hairdresser', 
+  [
+    uiRouter,
+    securityAuthorizationModule.name,
+    hairdresserlogbook.name,
+    hairdressermessage.name,
+    hairdresserbooking.name,
+    hairdresserpicture.name,
+    hairdresseraccount.name,
+    servicesHairdresserResourceModule.name
 
-export const hairdresser = angular.module('hairdresser', [uiRouter])
-  .config(($stateProvider) => {
+  ]
+  )
+  .config(($stateProvider,securityAuthorizationProvider) => {
     $stateProvider.state('hairdresser', {
       url: '/hairdresser',
       template: '<hairdresser></hairdresser>',
-      resolve:{
-      	access:["Access", function(Access){ return Access.isHairdresser(1);}]
+      resolve: {
+        accountDetails: ['$q', '$location', 'securityAuthorization', 'hairdresserResource',function($q, $location, securityAuthorization,hairdresserResource){
+          //get app stats only for admin-user, otherwise redirect to /account
+          var redirectUrl;
+          var promise = securityAuthorization.requireHairdresserUser()
+            .then(hairdresserResource.getAccountDetails, function(reason){
+                //rejected either user is unverified or un-authenticated
+                console.log('here i am');
+                redirectUrl = reason === 'unverified-client'? '/hairdresser/verification': '/login';
+                return $q.reject();
+              })
+              .catch(function(){
+                redirectUrl = redirectUrl || '/hairdresser';
+                $location.path(redirectUrl);
+                return $q.reject();
+              });
+                return promise;
+        }]
       }
     })
   })
   .directive('hairdresser',hairdresserDirective)
+  .directive('hairdresserProfileCard', () =>{
+    return{
+      restrict:'E',
+      template:hairdresserProfileCard,
+      scope:{
+        url:'@',
+        name:'@',
+        type:'@'
+      },
+      replace:true,
+    };
+})
   .directive('hairdresserMenu',()=>{
     return {
       restrict:'E',
@@ -31,5 +79,39 @@ export const hairdresser = angular.module('hairdresser', [uiRouter])
         return 'inconnu';
       }
     };
-  });
+  })
+  .filter('customerTypeFilter',()=>{
+    return (typeId)=>{
+      switch(typeId){
+        case 0:
+          return "Mixte";
+        break;
+        case 1:
+          return "Femme uniquement";
+        break;
+        case 2:
+          return "Homme uniquement";
+        break;
+        default:
+        break;
+      }
+    }
+})
+.filter('displayHairdresserStatut', () =>{
+  return (status)=>{
+    switch(status){
+      case 0:
+        return 'Dispo';
+        break;
+      case 1:
+        return 'Réservé';
+        break;
+      case -1:
+        return 'Vérouillé'
+        break;
+      default:
+        break;
+    }
+  }
+});
 

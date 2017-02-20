@@ -17,9 +17,13 @@ import {securityServiceModule} from './components/common/security/security';
 import {home} from './components/home/home';
 import {login} from './components/login/login';
 import {loginModule} from './components/login/index';
+import {admin} from './components/admin/index';
 import {join} from './components/join/join';
+import {hairdresser} from './components/hairdresser/hairdresser';
 import {shared} from './shared/shared';
 import {signupModule} from './components/signup/signup';
+import moment from 'moment';
+import './app.scss';
 angular.module('app', [
   uiRouter,
   ngRoute,
@@ -28,7 +32,7 @@ angular.module('app', [
   ngCookies,
   config.name,
   baseModule.name,
-    shared.name,
+  shared.name,
   account.name,
   servicesI18nNotificationsModule.name,
   servicesHttpRequestTrackerModule.name,
@@ -37,7 +41,9 @@ angular.module('app', [
   login.name,
   join.name,
   signupModule.name,
-  loginModule.name
+  loginModule.name,
+  hairdresser.name,
+  admin.name
 ])
 .provider(
         'csrfCD',

@@ -31,7 +31,10 @@ h3,h4,h5,h1,h2{
 .from-previous-section{
 	margin-top:$distance-from-previous-section;
 }
-
+/** padding between the  app bar and the first section on the component displayed **/
+.section-padding{
+    padding-top:$first-section-padding-bottom;
+}
 /* Center element on each boostrap row */
 .row {
 	text-align:center;
@@ -299,6 +302,9 @@ h5{
     margin: 10px;
     padding: 0;
     width: 100%;
+}
+.menu-item{
+    margin-left:-2em;
 }
  .left-menu li{
     display:list-item;

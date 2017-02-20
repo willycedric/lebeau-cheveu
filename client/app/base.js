@@ -4,13 +4,13 @@ import {servicesAccountResourceModule} from './components/common/services/accoun
 import {servicesAdminResourceModule} from './components/common/services/adminResource';
 
 
-angular.module('base',[
+ const baseModule = angular.module('base',[
  servicesUtilityModule.name,
  securityServiceModule.name,
   servicesAccountResourceModule.name,
-  servicesAdminResourceModule.name, 
-  'ui.bootstrap']);
-export const baseModule = angular.module('base').controller('HeaderCtrl', ['$scope', '$location', 'security',
+  servicesAdminResourceModule.name
+  ]);
+baseModule.controller('HeaderCtrl', ['$scope', '$location', 'security',
   function ($scope, $location, security) {
     $scope.isAuthenticated = function(){
       return security.isAuthenticated();
@@ -22,6 +22,17 @@ export const baseModule = angular.module('base').controller('HeaderCtrl', ['$sco
         return security.isAdmin();
       }
     };
+    $scope.isAdminLogged = function(){
+      return security.isAdmin();
+    };
+
+    $scope.isHairdresser = function(){
+      return security.isHairdresser();
+    };
+    $scope.isAccount = function () {
+      return security.isAccount();
+    };
+
     $scope.logout = function(){
       return security.logout();
     };
@@ -30,7 +41,7 @@ export const baseModule = angular.module('base').controller('HeaderCtrl', ['$sco
     };
   }
 ]);
-angular.module('base').controller('AdminHeaderCtrl' ,['$scope', 'adminResource',
+baseModule.controller('AdminHeaderCtrl' ,['$scope', 'adminResource',
   function($scope, adminResource){
 
     var clearSearchDropdown = function(){
@@ -90,7 +101,7 @@ angular.module('base').controller('AdminHeaderCtrl' ,['$scope', 'adminResource',
     $scope.adminMenuCollapsed = true;
   }
 ]);
-angular.module('base').controller('FooterCtrl', ['$scope', 'security',
+baseModule.controller('FooterCtrl', ['$scope', 'security',
   function($scope, security){
     $scope.isAuthenticated = function(){
       return security.isAuthenticated();
@@ -102,7 +113,7 @@ angular.module('base').controller('FooterCtrl', ['$scope', 'security',
   }
 ]);
 
-angular.module('base').controller('ContactCtrl', ['$scope', 'utility', 'accountResource',
+baseModule.controller('ContactCtrl', ['$scope', 'utility', 'accountResource',
   function($scope, utility, restResource){
     // local var
     var successAlert = { type: 'success', msg: 'We have received your message. Thank you.' };
@@ -143,3 +154,4 @@ angular.module('base').controller('ContactCtrl', ['$scope', 'utility', 'accountR
     };
   }
 ]);
+export {baseModule};

@@ -24,7 +24,7 @@ export const accountmessages = angular.module('accountmessages',
 	    accountDetails: ['$q', '$location', 'securityAuthorization', 'accountResource' ,function($q, $location, securityAuthorization, accountResource){
 	      //get account details only for verified-user, otherwise redirect to /account/verification
 	      var redirectUrl;
-	      var promise = securityAuthorization.requireVerifiedUser()
+	      var promise = securityAuthorization.requireAccountUser()
 	        .then(accountResource.getAccountDetails, function(reason){
 	          //rejected either user is unverified or un-authenticated
 	          redirectUrl = reason === 'unverified-client'? '/account/verification': '/login';

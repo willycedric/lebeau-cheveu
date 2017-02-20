@@ -209,6 +209,7 @@ const baseUrl =  'http://localhost:3500';
     isHairdresser: function(){
       return !!(service.currentUser && service.currentUser.hairdresser);
     },
+    //Is the current user is a customer account 
     isAccount:function(){
       return !!(service.currentUser && service.currentUser.account);
     }

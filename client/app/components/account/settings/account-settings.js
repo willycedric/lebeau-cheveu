@@ -27,7 +27,7 @@ angular.module('accountSettingsModule').config(['$stateProvider', 'securityAutho
         accountDetails: ['$q', '$location', 'securityAuthorization', 'accountResource' ,function($q, $location, securityAuthorization, accountResource){
           //get account details only for verified-user, otherwise redirect to /account/verification
           var redirectUrl;
-          var promise = securityAuthorization.requireVerifiedUser()
+          var promise = securityAuthorization.requireAccountUser()
             .then(accountResource.getAccountDetails, function(reason){
               console.log(reason);
               //rejected either user is unverified or un-authenticated
@@ -38,7 +38,10 @@ angular.module('accountSettingsModule').config(['$stateProvider', 'securityAutho
               redirectUrl = redirectUrl || '/account';
               $location.path(redirectUrl);
               return $q.reject();
-            });
+            })
+            .finally((data)=>{
+              console.log('Just to make sure that this function is triggered ',data);
+            }); 
           return promise;
         }]
       }
