@@ -4,6 +4,7 @@ import{securityAuthorizationModule} from './../../common/security/authorization'
 import {servicesUtilityModule} from './../../common/services/utility';
 import uiRouter from 'angular-ui-router';
 import template from './admin-users.tpl.html';
+import './admin-user.scss';
 angular.module('adminUsersIndexModule', [uiRouter, securityAuthorizationModule.name,
  servicesUtilityModule.name, 
  servicesAdminResourceModule.name
@@ -102,7 +103,7 @@ export const adminUsersIndexModule = angular.module('adminUsersIndexModule').con
 
     // $scope vars
     //select elements and their associating options
-    $scope.roles = [{label: "any", value: ""}, {label: "admin", value: "admin"}, {label: "account", value: "account"}];
+    $scope.roles = [{label: "any", value: ""}, {label: "admin", value: "admin"}, {label: "account", value: "account"},{label: "hairdresser", value: "hairdresser"}];
     $scope.isActives =[{label: "either", value: ""}, {label: "yes", value: "yes"}, {label: "no", value: "no"}];
     $scope.sorts = [
       {label: "id \u25B2", value: "_id"},

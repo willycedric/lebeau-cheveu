@@ -4,6 +4,7 @@ import{securityAuthorizationModule} from './../../common/security/authorization'
 import {servicesUtilityModule} from './../../common/services/utility';
 import uiRouter from 'angular-ui-router';
 import template from './admin-administrators.tpl.html';
+import './admin-administrator.scss';
 angular.module('adminAdministratorsIndexModule', [uiRouter, securityAuthorizationModule.name,
      servicesUtilityModule.name, 
      servicesAdminResourceModule.name]);
@@ -39,8 +40,8 @@ angular.module('adminAdministratorsIndexModule').config(['$stateProvider', funct
       reloadOnSearch: false
     });
 }]);
-export const adminAdministratorsIndexModule = angular.module('adminAdministratorsIndexModule').controller('AdministratorsIndexCtrl', ['$scope', '$route', '$location', '$log', 'utility', 'adminResource', 'administrators',
-  function($scope, $route, $location, $log, utility, adminResource, data){
+export const adminAdministratorsIndexModule = angular.module('adminAdministratorsIndexModule').controller('AdministratorsIndexCtrl', ['$scope', '$route', '$location', '$log', 'utility', 'adminResource', 'administrators','ModalFactory',
+  function($scope, $route, $location, $log, utility, adminResource, data,ModalFactory){
     // local var
     var deserializeData = function(data){
       $scope.items = data.items;
@@ -100,7 +101,25 @@ export const adminAdministratorsIndexModule = angular.module('adminAdministrator
         $log.error(e);
       });
     };
+    $scope.lauchAddAdminForm = function(){
+      ModalFactory.trigger(this, "newAdmin.html",function($uibModalInstance,topController){
 
+        this.AddAdmin = function(fullname){
+          topController.fullname = fullname || '';
+          topController.AddAdmin();
+          $uibModalInstance.close('OK');
+        };
+
+        this.cancel = function(){
+          $uibModalInstance.dismiss('cancel');
+        };
+
+        this.canSave = function(ngFormCtrl){
+          console.log('inside this function');
+            return  ngFormCtrl.$dirty && ngFormCtrl.$valid;
+        }
+      });
+    };
     // $scope vars
     //select elements and their associating options
     $scope.sorts = [

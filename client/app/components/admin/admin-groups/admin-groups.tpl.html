@@ -1,58 +1,60 @@
-<section class="section-padding container">
-    <div class="row" id="admin-groups-index">
-        <div class="col-xs-12">
-            <div class="page-header">
-                <form class="form-inline pull-right" name="addGroupForm">
-                    <div class="input-group">
-                        <input name="name" type="text" placeholder="enter a name" class="form-control" ng-model="groupname" required>
-                        <button type="button" class="btn btn-primary" ng-disabled="!canSave(addGroupForm)" ng-click="addGroup()">Add New</button>
+<section class="admin section-padding container">
+    <div class="container" id="admin-groups-index">
+        <div class="row section-padding">
+            <div class="row page-header">
+                <div class="col-sm-3">
+                    <h1>Admin Groups</h1>
+                </div>
+              <div class="col-sm-6">
+                <form class="filters">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row wrapper">
+                                <div class="col-sm-8">
+                                    <label class="sr-only">Search</label>
+                                    <input name="search" placeholder="search" type="text" class="form-control search" ng-model="filters.search" ng-model-options="{ debounce: 500 }" ng-change="">
+                                </div>
+                                <div class="col-sm-4">
+                                    <input class="submit" type="submit"  ng-click="filtersUpdated()" value="" />
+                                </div>
+                            </div>  <!-- .row-->
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                   <label class="serach-label">filter by value</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <label class="sr-only">Sort By</label>
+                                    <select name="sort" class="form-control" ng-model="filters.sort" ng-model-options="{ debounce: 500 }" ng-options="sort.value as sort.label for sort in sorts" ng-change="filtersUpdated()">
+                                    </select>                                   
+                                </div>
+
+                            </div>
+                        </div>                        
                     </div>
                 </form>
-                <h1>Admin Groups</h1>
             </div>
-            <form class="filters">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label>Name Search</label>
-                        <input name="search" type="text" class="form-control" ng-model="filters.name" ng-model-options="{ debounce: 500 }" ng-change="filtersUpdated()">
-                    </div>
-                    <div class="col-sm-4">
-                        <label>Sort By</label>
-                        <select name="sort" class="form-control" ng-model="filters.sort" ng-model-options="{ debounce: 500 }" ng-options="sort.value as sort.label for sort in sorts" ng-change="filtersUpdated()">
-                            <!--<option value="_id">id &#9650;</option>-->
-                            <!--<option value="-_id">id &#9660;</option>-->
-                            <!--<option value="name">name &#9650;</option>-->
-                            <!--<option value="-name">name &#9660;</option>-->
-                        </select>
-                    </div>
-                    <div class="col-sm-4">
-                        <label>Limit</label>
-                        <select name="limit" class="form-control" ng-model="filters.limit" ng-model-options="{ debounce: 500 }" ng-options="limit.value as limit.label for limit in limits" ng-change="filtersUpdated()">
-                            <!--<option value="10">10 items</option>-->
-                            <!--<option value="20" selected="selected">20 items</option>-->
-                            <!--<option value="50">50 items</option>-->
-                            <!--<option value="100">100 items</option>-->
-                        </select>
-                    </div>
-                </div>
-            </form>
+            <div class="col-sm-3">                
+                <button type="button" class="btn btn-add btn-primary"  ng-click="launchAddGroupForm()">Add New</button>
+            </div>
+        </div>
+        <div class="row">
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th></th>
-                    <th class="stretch">name</th>
-                    <th>id</th>
-                </tr>
+                    <tr>                    
+                        <th class="stretch">name</th>
+                        <th>id</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="group in groups">
-                    <td><a class="btn btn-default btn-sm" ng-click="redirectToGroupDetails(group._id)">Edit</a></td>
-                    <td ng-bind="group.name"></td>
-                    <td class="nowrap" ng-bind="group._id"></td>
-                </tr>
-                <tr ng-show="groups.length === 0">
-                    <td colspan="3">no documents matched</td>
-                </tr>
+                    <tr ng-repeat="group in groups" ng-click="redirectToGroupDetails(group._id)">                    
+                        <td ng-bind="group.name"></td>
+                        <td class="nowrap" ng-bind="group._id"></td>
+                    </tr>
+                    <tr ng-show="groups.length === 0">
+                        <td colspan="3">no documents matched</td>
+                    </tr>
                 </tbody>
             </table>
             <div class="well" ng-if="pages.total > 1">
@@ -68,4 +70,24 @@
             </div>
         </div>
     </div>
+    <script type="text/ng-template" id="newGroup.html">
+        <div class="modal-header">
+            <h5 class="center modal-title">New Admin Group</h5>
+        </div>
+        <div class="modal-body">
+            <form autocomplete="off" role="add"  id="add-form"  name="addHairdresserForm"  novalidate ng-submit="$ctrl.addAGroup(fullname)">
+               <input name="name" type="text" placeholder="enter a name" class="form-control" ng-model="fullname" required>
+                <div class="container"> 
+                    <div class="row">
+                        <div class="col-sm-offset-1 col-sm-1">
+                            <input  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-confirm btn-primary" value="Add" >
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-primary btn-cancel" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>  
+       </div>
+    </script>  
 </section>

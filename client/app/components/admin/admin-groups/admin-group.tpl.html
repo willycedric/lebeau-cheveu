@@ -1,10 +1,10 @@
-<section class="section-padding container">
+<section class="admin section-padding container">
     <div class="row" id="admin-groups-detail">
-        <div class="col-xs-12">
+        <div class="col-sm-10 col-sm-offset-2">
             <div class="page-header">
-                <h1><a href="/admin/admin-groups">Admin Groups</a> / {{group.name}}</h1>
+                <h1><a ui-sref="adminadmingroups">Admin Groups</a> / {{group.name}}</h1>
             </div>
-            <form name="detailForm"><fieldset>
+            <form class="form"class="form" name="detailForm"><fieldset>
                 <legend>Details</legend>
                 <alert ng-repeat="alert in detailAlerts" type="{{alert.type}}" close="closeDetailAlert($index)">{{alert.msg}}</alert>
                 <div class="form-group" ng-class="{'has-error': hasError(detailForm.name)}">
@@ -16,7 +16,7 @@
                     <button type="button" class="btn btn-primary" ng-disabled="!canSave(detailForm)" ng-click="update()">Update</button>
                 </div>
             </fieldset></form>
-            <form name="permissionForm"><fieldset>
+            <form class="form"name="permissionForm"><fieldset>
                 <legend>Permissions</legend>
                 <alert ng-repeat="alert in permissionAlerts" type="{{alert.type}}" close="closePermissionAlert($index)">{{alert.msg}}</alert>
                 <div class="form-group">
@@ -31,12 +31,12 @@
                 <div class="form-group">
                     <label>Settings:</label>
                     <div class="permissions">
-                        <div class="input-group" ng-repeat="permission in group.permissions">
+                        <div ng-repeat="permission in group.permissions">
                             <input disabled ng-model="permission.name" class="form-control" disabled>
                             <div class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-class="{disabled: permission.permit}" ng-click="togglePermission($index)">Allow</button>
-                                <button type="button" class="btn btn-default" ng-class="{disabled: !permission.permit}" ng-click="togglePermission($index)">Deny</button>
-                                <button type="button" class="btn btn-danger btn-delete" ng-click="deletePermission($index)"><i class="fa fa-trash-o fa-inverse"></i></button>
+                                <button type="button" class="bnt-short btn btn-primary btn-add" ng-class="{disabled: permission.permit}" ng-click="togglePermission($index)">Allow</button>
+                                <button type="button" class="bnt-short btn btn-primary btn-add" ng-class="{disabled: !permission.permit}" ng-click="togglePermission($index)">Deny</button>
+                                <button type="button" class="bnt-short btn btn-danger btn-delete" ng-click="deletePermission($index)"><i class="fa fa-trash-o fa-inverse"></i></button>
                             </div>
                         </div>
                         <span class="badge" ng-show="group.permissions.length === 0">no permissions defined</span>
@@ -46,7 +46,7 @@
                     <button type="button" class="btn btn-primary" ng-click="saveSettings()">Save Settings</button>
                 </div>
             </fieldset></form>
-            <form name="deleteForm"><fieldset>
+            <form class="form"name="deleteForm"><fieldset>
                 <legend>Danger Zone</legend>
                 <alert ng-repeat="alert in deleteAlerts" type="{{alert.type}}" close="closeDeleteAlert($index)">{{alert.msg}}</alert>
                 <div class="form-group">

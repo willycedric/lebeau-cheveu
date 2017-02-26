@@ -74,21 +74,15 @@ angular.module('app', [
                 };
             }];
 })
-.config(function($httpProvider) {
-
-        // set csrf for cross origin requests
-        $httpProvider.defaults.withCredentials = true;
-        $httpProvider.interceptors.push('csrfCD');
-})
 .config(['$httpProvider','XSRF_COOKIE_NAME', 'csrfCDProvider',function($httpProvider, XSRF_COOKIE_NAME,csrfCDProvider){
-    //$httpProvider.defaults.xsrfCookieName = XSRF_COOKIE_NAME;
+    $httpProvider.defaults.xsrfCookieName = XSRF_COOKIE_NAME;
     $httpProvider.defaults.withCredentials = true;
-    // $httpProvider.defaults.headers.common = {};
-    // $httpProvider.defaults.headers.post = {};
-    // $httpProvider.defaults.headers.put = {};
-    // $httpProvider.defaults.headers.patch = {};
-    csrfCDProvider.setHeaderName('X-XSRF-TOKEN');
-    csrfCDProvider.setCookieName(XSRF_COOKIE_NAME);
+   /* $httpProvider.defaults.headers.common = {};
+    $httpProvider.defaults.headers.post = {};
+    $httpProvider.defaults.headers.put = {};
+    $httpProvider.defaults.headers.patch = {};*/
+   // csrfCDProvider.setHeaderName('X-XSRF-TOKEN');
+    //csrfCDProvider.setCookieName(XSRF_COOKIE_NAME);
     //$httpProvider.defaults.useXDomain = true;
     //delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }])

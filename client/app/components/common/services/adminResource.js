@@ -3,6 +3,7 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
   const baseUrl = 'http://localhost:3500/api';
   var userUrl = baseUrl + '/admin/users';
   var accountUrl = baseUrl + '/admin/accounts';
+  var hairdresserUrl = baseUrl+'/admin/hairdressers';
   var administratorUrl = baseUrl + '/admin/administrators';
   var adminGroupUrl = baseUrl + '/admin/admin-groups';
   var adminStatusesUrl = baseUrl + '/admin/statuses';
@@ -23,6 +24,10 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
   resource.getStats = function(){
     return $http.get(baseUrl + '/admin').then(processResponse, processError);
   };
+ 
+  resource.getStatus = function(){
+    return $http.get(baseUrl+'/admin/statuses').then(processResponse, processError);
+  }
   resource.search = function(query){
     return $http.get(baseUrl + '/admin/search', { params: { q: query }} ).then(processResponse, processError);
   };
@@ -34,21 +39,28 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
     }
     return $http.get(userUrl, { params: filters }).then(processResponse, processError);
   };
+
+
   resource.addUser = function(username){
     return $http.post(userUrl, { username: username }).then(processResponse, processResponse);
   };
+
   resource.findUser = function(_id){
     var url = userUrl + '/' + _id;
     return $http.get(url).then(processResponse, processError);
   };
+ 
   resource.updateUser = function(_id, data){
     var url = userUrl + '/' + _id;
     return $http.put(url, data).then(processResponse, processError);
   };
+ 
   resource.setPassword = function(_id, data){
     var url = userUrl + '/' + _id + '/password';
     return $http.put(url, data).then(processResponse, processError);
   };
+
+
   resource.linkAdmin = function(_id, data){
     var url = userUrl + '/' + _id + '/role-admin';
     return $http.put(url, data).then(processResponse, processError);
@@ -61,14 +73,24 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
     var url = userUrl + '/' + _id + '/role-account';
     return $http.put(url, data).then(processResponse, processError);
   };
+   resource.linkHairdresser = function(_id, data){
+    var url = hairdresserUrl + '/' + _id + '/role-account';
+    return $http.put(url, data).then(processResponse, processError);
+  };
   resource.unlinkAccount = function(_id){
     var url = userUrl + '/' + _id + '/role-account';
+    return $http.delete(url).then(processResponse, processError);
+  };
+  resource.unlinkHairdresser = function(_id){
+    var url = hairdresserUrl + '/' + _id + '/role-account';
     return $http.delete(url).then(processResponse, processError);
   };
   resource.deleteUser = function(_id){
     var url = userUrl + '/' + _id;
     return $http.delete(url).then(processResponse, processError);
   };
+
+
 
   // ----- accounts api -----
   resource.findAccounts = function(filters){
@@ -77,38 +99,98 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
     }
     return $http.get(accountUrl, { params: filters }).then(processResponse, processError);
   };
+
+
   resource.addAccount = function(fullname){
     return $http.post(accountUrl, { 'name.full': fullname }).then(processResponse, processResponse);
   };
+
+ 
   resource.findAccount = function(_id){
     var url = accountUrl + '/' + _id;
     return $http.get(url).then(processResponse, processError);
   };
+
+
+
   resource.updateAccount = function(_id, data){
     var url = accountUrl + '/' + _id;
     return $http.put(url, data).then(processResponse, processError);
   };
-  resource.linkUser = function(_id, data){
-    var url = accountUrl + '/' + _id + '/user';
+
+ 
+
+  resource.linkAccontUser = function(_id, data){
     return $http.put(url, data).then(processResponse, processError);
   };
-  resource.unlinkUser = function(_id){
+
+ 
+  resource.unlinkAccountUser = function(_id){
     var url = accountUrl + '/' + _id + '/user';
     return $http.delete(url).then(processResponse, processError);
   };
+
+
   resource.newAccountNote = function(_id, data){
     var url = accountUrl + '/' + _id + '/notes';
     return $http.post(url, data).then(processResponse, processError);
   };
+ 
   resource.newAccountStatus = function(_id, data){
     var url = accountUrl + '/' + _id + '/status';
     return $http.post(url, data).then(processResponse, processError);
   };
+
+ 
   resource.deleteAccount = function(_id){
     var url = accountUrl + '/' + _id;
     return $http.delete(url).then(processResponse, processError);
   };
 
+
+  //-------- hairdressers api ------------
+    resource.findHairdressers = function(filters){
+      if(angular.equals({}, filters)){
+        filters = undefined;
+      }
+      return $http.get(hairdresserUrl, { params: filters }).then(processResponse, processError);
+    };
+    resource.addHairdresser = function(fullname){
+      return $http.post(hairdresserUrl, { 'name.full': fullname }).then(processResponse, processResponse);
+    };
+    resource.findHairdresser = function(_id){
+      var url = hairdresserUrl + '/' + _id;
+      return $http.get(url).then(processResponse, processError);
+    };
+   resource.updateHairdresser = function(_id, data){
+      var url = hairdresserUrl + '/' + _id;
+      return $http.put(url, data).then(processResponse, processError);
+    };
+   resource.linkHairdresserUser = function(_id, data){
+      var url = hairdresserUrl + '/' + _id + '/user';
+      return $http.put(url, data).then(processResponse, processError);
+    }; 
+
+    resource.unlinkHairdresserUser = function(_id){
+      var url = hairdresserUrl + '/' + _id + '/user';
+      return $http.delete(url).then(processResponse, processError);
+    };
+
+   resource.newHairdresserNote = function(_id, data){
+      var url = hairdresserUrl + '/' + _id + '/notes';
+      return $http.post(url, data).then(processResponse, processError);
+    };
+
+   resource.newHairdresserStatus = function(_id, data){
+      var url = hairdresserUrl + '/' + _id + '/status';
+      return $http.post(url, data).then(processResponse, processError);
+    };
+
+   resource.deleteHairdresser = function(_id){
+      var url = hairdresserUrl + '/' + _id;
+      return $http.delete(url).then(processResponse, processError);
+    };
+    
   // ----- administrators api -----
   resource.findAdministrators = function(filters){
     if(angular.equals({}, filters)){

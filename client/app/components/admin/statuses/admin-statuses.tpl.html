@@ -1,58 +1,66 @@
-<section class="section-padding container">
-    <div class="row" id="admin-statuses-index">
-        <div class="col-xs-12">
-            <div class="page-header">
-                <form class="form-inline pull-right" name="addStatusForm">
-                    <div class="input-group">
-                        <input name="pivot" type="text" placeholder="pivot" class="form-control" ng-model="add.pivot" required>
-                        <input name="name" type="text" placeholder="name" class="form-control" ng-model="add.name" required>
-                        <button type="button" class="btn btn-primary" ng-disabled="!canSave(addStatusForm)" ng-click="addStatus()">Add New</button>
-                    </div>
-                </form>
+<section class="admin section-padding container">
+    <div class="row section-padding" id="admin-statuses-index">
+        <div class="row">
+            <div class=" col-sm-3 page-header">                
                 <h1>Statuses</h1>
             </div>
-            <form class="filters">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <label>Pivot Search</label>
-                        <input name="pivot" type="text" class="form-control" ng-model="filters.pivot" ng-model-options="{ debounce: 500 }" ng-change="filtersUpdated()">
+            <div class="col-sm-6">                
+                <form class="filters">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <label class="serach-label">pivot</label>
+                                </div>
+                                <div class="col-sm-10">                                    
+                                    <div class="row wrapper">
+                                        <div class="col-sm-8">
+                                            <label class="sr-only">Pivot search</label>
+                                            <input name="search" placeholder="search" type="text" class="form-control search" ng-model="filters.pivot" ng-model-options="{ debounce: 500 }" ng-change="">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input class="submit" type="submit"  ng-click="filtersUpdated()" value="" />
+                                        </div>
+                                    </div>  <!-- .row-->
+                                </div>
+                            </div>          
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <label class="serach-label">name </label>
+                                </div>
+                                <div class="col-sm-10">                                   
+                                        <div class="row wrapper">
+                                            <div class="col-sm-8">
+                                                <label class="sr-only">Name Search</label>
+                                                <input name="search" placeholder="search" type="text" class="form-control search" ng-model="filters.name" ng-model-options="{ debounce: 500 }" ng-change="">
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input class="submit" type="submit"  ng-click="filtersUpdated()" value="" />
+                                            </div>
+                                        </div>  <!-- .row-->
+                                </div>
+                            </div>                          
+                        </div>                        
                     </div>
-                    <div class="col-sm-3">
-                        <label>Name Search</label>
-                        <input name="name" type="text" class="form-control" ng-model="filters.name" ng-model-options="{ debounce: 500 }" ng-change="filtersUpdated()">
-                    </div>
-                    <div class="col-sm-3">
-                        <label>Sort By</label>
-                        <select name="sort" class="form-control" ng-model="filters.sort" ng-model-options="{ debounce: 500 }" ng-options="sort.value as sort.label for sort in sorts" ng-change="filtersUpdated()">
-                            <!--<option value="_id">id &#9650;</option>-->
-                            <!--<option value="-_id">id &#9660;</option>-->
-                            <!--<option value="name">name &#9650;</option>-->
-                            <!--<option value="-name">name &#9660;</option>-->
-                        </select>
-                    </div>
-                    <div class="col-sm-3">
-                        <label>Limit</label>
-                        <select name="limit" class="form-control" ng-model="filters.limit" ng-model-options="{ debounce: 500 }" ng-options="limit.value as limit.label for limit in limits" ng-change="filtersUpdated()">
-                            <!--<option value="10">10 items</option>-->
-                            <!--<option value="20" selected="selected">20 items</option>-->
-                            <!--<option value="50">50 items</option>-->
-                            <!--<option value="100">100 items</option>-->
-                        </select>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div class="col-sm-3">                
+                <button type="button" class="btn btn-primary btn-add" ng-click="LaunchAddStatusForm()">Add New</button>
+            </div>
+        </div>
+        <div class="row">
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th></th>
+                <tr>                    
                     <th>pivot</th>
                     <th class="stretch">name</th>
                     <th>id</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="status in statuses">
-                    <td><a class="btn btn-default btn-sm" ng-click="redirectToStatusDetails(status._id)">Edit</a></td>
+                <tr ng-repeat="status in statuses" ng-click="redirectToStatusDetails(status._id)">                    
                     <td ng-bind="status.pivot"></td>
                     <td ng-bind="status.name"></td>
                     <td class="nowrap" ng-bind="status._id"></td>
@@ -75,4 +83,25 @@
             </div>
         </div>
     </div>
+    <script type="text/ng-template" id="newStatus.html">
+        <div class="modal-header">
+                     <h5 class="center modal-title">New Status</h5>
+        </div>
+        <div class="modal-body">
+            <form autocomplete="off" role="add"  id="add-form"  name="addPivotForm"  novalidate ng-submit="$ctrl.addStatus(pivot,name)">
+                <input name="name" type="text" placeholder="pivot" class="form-control" ng-model="pivot" required>
+               <input name="name" type="text" placeholder="name" class="form-control" ng-model="name" required>
+                <div class="container"> 
+                    <div class="row">
+                        <div class="col-sm-offset-1 col-sm-1">
+                            <input  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-confirm btn-primary" value="Add" >
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-primary btn-cancel" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>  
+       </div>
+    </script>   
 </section>

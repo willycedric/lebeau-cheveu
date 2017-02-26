@@ -1,52 +1,54 @@
-<section class="section-padding container">
-    <div class="row" id="admin-administrators-index">
-        <div class="col-xs-12">
-            <div class="page-header">
-                <form class="form-inline pull-right" name="addAdminForm">
-                    <div class="input-group">
-                        <input name="name" type="text" placeholder="enter a name" class="form-control" ng-model="fullname" required>
-                        <button type="button" class="btn btn-primary" ng-disabled="!canSave(addAdminForm)" ng-click="addAdmin()">Add New</button>
-                    </div>
-                </form>
+<section class="admin section-padding">
+    <div class="container section-padding " id="admin-administrators-index">
+        <div class="row">
+            <div class="col-sm-3">                
                 <h1>Administrators</h1>
             </div>
-            <form class="filters">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label>Name Search</label>
-                        <input name="search" type="text" class="form-control" ng-model="filters.search" ng-model-options="{ debounce: 500 }" ng-change="filtersUpdated()">
+            <div class="col-sm-6">
+                <form class="filters">
+                    <div class="row">
+                        <div class="col-sm-6">                            
+                            <div class="row wrapper">
+                                <div class="col-sm-8">
+                                    <label class="sr-only">Search</label>
+                                    <input name="search" placeholder="search" type="text" class="form-control search" ng-model="filters.search" ng-model-options="{ debounce: 500 }" ng-change="">
+                                </div>
+                                <div class="col-sm-4">
+                                    <input class="submit" type="submit"  ng-click="filtersUpdated()" value="" />
+                                </div>
+                            </div>  <!-- .row-->
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <label class="serach-label">filter by value</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <label class="sr-only">Sort By</label>
+                                    <select name="sort" class="form-control" ng-model="filters.sort" ng-model-options="{ debounce: 500 }" ng-options="sort.value as sort.label for sort in sorts" ng-change="filtersUpdated()">               
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <label>Sort By</label>
-                        <select name="sort" class="form-control" ng-model="filters.sort" ng-model-options="{ debounce: 500 }" ng-options="sort.value as sort.label for sort in sorts" ng-change="filtersUpdated()">
-                            <!--<option value="_id">id &#9650;</option>-->
-                            <!--<option value="-_id">id &#9660;</option>-->
-                            <!--<option value="name">name &#9650;</option>-->
-                            <!--<option value="-name">name &#9660;</option>-->
-                        </select>
-                    </div>
-                    <div class="col-sm-4">
-                        <label>Limit</label>
-                        <select name="limit" class="form-control" ng-model="filters.limit" ng-model-options="{ debounce: 500 }" ng-options="limit.value as limit.label for limit in limits" ng-change="filtersUpdated()">
-                            <!--<option value="10">10 items</option>-->
-                            <!--<option value="20" selected="selected">20 items</option>-->
-                            <!--<option value="50">50 items</option>-->
-                            <!--<option value="100">100 items</option>-->
-                        </select>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div class="col-sm-3">                
+                <div class="input-group">                       
+                    <button type="button" class="button-add row-top btn btn-primary" ng-click="lauchAddAdminForm()">Add New</button>
+                </div>                
+            </div>
+        </div>
+        <div class="row">
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th></th>
+                <tr>                    
                     <th class="stretch">name</th>
                     <th>id</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="administrator in administrators">
-                    <td><a class="btn btn-default btn-sm" ng-click="redirecToAdministratorDetails(administrator._id)">Edit</a></td>
+                <tr ng-repeat="administrator in administrators" ng-click="redirecToAdministratorDetails(administrator._id)">                    
                     <td class="nowrap" ng-bind="administrator.name.full"></td>
                     <td ng-bind="administrator._id"></td>
                 </tr>
@@ -68,4 +70,24 @@
             </div>
         </div>
     </div>
+    <script type="text/ng-template" id="newAdmin.html">
+        <div class="modal-header">
+            <h5 class="center modal-title">New Administrator</h5>
+        </div>
+        <div class="modal-body">
+            <form autocomplete="off" role="add"  id="add-form"  name="addAdminForm"  novalidate ng-submit="$ctrl.AddAdmin(fullname)">      
+                       <input name="name" type="text" placeholder="enter a name" class="form-control" ng-model="fullname" required>
+            <div class="container"> 
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-1">
+                        <input  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-confirm btn-primary" value="Add" >
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-primary btn-cancel" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            </form>  
+       </div>
+    </script>  
 </section>

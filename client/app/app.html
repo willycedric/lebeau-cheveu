@@ -39,7 +39,7 @@
     <div class="navbar navbar-inverse admin-navbar-top navbar-fixed-top" ng-if="isAdmin()" ng-controller="AdminHeaderCtrl">
           <div class="container">
               <div class="navbar-header">
-                  <a ui-sref="admin" class="navbar-brand-admin">                      
+                  <a ui-sref="home" class="navbar-brand-admin">                      
                       <span class="lebeaucheveu-logo"></span>
                   </a>
                   <button class="navbar-toggle btn navbar-btn" ng-click="toggleAdminMenu()">
@@ -61,6 +61,7 @@
                               <li class="dropdown-header">User Admin</li>
                               <li><a ui-sref="adminusers" ng-click="closeAdminMenu()">Users</a></li>
                               <li><a ui-sref="adminaccounts" ng-click="closeAdminMenu()">Accounts</a></li>
+                              <li><a ui-sref="adminhairdressers" ng-click="closeAdminMenu()">Hairdressers</a></li>
                               <li><a ui-sref="adminadministrators" ng-click="closeAdminMenu()">Administrators</a></li>
                               <li><a ui-sref="adminadmingroups" ng-click="closeAdminMenu()">Admin Groups</a></li>
                           </ul>

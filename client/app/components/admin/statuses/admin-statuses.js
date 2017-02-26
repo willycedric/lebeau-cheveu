@@ -39,8 +39,8 @@ angular.module('adminStatusesIndexModule').config(['$stateProvider', function($s
       reloadOnSearch: false
     });
 }]);
-export const adminStatusesIndexModule = angular.module('adminStatusesIndexModule').controller('StatusesIndexCtrl', ['$scope', '$route', '$location', '$log', 'utility', 'adminResource', 'statuses',
-  function($scope, $route, $location, $log, utility, adminResource, data){
+export const adminStatusesIndexModule = angular.module('adminStatusesIndexModule').controller('StatusesIndexCtrl', ['$scope', '$route', '$location', '$log', 'utility', 'adminResource', 'statuses','ModalFactory',
+  function($scope, $route, $location, $log, utility, adminResource, data,ModalFactory){
     // local var
     var deserializeData = function(data){
       $scope.items = data.items;
@@ -97,6 +97,27 @@ export const adminStatusesIndexModule = angular.module('adminStatusesIndexModule
       }, function(e){
         $scope.add = {};
         $log.error(e);
+      });
+    };
+
+    $scope.LaunchAddStatusForm = function(){
+      ModalFactory.trigger(this, "newStatus.html",function($uibModalInstance,topController){
+
+        this.addStatus = function(pivot,name){
+          topController.name = name || '';
+          topController.pivot = pivot ||'';
+          topController.addStatus();
+          $uibModalInstance.close('OK');
+        };
+
+        this.cancel = function(){
+          $uibModalInstance.dismiss('cancel');
+        };
+
+        this.canSave = function(ngFormCtrl){
+          console.log('inside this function');
+            return  ngFormCtrl.$dirty && ngFormCtrl.$valid;
+        }
       });
     };
 

@@ -243,6 +243,16 @@ export const adminAdministratorsDetailModule = angular.module('adminAdministrato
       }
     };
 
+    $scope.redirectToAdminDetails = function(id){
+      var redirectUrl ;
+      if(id){
+        redirectUrl = '/admin/administrators/'+id.toString();
+      }else{
+        redirectUrl='/admin/administrators/';
+      }
+      $location.path(redirectUrl);
+    };
+
     //initialize
     deserializeData(data);
   }

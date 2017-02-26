@@ -5,6 +5,7 @@ import{securityAuthorizationModule} from './../../common/security/authorization'
 import {servicesUtilityModule} from './../../common/services/utility';
 import uiRouter from 'angular-ui-router';
 import template from './admin-groups.tpl.html';
+import './admin-group.scss';
 angular.module('adminAadminGroupsIndexModule', [uiRouter, securityAuthorizationModule.name,
      servicesUtilityModule.name, 
      servicesAdminResourceModule.name]);
@@ -40,8 +41,8 @@ angular.module('adminAadminGroupsIndexModule').config(['$stateProvider', functio
       reloadOnSearch: false
     });
 }]);
-export const adminAadminGroupsIndexModule = angular.module('adminAadminGroupsIndexModule').controller('AdminGroupsIndexCtrl', ['$scope', '$route', '$location', '$log', 'utility', 'adminResource', 'groups',
-  function($scope, $route, $location, $log, utility, adminResource, data){
+export const adminAadminGroupsIndexModule = angular.module('adminAadminGroupsIndexModule').controller('AdminGroupsIndexCtrl', ['$scope', '$route', '$location', '$log', 'utility', 'adminResource', 'groups','ModalFactory',
+  function($scope, $route, $location, $log, utility, adminResource, data,ModalFactory){
     // local var
     var deserializeData = function(data){
       $scope.items = data.items;
@@ -99,6 +100,25 @@ export const adminAadminGroupsIndexModule = angular.module('adminAadminGroupsInd
       }, function(e){
         $scope.groupname = '';
         $log.error(e);
+      });
+    };
+    $scope.launchAddGroupForm = function(){
+      ModalFactory.trigger(this, "newGroup.html",function($uibModalInstance,topController){
+
+        this.addGroup = function(fullname){
+          topController.fullname = fullname || '';
+          topController.addGroup();
+          $uibModalInstance.close('OK');
+        };
+
+        this.cancel = function(){
+          $uibModalInstance.dismiss('cancel');
+        };
+
+        this.canSave = function(ngFormCtrl){
+          console.log('inside this function');
+            return  ngFormCtrl.$dirty && ngFormCtrl.$valid;
+        }
       });
     };
 

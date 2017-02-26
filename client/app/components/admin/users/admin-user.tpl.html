@@ -1,11 +1,11 @@
-<section class="section-padding ">
+<section class=" admin section-padding ">
     <div class="container">
         <div class="row" id="admin-users-detail">
-            <div class="col-xs-12">
+            <div class="col-sm-10 col-sm-offset-2">
                 <div class="page-header">
-                    <h1><a ng-href="/admin/users">Users</a> / {{user.username}}</h1>
+                    <h1><a ui-sref="adminusers">Users</a> / {{user.username}}</h1>
                 </div>
-                <form name="identityForm"><fieldset>
+                <form class="form" name="identityForm"><fieldset>
                     <legend>Identity</legend>
                     <alert ng-repeat="alert in identityAlerts" type="{{alert.type}}" close="closeIdentityAlert($index)">{{alert.msg}}</alert>
                     <div class="form-group" ng-class="{'has-error': hasError(identityForm.isActive)}">
@@ -30,7 +30,7 @@
                         <button type="button" class="btn btn-primary" ng-disabled="!canSave(identityForm)" ng-click="updateIdentity()">Update</button>
                     </div>
                 </fieldset></form>
-                <form name="roleForm"><fieldset>
+                <form class="form" name="roleForm"><fieldset>
                     <legend>Roles</legend>
                     <alert ng-repeat="alert in roleAlerts" type="{{alert.type}}" close="closeRoleAlert($index)">{{alert.msg}}</alert>
                     <div class="form-group" ng-class="{'has-error': roleForm.newAdminId && hasError(roleForm.newAdminId)}">
@@ -72,7 +72,7 @@
                         <span class="help-block" ng-if="!(user.roles && user.roles.account)" ng-show="showError(roleForm.newAccountId, 'required')">This field is required</span>
                     </div>
                 </fieldset></form>
-                <form name="passwordForm"><fieldset>
+                <form class="form" name="passwordForm"><fieldset>
                     <legend>Set Password</legend>
                     <alert ng-repeat="alert in passwordAlerts" type="{{alert.type}}" close="closePasswordAlert($index)">{{alert.msg}}</alert>
                     <div class="form-group" ng-class="{'has-error': hasError(passwordForm.password)}">
@@ -89,7 +89,7 @@
                         <button type="button" class="btn btn-primary" ng-disabled="!canSave(passwordForm)" ng-click="setPassword()">Set Password</button>
                     </div>
                 </fieldset></form>
-                <form name="deleteForm"><fieldset>
+                <form class="form" name="deleteForm"><fieldset>
                     <legend>Danger Zone</legend>
                     <alert ng-repeat="alert in deleteAlerts" type="{{alert.type}}" close="closeDeleteAlert($index)">{{alert.msg}}</alert>
                     <div class="form-group">

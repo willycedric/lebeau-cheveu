@@ -31,16 +31,48 @@ angular.module('adminModule').config(['$stateProvider', function($stateProvider)
       }
     });
 }]);
-export const adminModule = angular.module('adminModule').controller('AdminCtrl', ['$scope', '$log', 'stats',
-  function($scope, $log, stats){
+export const adminModule = angular.module('adminModule').controller('AdminCtrl', ['$scope', '$log', 'stats','$state',
+  function($scope, $log, stats,$state){
     $scope.user = {
       users: stats['User'],
       accounts: stats['Account'],
       admins: stats['Admin'],
-      groups: stats['AdminGroup']
+      groups: stats['AdminGroup'],
+      hairdressers: stats['Hairdresser']
     };
     $scope.pivoted = {
       categories: stats['Category'],
       statuses: stats['Status']
+    };
+
+    $scope.goToState = function(state){      
+      const effectiveState = state.toString().toUpperCase() || '';      
+        switch(effectiveState){
+          case 'USERS':
+            $state.go("adminusers");
+            break;
+          case 'ACCOUNTS':
+            $state.go("adminaccounts");
+          break;
+          case 'ADMINS':
+            $state.go("adminadministrators");
+          break;
+          case 'GROUPS':
+            $state.go("adminadmingroups");
+          break;
+          case 'CATEGORIES':
+            $state.go("admincategories")
+          break;
+          case 'STATUSES':
+            $state.go("adminstatuses")
+          break;
+          case 'HAIRDRESSERS':
+            $state.go("adminhairdressers");
+          break;
+          default:
+            throw new Error(' the state '+effectiveState+' is not handled by this function ');
+          break;
+        }
+      
     };
   }]);

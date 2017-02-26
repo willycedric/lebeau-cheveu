@@ -6,6 +6,7 @@ import {servicesUtilityModule} from './../../common/services/utility';
 import uiRouter from 'angular-ui-router';
 import template from './admin-accounts.tpl.html';
 import moment from 'moment';
+import './admin-account.scss';
 angular.module('adminAccountsIndexModule', [uiRouter,
   securityAuthorizationModule.name,
   servicesUtilityModule.name, 
@@ -43,12 +44,18 @@ angular.module('adminAccountsIndexModule').config(['$stateProvider', function($s
       reloadOnSearch: false
     });
 }]);
-export const adminAccountsIndexModule = angular.module('adminAccountsIndexModule').controller('AccountsIndexCtrl', ['$scope', '$route', '$location', '$log', 'utility', 'adminResource', 'accounts',
-  function($scope, $route, $location, $log, utility, adminResource, data){
+export const adminAccountsIndexModule = angular.module('adminAccountsIndexModule').controller('AccountsIndexCtrl', ['$scope', '$route', '$location', '$log', 'utility', 'adminResource', 'accounts','ModalFactory',
+  function($scope, $route, $location, $log, utility, adminResource, data,ModalFactory){
     //// local var
+    var getAvailableStatus = function () {
+      adminResource.getStatus()
+      .then((data)=>{
+         $scope.statuses = data.data;
+      });
+    };
     var deserializeData = function(data){
       var results = data.results;
-      $scope.statuses = data.statuses;
+      getAvailableStatus();
       $scope.items = results.items;
       $scope.pages = results.pages;
       $scope.filters = results.filters;
@@ -107,6 +114,25 @@ export const adminAccountsIndexModule = angular.module('adminAccountsIndexModule
       }, function(e){
         $scope.fullname = '';
         $log.error(e);
+      });
+    };
+    //Add a new Account in the list 
+    $scope.lauchAddAccountForm= function(){
+      ModalFactory.trigger(this, "newAccount.html",function($uibModalInstance,topController){
+
+        this.addAccount = function(fullname){
+          topController.fullname = fullname || '';
+          topController.addAccount();
+          $uibModalInstance.close('OK');
+        };
+
+        this.cancel = function(){
+          $uibModalInstance.dismiss('cancel');
+        };
+
+        this.canSave = function(ngFormCtrl){          
+            return  ngFormCtrl.$dirty && ngFormCtrl.$valid;
+        };
       });
     };
 

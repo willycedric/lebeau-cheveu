@@ -1,0 +1,9 @@
+@import "./../../../../styles/sass/main";
+@import "./../hairdressers/admin-hairdresser";
+.view-state{
+	cursor:pointer;
+	&:hover,&:focus,&:focus:hover{
+		outline:none;
+		cursor:pointer;
+	}
+}

@@ -4,6 +4,8 @@ import{securityAuthorizationModule} from './../../common/security/authorization'
 import {servicesUtilityModule} from './../../common/services/utility';
 import uiRouter from 'angular-ui-router';
 import template from './admin-account.tpl.html';
+import moment from 'moment';
+import './admin-account.scss';
 angular.module('adminAccountDetailModule', [
   uiRouter, 
   securityAuthorizationModule.name,
@@ -48,8 +50,15 @@ angular.module('adminAccountDetailModule').config(['$stateProvider', function($s
 export const adminAccountDetailModule =  angular.module('adminAccountDetailModule').controller('AccountsDetailCtrl', ['$scope', '$route', '$location', 'utility', 'adminResource', 'account',
   function($scope, $route, $location, utility, adminResource, data) {
     // local vars
+    //// local var
+    var getAvailableStatus = function () {
+      adminResource.getStatus()
+      .then((data)=>{
+         $scope.statuses = data.data;
+      });
+    };
     var deserializeData = function(data){
-      $scope.statuses = data.statuses;
+      getAvailableStatus();
       deserializeAccount(data.record);
     };
     var deserializeAccount = function(account){
@@ -61,6 +70,16 @@ export const adminAccountDetailModule =  angular.module('adminAccountDetailModul
     };
     var closeAlert = function(alert, ind){
       alert.splice(ind, 1);
+    };
+
+    $scope.redirectToAccountDetails = function(id){
+      var redirectUrl ;
+      if(id){
+        redirectUrl = '/admin/accounts/'+id.toString();
+      }else{
+        redirectUrl='/admin/accounts/';
+      }
+      $location.path(redirectUrl);
     };
 
     // $scope vars
@@ -118,7 +137,7 @@ export const adminAccountDetailModule =  angular.module('adminAccountDetailModul
       $scope.loginAlerts = [];
       var newUsername = $scope.account.newUsername;
       $scope.account.newUsername = '';
-      adminResource.linkUser($scope.account._id, { newUsername: newUsername }).then(function (result) {
+      adminResource.linkAccountUser($scope.account._id, { newUsername: newUsername }).then(function (result) {
         $scope.loginForm.$setPristine();
         if (result.success) {
           deserializeAccount(result.account);
@@ -134,7 +153,7 @@ export const adminAccountDetailModule =  angular.module('adminAccountDetailModul
     $scope.unlinkUser = function () {
       $scope.loginAlerts = [];
       if (confirm('Are you sure?')) {
-        adminResource.unlinkUser($scope.account._id).then(function (result) {
+        adminResource.unlinkAccountUser($scope.account._id).then(function (result) {
           if (result.success) {
             deserializeAccount(result.account);
           } else {

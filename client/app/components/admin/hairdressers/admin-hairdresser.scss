@@ -1,0 +1,124 @@
+@import "./../../../../styles/sass/main";
+
+$button-add-margin-top:2.3em;
+
+
+.admin .button-add{
+	height: 3em;
+	background: $default-background-color;
+	border:none;
+	font-family: FuturaPT-Book;
+	&:hover{
+		outline: none;
+		background: $default-background-color;
+		border: none;
+	}
+	&:focus{
+		outline: none;
+		background: $default-background-color;
+		border: none;
+	}
+
+	&:active:focus{
+		outline: none;
+		background: $default-background-color;
+		border: none;
+	}
+}
+
+.wrapper {
+	margin-top:$button-add-margin-top;
+	height: 3em;
+	font-size: 0;
+
+}
+
+.search {
+	padding: 0 30px;
+	font-size: 18px;
+	height: 3em;
+	border: 1px solid darken(white, 30%);
+	border-radius: 20px 0 0 20px;
+}
+
+.admin  .select{
+	height: 3em;
+}
+
+.admin .serach-label{
+	margin-top:1em;
+	font-family: FuturaPT-Book;
+}
+
+.admin table th, table td{
+	text-align: center;
+	font-family: FuturaPT-Medium;
+}
+.admin table{
+	background: white;
+}
+
+.admin table th{
+    background: #0da7a9;
+    color: white;
+    border-right: 1px solid white;
+    border-left:1px solid white;
+}
+.admin table tr{
+	cursor: pointer;
+	&:hover,&:focus,&:hover:focus{
+		cursor: pointer;
+		background:$default-background-color;
+	}
+}
+.submit {
+	cursor: pointer;
+	border: none;
+	background: url('http://thesuiteworld.com/wp-admin/maint/search-icon-white-png-540.png') no-repeat center center, #0da7a9;
+	background-size: 35px 35px;
+	border-radius: 0 20px 20px 0;
+	padding: 15px 25px;
+	display: inline-block;
+	height: 2.5em;
+	margin-left: -5em;
+	
+}
+
+.admin h1 >a{
+	font-size: 1em;    
+	color: #337ab7;
+
+}
+.admin h1{
+	text-align: left;
+}
+
+.admin .modal-dialog {
+/* width: 600px; */
+margin: 300px auto;
+}
+
+.admin fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+.admin form.form {
+    background: white;
+    font-family: FuturaPT-Medium;
+    font-size: 1.3em;
+    font-weight: lighter;
+    outline: none;
+}
+
+.admin select.form-control{
+    width:95%;
+    margin:0 auto;
+    outline:none;
+}
+
+
+.admin .bnt-short{
+	width: 30%;
+}

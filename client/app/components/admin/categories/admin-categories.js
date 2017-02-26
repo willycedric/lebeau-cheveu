@@ -5,6 +5,7 @@ import{securityAuthorizationModule} from './../../common/security/authorization'
 import {servicesUtilityModule} from './../../common/services/utility';
 import uiRouter from 'angular-ui-router';
 import template from './admin-categories.tpl.html';
+import './admin-category.scss';
 angular.module('adminCategoriesIndexModule', [uiRouter, securityAuthorizationModule.name,
      servicesUtilityModule.name, 
      servicesAdminResourceModule.name]);
@@ -29,7 +30,7 @@ angular.module('adminCategoriesIndexModule').config(['$stateProvider', function(
               return $q.reject();
             })
             .catch(function(){
-              redirectUrl = redirectUrl || '/account';
+              redirectUrl = redirectUrl || '/admin';
               $location.search({});
               $location.path(redirectUrl);
               return $q.reject();
@@ -40,8 +41,8 @@ angular.module('adminCategoriesIndexModule').config(['$stateProvider', function(
       reloadOnSearch: false
     });
 }]);
-export const adminCategoriesIndexModule = angular.module('adminCategoriesIndexModule').controller('CategoriesIndexCtrl', ['$scope', '$route', '$location', '$log', 'utility', 'adminResource', 'categories',
-  function($scope, $route, $location, $log, utility, adminResource, data){
+export const adminCategoriesIndexModule = angular.module('adminCategoriesIndexModule').controller('CategoriesIndexCtrl', ['$scope', '$route', '$location', '$log', 'utility', 'adminResource', 'categories','ModalFactory',
+  function($scope, $route, $location, $log, utility, adminResource, data,ModalFactory){
     // local var
     var deserializeData = function(data){
       $scope.items = data.items;
@@ -100,6 +101,27 @@ export const adminCategoriesIndexModule = angular.module('adminCategoriesIndexMo
       }, function(e){
         $scope.add = {};
         $log.error(e);
+      });
+    };
+
+    $scope.LaunchAddCategoryForm = function(){
+      ModalFactory.trigger(this, "newCategroy.html",function($uibModalInstance,topController){
+
+        this.addCategroy = function(pivot,name){
+          topController.name = name || '';
+          topController.pivot = pivot ||'';
+          topController.addCategory();
+          $uibModalInstance.close('OK');
+        };
+
+        this.cancel = function(){
+          $uibModalInstance.dismiss('cancel');
+        };
+
+        this.canSave = function(ngFormCtrl){
+          console.log('inside this function');
+            return  ngFormCtrl.$dirty && ngFormCtrl.$valid;
+        }
       });
     };
 

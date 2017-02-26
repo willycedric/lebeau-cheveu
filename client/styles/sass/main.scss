@@ -4,6 +4,7 @@
 @import "components/square";
 @import "helpers/mixin";
 
+
 $distance-from-previous-section:10%;
 $white:#fff;
 $button-color:#790303;
@@ -19,6 +20,8 @@ $default-font-weight:300;
 $first-section-padding-bottom: 8em;
 $default-background-color:#0da7a9;
 $li-item-font-family:FuturaPT-Medium;
+$button-add-margin-top:2.3em;
+$default-background-color-hover:rgba(0, 148, 150, 0.62);
 //$green:#1aca1d;
 $green:green;
 $red:red;
@@ -370,4 +373,33 @@ h5{
    border-bottom: 1px solid #333;
    text-transform: capitalize;
    color:#7D7979;
+}
+
+
+ button.btn-default{
+    width: 95%;
+    margin: 0 auto;
+    background: $default-background-color;
+    color: white;
+    font-family: FuturaPT-Book;
+    outline: none;
+    &:hover,&:focus,&:focus:hover{
+        background: $default-background-color;
+        color: white;
+        outline: none;
+    }
+}
+
+button.btn-primary{
+    background: $default-background-color;
+    border-color: $default-background-color;
+    color: white;
+    font-family: FuturaPT-Book;
+    outline: none;
+    &:hover,&:focus,&:focus:hover{
+        background: $default-background-color-hover;
+        color: white;
+        outline: none;
+         border-color: $default-background-color;
+    }
 }
