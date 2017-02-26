@@ -33,7 +33,7 @@
                         <form class="form-wrapper cf" ng-submit="vm.goToSearchBarView()"> 
                                    <select  ng-model="vm.selectedHaircutCategory" id="haircut-type" name="haircut" class="no-rounder">
                                        <optgroup label="categories">
-                                           <option selected="selected">Quelle catégorie de coiffure?</option>
+                                           <option value="">Quelle catégorie de coiffure?</option>
                                            <option ng-repeat = "haircut in vm.listOfAvailableCategories"  value="{{haircut}}">{{haircut}}</option>
                                        </optgroup>
                                     </select>
