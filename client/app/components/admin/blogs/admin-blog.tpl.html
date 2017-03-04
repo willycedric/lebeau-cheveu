@@ -1,0 +1,74 @@
+<section id="admin-blog" class=" admin section-padding">
+	<div class="container blog">		
+		<div class="row">
+				<div class="page-header col-sm-2">
+                <h1><a ui-sref="adminblogs"><span class"back">Back</span></a></h1>
+            </div>
+			<div class="col-sm-offset-1 col-sm-8">
+				<h1 class="blog-title"> {{blog.title}}</h1>
+				<br>
+				<div class="blog-details">
+					<span >{{blog.created_At | date}}</span> <span class="vertical-separator">|</span><span >{{blog.userCreated.name}}</span>
+				</div>			
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-offset-1 col-sm-5">
+				<img ng-src="{{blog.summaryImageUrl}}" class="img-responsive" alt="blog-caption"/>
+			</div>
+			<div class="col-sm-5 blog-summary">
+			 	<p ng-bind-html="(blog.content| limitTo:400)+' ...'" class="blog-description"> </p>
+			 	<div class="blog-button">
+			 		<button class="btn-blog" ng-click="redirectToFullArticleView(blog._id)"> Read More </button> <button class="btn-blog" ng-click="updateBlogModal(blog)">Update</button>
+			 	</div>		 	
+			</div>
+		</div>
+	</div> <!-- end .blog-->
+	<script type="text/ng-template" id="updateBlog.html">
+        <div class="modal-header">
+                     <h5 class="center modal-title">New Blog</h5>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+               <form name="blogForm" ng-submit="$ctrl.updateBlog($ctrl.data)">
+                        <alert ng-repeat="alert in $ctrl.alerts" type="{{alert.type}}" close="$ctrl.closeContactAlert($index)">{{alert.msg}}</alert>
+                        <div class="row form-group">
+                                <div class="col-sm-offset-1 col-sm-5">                                    
+                                    <input type="text" placeholder="tite" class="form-control" id="title" ng-model="$ctrl.data.title">
+                               </div>                      
+                               <div class="col-sm-5">                                    
+                                    <input type="text" placeholder="description" class="form-control" id="description" ng-model="$ctrl.data.description">
+                               </div>
+                        </div>
+                        <div class="row form-group row-top">                        
+                                <div class=" col-sm-offset-1 col-sm-4">                                   
+                                    <select id="categories"  ng-model="$ctrl.data.category">
+                                        <option value="">-- chose a category -- </option>
+                                        <option ng-repeat="category in $ctrl.categories" value="{{category}}">{{category.name}}</option>
+                                    </select>
+                                </div>                    
+                               <div class="checkbox   col-sm-2">
+                                    <label><input type="checkbox" ng-model="$ctrl.data.isPublished"> published ?</label>
+                              </div>
+                              <div class="form-group col-sm-4">
+                                <input type="text" placeholder="summary image url" ng-model="$ctrl.data.summaryImageUrl">
+                              </div>
+                        </div>                        
+                        <div class="row form-row-left">
+                            <div class="col-sm-10 col-sm-offset-1">
+                                <div text-angular="text-angular" name="htmlcontent" ng-model="$ctrl.data.content" ta-disabled='disabled'></div>
+                            </div> 
+                        </div>            
+                        <div class="row">
+                            <div class="col-sm-offset-4 col-sm-1">
+                                <input  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-confirm btn-primary" value="update" >
+                            </div>
+                            <div class="col-sm-1">
+                                <button class="btn btn-primary btn-cancel" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+                            </div>
+                        </div>
+               </form>
+            </div>           
+       </div>
+    </script>   
+</section>

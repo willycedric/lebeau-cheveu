@@ -18,8 +18,7 @@ export const servicesAccountResourceModule = angular.module('servicesAccountReso
     return $http.post(baseUrl + '/sendMessage', data).then(processResponse, processError);
   };
 
-  resource.getAccountDetails = function(){
-    console.log('getAccountDetails');
+  resource.getAccountDetails = function(){    
     return $http.get(baseUrl + '/account/settings').then(processResponse, processError);
   };
   resource.setAccountDetails = function(data){

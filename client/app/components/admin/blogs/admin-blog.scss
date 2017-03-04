@@ -1,0 +1,51 @@
+@import "./../../../../styles/sass/main";
+@import "./../hairdressers/admin-hairdresser";
+.modal.in .modal-dialog {
+    width: 80em;
+    margin: 0 auto;
+    margin-top: 3em;
+}
+
+.form-row-left{
+	width:100%;
+	margin-left:-5em;
+}
+
+.blog-details{
+	margin-top: -2em;
+	margin-bottom: 3em;
+}
+.vertical-separator{
+	padding-right: 0.5em;
+    padding-left: 0.5em;
+}
+
+.blog-button{
+	margin-top: 6em;
+}
+.blog{
+	padding:3em;
+	margin-bottom: 2em;
+	color:#fafafa;
+	background: $default-background-color;
+	font-family: FuturaPT-Medium;
+}
+
+.admin button.btn-blog {
+    width: 40%;
+    border: 1px solid #fafafa;
+    background: $default-background-color;;
+    color: white;
+    outline: none;
+}
+
+.admin h1{
+	text-align: left;
+	letter-spacing: 0.05em;
+}
+.blog-description{
+	text-align: left;
+	font-size: 1.2em;
+	letter-spacing: 0.03em;
+	line-height: 1.6em;
+}

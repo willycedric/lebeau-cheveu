@@ -63,7 +63,17 @@
                               <li><a ui-sref="adminaccounts" ng-click="closeAdminMenu()">Accounts</a></li>
                               <li><a ui-sref="adminhairdressers" ng-click="closeAdminMenu()">Hairdressers</a></li>
                               <li><a ui-sref="adminadministrators" ng-click="closeAdminMenu()">Administrators</a></li>
-                              <li><a ui-sref="adminadmingroups" ng-click="closeAdminMenu()">Admin Groups</a></li>
+                              <li><a ui-sref="adminadmingroups" ng-click="closeAdminMenu()">Admin Groups</a></li>                             
+                          </ul>
+                      </li>
+                    </ul>
+                    <ul class="nav admin-navbar  navbar-nav">
+                      <li class="dropdown" dropdown is-open="status.isopen">
+                        <a  class="dropdown-toggle navbar-dropdown-admin" data-toggle="dropdown">Blogs&nbsp;<span class="caret"></span></a>                      
+                          <ul class="dropdown-menu">                            
+                              <li class="dropdown-header">Blogs</li>
+                              <li><a ui-sref="adminblogs" ng-click="closeAdminMenu()">Blogs</a></li>
+                              <li><a ui-sref="adminblogcategories" ng-click="closeAdminMenu()">Categories</a></li>
                           </ul>
                       </li>
                     </ul>

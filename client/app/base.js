@@ -2,13 +2,17 @@ import {servicesUtilityModule} from './components/common/services/utility';
 import {securityServiceModule} from './components/common/security/security';
 import {servicesAccountResourceModule} from './components/common/services/accountResource';
 import {servicesAdminResourceModule} from './components/common/services/adminResource';
+import {servicesBlogResourceModule} from './components/common/services/blogResource';
+import {servicesHairdresserResourceModule} from './components/common/services/hairdresserResource'
 
 
  const baseModule = angular.module('base',[
  servicesUtilityModule.name,
  securityServiceModule.name,
   servicesAccountResourceModule.name,
-  servicesAdminResourceModule.name
+  servicesAdminResourceModule.name,
+  servicesHairdresserResourceModule.name,
+  servicesBlogResourceModule.name
   ]);
 baseModule.controller('HeaderCtrl', ['$scope', '$location', 'security',
   function ($scope, $location, security) {

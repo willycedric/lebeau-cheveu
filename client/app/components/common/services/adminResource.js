@@ -8,6 +8,8 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
   var adminGroupUrl = baseUrl + '/admin/admin-groups';
   var adminStatusesUrl = baseUrl + '/admin/statuses';
   var adminCategoriesUrl = baseUrl + '/admin/categories';
+  var adminBlogsUrl = baseUrl + '/admin/blogs';
+  var adminBlogCategoryUrl = baseUrl + '/admin/blog-category';
 
   var processResponse = function(res){
     return res.data;
@@ -277,6 +279,51 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
   };
   resource.deleteStatus = function(_id){
     var url = adminStatusesUrl + '/' + _id;
+    return $http.delete(url).then(processResponse, processError);
+  };
+// ----- blogs  api -----
+  resource.findBlogs = function(filters){
+    if(angular.equals({}, filters)){
+      filters = undefined;
+    }
+    return $http.get(adminBlogsUrl, { params: filters }).then(processResponse, processError);
+  };
+  resource.addBlog = function(data){
+    return $http.post(adminBlogsUrl, data).then(processResponse, processResponse);
+  };
+  resource.findBlog = function(_id){
+    var url = adminBlogsUrl + '/' + _id;
+    return $http.get(url).then(processResponse, processError);
+  };
+  resource.updateBlog = function(_id, data){
+    var url = adminBlogsUrl + '/' + _id;
+    return $http.put(url, data).then(processResponse, processError);
+  };
+  resource.deleteBlog = function(_id){
+    var url = adminBlogsUrl + '/' + _id;
+    return $http.delete(url).then(processResponse, processError);
+  };
+
+  // ----- blogs categories  api -----
+  resource.findBlogCategories = function(filters){
+    if(angular.equals({}, filters)){
+      filters = undefined;
+    }
+    return $http.get(adminBlogCategoryUrl, { params: filters }).then(processResponse, processError);
+  };
+  resource.addBlogCategory = function(data){
+    return $http.post(adminBlogCategoryUrl, data).then(processResponse, processResponse);
+  };
+  resource.findBlogCategory = function(_id){
+    var url = adminBlogCategoryUrl + '/' + _id;
+    return $http.get(url).then(processResponse, processError);
+  };
+  resource.updateBlogCategory = function(_id, data){
+    var url = adminBlogCategoryUrl + '/' + _id;
+    return $http.put(url, data).then(processResponse, processError);
+  };
+  resource.deleteBlogCategory = function(_id){
+    var url = adminBlogCategoryUrl + '/' + _id;
     return $http.delete(url).then(processResponse, processError);
   };
 
