@@ -1,0 +1,268 @@
+
+
+.catalog {
+	margin-top:3em;
+}
+
+#gallery-view{
+
+}
+
+.catalog .back{
+        text-decoration: none;
+        color: #0da7a9;
+        transition: .5s ease;
+        font-size: 1em;
+    }
+
+
+.catalog .img-gallery{
+	display: block; 
+    max-width: 100%;
+    width: 300px;
+    height: 300px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid #0da7a9;
+    border-radius: 4px;
+    line-height: 1.42857143;
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2));
+    webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    &:hover{
+    	cursor:pointer;
+    	transform:scale(1.1);
+    	margin-bottom: 1em;    	
+    }
+
+}
+
+.catalog-name{
+    font-family: FuturaPT-Books;
+    font-size: 1.3em;
+    text-align: center;
+    margin-left: -20%;
+}
+
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  float: left;
+  width: 25%;
+}
+
+/* The Modal (background) */
+.view {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  overflow-y:hidden;
+  background-color: rgba(0, 0, 0, 0.74);
+  /*opacity:0.9;*/
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 90%;
+  max-width: 1200px;
+}
+
+/* The Close Button */
+.catalog .close {
+  color: #0da7a9;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 1.6em;
+    font-weight: bolder;
+    right: 21.9em;
+    top: 1.8em;
+    opacity: 1;
+    border-color: #0da7a9;
+  &:hover,&:focus{
+    color: #fafafa;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+
+.mySlides {
+  
+}
+
+.cursor {
+  cursor: pointer
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: #0da7a9;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.catalog .next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.catalog .prev{
+    left:0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  color: #0da7a9;
+}
+
+.catalog a:hover{
+    color: #0da7a9;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #0da7a9;
+    font-size: 1.1em;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+img {
+  margin-bottom: -4px;
+}
+
+.catalog .caption-container {
+  text-align: center;
+  background-color: #fefefe;
+  padding: 2px 16px;
+  color: blak;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.catalog .caption-container p {
+    font-size: 1.3em;
+    font-family: FuturaPT-medium;
+    font-weight: lighter;
+}
+
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+img.hover-shadow {
+  transition: 0.3s
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+/* Simple angular ligthbox css */
+.catalog .angular-lightbox {
+  &.hidden {
+    display: none;    
+  }
+  
+   section {
+    // position: fixed;
+    // z-index: 100065;
+    // top: 0;
+    // left: 0;
+    // width: 100%;
+    // height: 100%;
+    // background-color: rgba(0, 0, 0, 0.80);
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      overflow-y:hidden;
+      background-color: rgba(0, 0, 0, 0.74);
+
+    > article {
+        position: relative;
+        background-color: #fefefe;
+        margin: 0 auto;        
+        max-width: 900px;        
+        margin-top: 10em;
+        border-radius: 4px;
+        margin-top: 4em;      
+      > header {
+        a.close {
+            color: #0da7a9;          
+            font: 14px/100% arial, sans-serif;
+            position: absolute;
+            right: 42.6em;
+            top: 3.1em;
+            font-weight: bolder;
+            font-size: 1.2em;          
+          &:hover, &:focus {           
+            color: #fafafa;
+            text-decoration: none;
+            cursor: pointer;
+          }
+        }
+      }
+      
+      > content {
+        /* margin: 0;
+        height: 100%;
+        position: relative;
+        top: 0;
+        text-align: center;
+        width: 100%;
+        background: #fefefe;
+        padding: 0; */
+        > img {
+        max-width: 600px;     
+        width: 100%;
+        margin: 0 auto;
+      
+        }
+        
+       /*  @media screen and (min-width: $maxWidthContent) {
+          width: $maxWidthContent;
+        } */
+      }
+    }
+  }
+}

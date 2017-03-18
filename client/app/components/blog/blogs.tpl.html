@@ -1,10 +1,82 @@
 <section class="blogs section-padding container">
-    <div class="row section-padding">
-            <div class="col-sm-offset-1 col-sm-7" id="blog-right-column">
-
-            </div>
-            <div class="col-sm-4" id="blog-left-column">
-                
-            </div>
+    <div class="row">
+            <div class="col-sm-offset-1 col-sm-6">
+                <div id="blog-right-column"  class="effect2" ng-repeat = "blog in blogs | orderBy: '-update_At' ">
+                        <div class="row" id="blog-title">
+                            <h1 class="blog-title section-widget" ng-click="redirectToArticleView(blog._id)"> {{blog.title}}</h1>
+                            <br>
+                            <div class="blog-details">
+                                <span >{{blog.update_At | date}}</span> <span class="vertical-separator">|</span><span class="section-widget" ng-click="redirectToAllBlogByAuhtor(blog.userCreated.name)">{{blog.userCreated.name}}</span>
+                            </div>  
+                        </div><!-- end #blog-title -->
+                        <div class="row" id="blog-summary">
+                            <div class="col-sm-5 section-widget" ng-click="redirectToArticleView(blog._id)">
+                                <img ng-src="{{blog.summaryImageUrl}}" class="img-responsive" alt="blog-caption"/>
+                            </div>
+                            <div class="col-sm-7 blog-summary">
+                                <p ng-bind-html="(blog.content| limitTo:300)+' ...'" class="blog-description"> </p>
+                                <div class="blog-button">
+                                    <button class="btn-blog" ng-click="redirectToArticleView(blog._id)"> Lire plus </button>
+                                </div>          
+                            </div>
+                        </div><!-- end #blog-summary -->                        
+                </div>
+                <div class="row">
+                    <div class="" ng-if="pages.total > 1">
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-default" ng-class="{disabled: !pages.hasPrev}" ng-click="prev()">Prec</button>
+                            <button class="btn btn-default" ng-class="{disabled: !pages.hasNext}" ng-click="next()"> Suiv</button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div> 
+                </div><!-- pagination details -->
+            </div><!-- end #blog-right-column -->
+            <div class=" col-sm-offset-1 col-sm-4">                
+                    <div id="blog-left-column" class="effect2">
+                        <div class="row">
+                                <h4 id="search-articles"> Rechercher des articles </h4>
+                        </div>
+                        <div class="row section-padding-middle">
+                            <h5> par mots clés </h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-offset-2 col-sm-9">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <label class="sr-only">Search</label>
+                                            <input name="search" placeholder="mots clés" type="text" class="form-control search" ng-model="search" ng-model-options="{ debounce: 500 }" ng-change="">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input class="submit" type="submit"  ng-click="filtersUpdated(search)" value="" />
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>  
+                        <div class="row section-padding-middle">
+                            <h5> par catégories </h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                    <label class="sr-only">categories</label>                           
+                                    <select  name="category" class="form-control" ng-model="selected" ng-model-options="{ debounce: 500 }" ng-change="filtersUpdated(selected,'category')">
+                                        <option value="">-- selectionnez une categories --</option>
+                                        <option ng-repeat="category in categories" value="{{category.name}}">{{category.name}}</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="row section-padding-middle">
+                            <h5> par auteurs </h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                    <label class="sr-only">authors</label>                        
+                                    <select class="form-control" name="author" ng-model="selected2" ng-model-options="{ debounce: 500 }" ng-change="filtersUpdated(selected2,'author')">
+                                         <option value ="">-- selectionnez un autheur -- </option>
+                                       <option ng-repeat="author in authors" value="{{author}}">{{author}}</option>
+                                    </select>
+                            </div>
+                       </div>       
+                   </div>
+            </div><!-- end #blog-left-column -->
     </div>    
 </section>

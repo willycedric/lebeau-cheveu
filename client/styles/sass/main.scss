@@ -18,6 +18,7 @@ $section-height-min:3em;
 $default-margin-top:2em;
 $default-font-weight:300;
 $first-section-padding-bottom: 8em;
+$first-section-margin-bottom:3em;
 $default-background-color:#0da7a9;
 $li-item-font-family:FuturaPT-Medium;
 $button-add-margin-top:2.3em;
@@ -26,6 +27,7 @@ $default-background-color-hover:rgba(0, 148, 150, 0.62);
 $green:green;
 $red:red;
 $warning-color:#d98f07;
+$maxWidthContent: 900px;
 /** Margin with the previous section */
 
 h3,h4,h5,h1,h2{
@@ -37,6 +39,11 @@ h3,h4,h5,h1,h2{
 /** padding between the  app bar and the first section on the component displayed **/
 .section-padding{
     padding-top:$first-section-padding-bottom;
+    margin-bottom: $first-section-margin-bottom;
+}
+
+.section-padding-middle{
+    padding-top: 4em;
 }
 /* Center element on each boostrap row */
 .row {
@@ -411,3 +418,13 @@ h5{
     font-size: 100%;
     margin: 20px 0;
 }
+
+.no-results{
+    padding: 0 1em 0 1em;
+    margin-top: 1em;
+    font-weight: lighter;
+    font-family: FuturaPT-Books;
+    color: #898686;
+}
+
+

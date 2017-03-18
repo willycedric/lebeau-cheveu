@@ -31,7 +31,7 @@
         <div class="modal-body">
             <div class="container">
                <form name="blogForm" ng-submit="$ctrl.updateBlog($ctrl.data)">
-                        <alert ng-repeat="alert in $ctrl.alerts" type="{{alert.type}}" close="$ctrl.closeContactAlert($index)">{{alert.msg}}</alert>
+                        <div uib-alert ng-repeat="alert in $ctrl.alerts" type="{{alert.type}}" close="$ctrl.closeContactAlert($index)">{{alert.msg}}</div>
                         <div class="row form-group">
                                 <div class="col-sm-offset-1 col-sm-5">                                    
                                     <input type="text" placeholder="tite" class="form-control" id="title" ng-model="$ctrl.data.title">
@@ -41,11 +41,8 @@
                                </div>
                         </div>
                         <div class="row form-group row-top">                        
-                                <div class=" col-sm-offset-1 col-sm-4">                                   
-                                    <select id="categories"  ng-model="$ctrl.data.category">
-                                        <option value="">-- chose a category -- </option>
-                                        <option ng-repeat="category in $ctrl.categories" value="{{category}}">{{category.name}}</option>
-                                    </select>
+                                <div class=" col-sm-offset-1 col-sm-4">                                
+                                    <select ng-options="category as category.name for category in $ctrl.categories track by category._id" ng-model="$ctrl.data.category"></select>
                                 </div>                    
                                <div class="checkbox   col-sm-2">
                                     <label><input type="checkbox" ng-model="$ctrl.data.isPublished"> published ?</label>

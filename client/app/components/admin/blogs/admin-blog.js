@@ -66,6 +66,11 @@ export const adminBlogsDetailModule = angular.module('adminBlogsDetailModule').c
     var deserializeBlog = function(blog){
       $scope.blog = blog;
       $scope.categories =[];
+      //category default value
+      $scope.categories.push({
+        id:0,
+        name:"-- select a category --"
+      });
       availableCategories();
     };
 

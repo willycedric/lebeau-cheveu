@@ -1,0 +1,33 @@
+<section class="catalog section-padding container">
+    <div class="row">
+        <div class="section-contains">
+            <h1> <a ui-sref="catalogs" class="back"> Retour </a>/ {{ catalog.name}} </h1>
+        </div>
+    </div>
+    <div class="row">        
+        <div class="col-sm-3" ng-repeat="content in catalog.contents track by $index">
+            <div id="gallery-view">                           
+                    <div class="gallery-entry">                        
+                            <img class="img-gallery hover-shadow" ng-src = "{{content.url}}" ng-click="openModal();currentSlide($index)"/>                                        
+                    </div>                
+            </div>
+        </div>
+    </div><!-- end .row -->
+    <div id="myModal"  ng-if="open" class="view row" ng-model="checkEvents">
+      <span class="close cursor" ng-click="closeModal()">&times;</span>
+      <div class="modal-content">
+        <div class="mySlides" ng-repeat="content in catalog.contents track by $index" >
+          <div class="numbertext"> {{$index+1}}/{{catalog.contents.length}}</div>
+          <img ng-src = "{{content.url}}"/>         
+        </div>    
+        <a class="prev" ng-click="plusSlides(-1)">&#10094;</a>
+        <a class="next" ng-click="plusSlides(1)">&#10095;</a>
+        <div class="caption-container">
+          <p id="caption">{{catalog.description}}</p>
+        </div>
+        <div class="column">
+          <img class="demo cursor" ng-src = "{{content.url}} style="width:100%" ng-click="currentSlide($index)" alt="content.description">
+        </div>        
+      </div> <!-- end .modal-content -->
+    </div> <!-- end #myModal -->
+</section>

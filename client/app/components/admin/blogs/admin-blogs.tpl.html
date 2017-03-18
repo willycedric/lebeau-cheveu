@@ -103,10 +103,7 @@
                         </div>
                         <div class="row form-group row-top">                        
                                 <div class=" col-sm-offset-1 col-sm-4">                                   
-                                    <select id="categories"  ng-model="$ctrl.data.category" ng-change="$ctrl.change($ctrl.data.category)">
-                                        <option value=""> -- chose a category -- </option>
-                                        <option ng-repeat="category in $ctrl.categories" value="{{category}}">{{category.name}}</option>
-                                    </select>
+                                    <select ng-options="category as category.name for category in $ctrl.categories track by category._id" ng-model="$ctrl.data.category"></select>
                                 </div>                    
                                <div class="checkbox   col-sm-2">
                                     <label><input type="checkbox" ng-model="$ctrl.data.isPublished"> published ?</label>

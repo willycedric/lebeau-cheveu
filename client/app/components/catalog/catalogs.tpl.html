@@ -1,0 +1,12 @@
+<section class="catalog section-padding container">
+    <div class="row">        
+        <div class="col-sm-offset-1 col-sm-3" ng-repeat="catalog in catalogs">
+            <div id="gallery-view">                           
+                    <div class="gallery-entry">                        
+                            <img class="img-gallery" ng-src = "{{catalog.contents[0].url}}" ng-click="redirecToCatalogDetails(catalog._id)"/>
+                            <span class="catalog-name">{{catalog.name}}</span>                     
+                    </div>                
+            </div>
+        </div>
+    </div>
+</section>

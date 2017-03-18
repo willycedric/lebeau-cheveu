@@ -10,7 +10,7 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
   var adminCategoriesUrl = baseUrl + '/admin/categories';
   var adminBlogsUrl = baseUrl + '/admin/blogs';
   var adminBlogCategoryUrl = baseUrl + '/admin/blog-category';
-
+  var adminCatalogUrl = baseUrl+'/admin/catalogs';
   var processResponse = function(res){
     return res.data;
   };
@@ -326,7 +326,28 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
     var url = adminBlogCategoryUrl + '/' + _id;
     return $http.delete(url).then(processResponse, processError);
   };
-
+  // ------- catalogs api -----------
+   resource.findCatalogs = function(filters){
+    if(angular.equals({}, filters)){
+      filters = undefined;
+    }
+    return $http.get(adminCatalogUrl, { params: filters }).then(processResponse, processError);
+  };
+  resource.addCatalog = function(data){
+    return $http.post(adminCatalogUrl, data).then(processResponse, processResponse);
+  };
+  resource.findCatalog = function(_id){
+    var url = adminCatalogUrl + '/' + _id;
+    return $http.get(url).then(processResponse, processError);
+  };
+  resource.updateCatalog = function(_id, data){
+    var url = adminCatalogUrl + '/' + _id;
+    return $http.put(url, data).then(processResponse, processError);
+  };
+  resource.deleteCatalog = function(_id){
+    var url = adminCatalogUrl + '/' + _id;
+    return $http.delete(url).then(processResponse, processError);
+  };
   // ----- categories api -----
   resource.findCategories = function(filters){
     if(angular.equals({}, filters)){

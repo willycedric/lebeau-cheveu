@@ -1,8 +1,8 @@
 import {securityServiceModule} from './../security/security';
-export const servicesBlogResourceModule = angular.module('servicesBlogResourceModule', [securityServiceModule.name]).factory('BlogResource', ['$http', '$q', '$log', 'security', function ($http, $q, $log, security) {
+export const servicesBlogResourceModule = angular.module('servicesBlogResourceModule', [securityServiceModule.name]).factory('blogResource', ['$http', '$q', '$log', 'security', function ($http, $q, $log, security) {
   // local variable
   const baseUrl = 'http://localhost:3500/api';
-  const blogUrl = baseUrl + '/api/blogs';
+  const blogUrl = baseUrl + '/blogs';
   var processResponse = function(res){
     return res.data;
   };
@@ -28,6 +28,17 @@ export const servicesBlogResourceModule = angular.module('servicesBlogResourceMo
     return $http.get(url).then(processResponse, processError);
   };
 
+  //get all posts under the same category
+  resource.relatedCategory = function(id){
+    var url = blogUrl +'/related/'+id;
+    return $http.get(url).then(processResponse, processError);
+  };
+
+  //get all post created by the same author
+  resource.sameAuthor = function(id){
+    var url = blogUrl+'/author/'+id;
+    return $http.get(url).then(processResponse, processError);
+  }
 
   return resource;
 }]);

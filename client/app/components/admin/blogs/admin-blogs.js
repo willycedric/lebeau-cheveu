@@ -50,6 +50,11 @@ export const adminBlogsIndexModule = angular.module('adminBlogsIndexModule').con
       $scope.statuses = data.data;
       $scope.blogs = data.results.data;
       $scope.categories =[];
+      //category default value
+      $scope.categories.push({
+        id:0,
+        name:"-- select a category --"
+      });
       availableCategories();
     };
 

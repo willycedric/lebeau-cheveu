@@ -8,6 +8,7 @@ import {adminStatusesModule} from './statuses/index';
 import {adminCategoriesModule} from './categories/index';
 import {adminBlogCategoriesModule} from './blog-categories/index';
 import {adminBlogModule} from './blogs/index';
+import {adminCatalogsModule} from './catalogs/index';
 export const  admin = angular.module('admin', [
   adminModule.name,
   adminUsersModule.name,
@@ -18,5 +19,6 @@ export const  admin = angular.module('admin', [
   adminCategoriesModule.name,
   adminBlogCategoriesModule.name,
   adminHairdressersModule.name,
-  adminBlogModule.name
+  adminBlogModule.name,
+  adminCatalogsModule.name
 ]);

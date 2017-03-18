@@ -15,10 +15,10 @@
             <div class="navbar-collapse collapse" collapse="menuCollapsed" ng-click="menuCollapsed = true">
                 <ul class="nav navbar-nav navbar-right">
                     <li ui-sref-active="active" class="active">            
-                          <a class="a-link" ui-sref="catalog">Catalogues</a>
+                          <a class="a-link" ui-sref="catalogs">Catalogues</a>
                     </li>
                     <li ui-sref-active="active" class="active">
-                        <a id="blog-link" ui-sref="blog">Blog</a>
+                        <a id="blog-link" ui-sref="blogs">Blog</a>
                     </li>
                     <li   ng-if="!isAuthenticated()" ui-sref-active="active" class="login-link">
                         <a id ="login-link" href="#" ><login name="Connexion" class="login-t"></login></a>
@@ -77,7 +77,16 @@
                           </ul>
                       </li>
                     </ul>
-                  <form name="form" class="navbar-form navbar-right">
+                    <ul class="nav admin-navbar  navbar-nav">
+                      <li class="dropdown" dropdown is-open="status.isopen">
+                        <a  class="dropdown-toggle navbar-dropdown-admin" data-toggle="dropdown">Catalogs&nbsp;<span class="caret"></span></a>                      
+                          <ul class="dropdown-menu">                            
+                              <li class="dropdown-header">Catalogs</li>
+                              <li><a ui-sref="admincatalogs" ng-click="closeAdminMenu()">Catalogs</a></li>                              
+                          </ul>
+                      </li>
+                    </ul>
+                 <!-- <form name="form" class="navbar-form navbar-right">
                       <div class="dropdown" dropdown is-open="resultIsOpen">
                           <input name="search" type="text" placeholder="search" class="form-control" ng-model="query" ng-model-options="{ debounce: 500 }" ng-change="update()">
                           <ul class="dropdown-menu">
@@ -96,7 +105,7 @@
                               </li>
                           </ul>
                       </div>                    
-                  </form>                  
+                  </form>  -->                
               </div>
           </div>
       </div>

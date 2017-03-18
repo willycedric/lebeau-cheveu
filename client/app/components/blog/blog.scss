@@ -1,0 +1,93 @@
+
+
+.blogs .img-responsive {
+	max-width:100%;
+	height: auto;
+	display: block;
+  margin: 0 auto;
+}
+#blog-right-column{
+	background: #fafafa;
+	padding: 2em;
+	margin-bottom: 3em;
+}
+#blog-left-column{
+  background: #fafafa;
+}
+
+#blog-category,#blog-author{
+   background: #fafafa;
+  padding: 2em;
+  margin-bottom: 3em;
+}
+
+
+
+.effect2
+{
+  position: relative;
+}
+.effect2:before, .effect2:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 15px 10px #777;
+  -moz-box-shadow: 0 15px 10px #777;
+  box-shadow: 0 15px 10px #777;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+.effect2:after
+{
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
+}
+.blogs h5{
+    color: #fafafa;
+    padding: 0.3em;
+    background: #0da7a9;
+    width: 30%;
+    margin:0 auto;
+    margin-bottom: 0.3em;
+   border-radius: 2px;
+}
+#search-articles {
+    padding: 1em;
+    background: #0da7a9;
+    border-radius: 2px;
+    color: #fafafa;
+    width: 60%;
+    margin: 0 auto;
+}
+
+#blog-content img {
+  width: 100%;
+  margin:0 auto;
+  text-align:center;
+}
+
+#blog-content p{
+    text-align: left;
+        padding: 0 1em 0 1em;
+    font-family: FuturaPT-Books;
+    font-size: 1.1em;
+}
+
+.blogs .details-img img{
+  width: 50%;
+}

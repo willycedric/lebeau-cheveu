@@ -1,0 +1,90 @@
+<section class="blogs section-padding container">
+    <div class="row">
+            <div class="col-sm-offset-1 col-sm-6">
+                <div id="blog-right-column"  class="effect2">
+                        <div class="row" id="blog-title">
+                            <h1 class="blog-title section-widget"> {{blog.title}}</h1>
+                            <br>
+                            <div class="blog-details">
+                                <span >{{blog.update_At | date}}</span> <span class="vertical-separator">|</span><span class="section-widget" ng-click="redirectToAllBlogByAuhtor(blog.userCreated.name)">{{blog.userCreated.name}}</span>
+                            </div>  
+                        </div><!-- end #blog-title -->                        
+                        <div class="row" id="blog-content">                            
+                                <div ng-bind-html="(blog.content)" class="blog-description"> </div>                                       
+                        </div> <!-- end #blog-content -->                     
+                </div>
+            </div><!-- end #blog-right-column -->
+            <div class=" col-sm-offset-1 col-sm-4">                
+                    <div id="blog-left-column">
+                        <div id="blog-category">
+                            <div class="related-category" ng-show="relatedLength">
+                            <div class="row" >
+                                <h4 id="search-articles"> De la même catégories</h4>
+                            </div> 
+                            <div class="section-padding-middle">
+                                <div class="row" id="blog-title">
+                                    <h3 class="blog-title section-widget" ng-click="redirectToArticleView(currentBlog._id)"> {{currentBlog.title}}</h3>
+                                    <br>
+                                    <div class="blog-details">
+                                        <span >{{currentBlog.update_At | date}}</span> <span class="vertical-separator">|</span><span class="section-widget" ng-click="redirectToAllBlogByAuhtor(currentBlog.userCreated.name)">{{currentBlog.userCreated.name}}</span>
+                                    </div>  
+                                </div><!-- end #blog-title -->
+                                <div class="row details-img" ng-click="redirectToArticleView(currentBlog._id)">
+                                    <img ng-src="{{currentBlog.summaryImageUrl}}" class="img-responsive" alt="blog-caption"/>
+                                </div>
+                            </div>
+                            <div class="" ng-if="relatedLength > 1">
+                                <div class="btn-group row-top">
+                                    <button class="btn btn-default" ng-class="{disabled: !hasPrev()}" ng-click="prev()">Prec</button>
+                                    <button class="btn btn-default" ng-class="{disabled: !hasNext()}" ng-click="next()"> Suiv</button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div><!-- end #related-category posts available -->
+                        <div class="related-category" ng-hide="relatedLength">
+                            <div class="row" >
+                                    <h4 id="search-articles"> De la même catégories</h4>
+                            </div> 
+                            <div class="row no-results">
+                                <p> Aucun n'autre post issu de la même catégories n'est disponible.</p>
+                            </div>                           
+                        </div> <!-- #related-category no post available -->
+                    </div><!-- #end blog-category -->
+                    <div id="blog-author">
+                        <div class="related-author" ng-show="relatedAuthorLength">
+                            <div class="row" >
+                                    <h4 id="search-articles"> Du même auteur</h4>
+                            </div>
+                            <div class="section-padding-middle">
+                                <div class="row" id="blog-title">
+                                    <h3 class="blog-title section-widget" ng-click="redirectToArticleView(currentAuthorBlog._id)"> {{currentAuthorBlog.title}}</h3>
+                                    <br>
+                                    <div class="blog-details">
+                                        <span >{{currentAuthorBlog.update_At | date}}</span> <span class="vertical-separator">|</span><span class="section-widget" ng-click="redirectToAllBlogByAuhtor(currentAuthorBlog.userCreated.name)">{{currentAuthorBlog.userCreated.name}}</span>
+                                    </div>  
+                                </div><!-- end #blog-title -->
+                                <div class="row details-img" ng-click="redirectToArticleView(currentAuthorBlog._id)">
+                                    <img ng-src="{{currentAuthorBlog.summaryImageUrl}}" class="img-responsive" alt="blog-caption"/>
+                                </div>
+                            </div>
+                            <div class="" ng-if="relatedAuthorLength > 1">
+                                <div class="btn-group row-top">
+                                    <button class="btn btn-default" ng-class="{disabled: !authorHasPrev()}" ng-click="authorPrev()">Prec</button>
+                                    <button class="btn btn-default" ng-class="{disabled: !authorHasNext()}" ng-click="authorNext()"> Suiv</button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div> <!--end available authors results -->
+                        <div class="related-author" ng-hide="relatedAuthorLength">
+                            <div class="row" >
+                                    <h4 id="search-articles"> Du même auteur </h4>
+                            </div>
+                            <div class="row no-results">
+                                <p>Aucun n'autre post écrit par {{blog.userCreated.name }} n'est disponible. </p>
+                            </div>
+                        </div> <!-- end available authors no resuls -->
+                    </div>
+                   </div>
+            </div><!-- end #blog-left-column -->
+    </div>    
+</section>

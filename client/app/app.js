@@ -22,6 +22,8 @@ import {join} from './components/join/join';
 import {hairdresser} from './components/hairdresser/hairdresser';
 import {shared} from './shared/shared';
 import {signupModule} from './components/signup/signup';
+import {blogModule} from './components/blog/index';
+import {catalogModule} from './components/catalog/index';
 import moment from 'moment';
 import './app.scss';
 angular.module('app', [
@@ -40,6 +42,8 @@ angular.module('app', [
   home.name,
   login.name,
   join.name,
+   blogModule.name,
+   catalogModule.name,
   signupModule.name,
   loginModule.name,
   hairdresser.name,
@@ -116,6 +120,13 @@ angular.module('app', [
         });
       }
     };
-  }]);
+  }])
+.directive('lightboxDirective', function() {
+  return {
+    restrict: 'E', // applied on 'element'
+    transclude: true, // re-use the inner HTML of the directive
+    template: '<section ng-transclude></section>', // need this so that inner HTML will be used
+  }
+});
 
 
