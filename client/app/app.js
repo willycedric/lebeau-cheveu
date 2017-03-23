@@ -1,4 +1,5 @@
 import 'normalize.css';
+import jQuery from 'jquery';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import {appDirective} from './app.directive';
@@ -7,7 +8,7 @@ import uiRouter from 'angular-ui-router';
 import ngCookies from 'angular-cookies';
 import ngAnimate from 'angular-animate';
 import uiBootstrap from 'angular-ui-bootstrap';
-import ngRoute from 'angular-route';
+import ngRoute from 'angular-route'; 
 import {baseModule} from './base';
 import {config} from './config';
 import {account} from './components/account/';
@@ -24,8 +25,10 @@ import {shared} from './shared/shared';
 import {signupModule} from './components/signup/signup';
 import {blogModule} from './components/blog/index';
 import {catalogModule} from './components/catalog/index';
+import {searchbar} from './components/searchbar/searchbar';
 import moment from 'moment';
 import './app.scss';
+
 angular.module('app', [
   uiRouter,
   ngRoute,
@@ -47,7 +50,8 @@ angular.module('app', [
   signupModule.name,
   loginModule.name,
   hairdresser.name,
-  admin.name
+  admin.name,
+  searchbar.name
 ])
 .provider(
         'csrfCD',
@@ -128,5 +132,3 @@ angular.module('app', [
     template: '<section ng-transclude></section>', // need this so that inner HTML will be used
   }
 });
-
-

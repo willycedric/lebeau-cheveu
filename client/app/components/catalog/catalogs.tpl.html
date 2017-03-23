@@ -1,9 +1,22 @@
-<section class="catalog section-padding container">
+<section class="catalog  home section-padding container">
+    <div class="row">
+        <form class=" search-catalog form-wrapper cf" ng-submit="updateFilter(selectedHaircutCategory,selectedHaircut)"> 
+           <select  ng-model="selectedHaircutCategory" id="haircut-type" name="haircut" class="no-rounder" ng-change="filtersUpdated(selectedHaircutCategory)">
+               <optgroup label="categories">
+                   <option value="">Quelle catégorie de coiffure?</option>
+                   <option ng-repeat = "haircut in listOfAvailableCategories"  value="{{haircut}}">{{haircut}}</option>
+               </optgroup>
+            </select>
+           <input type="text" placeholder="Quelle coiffure?"   ng-model="selectedHaircut"  uib-typeahead="haircut for haircut in availableHaircuts | filter:$viewValue | limitTo:8" class="form-control" typeahead-loading="loadingLocations" typeahead-no-results="noResults"/>
+           <!-- <input type="text" ng-model="selected" uib-typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control"> -->
+            <button type="submit">GO</button>
+        </form>
+    </div> <!-- end .form-filter -->
     <div class="row">        
         <div class="col-sm-offset-1 col-sm-3" ng-repeat="catalog in catalogs">
             <div id="gallery-view">                           
                     <div class="gallery-entry">                        
-                            <img class="img-gallery" ng-src = "{{catalog.contents[0].url}}" ng-click="redirecToCatalogDetails(catalog._id)"/>
+                            <img class="img-gallery grow" ng-src = "{{catalog.contents[0].url}}" ng-click="redirecToCatalogDetails(catalog._id)"/>
                             <span class="catalog-name">{{catalog.name}}</span>                     
                     </div>                
             </div>

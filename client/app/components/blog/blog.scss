@@ -20,7 +20,13 @@
   padding: 2em;
   margin-bottom: 3em;
 }
-
+#blog-title{
+  margin-bottom: 1em;
+  padding: 4em;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0,0,0,0.2)),url(http://res.cloudinary.com/lebeaucheveu/image/upload/v1489923521/blog_title-background/Marble03.jpg);
+  color: #040200;
+  border: 2px solid #ece8df;
+}
 
 
 .effect2
@@ -66,6 +72,7 @@
     margin-bottom: 0.3em;
    border-radius: 2px;
 }
+
 #search-articles {
     padding: 1em;
     background: #0da7a9;
@@ -73,6 +80,12 @@
     color: #fafafa;
     width: 60%;
     margin: 0 auto;
+    margin-top: 1em;
+    height: 45px;
+    vertical-align: middle;
+}
+div div:last-of-type .form-control{
+  margin-bottom: 3em;
 }
 
 #blog-content img {

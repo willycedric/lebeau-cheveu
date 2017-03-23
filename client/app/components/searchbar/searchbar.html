@@ -1,6 +1,6 @@
-<section class="searchbar">
-	 <div class="row hidden-xs">
-          <div class="hero-footer ">  
+<section class="searchbar section-padding">
+	 <div class="row hidden-xs" >
+          <div class="hero-footer " ng-show ="!vm.isAtLeastOneHairdresserFound">   
               <form class="form-wrapper cf" ng-submit="vm.launchSearch(vm.selectedLocation,vm.selectedHaircut)"> 
                          <select  ng-model="vm.selectedHaircut" id="haircut-type" name="haircut" class="no-rounder">
                             <option ng-repeat = "haircut in vm.listOfavailableHaircuts"  value="{{haircut}}">{{haircut}}</option>
@@ -19,6 +19,27 @@
 					<hairdresser-card  url = {{vm.url}} id={{hairdresser._id}} description= {{hairdresser.username}}></hairdresser-card>
 				</div>
 			</div>		
+		</div>
+	</div>
+	<div class="hairdressers" ng-hide ="!vm.isAtLeastOneHairdresserFound" >
+		<div class="container">
+			<div class="row">
+				<h5 class="no-results"> Nous n'avons pas trouvé d'annonce correspondant exactement à vos critères. </h5>
+				<br/>
+				<p>
+			</div>
+			 <div class="row hidden-xs" >
+	          <div class="hero-footer " ng-show ="!vm.isAtLeastOneHairdresserFound">   
+	              <form class="form-wrapper cf" ng-submit="vm.launchSearch(vm.selectedLocation,vm.selectedHaircut)"> 
+	                         <select  ng-model="vm.selectedHaircut" id="haircut-type" name="haircut" class="no-rounder">
+	                            <option ng-repeat = "haircut in vm.listOfavailableHaircuts"  value="{{haircut}}">{{haircut}}</option>
+	                        </select>
+	                        <input type="text" placeholder="{{::vm.selectedLocation}}" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
+	                    
+	                      <button type="submit">GO</button>
+	             </form>
+	          </div> <!--  .hero-footer  -->
+	   		</div> <!-- .row .hidden-xs -->	
 		</div>
 	</div>
 </section>

@@ -1,0 +1,167 @@
+#catalog-details .row > .column {
+  padding: 0 8px;
+}
+
+#catalog-details .row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+#catalog-details .column {
+  float: left;
+  width: 25%;
+}
+
+#caption .numbertext{
+  font-size: 0.8em;
+}
+
+/* The Modal (background) */
+#catalog-details .modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(60, 75, 86, 0.9);
+}
+
+/* Modal Content */
+#catalog-details .modal-content {
+  position: relative;
+  background-color: rgba(60, 75, 86, 0.9);
+  margin: auto;
+  padding: 0;
+  width: 60%;
+  max-width: 600px;
+  height: auto;
+  width: 500px;
+  margin-top: 5em;
+}
+
+/* Next & previous buttons */
+#catalog-details .prev,
+#catalog-details .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: #0da7a9;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+  &:hover{
+    color: #0da7a9;
+  }
+}
+
+/* Position the "next button" to the right */
+#catalog-details .next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+#catalog-details .prev{
+    left:0;
+    border-radius: 3px 0 0 3px;
+}
+
+#catalog-details a:hover{
+    color: #0da7a9;
+}
+
+
+#catalog-details .mySlides img {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#catalog-details .caption-container {
+  text-align: center;
+  background-color: #fefefe;
+  padding: 2px 16px;
+  color: blak;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+#catalog-details .caption-container p {
+    font-size: 1.3em;
+    font-family: FuturaPT-medium;
+    font-weight: lighter;
+}
+
+.demo{
+  opacity: 0.6;
+  width:100%;
+  height:80px;
+  &:active,&:hover {
+    opacity: 1;
+  }
+}
+
+
+
+img.hover-shadow {
+  transition: 0.3s;
+    &:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+  }
+}
+
+@media all and (max-width: 1280px) { 
+ 
+.catalog .close {
+    color: #fafafa;
+    position: absolute;
+    font-size: 1.6em;
+    font-weight: bolder;
+    right: 16.7em;
+    top: 2.1em;
+    opacity: 1;
+    &:hover{
+      color:#0da7a9;
+    }
+  }
+}
+
+@media all and (max-width: 768px) { 
+ 
+.catalog .close {
+    color: #fafafa;
+    position: absolute;
+    font-size: 1.6em;
+    font-weight: bolder;
+    right: 5.1em;
+    top: 2.2em;
+    opacity: 1;
+    &:hover{
+      color:#0da7a9;
+    }
+  }
+}
+
+@media all and (min-width: 1900px) { /* your content here */ 
+  .catalog .close {
+    color: #fafafa;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 1.6em;
+    font-weight: bolder;
+    right: 31em;
+    top: 2.2em;
+    &:hover{
+      color:#0da7a9;
+    }
+  }
+}

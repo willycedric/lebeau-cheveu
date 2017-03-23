@@ -29,6 +29,8 @@
    background-color: rgba(255,255,255,0.8);
     color: rgb(13,167,169);
     font-weight: lighter;
+    outline: none;
+    width: 90px;
     
 }
 .app .navbar-default .navbar-nav>li>a {
@@ -51,13 +53,14 @@
     letter-spacing: 0px;
     line-height: 4.6em;
     font-weight: Lighter;
-    font-family: FuturaPT-Book;
+    font-family: FuturaPT-Book,"Helvetica Neue", Helvetica, Arial, sans-serif;
     /* line-height: 0px; */
 }
 .app .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
     background-color:transparent;
     color: rgb(13,167,169);
     font-weight: lighter;
+    outline: none;
 }
 .app .navbar-collapse.in {
     background-color: rgba(255,255,255,.5);

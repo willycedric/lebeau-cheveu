@@ -46,6 +46,24 @@ let listOfAvailableCurlyHaircuts = ["Vanilles",
 "Cornrows",
 "Tresses enfants"];
 
+let availableHaircuts = ["Vanilles",
+"Tresses (Braids)",
+"Crochet braids",
+"Tissages",
+"Locks ",
+"Coiffures sur cheveux naturels ",
+"Lissages (Brushing, Défrisage)",
+"Extensions de cheveux ",
+"Colorations",
+"Perruque / Lace wig",
+"Shampoing",
+"Nattes collées",
+"Cornrows",
+"Tresses enfants",
+"rasta",
+"tie and dye"
+];
+
 let listOfIleDeFranceDepartement = ["91-Essonne","92-Hauts-de-Seine","94-Val-de-Marne","78-Yvelines","75-Paris","77-Seine-et-Marne","93-Seine-Saint-Denis","95-Val-d'Oise"]
 let listOfAvailableCategories = ['cheveux afro','cheveux lisses',"cheveux bouclés"];
 		
@@ -81,11 +99,16 @@ let listOfAvailableCategories = ['cheveux afro','cheveux lisses',"cheveux boucl�
 		 	return listOfAvailableCategories;
 		 };
 
+		 const getListOfAvailableHaircuts = () =>{
+		 	return availableHaircuts;
+		 }
+
 		 return {
 		 	getListOfavailableAfroHaircuts,
 		 	getListOfavailableEuropeanHaircuts,
 		 	getListOfavailableCurlyHaircuts,
-		 	getListOfavailableCategories
+		 	getListOfavailableCategories,
+		 	getListOfAvailableHaircuts
 		 };
 };
 

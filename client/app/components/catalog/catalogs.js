@@ -39,29 +39,24 @@ angular.module('catalogIndexModule').config(['$stateProvider', function($statePr
       }
     });
 }]);
-export const catalogIndexModule = angular.module('catalogIndexModule').controller('TestCtrl', ['$scope', '$state','$window', '$location', '$log', 'catalogResource','data',
-  function($scope,$state, $window, $location, $log, catalogResource,data){
+export const catalogIndexModule = angular.module('catalogIndexModule').controller('TestCtrl', ['$scope', 'searchBar','$state','$window', '$location', '$log', 'catalogResource','data',
+  function($scope,searchBar,$state, $window, $location, $log, catalogResource,data){
     // local var
-    $log.debug(data);
+  
     var deserializeData = function(data){
       $scope.items = data.results.items;
       $scope.pages = data.results.pages;
       $scope.filters = data.results.filters;
       $scope.statuses = data.statuses;
       $scope.catalogs=data.results.data;
+      $scope.listOfAvailableCategories=data.catalogs;
+      
+      
     };
-
-    $scope.prev = function(){
-      $scope.filters.page = $scope.pages.prev;
-      //fetchBlogs();
-    };
-    $scope.next = function(){
-      $scope.filters.page = $scope.pages.next;
-      //fetchBlogs();
-    };
+    $scope.availableHaircuts = searchBar.getListOfAvailableHaircuts();
     
     $scope.redirecToCatalogDetails = function(id){
-      $log.debug("inside the function redirecToCatalogDetails ", id);
+      
       var redirectUrl = null;
       if(id)
         redirectUrl = "/catalogs/details/"+id.toString();
@@ -69,6 +64,46 @@ export const catalogIndexModule = angular.module('catalogIndexModule').controlle
         redirectUrl ="/catalogs"
       $location.path(redirectUrl);
     };
+
+
+    var fetchCatalogs = function(){
+      catalogResource.findCatalogs($scope.filters).then(function(data){
+        deserializeData(data);
+
+        //update url in browser addr bar
+        $location.search($scope.filters);
+      }, function(e){
+        $log.error(e);
+      });
+    };
+  
+    // $scope methods
+    $scope.filtersUpdated = function(parameter,option){
+      option = typeof option !== 'undefined'?option:"search";
+      if(parameter !== null){
+        $log.debug("parameter -->", parameter);
+        //reset pagination after filter(s) is updated
+        switch(option){
+          case 'search':
+            $scope.filters.search = parameter;
+            $scope.filters.page = undefined;
+            fetchCatalogs();
+          break;
+          default:
+            throw new Error("the selected option "+option+" is not defined");
+          break;
+        };
+     }
+    };
+    $scope.prev = function(){
+      $scope.filters.page = $scope.pages.prev;
+      fetchCatalogs();
+    };
+    $scope.next = function(){
+      $scope.filters.page = $scope.pages.next;
+      fetchCatalogs();
+    };
+    
 
     // $scope vars
     //select elements and their associating options
