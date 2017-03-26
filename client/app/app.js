@@ -26,6 +26,7 @@ import {signupModule} from './components/signup/signup';
 import {blogModule} from './components/blog/index';
 import {catalogModule} from './components/catalog/index';
 import {searchbar} from './components/searchbar/searchbar';
+import {menu} from './components/menu/menu';
 import moment from 'moment';
 import './app.scss';
 
@@ -51,7 +52,8 @@ angular.module('app', [
   loginModule.name,
   hairdresser.name,
   admin.name,
-  searchbar.name
+  searchbar.name,
+  menu.name
 ])
 .provider(
         'csrfCD',

@@ -1,5 +1,5 @@
 	class HairdresserbookingController {
-	  constructor(Auth, API,$log,ModalFactory,hairdresserMAnager, customerMAnager,$q,$window,DateHandler) {
+	  constructor(bookings,Auth, API,$log,ModalFactory,hairdresserMAnager, customerMAnager,$q,$window,DateHandler) {
 	  	// hairdressers account informations
 	  	this.hairdresser={};
 	  	this.openingHourList=API.dev.openingHourList;	  	 	
@@ -9,13 +9,25 @@
 	  	this.hairdresserMAnager = hairdresserMAnager;
 	  	this.customerMAnager = customerMAnager;
 	  	this.$window=$window;
-        this.DateHandler = DateHandler;
-	    Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
-      	.then((rep)=>{
-          this.hairdresser = rep;
-          this.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(this.hairdresser.appointments);
-        });
-   
+        this.DateHandler = DateHandler;    
+      	
+
+        var deserialize = (data)=>{
+        	var defered = this.$q.defer();
+        	defered.resolve(data.hairdresser);
+        	return defered.promise;
+        };
+
+        var init = (data)=>{
+        	deserialize(data)
+        	.then((rep)=>{
+	          this.hairdresser = rep;
+	          this.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(this.hairdresser.appointments);
+	        });
+
+        };
+
+        init(bookings);   
 
 	};//end constructor;
 	/**
@@ -123,7 +135,7 @@
 		return count;
 	}
 }
-	HairdresserbookingController.$inject =['Auth','API', '$log', 'ModalFactory','hairdresserMAnager','customerMAnager','$q','$window','DateHandler'];
+	HairdresserbookingController.$inject =['bookings','Auth','API', '$log', 'ModalFactory','hairdresserMAnager','customerMAnager','$q','$window','DateHandler'];
 export {HairdresserbookingController};
 
 

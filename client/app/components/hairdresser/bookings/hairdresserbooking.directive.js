@@ -1,6 +1,5 @@
 import './hairdresserbooking.css';
-import {HairdresserbookingController as controller} from './hairdresserbooking.controller';
-import template from './hairdresserbooking.html';
+
 
 export const hairdresserbookingDirective = ()=> {
 	 return{

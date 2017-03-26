@@ -3,6 +3,7 @@
 
 .hairdresser-logbook .card{
 	height:200px;
+	
 }
 .hairdresser-logbook .card-name{
 	position: relative;
@@ -26,3 +27,45 @@
 	width: 20%;
     margin-top: 20%;
 }
+
+.hairdresser-logbook .well{
+	/* background: #ccc; */
+	background: white;
+    border: solid 1px #eee;
+}
+
+.uib-day button, .uib-month button, .uib-year button {
+    min-width: 100%;
+    width: 5em;
+    height: 5em;
+}
+
+#logbook .btn-default {
+    color: #000;
+    background-color: #eee;
+    border-color: #fafafa;
+    font-size: 1em;
+    /* font-family: futuraPT-Books; */	
+}
+
+#logbook .datepicker .btn-info{
+    background: #555A67 !important;   
+     color: wheat !important;
+}
+
+.datepicker .text-info{
+
+	 color: wheat !important;
+}
+
+#logbook .uib-day .btn-default { 
+    background-color: #eee;
+    &:hover { 
+   		 background-color: white;
+	}
+}
+
+.logbook-legend {
+    margin-bottom: 2em;
+    text-align: right;
+ }

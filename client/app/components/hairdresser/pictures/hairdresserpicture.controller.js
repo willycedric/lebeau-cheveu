@@ -1,7 +1,8 @@
 class HairdresserpictureController {
-	  constructor(AuthToken,Auth,Access,API,$log,$state,hairdresserMAnager) {
+	  constructor(AuthToken,Auth,Access,API,$log,$state,hairdresserMAnager,$q,pictures) {
 	  	// hairdressers account informations
 	  	var self = this;
+	  	self.$q=$q;
 	  	self.hairdresser={};
 	  	
 	  	
@@ -11,13 +12,23 @@ class HairdresserpictureController {
 	        this.username= AuthToken.parseToken(token).name;
 	    }
 
-	    Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
-	    .then(function HairdresserControllerGetProfileSuccessCallback (response){
-	    		self.hairdresser= response;
-	    		self.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(self.hairdresser.appointments);
-	    }, function HairdresserControllerGetProfileErrorCallback(err){
+	    var deserialize = (data)=>{
+          var defered = self.$q.defer();
+          defered.resolve(data.hairdresser);
+          return defered.promise;
+        };
 
-	    });
+	    var init = (data)=>{
+	      deserialize(data)
+	      .then(function HairdresserControllerGetProfileSuccessCallback (response){
+	     	 self.hairdresser= response;
+	          self.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(self.hairdresser.appointments);
+	      }, function HairdresserControllerGetProfileErrorCallback(err){
+
+	      });
+	    };
+
+	    init(pictures);
 
 	};//end constructor;
 	
@@ -36,7 +47,7 @@ class HairdresserpictureController {
 		return count;
 	}
 }
-HairdresserpictureController.$inject =['AuthToken','Auth','Access','API','$log','$state','hairdresserMAnager'];
+HairdresserpictureController.$inject =['AuthToken','Auth','Access','API','$log','$state','hairdresserMAnager','$q','pictures'];
 
 export {HairdresserpictureController};
 

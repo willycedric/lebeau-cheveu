@@ -5,7 +5,7 @@
 				<div class="row">
 					<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type }}"></hairdresser-profile-card>
 				</div> <!-- row id card -->
-				<hairdresser-menu></hairdresser-menu>
+				<menu></menu>
 			</div> <!-- .col-sm-4 left-element -->
 			<div class=" col-sm-offset-1 col-sm-8 hairdresser-page-content" ng-hide="vm.getUnreadCustomerNotification(vm.hairdresser.notifications)==0?true:false">
 				<div  ng-repeat="message in vm.hairdresser.notifications">

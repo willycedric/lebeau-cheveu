@@ -10,6 +10,10 @@ import {hairdresseraccount} from './settings/hairdresseraccount';
 import {servicesHairdresserResourceModule} from './../common/services/hairdresserResource';
 import {securityAuthorizationModule} from './../common/security/authorization';
 import hairdresserProfileCard from './haidresser-profile-card.html';
+import {HairdresserController as controller} from './hairdresser.controller';
+import template from './hairdresser.html';
+import './hairdresser.css';
+import './hairdresser.scss';
 import './hairdresser-profile-card.css';
 export const hairdresser = angular.module('hairdresser', 
   [
@@ -27,15 +31,15 @@ export const hairdresser = angular.module('hairdresser',
   .config(($stateProvider,securityAuthorizationProvider) => {
     $stateProvider.state('hairdresser', {
       url: '/hairdresser',
-      template: '<hairdresser></hairdresser>',
+      template,
+      controller,
       resolve: {
-        accountDetails: ['$q', '$location', 'securityAuthorization', 'hairdresserResource',function($q, $location, securityAuthorization,hairdresserResource){
+        summaries: ['$q', '$location', 'securityAuthorization', 'hairdresserResource',function($q, $location, securityAuthorization,hairdresserResource){
           //get app stats only for admin-user, otherwise redirect to /account
           var redirectUrl;
           var promise = securityAuthorization.requireHairdresserUser()
-            .then(hairdresserResource.getAccountDetails, function(reason){
-                //rejected either user is unverified or un-authenticated
-                console.log('here i am');
+            .then(hairdresserResource.getSettings, function(reason){
+                //rejected either user is unverified or un-authenticated               
                 redirectUrl = reason === 'unverified-client'? '/hairdresser/verification': '/login';
                 return $q.reject();
               })

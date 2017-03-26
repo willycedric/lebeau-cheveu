@@ -1,7 +1,8 @@
 	class HairdressermessageController {
-	  constructor(AuthToken,Auth,Access,API,$log,$state,hairdresserMAnager) {
+	  constructor(messages,AuthToken,Auth,Access,API,$log,$state,hairdresserMAnager,$q) {
 	  	// hairdressers account informations
 	  	var self = this;
+	  	self.$q= $q;
 	  	self.hairdresser={};
 	  	
 	  	
@@ -11,13 +12,24 @@
 	        this.username= AuthToken.parseToken(token).name;
 	    }
 
-	    Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
-	    .then(function HairdresserControllerGetProfileSuccessCallback (response){
-	    		self.hairdresser= response;
-	    		self.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(self.hairdresser.appointments);
-	    }, function HairdresserControllerGetProfileErrorCallback(err){
+	    var deserialize = (data)=>{
+        	var defered = self.$q.defer();
+        	defered.resolve(data.hairdresser);
+        	return defered.promise;
+        };
 
-	    });
+        var init = (data)=>{
+        	deserialize(data)
+        	.then(function HairdresserControllerGetProfileSuccessCallback (response){
+	    		self.hairdresser= response;
+			    		self.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(self.hairdresser.appointments);
+			    }, function HairdresserControllerGetProfileErrorCallback(err){
+
+			    });
+        };
+
+        init(messages);   
+	    
 
 
 	};//end constructor;
@@ -50,7 +62,7 @@
 		return count;
 	}
 	}
-	HairdressermessageController.$inject =['AuthToken','Auth','Access','API','$log','$state','hairdresserMAnager'];
+	HairdressermessageController.$inject =['messages','AuthToken','Auth','Access','API','$log','$state','hairdresserMAnager','$q'];
 
 export {HairdressermessageController};
 

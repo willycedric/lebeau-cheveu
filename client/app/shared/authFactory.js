@@ -213,6 +213,7 @@ const getUserById = (route, id)=>{
  * @return {[type]}       [description]
  */
   const updateUserProfile = (route,user)=>{
+    console.log('hairdresser id ',user._id);
     var deferred =$q.defer();
     $http.put(apiUrl+route+'/'+user._id,{user:user})
     .then(function updateUserProfileSuccessCallback(response){

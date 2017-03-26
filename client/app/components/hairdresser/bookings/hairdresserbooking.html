@@ -5,7 +5,7 @@
 				<div class="row">
 					<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type}}"></hairdresser-profile-card>
 				</div> <!-- row id card -->
-				<hairdresser-menu></hairdresser-menu>
+				<menu></menu>
 			</div> <!-- .col-sm-4 left-element -->
 			<div class="col-sm-offset-1 col-sm-8">
 				<div class="section" ng-repeat="apt in vm.hairdresser.nextbookings track by $index" ng-show="apt.appointmentState == -1?true:false">

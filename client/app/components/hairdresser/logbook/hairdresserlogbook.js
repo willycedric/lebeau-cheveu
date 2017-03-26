@@ -2,20 +2,22 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import {hairdresserlogbookDirective} from './hairdresserlogbook.directive';
 import {servicesHairdresserResourceModule} from './../../common/services/hairdresserResource';
+import {HairdresserlogbookController as controller} from './hairdresserlogbook.controller';
+import template from './hairdresserlogbook.html';
 import './hairdresserlogbook.scss';
 export const hairdresserlogbook = angular.module('hairdresserlogbook', [uiRouter,servicesHairdresserResourceModule.name])
   .config(($stateProvider,securityAuthorizationProvider) => {
     $stateProvider.state('hairdresserlogbook', {
       url: '/hairdresser/logbook',
-      template: '<hairdresserlogbook></hairdresserlogbook>',
-      constrollerAs:'vm',
+      template,
+      controller,     
       title:'Mon agenda',
       resolve: {
-       access: ['$q', '$location', 'securityAuthorization', 'hairdresserResource',function($q, $location, securityAuthorization,hairdresserResource){
+       logbook: ['$q', '$location', 'securityAuthorization', 'hairdresserResource',function($q, $location, securityAuthorization,hairdresserResource){
           //get app stats only for admin-user, otherwise redirect to /account
           var redirectUrl;
           var promise = securityAuthorization.requireHairdresserUser()
-            .then(hairdresserResource.getAccountDetails, function(reason){
+            .then(hairdresserResource.getSettings, function(reason){
                 //rejected either user is unverified or un-authenticated
                 redirectUrl = reason === 'unverified-client'? '/account/verification': '/login';
                 return $q.reject();

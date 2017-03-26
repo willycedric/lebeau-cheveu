@@ -1,9 +1,9 @@
-	import _ from 'lodash';
+  import _ from 'lodash';
   class HairdresserlogbookController {
-	  constructor(AuthToken,Auth,API,$log,$state,$uibModal,hairdresserMAnager,customerMAnager,$scope,ModalFactory, DateHandler,$q,$window) {
-	  	// hairdressers account informations
-	  	this.hairdresser={};
-	  	this.days = [];
+    constructor(AuthToken,Auth,API,$log,$state,$uibModal,hairdresserMAnager,customerMAnager,$scope,ModalFactory, DateHandler,$q,$window,logbook) {
+      // hairdressers account informations
+      this.hairdresser={};
+      this.days = [];
       this.times =[];
       this.$log = $log;
       this.$q =$q;
@@ -13,36 +13,43 @@
       this.customerMAnager=customerMAnager;
       this.DateHandler = DateHandler;
       this.$window = $window;
-      this.loadLogbook = false;
-      this.spinner="http://i.imgur.com/Xqtymmo.gif";
-      this.url ="logbook.html"
+      $scope.loadLogbook = false;
+      $scope.spinner="http://i.imgur.com/Xqtymmo.gif";
+      $scope.url ="logbook.html"
       const availableAppointmentDays=31; //Use to limit the datepicker to one month in order to prevent user to go to far in the future
-	    this.dt = new Date();
-		//If a user is connected through the localStretegy, retrieveed the token from the localStorage
-	 	var token = AuthToken.getToken();
-	    if(token){
-	        this.username= AuthToken.parseToken(token).name;
-	    }
+      $scope.dt = new Date();
+    //If a user is connected through the localStretegy, retrieveed the token from the localStorage
+    var token = AuthToken.getToken();
+      if(token){
+          this.username= AuthToken.parseToken(token).name;
+      }
       //this.log.debug('hairdresser',this.hairdresser);
       this.events=[];
       var appointmentOfTheDay=[];
-      Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
-      .then((rep)=>{
-          this.hairdresser = rep;
-          this.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(this.hairdresser.appointments);
-          //datepicker logic
-         angular.forEach(this.hairdresser.appointments, (appt,key)=>{
-           this.events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers})
-        });        
-      })
-      .finally(()=>{
-         this.defineCalendarOption()
-         .then(()=>{
-            this.loadLogbook=true;
-          });          
-      });          
+      var deserializedata = (data)=>{
+        var deferred = this.$q.defer();
+        deferred.resolve(data.hairdresser);
+        return deferred.promise;
+      };
+      var init = (data)=>{
+          deserializedata(data)
+          .then((rep)=>{
+              $scope.hairdresser = rep;
+              $scope.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(this.hairdresser.appointments);
+              //datepicker logic
+             angular.forEach(this.hairdresser.appointments, (appt,key)=>{
+               this.events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers})
+            });        
+          })
+          .finally(()=>{
+             this.defineCalendarOption($scope)
+             .then(()=>{
+                $scope.loadLogbook=true;
+              });          
+          }); 
+        };        
       //Logic to handle hairdresser click on the logbook 
-      $scope.$watch('vm.dt', (newValue, oldValue)=>{      
+      $scope.$watch('dt', (newValue, oldValue)=>{      
           if(newValue !== oldValue){
             appointmentOfTheDay=[];
             //checking if the selected date belongs to the hairdresser's appointment list
@@ -64,7 +71,8 @@
           }
       });      
       this.getTheSelectedStatus();
-	};//end constructor;
+      init(logbook);
+  };//end constructor;
 
   /**
    * [displayListOfAppointmentsOfTheSelectedDay display a modal with an appointment list for the slected day]
@@ -364,10 +372,10 @@ getTheSelectedStatus(date){
  * [defineCalendarOption description]
  * @return {[type]} [description]
  */
-defineCalendarOption(){
+defineCalendarOption($scope){
   var self = this;
   var deferred = this.$q.defer(); 
-  self.options = {
+  $scope.options = {
             customClass: function(data) {  
             var date = data.date,
               mode = data.mode;
@@ -407,7 +415,7 @@ defineCalendarOption(){
 
 
 }//end class
-HairdresserlogbookController.$inject =['AuthToken','Auth','API','$log','$state','$uibModal','hairdresserMAnager','customerMAnager','$scope','ModalFactory','DateHandler','$q','$window'];
+HairdresserlogbookController.$inject =['AuthToken','Auth','API','$log','$state','$uibModal','hairdresserMAnager','customerMAnager','$scope','ModalFactory','DateHandler','$q','$window','logbook'];
 
 export {HairdresserlogbookController};
 

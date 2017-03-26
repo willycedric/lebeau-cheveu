@@ -1,6 +1,5 @@
 import './hairdressermessage.css';
-import {HairdressermessageController as controller} from './hairdressermessage.controller';
-import template from './hairdressermessage.html';
+
 
 export const hairdressermessageDirective = ()=> {
 	 return{

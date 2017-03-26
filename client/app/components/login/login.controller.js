@@ -37,17 +37,9 @@ class LoginController {
     * @return {[type]} [description]
     */
    self.goToLoginform = () =>{
-    //If a user is already logged redirect to his profil
-      if(AuthToken.getToken()){
-        var loggedUserDetails = AuthToken.parseToken(AuthToken.getToken());
-        if(loggedUserDetails.role == 2){ //redirecting to customer profile
-             $state.go('customer');
-        }else if(loggedUserDetails.role == 1){//redirecting to hairdresser profile
-             $state.go('hairdresser');
-        }     
-   } else{
+
          self.launchLoginModal();
-      }
+      
  }
  
   }//End constructor

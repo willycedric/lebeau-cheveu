@@ -125,7 +125,6 @@ const baseUrl =  'http://localhost:3500';
 
     // Attempt to authenticate a user by the given username and password
     login: function(username, password) {
-      console.log('From the login controller ', username,password);
       var request = $http.post(baseUrl+'/api/login', {
         username: username,
         password: password

@@ -1,6 +1,5 @@
 import './hairdresserlogbook.css';
-import {HairdresserlogbookController as controller} from './hairdresserlogbook.controller';
-import template from './hairdresserlogbook.html';
+
 import $ from 'jquery';
 export const hairdresserlogbookDirective = ()=> {
 	 return{
