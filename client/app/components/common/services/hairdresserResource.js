@@ -64,5 +64,9 @@ export const servicesHairdresserResourceModule = angular.module('servicesHairdre
         return data;
       });
   };
+
+  resource.upload = function(data){
+      return  $http.post(baseUrl+'/hairdresser/upload',data).then(processResponse,processError);
+  };
   return resource;
 }]);

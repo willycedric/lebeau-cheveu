@@ -6,6 +6,7 @@ import {appDirective} from './app.directive';
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngCookies from 'angular-cookies';
+/*import ngResource from 'angular-resource';*/
 import ngAnimate from 'angular-animate';
 import uiBootstrap from 'angular-ui-bootstrap';
 import ngRoute from 'angular-route'; 
@@ -27,7 +28,9 @@ import {blogModule} from './components/blog/index';
 import {catalogModule} from './components/catalog/index';
 import {searchbar} from './components/searchbar/searchbar';
 import {menu} from './components/menu/menu';
+import {uploader} from './components/uploader/uploader';
 import moment from 'moment';
+import {filepicker} from './filepicker';
 import './app.scss';
 
 angular.module('app', [
@@ -53,7 +56,10 @@ angular.module('app', [
   hairdresser.name,
   admin.name,
   searchbar.name,
-  menu.name
+  menu.name,
+  filepicker.name,
+  uploader.name
+
 ])
 .provider(
         'csrfCD',

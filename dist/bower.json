@@ -1,0 +1,25 @@
+{
+  "name": "lebeaucheveu",
+  "description": "lebeaucheveu web app",
+  "main": "app.js",
+  "authors": [
+    "infected mushrooms"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "dist/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-filepicker": "^1.1.4",
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.2",
+    "angular-route": "^1.5.2"
+  }
+}
