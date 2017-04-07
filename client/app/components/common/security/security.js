@@ -9,7 +9,7 @@ export const securityServiceModule = angular.module('securityServiceModule', [
  uiBootstrap     // Used to display the login form as a modal dialog.
 ])
 
-.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$uibModal', function($http, $q, $location, queue, $uibModal) {
+.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$uibModal', 'AuthToken',function($http, $q, $location, queue, $uibModal,AuthToken) {
 
   // Redirect to the given url (defaults to '/')
   function redirect(url) {
@@ -151,7 +151,13 @@ const baseUrl =  'http://localhost:3500';
     logout: function(redirectTo) {
       $http.post(baseUrl+'/api/logout').then(function() {
         service.currentUser = null;
+        
         redirect(redirectTo);
+      }, function(err){
+        console.error(err);
+      })
+      .finally(function(){
+        AuthToken.deleteToken();
       });
     },
 

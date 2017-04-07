@@ -1,0 +1,96 @@
+<section class="hairdresser-picture section-padding">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="row">
+					<!-- <hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_tSype }}"></hairdresser-profile-card> -->
+					<uploader url={{profile_picture}} destination="profil"></uploader>			
+				</div> <!-- row id card -->
+				<menu></menu>
+			</div> <!-- .col-sm-4 left-element -->	
+			<div class="col-sm-9">				
+		        <div class="row" id="admin-catalogs-index"">
+		            <div class="col-sm-9 page-header">                
+		                <h1>Mon catalogue</h1>
+		            </div>		            
+		            <div class="col-sm-3">                                
+		                <button type="button" class="btn btn-primary button-add" ng-click="vm.LaunchAddCategoryForm()">Ajouter un style de coiffure</button>                   
+		            </div>
+		        </div>
+		        <div class="row">
+		            <table class="table table-striped">
+		                <thead>
+		                <tr>
+		                    <th>Date de création</th>
+		                    <th class="stretch">Nom</th>
+		                    <th>nombre de photo(s)</th>
+		                </tr>
+		                </thead>
+		                <tbody>
+		                <tr ng-repeat="category in vm.hairdresser.categories track by $index" ng-click="vm.redirectToCategoryDetails(category,$index)">
+		                    <td ng-bind="category.createdAt|date"></td>
+		                    <td ng-bind="category.name"></td>
+		                    <td class="nowrap" ng-bind="Catalog.userCreated.name"></td>
+		                </tr>
+		                <tr ng-show="categories.length === 0">
+		                    <td colspan="4">no documents matched</td>
+		                </tr>
+		                </tbody>
+		            </table>
+	            <div class="well" ng-if="pages.total > 1">
+		                <div class="btn-group pull-left">
+		                    <button disabled class="btn btn-default">Page {{pages.current}} of {{pages.total}}</button>
+		                    <button disabled class="btn btn-default">Rows {{items.begin}} - {{items.end}} of {{items.total}}</button>
+		                </div>
+		                <div class="btn-group pull-right">
+		                    <button class="btn btn-default" ng-class="{disabled: !pages.hasPrev}" ng-click="prev()">Prev</button>
+		                    <button class="btn btn-default" ng-class="{disabled: !pages.hasNext}" ng-click="next()"> Next</button>
+		                </div>
+		                <div class="clearfix"></div>
+		            </div>
+		        </div>			    
+			    <script type="text/ng-template" id="new-category.html">
+			        <div class="modal-header">
+			                     <h5 class="center modal-title">Nouvelle catégorie</h5>
+			        </div>
+			        <div class="modal-body">
+			            <div class="container">
+			            	
+			            		<form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="$ctrl.updateCategories($ctrl.categories,$ctrl.categoryState)">
+								    <div class="row">
+								    	<div uib-alert ng-repeat="alert in $ctrl.detailAlerts" type="{{alert.type}}" close="closeDetailAlert($index)">{{alert.msg}}</div>  								    	
+								    	<div class="col-sm-offset-2 col-sm-5">
+								    		<label for="categories" uib-tooltip="ctrl (PC) ou cmd (Mac) + Click pour sélectionner plusieur choix"> Categorie de coiffure:  </label><br>				
+										    <select name="categories" id="categories" ng-model="$ctrl.categories" class="">
+										      <option value="0">Cheveux Afro</option>
+										      <option value="1">Cheveux Lisses</option>
+										      <option value="2">Cheveux Bouclés</option>
+										    </select>										    
+								    	</div>
+							    	</div><!-- end .row -->
+							    	<div class="row">
+								    	<div class="col-sm-offset-3 col-sm-3">
+								    	<label for="state">activer la catégorie?</label>
+								    		<input type="checkbox" name ="state" id ="state" ng-model="$ctrl.categoryState" ng-init="$ctrl.categoryState=false"/>									
+								    	</div>
+								    </div><!-- end .row -->
+								    <div class="row">
+								    	<div class="col-sm-offset-3 col-sm-6">
+								    		<div class="row">
+								    			<div class="col-sm-4">
+								          			<input  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-primary" value="Enregistrer" >
+								          		</div>
+								          		<div class="col-sm-4">
+								          			<button class="btn btn-primary " type="button" ng-click="$ctrl.cancel()">Annuler</button>
+								          		</div>
+								    		</div>
+								    	</div>
+								    </div><!-- end .row -->
+				    			</form>	<!-- end .form -->			            	
+			            </div>	<!-- end.container -->
+			       </div>
+			    </script>    
+			</div>	<!-- .col-sm-9 right-element -->		
+		</div> <!-- top row -->
+	</div> <!-- .top container -->
+</section><!-- hairdresser -- >

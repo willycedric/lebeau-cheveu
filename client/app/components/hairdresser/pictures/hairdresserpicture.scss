@@ -20,3 +20,120 @@
   margin:0.8%;
   color:$button-color;
 }
+
+label[for=state] {
+    margin-right: 2em;
+}
+
+label[for=state],label[for=categories]{
+	font-family: FuturaPT-Books;
+	font-weight: lighter;
+}
+
+select[name=categories]{
+	height: 3em;
+}
+
+.hairdresser-picture .modal-dialog .alert {
+    width: 50% !important;
+    margin-left: 15em  !important;
+}
+
+table th, table td{
+	text-align: center;
+	font-family: FuturaPT-Medium;
+}
+.hairdresser-picture table{
+	background: white;
+}
+
+.hairdresser-picture table th{
+    background: #0da7a9;
+    color: white;
+    border-right: 1px solid white;
+    border-left:1px solid white;
+}
+.hairdresser-picture table tr{
+	cursor: pointer;
+	&:hover,&:focus,&:hover:focus{
+		cursor: pointer;
+		background:$default-background-color;
+	}
+}
+
+.hairdresser-picture .button-add{
+	height: 3em;
+	background: $default-background-color;
+	border:none;
+	font-family: FuturaPT-Book;
+	&:hover{
+		outline: none;
+		background: $default-background-color;
+		border: none;
+	}
+	&:focus{
+		outline: none;
+		background: $default-background-color;
+		border: none;
+	}
+
+	&:active:focus{
+		outline: none;
+		background: $default-background-color;
+		border: none;
+	}
+}
+
+#new-entry{
+	background: white;
+	padding: 2em;
+}
+.browse-or-drop{
+    background: white;
+    margin-left: 2.5em;
+    margin-right: 2.5em;
+    width:50%;
+	margin: 0 auto;
+}
+
+.hairdresser-picture button.btn-primary {
+    background: #0da7a9;
+    border-color: #0da7a9;
+    color: white;
+    font-family: FuturaPT-Book;
+    outline: none;
+}
+
+.hairdresser-picture fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
+
+.hairdresser-picture h1 a{
+    font-size: 1.1em;
+    color: #0da7a9;
+    text-decoration: none;
+    outline: none;
+    font-family: FuturaPT-Books;
+    &:hover{
+    	text-decoration: none;
+    	font-size: 1.1em;
+    	color: #0da7a9;
+    }
+}
+
+.hairdresser-picture .alternative-choice{
+	display: block;
+    margin-top: 1.5em;
+    font-weight: bolder;
+    margin-bottom: 0;
+    font-size: 1.2em;
+    font-family: FuturaPT-Books;
+}
+
+.hairdresser-picture  form{
+	width:50%;
+	margin: 0 auto;
+}
+

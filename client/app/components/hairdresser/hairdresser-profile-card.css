@@ -35,4 +35,5 @@
 .hairdresser .card-details {
   font-size: 16px;
   color:#790303;/*#a94442;*/
+  display: block;
 }

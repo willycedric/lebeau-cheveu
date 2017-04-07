@@ -1,4 +1,6 @@
  const hairdresserAccountManager = ($http,$q,API,$log) =>{
+
+ 		const availableHaircutCategories =["Cheveux Afro", "Cheveux lisses", "Cheveux bouclés"];
  		/**
  		 * Function used to update an appoitment time slote
  		 * @param  {[Schema.Types.ObjectId]} hairdresserId [hairdresser id]
@@ -182,6 +184,18 @@
  			});
  			return deferred.promise;
  		}
+
+ 		const updateHaircutCategory = (data)=>{
+ 			var deferred = $q.defer();
+ 			$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/updatecategory',data)
+ 			.then(function updateCategorySuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function updateCategoryFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to update the hairdresser haircut's category.", err))
+ 			});
+ 			return deferred.promise;
+ 		};
+
  		return {
  			updateHairdresserAppointment,
  			getAppointmentById,
@@ -193,7 +207,9 @@
  			getHairdresserNotYetConfirmedAppointmentNumber,
  			updateAppointmentStateWithReason,
  			updateAppointmentState,
- 			deleteHairdresserAccount
+ 			deleteHairdresserAccount,
+ 			availableHaircutCategories,
+ 			updateHaircutCategory
  		};
  };
 

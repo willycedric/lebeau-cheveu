@@ -1,5 +1,5 @@
 	class HairdresserbookingController {
-	  constructor(bookings,Auth, API,$log,ModalFactory,hairdresserMAnager, customerMAnager,$q,$window,DateHandler) {
+	  constructor(bookings,Auth, API,$log,ModalFactory,hairdresserMAnager, customerMAnager,$q,$window,DateHandler,$scope) {
 	  	// hairdressers account informations
 	  	this.hairdresser={};
 	  	this.openingHourList=API.dev.openingHourList;	  	 	
@@ -22,6 +22,7 @@
         	deserialize(data)
         	.then((rep)=>{
 	          this.hairdresser = rep;
+	          $scope.profile_picture = this.hairdresser.profile_picture;
 	          this.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(this.hairdresser.appointments);
 	        });
 
@@ -135,7 +136,7 @@
 		return count;
 	}
 }
-	HairdresserbookingController.$inject =['bookings','Auth','API', '$log', 'ModalFactory','hairdresserMAnager','customerMAnager','$q','$window','DateHandler'];
+	HairdresserbookingController.$inject =['bookings','Auth','API', '$log', 'ModalFactory','hairdresserMAnager','customerMAnager','$q','$window','DateHandler','$scope'];
 export {HairdresserbookingController};
 
 

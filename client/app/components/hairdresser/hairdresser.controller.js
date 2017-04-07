@@ -21,6 +21,7 @@ class HairdresserController {
       deserialize(data)
       .then(function HairdresserControllerGetProfileSuccessCallback (response){
           $scope.hairdresser= response;
+          $scope.profile_picture=$scope.hairdresser.profile_picture;
           //$scope.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber($scope.hairdresser.appointments);
       }, function HairdresserControllerGetProfileErrorCallback(err){
 

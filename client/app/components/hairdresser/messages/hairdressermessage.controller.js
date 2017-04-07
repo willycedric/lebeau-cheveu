@@ -1,5 +1,5 @@
 	class HairdressermessageController {
-	  constructor(messages,AuthToken,Auth,Access,API,$log,$state,hairdresserMAnager,$q) {
+	  constructor(messages,AuthToken,Auth,Access,API,$log,$state,hairdresserMAnager,$q,$scope) {
 	  	// hairdressers account informations
 	  	var self = this;
 	  	self.$q= $q;
@@ -22,6 +22,7 @@
         	deserialize(data)
         	.then(function HairdresserControllerGetProfileSuccessCallback (response){
 	    		self.hairdresser= response;
+	    		$scope.profile_picture = self.hairdresser.profile_picture;
 			    		self.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(self.hairdresser.appointments);
 			    }, function HairdresserControllerGetProfileErrorCallback(err){
 
@@ -62,7 +63,7 @@
 		return count;
 	}
 	}
-	HairdressermessageController.$inject =['messages','AuthToken','Auth','Access','API','$log','$state','hairdresserMAnager','$q'];
+	HairdressermessageController.$inject =['messages','AuthToken','Auth','Access','API','$log','$state','hairdresserMAnager','$q','$scope'];
 
 export {HairdressermessageController};
 

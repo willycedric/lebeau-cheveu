@@ -32,9 +32,11 @@
         return deferred.promise;
       };
       var init = (data)=>{
+        
           deserializedata(data)
           .then((rep)=>{
               $scope.hairdresser = rep;
+              $scope.profile_picture = $scope.hairdresser.profile_picture;              
               $scope.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(this.hairdresser.appointments);
               //datepicker logic
              angular.forEach(this.hairdresser.appointments, (appt,key)=>{

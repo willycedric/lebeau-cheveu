@@ -14,6 +14,9 @@ import {searchBar} from './searchBar';
 import {ModalFactory} from './modalFactory';
 import {DateHandler} from './simpleDateHandler';
 import {ZonePath} from './zonePath';
+import {Formulator} from './formulator';
+import {PhotoUploader} from './photoUploader';
+import {HaircutCategoryFactory} from './haircutCategory';
 import angular from 'angular';
 
 
@@ -34,6 +37,9 @@ export const shared = angular.module('shared', [])
   .factory('ModalFactory',ModalFactory)
   .factory('DateHandler',DateHandler)
   .factory('ZonePath',ZonePath)
+  .factory('Formulator',Formulator)
+  .factory('PhotoUploader',PhotoUploader)
+  .factory('haircutCategory',HaircutCategoryFactory)
   .config(function($httpProvider){
   	$httpProvider.interceptors.push(AuthInterceptor);
   });

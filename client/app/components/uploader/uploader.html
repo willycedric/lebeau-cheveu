@@ -1,68 +1,59 @@
-<div class="col-md-8 col-md-offset-2">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h2 class="panel-title text-center">
-				<span class="glyphicon glyphicon-user"></span>Superhero form 
-			</h2>
-		</div>
-		<div class="panel-body">
-			<!-- The form to add superheroes information -->
-			<form name ="addForm" novalidate>
-				<div class="form-group">
-					<label for="username">Name</label>
-					<input type="text" class="form-control" placeholder="Deadpool?" ng-model="superhero.name" required>
+<section class="uploader">
+	<div class="empty-card" ng-if='url==""'>
+	 <div class="empty-profile-container">	  	
+	  	<div class="empty-profile-update">
+	  		<span class="camera" ng-click="launchModal()"></span>
+	  	</div>
+	  </div>
+	</div>
+	<div ng-if='url!=""'>	 	  
+	  <div class="profile-container">
+	  	<img ng-src="{{vm.trustSrc(url)}}" class="img-profile"/>	  	
+	  	<div class="profile-update">
+	  		<span class="camera" ng-click="launchModal(destination)"></span>
+	  	</div>
+	  </div>
+	</div>	
+	<script type="text/ng-template" id="uploder.html">
+			<div class="modal-header default" id="modal-header">
+				<h3 class="center modal-tile"></h3>
+			</div>
+	        <div class="modal-body default" id="modal-body">
+	            <div class="uploader">
+					<div ng-show="!$ctrl.uploadPhoto && !$ctrl.loading" class="drop-box drop-box-container" ngf-drag-over-class="drop-box-dragover" ngf-change="$ctrl.readFileImg($files)" ngf-drop="" ngf-select="" ng-model="files" ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ng-cloak="">
+				        <span>Déposer une image ou cliquer pour en sélectionner une</span>
+			        </div>
+					          <!--progress-->
+				      <div class="drop-box-container" ng-show="loading" ng-cloak="">
+				        <div class="wrap">
+				          <!-- <md-progress-circular class="md-hue-2" ng-show="loading" md-mode="indeterminate" style="margin: auto;">
+				          </md-progress-circular> -->
+				        </div>
+				      </div>
+				        <!--Img Crop-->
+				       <div class="container" ng-hide="!$ctrl.uploadPhoto && !$ctrl.loading">
+				       		<div class="row">
+				       			
+				       			<div class="col-sm-6">
+				       				<div class="cropArea">    		 	
+						    		 	<img-crop image="$ctrl.uploadPhoto" area-type="square" result-image-size="230" area-min-size="220" result-image="$ctrl.myCroppedImage"></img-crop>
+								 	</div>
+				       			</div>
+				       			<div class="col-sm-6">
+				       				<div>Image réduite</div><br/>
+				  					<div><img ng-src="{{$ctrl.myCroppedImage}}" /></div>
+				       			</div>
+				       		</div>
+				       </div>			         				  		
 				</div>
+	        </div>
+	        <div class="modal-footer default">
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">Envoyer</button>
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.cancel()">Annuler</button>
+	        </div>
+	</script>
+</section>
+	
 				
-				<label class="radio control-label">Gender</label>
-				<div class="radio" >
-					<label>
-						<input type="radio" name="optionsRadios" value="Male" ng-model="superhero.gender" >
-						Male
-					</label>
-				</div>
-				<div class="radio" >
-					<label>
-						<input type="radio" name="optionsRadios" value="Female" ng-model="superhero.gender" required>
-						Female
-					</label>
-				</div>
-				<div class="form-group">
-					<label for="username">Super Powers</label>
-					<input type="text" class="form-control" placeholder="SenseOfHumor" ng-model="superhero.superPowers" required>
-				</div>
-				<div class="form-group">
-					<label for="picture">Main picture</label>
-					<div class="text-center">
-						<button type="button" class="btn btn-default" ng-click="upload()">
-							Upload <span class="caret"></span>
-						</button>
-						<div style="margin-top:10px;">
-							<!-- Show the thumbnail only when the picture is uploaded -->
-							<a href="{{superhero.picture.url}}" class="thumbnail" ng-if="superhero.picture">
-							<!-- the picture is rendered with width: 500 and sharpened -->
-							<img ng-src="{{superhero.picture.url | fpConvert: {filter:'sharpen', w:500} }}">
-							</a>
-						</div>					
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="picture">More pictures? (Max 3, optional!)</label>
-					<div class="text-center">
-					<button type="button" class="btn btn-default" ng-click="uploadMultiple()">
-					Upload <span class="caret"></span>
-					</button>
-					<!-- Show the thumbanil of more pictures -->
-						<div style="margin-top:10px;" ng-repeat="picture in superhero.morePictures">	 <div class="col-md-{{12 / superhero.morePictures.length}}">
-							<a href="{{picture.url}}" class="thumbnail">
-							  <img ng-src="{{picture.url | fpConvert: {filter:'sharpen', w:500} }}">
-							</a>
-						</div>	
-					</div>
-					</div>
-				</div>
-				<hr />				
-				<button type="submit" class="btn btn-danger btn-block"  ng-click="createSuperhero()" ng-disabled="superhero.$invalid || !superhero.picture">Submit</button>				
-			</form>
-		</div>
-    </div>
-</div>
+
+			

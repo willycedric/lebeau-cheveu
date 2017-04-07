@@ -34,6 +34,7 @@ baseModule.controller('HeaderCtrl', ['$scope', '$location', 'security',
     };
 
     $scope.logout = function(){
+      console.log('inside logout function');
       return security.logout();
     };
     $scope.isActive = function(viewLocation){

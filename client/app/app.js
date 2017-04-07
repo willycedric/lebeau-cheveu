@@ -30,7 +30,6 @@ import {searchbar} from './components/searchbar/searchbar';
 import {menu} from './components/menu/menu';
 import {uploader} from './components/uploader/uploader';
 import moment from 'moment';
-import {filepicker} from './filepicker';
 import './app.scss';
 
 angular.module('app', [
@@ -57,7 +56,6 @@ angular.module('app', [
   admin.name,
   searchbar.name,
   menu.name,
-  filepicker.name,
   uploader.name
 
 ])

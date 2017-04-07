@@ -86,14 +86,16 @@ export const securityAuthorizationModule = angular.module('securityAuthorization
       requireHairdresserUser: function() {
         var promise = security.requestCurrentUser().then(function(userInfo) {
           if ( !security.isAuthenticated() ) {
-            console.log('im here too');
             return queue.pushRetryFn('unauthenticated-client', service.requireHairdresserUser);
           }else if(!security.isHairdresser()){
-            console.log('im not here ', security.isHairdresser());
             return $q.reject('unauthorized-client');
           }
         });
         return promise;
+      },
+
+      requireCurrentUser : function(){
+        return security.requestCurrentUser();
       },
 
       requireVerifiedUser: function(){

@@ -68,5 +68,21 @@ export const servicesHairdresserResourceModule = angular.module('servicesHairdre
   resource.upload = function(data){
       return  $http.post(baseUrl+'/hairdresser/upload',data).then(processResponse,processError);
   };
+
+  resource.findHaircutCatalog = function(id){
+    return $http.get(baseUrl+'/hairdresser/catalog/'+id.toString()).then(processResponse,processError);
+  };
+
+  resource.updateGaleryEntry=function(data){
+    return $http.put(baseUrl+'/hairdresser/upload/galery',data).then(processResponse,processError);    
+  };
+
+  resource.findGaleryEntries = function(){
+    return $http.get(baseUrl+'/hairdresser/galery/entries').then(processResponse,processError);
+  };
+
+  
   return resource;
 }]);
+
+

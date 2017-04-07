@@ -1,6 +1,6 @@
 import './hairdresserpicture.css';
 import {HairdresserpictureController as controller} from './hairdresserpicture.controller';
-import template from './hairdresserpicture.html';
+import template from './hairdresserpicture-catalogs.html';
 
 export const hairdresserpictureDirective = ()=> {
 	 return{

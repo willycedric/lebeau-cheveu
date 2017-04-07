@@ -1,6 +1,6 @@
 
 class HairdresseraccountController {
-  constructor($uibModal,API,Auth,ModalFactory,$log,hairdresserMAnager,AuthToken,$state,$window,settings) {
+  constructor($uibModal,API,Auth,ModalFactory,$log,hairdresserMAnager,AuthToken,$state,$window,settings,$scope) {
 
   		  var self=this;
   		//List of department in Ile de France
@@ -37,6 +37,7 @@ class HairdresseraccountController {
 	  	});*/
 	  var deserialize = function(data){
 	  	self.hairdresser = data.hairdresser;
+	  	$scope.profile_picture=self.hairdresser.profile_picture;
 	  	self.count =hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(self.hairdresser.appointments);
 	  };
 	  	/**
@@ -238,7 +239,7 @@ class HairdresseraccountController {
 
 }//end class
 
-HairdresseraccountController.$inject =['$uibModal','API','Auth','ModalFactory','$log','hairdresserMAnager','AuthToken','$state','$window','settings'];
+HairdresseraccountController.$inject =['$uibModal','API','Auth','ModalFactory','$log','hairdresserMAnager','AuthToken','$state','$window','settings','$scope'];
 export {HairdresseraccountController};
 
 
