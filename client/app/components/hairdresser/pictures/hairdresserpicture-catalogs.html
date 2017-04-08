@@ -30,7 +30,7 @@
 		                <tr ng-repeat="category in vm.hairdresser.categories track by $index" ng-click="vm.redirectToCategoryDetails(category,$index)">
 		                    <td ng-bind="category.createdAt|date"></td>
 		                    <td ng-bind="category.name"></td>
-		                    <td class="nowrap" ng-bind="Catalog.userCreated.name"></td>
+		                    <td class="nowrap" ng-bind="vm.getGaleryEntry(category._id)"></td>
 		                </tr>
 		                <tr ng-show="categories.length === 0">
 		                    <td colspan="4">no documents matched</td>

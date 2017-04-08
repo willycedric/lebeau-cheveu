@@ -52,7 +52,7 @@ class HairdresserpictureController {
 					if(topController.hairdresserMAnager.availableHaircutCategories.length>0){
 						var found=false;
 						//check if the category selected is not already in use by the hairdresser
-						console.log("hairdresser categories used -->",topController.hairdresser.categories);
+						
 						angular.forEach(topController.hairdresser.categories, function(category,index){
 							if(category.name.toUpperCase() == topController.hairdresserMAnager.availableHaircutCategories[categories].toUpperCase()){								
 								found=true;
@@ -89,27 +89,26 @@ class HairdresserpictureController {
 				$ctrl.cancel = () =>{
 					$uibModalInstance.dismiss('close');
 				};
-		 });	   
+		 });		  
 	 };// end updatePreferenceModal
 
-	 self.redirectToCategoryDetails =(category,index)=>{	 
-	   	 
-	   	 	if(category._id){
-	   	 		const redirectUrl  = '/hairdresser/pictures/'+category._id.toString();
-   	 			console.log("redirecto ",redirectUrl, "index ", index);
-   	 			//debugger;  	 	
-   	 			//self.$location.search(category.name.split(' ')[0]+'-'+category.name.split(' ')[1]);
-	   	 		//self.$location.path(redirectUrl);
+	 self.redirectToCategoryDetails =(category,index)=>{	   	 
+	   	 	if(category._id){	   	 		
 	   	 		self.$state.go("hairdressercatalog",{id:category._id,name:category.name.split(' ')[0]+'-'+category.name.split(' ')[1]});
-
-	   	 		//haircutCategory.addCategory(category);
-	   	 		//haircutCategory.setIndex(index);
-	   	 		//$state.go("categorystate");
 	   	 	}else{
 	   	 		throw new Error(" the category id is not defined");
 	   	 	}
 	   	 };
-
+	self.getGaleryEntry = (id)=>{
+				console.log("category entry",id);
+				var count =0;
+				angular.forEach(self.hairdresser.gallery_pictures,function(entry){
+					if(entry.category == id && entry.published){
+						count++;
+					}
+				});
+				return count;
+		};	 
 	    init(pictures);
 
 	};//end constructor;

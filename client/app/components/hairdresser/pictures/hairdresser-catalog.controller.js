@@ -26,11 +26,11 @@ class HairdresserCatalogController {
     	.then((rep)=>{    		
     		self.category= rep;
     		self.haircutCategory.addCategory(self.category._id);
-    		self.hairdresserResource.findGaleryEntries()
+    		self.hairdresserResource.findGaleryEntries(self.category._id)
     		.then((rep)=>{
     			angular.forEach(rep, function(entry,ind){
     				if(entry.category === self.$stateParams.id){
-    					self.galeryEntries.push(entry);
+    					self.galeryEntries.push(entry);             
     				}
     			});    			
     		})

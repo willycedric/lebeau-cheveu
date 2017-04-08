@@ -1,10 +1,4 @@
-<!--<div id="catalog-details">
-   <ul lightbox="contents">
-  <li ng-repeat="image in contents">
-    <a href="image" class="lightbox-trigger">{{image}</a>
-  </li>
-</ul> -->
- 
+
 <div id="catalog-details">
 	<div class="row">
 		<div id ="gallery-enty">
@@ -17,22 +11,20 @@
 	 <!--  <span class="close cursor" >&times;</span> -->
 	  <span class="close cursor" ><i class="fa fa-times-circle"></i></span>
 	  <div class="modal-content">
-		    <div class="mySlides" ng-repeat="content in images track by $index">		      
-		      <img ng-src="{{content.url}}" >
+		    <div  class="mySlides" ng-repeat="content in images track by $index">	 					
+						<img ng-src="{{content.url}}">
+					<button class="btn-blog btn-delete" ng-show="!vm.isPublic" ng-click="vm.deletePicture({content})">Supprimer?</button>
 		    </div>    
 		    <a class="prev">&#10094;</a>
 		    <a class="next">&#10095;</a>
-
 		    <div class="caption-container">
 		      <p id="caption">		      	 
-		      </p>
-		      <button class="btn-blog" ng-click="redirectToSearchView(name)">trouver des coiffeuses ?</button>	     
+		      </p>		      
+					<button class="btn-blog" ng-show="vm.isPublic" ng-click="redirectToSearchView(name)">trouver des coiffeuses ?</button> 					
 		    </div>  		   
 	    	<div class="column"  ng-repeat="content in images track by $index">
 	      		<img class="demo cursor" ng-src="{{content.url}}" alt="{{content.description}}">
-	    	</div>	
-		    
-		      
+	    	</div>	       
 	  </div>
 	</div>
 </div>

@@ -16,7 +16,7 @@ export const viewCatalogDetailsModule = angular.module('viewCatalogDetailsModule
     .state('catalogdetails', {
       url:'/catalogs/details/:id',
       template,
-       controller:controller,
+       controller,
        controllerAs:'vm',
       resolve: {
         catalog: ['$q', '$stateParams', '$location', 'securityAuthorization', 'catalogResource', function($q, $stateParams, $location, securityAuthorization, catalogResource){

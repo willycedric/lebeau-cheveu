@@ -1,4 +1,4 @@
-<section class="hairdresser-picture section-padding container">
+<section class="hairdresser-picture catalog section-padding container">
     <div class="row">
         <div class="page-header">
             <h1><a ui-sref="hairdresserpicture">Retour</a> / {{vm.category.name}}</h1>
@@ -6,10 +6,9 @@
     </div>
     <div class="row">
         <uib-accordion close-others="oneAtATime">
-            <div uib-accordion-group class="panel-default" heading="Custom template" template-url="gr-template.html">
+            <div uib-accordion-group class="panel-default" heading="Nouvelle photo" template-url="gr-template.html">
                 <div class="row">   
-                    <div id="new-entry">
-                        <h3>Nouvelle photo</h3>
+                    <div id="new-entry">                        
                         <div class="browse-or-drop"><fieldset>                   
                             <legend>Parcourir ou glisser et déposer </legend>
                             <uploader url={{vm.entryUrl}} destination="galery"></uploader>                 
@@ -33,26 +32,9 @@
             </div>
         </uib-accordion>
     </div>    
-    <div class="row">
-        <div id="gallery-view">
-            <div class="row">
-                <div class="col-sm-4 gallery-entry" ng-repeat ="entry in vm.galeryEntries">                        
-                        <img class="img-gallery" ng-src = "{{vm.trustSrc(entry.url)}}" ng-click="showLightBox = true"/>
-                        <span class="close-thik" ng-click="removeContent(entry._id)"></span> 
-                        <lightbox-directive class="angular-lightbox" ng-class="{ hidden : !showLightBox }">
-                          <article>
-                            <header>
-                              <a class="close-btn" ng-click="$parent.showLightBox = false"><i class="fa fa-times-circle"></i></a>
-                            </header>
-                            <content>
-                              <img  ng-src="{{vm.trustSrc(entry.url)}}" />
-                            </content>
-                          </article>
-                        </lightbox-directive>                      
-                </div>
-            </div>
-        </div>
-    </div>   
+    <div class="row"> 
+         <catalog-details data-contents="vm.galeryEntries" data-name="{{vm.category.name}}"></catalog-details>
+    </div>
     <!-- deletion confirmation modal -->
     <script type="text/ng-template" id="confirmation.html">
         <div class="modal-header">
@@ -70,8 +52,9 @@
         <div>
             <div class="panel-heading">
           <h4 class="panel-title" style="color:#333">
-            <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
-              <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
+            <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()"  is-open="status.open" uib-accordion-transclude="heading">
+              <span uib-accordion-header ng-class="{'text-muted': isDisabled}" >
+                  <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
                 {{heading}}
               </span>
             </a>

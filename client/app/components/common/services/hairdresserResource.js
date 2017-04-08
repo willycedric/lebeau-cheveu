@@ -77,9 +77,13 @@ export const servicesHairdresserResourceModule = angular.module('servicesHairdre
     return $http.put(baseUrl+'/hairdresser/upload/galery',data).then(processResponse,processError);    
   };
 
-  resource.findGaleryEntries = function(){
-    return $http.get(baseUrl+'/hairdresser/galery/entries').then(processResponse,processError);
+  resource.findGaleryEntries = function(id){
+    return $http.get(baseUrl+'/hairdresser/galery/entries/'+id.toString()).then(processResponse,processError);
   };
+
+  resource.deleteGaleryEntries=function(id){
+     return $http.delete(baseUrl+'/hairdresser/galery/entries/'+id.toString()).then(processResponse,processError);
+  }
 
   
   return resource;

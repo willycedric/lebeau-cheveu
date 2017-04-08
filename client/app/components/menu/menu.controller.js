@@ -1,10 +1,17 @@
 class MenuController {
   constructor($q,$log,hairdresserMAnager,hairdresserResource) {
-
+			this.galeryEnrties =0;
 	  	var deserialize = (data)=>{
+				var count=0;
 	  		this.hairdresser = data.hairdresser;
 	  		this.messages = data.hairdresser.notifications.length;
 	  		this.agendaEnrties = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(this.hairdresser.appointments);
+			 angular.forEach(data.hairdresser.gallery_pictures,function(entry){
+					if(entry.published){
+						count++;
+					}
+			 });
+			 this.galeryEnrties =count;
 	  		
 	  	};
 	  	

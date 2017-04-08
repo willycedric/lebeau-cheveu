@@ -2,15 +2,18 @@
 //import {CatalogDetailCtrl as controller} from './catalog-details.controller';
 import template from './details.tpl.html';
 import './details.scss';
+import {detailCtrl as controller} from './details.controller';
 import $ from 'jquery';
 
 export const catalogDetailsDirective = ()=> {
 	 return{
 	 	template,
+		 controller,
+		 controllerAs:'vm',
 	 	restrict:'E',
 	 	scope: {
 	 		images:'=contents',
-	 		name:'@name'
+	 		name:'@name',
 	 	},
 	    link: function(scope, elt, atts){
 	    		var slideIndex = 0;
