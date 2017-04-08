@@ -8,7 +8,7 @@ import './account.css';
 import './account.scss';
 import template from './account.tpl.html';
 import menuTemplate from './account-menu.html';
-import idCardTemplate from './account-id.tpl.html';
+
 
 angular.module('accountIndexModule', [uiRouter,securityAuthorizationModule.name]);
 export const accountIndexModule =  angular.module('accountIndexModule')
@@ -25,13 +25,6 @@ export const accountIndexModule =  angular.module('accountIndexModule')
     });
   });
   angular.module('accountIndexModule')
-  .directive('accountId',()=>{
-    return {
-      restrict:'E',
-      template:idCardTemplate,
-      replace:true
-    };
-  })
   .directive('customerMenu',()=>{
     return {
       restrict:'E',
