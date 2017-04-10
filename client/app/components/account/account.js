@@ -18,10 +18,25 @@ export const accountIndexModule =  angular.module('accountIndexModule')
       template,
       controller,
       controllerAs:'vm',
-      title:'Account Area',
+      title:'Mon compte',
       resolve: {
-        authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser
-      }
+	    accountDetails: ['$q', '$location', 'securityAuthorization', 'accountResource' ,function($q, $location, securityAuthorization, accountResource){
+	      //get account details only for verified-user, otherwise redirect to /account/verification
+	      var redirectUrl;
+	      var promise = securityAuthorization.requireAccountUser()
+	        .then(accountResource.getAccountDetails, function(reason){
+	          //rejected either user is unverified or un-authenticated
+	          redirectUrl = reason === 'unverified-client'? '/account/verification': '/login';
+	          return $q.reject();
+	        })
+	        .catch(function(){
+	          redirectUrl = redirectUrl || '/account';
+	          $location.path(redirectUrl);
+	          return $q.reject();
+	        });
+	      return promise;
+	    }]
+    }
     });
   });
   angular.module('accountIndexModule')

@@ -23,6 +23,8 @@ $default-background-color:#0da7a9;
 $li-item-font-family:FuturaPT-Medium;
 $button-add-margin-top:2.3em;
 $default-background-color-hover:rgba(0, 148, 150, 0.62);
+$default-border-radius:4px;
+$default-font-groups:FuturaPT-Medium,"Helvetica Neue",Helvetica,Arial,sans-serif;
 //$green:#1aca1d;
 $green:green;
 $red:red;
@@ -191,10 +193,11 @@ h5{
     background:$warning-color;
     font-weight:$default-font-weight;
 	text-align: center;
-	text-transform:uppercase;
-	color:$white;
-	padding: 15px;
+	text-transform:initial;
+	padding: 1px;
     border-bottom: 1px solid #e5e5e5;
+    border-top-left-radius: $default-border-radius;
+    border-top-right-radius: $default-border-radius;
      btn-default-lbc{
           background:$warning-color;
      }
@@ -204,8 +207,9 @@ h5{
 	font-weight:$default-font-weight;
 	text-align: center;
 	text-transform:uppercase;
-	color:$white;
-	padding: 15px;
+	padding: 1px;
+    border-top-left-radius: $default-border-radius;
+    border-top-right-radius: $default-border-radius;
     border-bottom: 1px solid #e5e5e5;
 }
 
@@ -213,9 +217,10 @@ h5{
 	background:$red;
 	font-weight:$default-font-weight;
 	text-align: center;
-	text-transform:uppercase;
-	color:$white;
-	padding: 15px;
+	text-transform:initial;
+	padding: 1px;
+    border-top-left-radius: $default-border-radius;
+    border-top-right-radius: $default-border-radius;
     border-bottom: 1px solid #e5e5e5;
 }
 /* Modal body */
@@ -426,4 +431,55 @@ h5{
     font-family: FuturaPT-Books;
     color: #898686;
 }
+.custom> .modal-dialog > .modal-content{  
+  background-color:#ccc;
+  color:#fafafa;
+}
+.custom> .modal-dialog > .modal-content > .modal-header{
+  border-bottom:none;
+  text-align:center;
+  background:$default-background-color;
+  text-transform: initial;
+  border-top-right-radius: $default-border-radius;
+  border-top-left-radius: $default-border-radius;
+}
+.custom >.modal-dialog>.modal-content>.modal-body input[type=text]{
+  border-radius:$default-border-radius;
+  height:2.5em;
+  margin-bottom:1em;
+  text-align:center;
+}
+.custom >.modal-dialog>.modal-content>.modal-body {
+    color:#333;
+}
+.custom >.modal-dialog>.modal-content>.modal-body select{
+  width: 100%;
+  height: 3em;
+  color:#333;
+  font-weight: bold;
+  background: #ccc;
+  font-family: $default-font-groups;
+  margin: 0 auto;
+}
+.custom >.modal-dialog>.modal-content>.modal-body label{
+  color:#333;
+  font-family: $default-font-groups;
+}
+.custom> .modal-dialog > .modal-content >.modal-footer{
+  border-top:none;
+  text-align:center;
+}
 
+.custom .btn-lbc {
+  color: white;
+  margin-left:22%;
+  padding: 12px 35px;
+  border-radius: 4px;
+  font-weight: bold;
+  background: $default-background-color;
+  transition: background 0.3s ease;
+  &:hover{
+       background: $default-background-color;
+        color: white;
+    }
+}

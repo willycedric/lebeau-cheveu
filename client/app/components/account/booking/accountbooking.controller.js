@@ -1,5 +1,5 @@
 class AccountbookingController {
-	  constructor(Auth,API,ModalFactory,$log,$q,hairdresserMAnager,customerMAnager,DateHandler) {
+	  constructor(Auth,API,ModalFactory,$log,$q,hairdresserMAnager,customerMAnager,DateHandler,details) {
 	 
     this.Auth = Auth;
     this.API =API;
@@ -12,10 +12,12 @@ class AccountbookingController {
 
 	 	//while the user still connected the token is available from the local storage	
      	//this.refreshAccountProfile(this,token);        
-		Auth.getProfile(`${API.dev.accountRoute}`+'/me')
-	      .then((rep)=>{
-	          this.account = rep;
-        });
+		var self=this;
+		var deserialize = (data)=>{
+			self.account = data.account;
+		}
+
+		deserialize(details);
 	};//end constructor;
 	/**
 	 * [displayConfirmationModal display a confirmation modal]
@@ -139,7 +141,7 @@ class AccountbookingController {
 
 }//end class
 
-AccountbookingController.$inject =['Auth','API','ModalFactory','$log','$q','hairdresserMAnager','customerMAnager','DateHandler'];
+AccountbookingController.$inject =['Auth','API','ModalFactory','$log','$q','hairdresserMAnager','customerMAnager','DateHandler','accountDetails'];
 
 export {AccountbookingController};
 

@@ -4,13 +4,16 @@ const ModalFactory = ($uibModal,$window) =>{
 	 * [trigger description]
 	 * @type {[type]}
 	 */
-	const trigger = (controller,templateURL,fn)=>{
+	const trigger = (controller,templateURL,customClass,fn)=>{
+				//defining modal custom class
+				var custom = (customClass==undefined)?"custom":customClass;
 	      var modalInstance = $uibModal.open({
 	      animation: true,
 	      ariaLabelledBy: 'modal-title',
 	      ariaDescribedBy: 'modal-body',
 	      templateUrl: templateURL,
 	      controller:fn,
+				windowClass:custom,
 	      controllerAs: '$ctrl',
 	      size: 'sm',
 	      resolve: {

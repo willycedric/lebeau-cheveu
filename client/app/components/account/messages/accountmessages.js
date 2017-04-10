@@ -5,6 +5,8 @@ import {securityAuthorizationModule} from './../../common/security/authorization
 import {servicesAccountResourceModule} from './../../common/services/accountResource';
 import {servicesUtilityModule} from '../../common/services/utility';
 import {accountmessagesDirective} from './accountmessages.directive';
+import {AccountmessagesController as controller} from './accountmessages.controller';
+import template from './accountmessages.tpl.html';
 import './accountmessages.scss';
 
 export const accountmessages = angular.module('accountmessages',
@@ -18,7 +20,9 @@ export const accountmessages = angular.module('accountmessages',
   .config(($stateProvider) => {
     $stateProvider.state('accountmessages', {
       url: '/account/messages',
-      template: '<accountmessages></accountmessages>',
+			controller,
+			controllerAs:'vm',
+      template,
       title:'Mes messages',
       resolve: {
 	    accountDetails: ['$q', '$location', 'securityAuthorization', 'accountResource' ,function($q, $location, securityAuthorization, accountResource){
@@ -39,6 +43,5 @@ export const accountmessages = angular.module('accountmessages',
 	    }]
     }
 	})	
-  })
-  .directive('accountmessages',accountmessagesDirective);
+  });
 

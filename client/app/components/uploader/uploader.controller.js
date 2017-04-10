@@ -27,7 +27,7 @@ class UploaderController {
 
 	    $scope.launchModal = ()=>{		    	 
 	    	var self=this;  
-		     ModalFactory.trigger(self,'uploder.html', function($uibModalInstance,topController){  
+		     ModalFactory.trigger(self,'uploder.html', 'custom',function($uibModalInstance,topController){  
 		     	var same = this;   
 	          this.readFileImg = function(files){	          
 				  same.uploadPhoto = null;
@@ -82,9 +82,8 @@ class UploaderController {
 							.then(function(user){
 								self.PhotoUploader.updateProfilePhoto(user,controller.myCroppedImage)
 								.then(function(rep){											
-										self.url=rep.data;
-										self.$window.location.reload();								
-									
+									self.url=rep.data;										
+									self.$window.location.reload();				
 								},function(err){
 									self.$log.debug(controller,'Error saving photo.');
 								})

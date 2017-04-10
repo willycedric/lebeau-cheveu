@@ -1,5 +1,5 @@
 class CustomerController {
-	  constructor(AuthToken,Auth,Access,API,$window,$state) {
+	  constructor(AuthToken,Auth,Access,API,$window,$state,details) {
 	  	this.lastName=null;
 	  	this.firstName=null;
 	  	this.Auth = Auth;
@@ -9,11 +9,12 @@ class CustomerController {
 		//If a user is connected through the localStretegy, retrieveed the token from the localStorage
 	 	//var token = AuthToken.getToken();
 	 	//while the user still connected the token is available from the local storage	
-     	//this.refreshCustomerProfile(this,token);        
-		/*Auth.getProfile(`${API.dev.customerRoute}`+'/me')
-	      .then((rep)=>{
-	          this.customer = rep;
-        });*/
+     	//this.refreshCustomerProfile(this,token);      
+		var self=this;  
+		var deserialize = (data)=>{
+			self.account = data.account;
+		};
+		deserialize(details);
 	};//end constructor;
 	/**
 	 * [getUnreadNotification return the number of unread notification]
@@ -58,6 +59,6 @@ class CustomerController {
 		this.$window.location.href="#/customermessages"
 	}
 }
-CustomerController.$inject =['AuthToken','Auth','Access','API','$window','$state'];
+CustomerController.$inject =['AuthToken','Auth','Access','API','$window','$state','accountDetails'];
 export {CustomerController};
 

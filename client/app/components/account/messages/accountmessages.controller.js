@@ -1,5 +1,5 @@
 class AccountmessagesController {
-	  constructor(Auth,API,ModalFactory,accountMAnager,$window,$log) {
+	  constructor(Auth,API,ModalFactory,accountMAnager,$window,$log,details) {
 	 
 	  	this.Auth = Auth;
 	  	this.API =API;
@@ -8,11 +8,12 @@ class AccountmessagesController {
 	  	this.$log= $log;
 	  	this.$window = $window;
 		//If a user is connected through the localStretegy, retrieveed the token from the localStorage
-      
-		Auth.getProfile(`${API.dev.accountRoute}`+'/me')
-	      .then((rep)=>{
-	          this.account = rep;
-        });
+      var self=this;
+		var deserialize = (data)=>{
+			self.account = data.account;
+		};
+
+		deserialize(details);
 	};//end constructor;
 	showCustomerNotification(message){
 		var self=this;
@@ -61,7 +62,7 @@ class AccountmessagesController {
 	}
 }
 
-AccountmessagesController.$inject =['Auth','API','ModalFactory','customerMAnager','$window','$log'];
+AccountmessagesController.$inject =['Auth','API','ModalFactory','customerMAnager','$window','$log','accountDetails'];
 export {AccountmessagesController};
 
 

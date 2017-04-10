@@ -17,7 +17,7 @@ const PhotoUploader = (securityAuthorization,$http)=>{
 				return $http.put(baseUrl+'/hairdresser/upload',{photo:photo});
 			}
 			if(user.account){
-				return $http.put(baseUrl+'/account/upload',{id:rep.id,photo:photo});
+				return $http.put(baseUrl+'/account/upload',{photo:photo});
 			}
 		};
 

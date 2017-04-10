@@ -5,6 +5,8 @@ import {securityServiceModule} from './../../common/security/security';
 import {securityAuthorizationModule} from './../../common/security/authorization';
 import {servicesAccountResourceModule} from './../../common/services/accountResource';
 import {servicesUtilityModule} from '../../common/services/utility';
+import {AccountbookingController as controller} from './accountbooking.controller';
+import template from './accountbooking.tpl.html';
 import './accountbooking.scss';
 
 export const accountbooking = angular.module('accountbooking', 
@@ -19,7 +21,9 @@ export const accountbooking = angular.module('accountbooking',
 .config(($stateProvider) => {
 $stateProvider.state('accountbooking', {
   url: '/account/booking',
-  template: '<accountbooking></accountbooking>',
+  controller,
+  controllerAs:'vm',
+  template,
   title:'Mes réservations',
  resolve: {
     accountDetails: ['$q', '$location', 'securityAuthorization', 'accountResource' ,function($q, $location, securityAuthorization, accountResource){
@@ -40,6 +44,6 @@ $stateProvider.state('accountbooking', {
     }]
   }
 })
-})
-.directive('accountbooking',accountbookingDirective);
+});
+
 
