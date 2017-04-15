@@ -1,7 +1,12 @@
 @import "../../styles/sass/main";
 $margin-top:15%;
 
-.hairdressers{
-	margin-top:$margin-top;
+.search-form{
+	padding:20em;
+	background: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0,0,0,0.2));
+	width:100%;
 }
 
+.test{
+	margin-left:-18em;
+}

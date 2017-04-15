@@ -10,136 +10,37 @@ $orange:#FF6600;
 $fafafa:#FAFAFA;
 $dark-gray:#7a7878;
 
-/** Logbook CSS */
-table,thead,tbody,tfoot,tr,td,th{
-  text-align: center;
-  margin: auto;
-  padding: 1rem;
-}
-tr{
-  
-  margin: auto;
-  border:1px solid $td-color-border;
-  padding: 1rem;
-  width: 50%;
+
+.showhairdresserprofile > .Well {
+	background: white;
 }
 
- .table-bordered > tbody > tr > td {
-    border: 1px solid $td-color-border;
-    padding: $td-padding;
-    background:$td-color-border;
-    transform:scale(0.9);
-    color:$white;
-    border-top:none;
-    &:nth-child(odd){
-	    border-right:none;
-	  }
-	  
-}
-table tr td.cell-hour{
-	  	padding:0;
-	  	background:$color-button;
+.showhairdresserprofile select{
+    height: 2.5em;
+    font-size: 1.2em;
+    width: 30%;
+    margin:0 auto;
+    margin-bottom: 2em;
+    margin-top: 2em;
+    background: #0da7a9;
+    border: 1px solid #0da7a9;
+    color:$fafafa;
+    outline: none;
+    font-family: FuturaPT-Medium,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-table tr td.active-cell{
-	background:$dark-gray;
-	transition: all .2s ease-in-out;
-	&:hover,&:focus,&:active{
-		cursor:pointer;
-		transform: scale(1);
-	}
+.showhairdresserprofile .row-top{
+    margin-top: 13%;
 }
-table tr td.busy-cell{
-	background:$orange;
-	transition: all .2s ease-in-out;
-	&:hover,&:focus,&:active{
-		cursor:not-allowed;
-		transform:scale(1);
-	}
+.description {
+    margin-top:6em;
+    font-family: FuturaPT-Medium,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-
-.table-bordered > thead > tr > th{
-    border-top: 1px solid $white;
-    border-left: 1px solid $white;
-    background-color: $color-button;
-    color: $white;
-    text-align: center;
-    height: 30px;
-    font-size: 12px;
+#hairdreser-profil{
+    margin-top:11em;
 }
 
-.panel-default > .panel-heading {
-    color: #333;
-    background-color: $fafafa;
-    border-color: #ddd;
-}
-
-.btn-primary {
-    color: $white;
-    background-color: #790303;
-    border-color: #790303;
-      &:hover,&:focus,&:active,&:active:hover{
-      	 background-color:$button-color;
-   		 border-color: $button-color;
-      }
-}
-.btn-warning {
- 	color: $white;
-    background-color: $color-button;
-    border-color: $color-button;
-    &:hover,&:focus,&:active,&:active:hover{
-    	background-color: $color-button;
-   		 border-color: $color-button;
-    }
-}
-
-@media only screen and (max-width: 800px) {
-    
-    /* Force table to not be like tables anymore */
-	#logbook table, 
-	#logbook thead, 
-	#logbook tbody, 
-	#logbook th, 
-	#logbook td, 
-	#logbook tr { 
-		display: block; 
-	}
- 
-	/* Hide table headers (but not display: none;, for accessibility) */
-	#logbook thead tr { 
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
- 
-	#logbook tr { border: 1px solid #ccc; }
- 
-	#logbook td { 
-		/* Behave  like a "row" */
-		border: none;
-		border-bottom: 1px solid #eee; 
-		position: relative;
-		padding-left: 50%; 
-		white-space: normal;
-		text-align:left;
-	}
- 
-	#logbook td:before { 
-		/* Now like a table header */
-		position: absolute;
-		/* Top/left values mimic padding */
-		top: 6px;
-		left: 6px;
-		width: 45%; 
-		padding-right: 10px; 
-		white-space: nowrap;
-		text-align:left;
-		font-weight: bold;
-	}
- 
-	/*
-	Label the data
-	*/
-	#logbook td:before { content: attr(data-title); }
+.showhairdresserprofile .category-entry{
+    margin-bottom: 2em;
 }

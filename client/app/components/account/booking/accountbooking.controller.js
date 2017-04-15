@@ -15,6 +15,7 @@ class AccountbookingController {
 		var self=this;
 		var deserialize = (data)=>{
 			self.account = data.account;
+			console.log(self.account);
 		}
 
 		deserialize(details);

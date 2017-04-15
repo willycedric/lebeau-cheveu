@@ -1,9 +1,14 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import {showhairdresserprofileDirective} from './showhairdresserprofile.directive';
-import hairdresserProfileCard from './haidresser-profile-card.html';
-import './hairdresser-profile-card.css';
-export const showhairdresserprofile = angular.module('showhairdresserprofile', [uiRouter])
+import {securityServiceModule} from './../common/security/security';
+import {servicesAccountResourceModule} from './../common/services/accountResource';
+import hairdresserProfileCard from './hairdresser-profile-card.html';
+import './hairdresser-profile-card.scss';
+export const showhairdresserprofile = angular.module('showhairdresserprofile', [uiRouter,
+securityServiceModule.name,
+servicesAccountResourceModule.name
+])
   .config(($stateProvider) => {
     $stateProvider.state('showhairdresserprofile', {
       url: '/showhairdresserprofile/:id',
@@ -11,8 +16,8 @@ export const showhairdresserprofile = angular.module('showhairdresserprofile', [
     })
   })
   .directive('showhairdresserprofile',showhairdresserprofileDirective)
-  .directive('hairdresserProfileCard', () =>{
-    return{
+  .directive('hairdresserId', () =>{
+    return{ 
       restrict:'E',
       template:hairdresserProfileCard,
       scope:{

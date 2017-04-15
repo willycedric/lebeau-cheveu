@@ -1,68 +1,87 @@
-<div class="showhairdresserprofile">
-	<section id="profil" class="">
+<div class="showhairdresserprofile catalog">
+	<section id="hairdreser-profil" class="">
 		<div class="container">
-			<div class="row">
-			<div class="col-sm-3">
-					<hairdresser-profile-card url="{{vm.url}}" name ="{{vm.hairdresser.username}}" type="{{vm.hairdresser.customer_type | customerTypeFilter}}"></hairdresser-profile-card>
-				</div>
-				<div class=" col-sm-offset-1 section col-sm-8 description">
-					{{:: vm.hairdresser.description}}
-				</div>
+			<div class="row section">
+				<div class="col-sm-offset-1 col-sm-3">
+					<hairdresser-id url="{{vm.hairdresser.profile_picture}}" name ="{{vm.hairdresser.name}}" type="{{vm.hairdresser.customer_type | customerTypeFilter}}"></hairdresser-id>
+				</div>				
+				<div class="col-sm-5  col-sm-offset-2 description">
+						<div >
+							<h3 style="text-align:center;">Description</h3>
+						</div>
+						<hr/>
+						<p class="row-top">
+						{{:: vm.hairdresser.description}}</p>
+				</div>				
 			</div> <!-- .row -->
 		</div><!-- .container -->
 	</section><!-- #profil -->
-	<section id="carousel" class="">
-		<div class="container">          
-	        <div class="row">
-	        	<h4 class="panel-title">Mes dernières réalisations </h4>
-	          <div class="col-xs-offset-1 col-xs-10">
-	              <uib-carousel active="vm.active" interval="vm.myInterval" on-carousel-change="vm.onSlideChanged(nextSlide, direction,nextIndex)"no-wrap="vm.noWrapSlides">
-	                <uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
-	                  <div class="carousel-caption">
-	                    <!--   <p >{{slide.text}}</p> -->
-	                 </div> <!-- .carousel-caption -->
-	                   <img class='carousel-img' style="width: 100%;height: auto;" ng-src="{{slide.image}}" >
-	              </uib-slide>
-	            </uib-carousel>
-	         </div>
-	        </div>        <!-- .row -->
-	    </div><!-- .container-fluid-fluid -->   
-	</section><!-- carousel -->
+	<section id="category-content">
+		<div class="container">
+			<div class=" section row category-detail">
+				<select class="category" ng-model="vm.selectedCategory" > 					
+					<option ng-repeat="category in vm.listOfAvailableCategories" value="{{category.categoryName[0]}}"> {{category.categoryName[0]}}</option>
+				</select>
+				<br/>
+				<div class="col-sm-offset-1 category-entry" ng-repeat="category in vm.listOfAvailableCategories" ng-if="vm.selectedCategory == category.categoryName[0]">
+					<catalog-details contents="category.galeryEntries" name="{{category.categoryName[0]}}"></catalog-details>
+				</div>				
+			</div>	
+		</div>					
+	</section>	 
 	<section id="logbook" class="">
 		<div class="container">
-			<div class="row">
-				<h4>Mes prochaines disponibilités </h4>
-				<div ng-hide="vm.loadLogbook">
-					<img class="logbook-spinner" ng-src={{vm.spinner}}>					 
-				</div>
-				<div ng-if="vm.loadLogbook">	
-					<div id="logbook-content" ng-include="vm.url"></div>
-				</div>	
-			</div> <!-- .row -->
-			<div class="row">
-				<div class="col-sm-3">
-					<span class="legend-square-white"></span>
-					<span class="legend-explanation">Touts les cr&eacuteneau sont disponibles </span>
-				</div>
-				<div class=" col-sm-3 ">
-					<span class="legend-square-green"></span>
-					<span class="legend-explanation"> Au moins un rendez-vous non confirm&eacute </span>
-				</div>
-				<div class="col-sm-3 ">
-					<span class="legend-square-red"></span>
-					<span class="legend-explanation">Journ&eacutee non disponible </span>
-				</div>
-				<div class="col-sm-3 ">
-					<span class="legend-square-orange"></span>
-					<span class="legend-explanation">Au moins un rendez-vous confirm&eacute</span>
-				</div>
+		  <div class="section row">				
+					<div class="col-sm-offset-1 col-sm-6">
+						<h3> Prochaines disponibilités </h3>
+						<div ng-hide="vm.loadLogbook">
+							<img class="logbook-spinner" ng-src={{vm.spinner}}>					 
+						</div>
+						<div ng-if="vm.loadLogbook">	
+							<div id="logbook-content" ng-include="vm.url"></div>
+						</div>	
+					</div> 			
+					<div class="col-sm-4 row-top">				
+						<div class="row logbook-legend">
+							<div class="col-sm-offset-2 col-sm-2">
+								<span class="legend-square-white"></span>
+							</div>
+							<div class="col-sm-8">
+								<span class="legend-explanation">Touts les cr&eacuteneau sont disponibles </span>
+							</div>
+						</div>
+						<div class=" row logbook-legend">
+							<div class="col-sm-offset-2 col-sm-2">
+								<span class="legend-square-green"></span>
+							</div>
+							<div class="col-sm-8">
+								<span class="legend-explanation"> Au moins un rendez-vous non confirm&eacute </span>
+							</div>
+						</div>
+						<div class="row logbook-legend">
+							<div class="col-sm-offset-2 col-sm-2">
+								<span class="legend-square-red"></span>
+							</div>
+							<div class="col-sm-8">
+								<span class="legend-explanation">Journ&eacutee non disponible </span>
+							</div>					
+						</div>
+						<div class="row logbook-legend">
+							<div class="col-sm-offset-2 col-sm-2">
+								<span class="legend-square-orange"></span>
+							</div>
+							<div class="col-sm-8">
+								<span class="legend-explanation">Au moins un rendez-vous confirm&eacute</span>
+							</div>
+						</div>
+					</div> 
 			</div>  <!-- .row -->
 		</div> <!-- .container -->
 	</section>
-	<section id="performance-advice" class="top-5">
+	<section id="performance-advice">
 	<div class="container">
-	<div class="row">
-		<div class=" section col-sm-6 col-xs-12 performance ">
+	<div class="row section">
+		<div class="col-sm-6 col-xs-12 performance ">
 			<div class="">
 				<h3 style="text-align:center;">Prestation et tarif</h3>
 			</div>
@@ -74,7 +93,7 @@
 			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 		</div>
-		<div class="col-sm-5 section col-sm-offset-1  section col-xs-12 advice">
+		<div class="col-sm-5  col-sm-offset-1   col-xs-12 advice">
 			<div >
 				<h3 style="text-align:center;">Avis</h3>
 			</div>
@@ -216,7 +235,7 @@
         <div class="modal-body" id="modal-body">
            <span class="question-modal" style="text-algin:center;">{{$ctrl.message}}</span>
            <select ng-model="$ctrl.selectedLocationIndex" name="appoitment-location" > 
-		          		 <option ng-repeat="location in $ctrl.locations track by $index" value="{{$index}}">{{location.address}}</option>
+		          		 <option ng-repeat="location in $ctrl.locations track by $index" value="{{location.address}}">{{location.address}}</option>
             </select><br/>
         </div>
         <div class="modal-footer" style="text-align:center;">

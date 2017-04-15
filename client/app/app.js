@@ -29,6 +29,9 @@ import {catalogModule} from './components/catalog/index';
 import {searchbar} from './components/searchbar/searchbar';
 import {menu} from './components/menu/menu';
 import {uploader} from './components/uploader/uploader';
+import {hairdressers} from './components/hairdressers/hairdressers';
+import {showhairdresserprofile} from './components/showhairdresserprofile/showhairdresserprofile';
+
 import moment from 'moment';
 import './app.scss';
 
@@ -56,8 +59,9 @@ angular.module('app', [
   admin.name,
   searchbar.name,
   menu.name,
-  uploader.name
-
+  uploader.name,
+  hairdressers.name,
+  showhairdresserprofile.name
 ])
 .provider(
         'csrfCD',

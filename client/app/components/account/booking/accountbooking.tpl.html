@@ -10,7 +10,7 @@
 				</div>		<!-- 	end .left-menu -->	
 			</div><!-- col-sm-offset-1 col-sm-3 col-lg-3 -->
 			<div class="col-sm-offset-1  col-sm-8 customer-page-content">
-				<div ng-show="vm.getPendingAppointment(vm.customer.nextAppointment)" ng-repeat="apt in vm.customer.nextAppointment track by $index">
+				<div ng-show="vm.getPendingAppointment(vm.account.nextAppointment)" ng-repeat="apt in vm.account.nextAppointment track by $index">
 					<div class=" section row" id="details" ng-show="apt.appointmentState==0?true:false">
 					  <div class="row-top">
 						<span class="section-contains lbc-contains-emphasize"> Le {{apt.dayOfWeek| date }} à {{apt.selectedHour}} avec {{apt.hairdresserUsername}} au {{apt.location}}</span>
@@ -23,7 +23,7 @@
 					 </div> <!-- row section-top -->				
 				   </div><!-- .row -->
 			   </div> <!-- .section -->
-			   <div ng-hide="vm.getPendingAppointment(vm.customer.nextAppointment)" >
+			   <div ng-hide="vm.getPendingAppointment(vm.account.nextAppointment)" >
 					<div class="" >
 					  <div class="row row-top section ">				
 							<span class="notification-title">Vous n'avez pas de rendez-vous prévu.</span><br/>

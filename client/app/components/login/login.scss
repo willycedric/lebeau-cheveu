@@ -6,13 +6,13 @@ $white: #ffffff;
 $placeholder-color:#3f1d1d;
 $facebook-color:#4267B2;
 
-$main: #a94442;
+$main:#0da7a9;
 $main-light: lighten($main,5%);
 $main-dark: darken($main,5%);
-
+$default-border-radius:4px;
 $gray-light: #a0b3b0;
 $gray: #ddd;
-
+$default-font-groups:FuturaPT-Medium,"Helvetica Neue",Helvetica,Arial,sans-serif;
 $thin: 300;
 $normal: 400;
 $bold: 600;
@@ -305,4 +305,53 @@ input[type='checkbox'] {
 
 #register-submit{
   margin-top:3%;
+}
+
+.login > .modal-dialog{
+    width:40em !important;
+}
+
+.login> .modal-dialog > .modal-content{  
+  background-size:80px 60px;
+   background-repeat: no-repeat;
+  ;
+  background-color:#ccc;
+  color:#fafafa;
+}
+.login> .modal-dialog > .modal-content > .modal-header{
+  border-bottom:none;
+  text-align:center;
+  background:$main;
+  text-transform: initial;
+  border-top-right-radius: $default-border-radius;
+  border-top-left-radius: $default-border-radius;
+}
+.login >.modal-dialog>.modal-content>.modal-body input[type=text]{
+  border-radius:$default-border-radius;
+  height:2.5em;
+  margin-bottom:1em;
+  text-align:center;
+}
+.login >.modal-dialog>.modal-content>.modal-body a,.login >.modal-dialog>.modal-content>.modal-body p,.login >.modal-dialog>.modal-content>.modal-body span{
+  color:#333;
+  font-family: $default-font-groups;
+  font-weight: bolder;
+  text-transform: initial;
+}
+.login >.modal-dialog>.modal-content>.modal-body select{
+  width: 100%;
+  height: 3em;
+  color:#333;
+  font-weight: bold;
+  background: #ccc;
+  font-family: $default-font-groups;
+  margin: 0 auto;
+}
+.login >.modal-dialog>.modal-content>.modal-body label{
+  color:#333;
+  font-family: $default-font-groups;
+}
+.login> .modal-dialog > .modal-content >.modal-footer{
+  border-top:none;
+  text-align:center;
 }

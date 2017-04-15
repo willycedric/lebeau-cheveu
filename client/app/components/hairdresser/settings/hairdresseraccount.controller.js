@@ -1,6 +1,6 @@
 
 class HairdresseraccountController {
-  constructor($uibModal,API,Auth,ModalFactory,$log,hairdresserMAnager,AuthToken,$state,$window,settings,$scope) {
+  constructor($uibModal,API,Auth,ModalFactory,$log,hairdresserMAnager,AuthToken,$state,$window,settings,$scope,$http,$timeout) {
 
   		  var self=this;
   		//List of department in Ile de France
@@ -27,6 +27,8 @@ class HairdresseraccountController {
 	 	self.$state =$state;
 	 	self.$window=$window;
 	 	self.hairdresserMAnager= hairdresserMAnager;
+		 self.$timeout =$timeout;
+		 self.Auth = Auth;
 
 	   /* Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
 	  	.then(function hairdresserProfileSuccesscallback(rep){
@@ -36,8 +38,14 @@ class HairdresseraccountController {
 	  		$log.error(new Error("hairdresser account error callback "+err));
 	  	});*/
 	  var deserialize = function(data){
-	  	self.hairdresser = data.hairdresser;
-	  	$scope.profile_picture=self.hairdresser.profile_picture;
+		  if(data.hasOwnProperty("hairdresser")){
+			self.hairdresser = data.hairdresser;
+			 console.log(self.hairdresser);	
+		  }	
+		  if(data.hasOwnProperty("user")){
+			self.user = data.user;	
+		  }		 
+	  	self.profile_picture=self.hairdresser.profile_picture;
 	  	self.count =hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(self.hairdresser.appointments);
 	  };
 	  	/**
@@ -45,13 +53,20 @@ class HairdresseraccountController {
 	  	 * @param  {[type]} hairdresser [description]
 	  	 * @return {[type]}             [description]
 	  	 */
-	  	self.updateHairdresserProfile = (hairdresser)=>{
+	  	self.updateHairdresserProfile = (hairdresser)=>{			 
 	  		Auth.updateUserProfile(`${API.dev.hairdresserRoute}`,hairdresser)
 	  		.then(function HairdresseraccountControllerUpdateSuccessCallback(rep){
 	  			self.hairdresser =rep;
 	  		}, function HairdresseraccountControllerUpdateErrorCallback(err){
 	  			$log.error(err);
-	  		})
+	  		})			 
+					.finally(()=>{
+						topController.displayConfirmationModal(successMessage,true);
+						topController.$timeout(()=>{
+
+						},1000)
+						topController.$window.reload();
+					})
 	  	};
 
 	   /**
@@ -59,12 +74,18 @@ class HairdresseraccountController {
 	    * @return {[type]} [description]
 	    */
 	   self.launchUpdateProfileModal = ()=>{
-	   		ModalFactory.trigger(self,'hairdresserProfile.html',function ( $uibModalInstance,topController){
+		   var self=this;
+	   		ModalFactory.trigger(self,'hairdresserProfile.html','hairdresserPreference',function ( $uibModalInstance,topController){
 
 				var $ctrl = this;
 				$ctrl.hairdresser =topController.hairdresser;
+				$ctrl.user = topController.user;
 				$ctrl.updateProfile = ()=>{
-					topController.updateHairdresserProfile($ctrl.hairdresser);
+					var data = {
+						hairdresser:$ctrl.hairdresser,
+						user:$ctrl.user
+					};
+					topController.updateHairdresserProfile(data);
 					$uibModalInstance.close('close');
 				};
 				$ctrl.cancel = () =>{
@@ -78,7 +99,8 @@ class HairdresseraccountController {
 	    * @return {[type]} [description]
 	    */
 	   self.updatePreferenceModal = ()=>{
-	   	  ModalFactory.trigger(self,'hairdresserPreference.html',function ( $uibModalInstance,topController){
+		   var self= this;
+	   	  ModalFactory.trigger(self,'hairdresserPreference.html','hairdresserPreference',function ( $uibModalInstance,topController){
 
 				var $ctrl = this;
 				$ctrl.multipleSelect= [];
@@ -126,9 +148,27 @@ class HairdresseraccountController {
 					});
 				}
 				
+				var data = {
+					hairdresser:$ctrl.hairdresser,
+					user:topController.user
+				};
+				//self.updateHairdresserProfile(data)
+				$http.put(`${API.dev.homeUrl}`+`${API.dev.hairdresserRoute}`+'/setting/preference',{user:data})
+				.then((rep)=>{
+					deserialize(rep.data);
+					console.log("update hairdresser", rep);
+				}, (err)=>{
+					throw new Error(err.toString());
+				})
+				.finally((rep)=>{
+					topController.displayConfirmationModal("Vos Informations ont bien été enregistées.",true);
+					top.$timeout(()=>{
 
-				topController.updateHairdresserProfile($ctrl.hairdresser);
-				$uibModalInstance.close('close');
+					},1000);
+					topController.$window.location.reload();
+					$uibModalInstance.close('close');
+				})
+				
 				};
 				$ctrl.cancel = () =>{
 					$uibModalInstance.dismiss('close');
@@ -138,13 +178,31 @@ class HairdresseraccountController {
 	 };// end updatePreferenceModal
 
 	self.updateDescriptionModal = ()=>{
-		ModalFactory.trigger(self,'hairdresserDescription.html',function ( $uibModalInstance,topController){
+		ModalFactory.trigger(self,'hairdresserDescription.html','hairdresserPreference',function ( $uibModalInstance,topController){
 				var $ctrl = this;
 				$ctrl.multipleSelect= [];
 				$ctrl.hairdresser =topController.hairdresser;
+				
 				$ctrl.updateDescription = (hairdresserDescription)=>{
-					$ctrl.hairdresser.description=hairdresserDescription;			
-					topController.updateHairdresserProfile($ctrl.hairdresser);
+					$ctrl.hairdresser.description=hairdresserDescription;	
+					var data= {
+						hairdresser:$ctrl.hairdresser,
+						user:topController.user
+					};		
+					//topController.updateHairdresserProfile(data);
+					topController.Auth.updateUserProfile(`${API.dev.hairdresserRoute}`,data)
+					.then(function HairdresseraccountControllerUpdateSuccessCallback(rep){
+						deserialize(rep);
+					}, function HairdresseraccountControllerUpdateErrorCallback(err){
+						throw new Error(err.toString());
+					})			 
+					.finally(()=>{
+						topController.displayConfirmationModal('Votre description a bien été enregistrée.',true);
+						topController.$timeout(()=>{
+
+						},1000)
+						topController.$window.reload();
+					})						
 					$uibModalInstance.close('close');
 				};
 				$ctrl.cancel = () =>{
@@ -180,7 +238,7 @@ class HairdresseraccountController {
 			 */
 			deleteHairdresserAccount(id){
 				var self = this;
-				self.ModalFactory.trigger(self,'delete-account.html', function($uibModalInstance,topController){
+				self.ModalFactory.trigger(self,'delete-account.html','hairdresserPreference', function($uibModalInstance,topController){
 					this.message = 'Etes-vous sûre de vouloir supprimer votre compte ?';
 
 					this.ok = () =>{
@@ -213,7 +271,7 @@ class HairdresseraccountController {
 	 */
 	displayConfirmationModal(message,flag){
 		var self = this;
-		self.ModalFactory.trigger(self,'confirmation-modal.html', function($uibModalInstance,topController){
+		self.ModalFactory.trigger(self,'confirmation-modal.html','hairdresserPreference', function($uibModalInstance,topController){
 			this.message = message;
 			this.isSuccess=flag;
 			this.ok = ()=>{
@@ -238,8 +296,5 @@ class HairdresseraccountController {
 	}
 
 }//end class
-
-HairdresseraccountController.$inject =['$uibModal','API','Auth','ModalFactory','$log','hairdresserMAnager','AuthToken','$state','$window','settings','$scope'];
+HairdresseraccountController.$inject =['$uibModal','API','Auth','ModalFactory','$log','hairdresserMAnager','AuthToken','$state','$window','settings','$scope','$http','$timeout'];
 export {HairdresseraccountController};
-
-

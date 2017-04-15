@@ -1,45 +1,58 @@
-<section class="searchbar section-padding">
-	 <div class="row hidden-xs" >
-          <div class="hero-footer " ng-show ="!vm.isAtLeastOneHairdresserFound">   
-              <form class="form-wrapper cf" ng-submit="vm.launchSearch(vm.selectedLocation,vm.selectedHaircut)"> 
-                         <select  ng-model="vm.selectedHaircut" id="haircut-type" name="haircut" class="no-rounder">
-                            <option ng-repeat = "haircut in vm.listOfavailableHaircuts"  value="{{haircut}}">{{haircut}}</option>
-                        </select>
-                        <input type="text" placeholder="{{::vm.selectedLocation}}" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
-                    
-                      <button type="submit">GO</button>
-             </form>
-          </div> <!--  .hero-footer  -->
-       </div> <!-- .row .hidden-xs -->
-
-	<div class="hairdressers" ng-show ="vm.isAtLeastOneHairdresserFound" >
+<section class="home search-form">
+	<div class="test">
 		<div class="container">
-			<div class="row">
-				<div class="col-sm-4 col-xs-6" ng-repeat="hairdresser in vm.listOfSelectedHairdressers">
-					<hairdresser-card  url = {{vm.url}} id={{hairdresser._id}} description= {{hairdresser.username}}></hairdresser-card>
+			<div class="row hidden-xs" >
+			<div ng-show ="vm.isAtLeastOneHairdresserFound">                 
+				<form class="form-wrapper cf"  name ="search" ng-submit="vm.launchSearch(vm.selectedLocation,vm.selectedHaircut)"> 
+						<select  ng-model="vm.selectedHaircutCategory" id="haircut-type" name="haircut" class="no-rounder">
+							<optgroup label="categories">
+								<option value="">Quelle catégorie de coiffure?</option>
+								<option ng-repeat = "haircut in vm.listOfavailableHaircuts"  value="{{haircut}}">{{haircut}}</option>
+							</optgroup>
+						</select>				
+						<!--<input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">-->                            
+						<input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/ required>											
+						<button type="submit">GO</button>
+				</form>
+			</div> <!--  .hero-footer  -->
+		</div> <!-- .row .hidden-xs -->
+		<div class="row">
+			<div  ng-hide ="true" >
+					<div class="container">
+						<div class="row hidden-xs" >
+							<div>   
+								<form class="form-wrapper cf"  name ="search" ng-submit="vm.launchSearch(vm.selectedLocation)"> 
+										<select  ng-model="vm.selectedHaircut" id="haircut-type" name="haircut" class="no-rounder">
+											<optgroup label="categories">
+												<option value="">Quelle catégorie de coiffure?</option>
+												<option ng-repeat = "haircut in vm.listOfavailableHaircuts"  value="{{haircut}}">{{haircut}}</option>
+											</optgroup>
+										</select>				
+										<!--<input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">-->                            
+										<input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/ required>											
+										<button type="submit">GO</button>
+								</form>
+							</div> <!--  .hero-footer  -->
+						</div> <!-- .row .hidden-xs -->	
+						<div class="row">
+							<h3 class="no-results"> Nous n'avons pas trouvé d'annonce correspondant exactement à vos critères. </h3>
+							<br/>					
+						</div>
+						
+					</div>
 				</div>
-			</div>		
-		</div>
-	</div>
-	<div class="hairdressers" ng-hide ="!vm.isAtLeastOneHairdresserFound" >
-		<div class="container">
-			<div class="row">
-				<h5 class="no-results"> Nous n'avons pas trouvé d'annonce correspondant exactement à vos critères. </h5>
-				<br/>
-				<p>
 			</div>
-			 <div class="row hidden-xs" >
-	          <div class="hero-footer " ng-show ="!vm.isAtLeastOneHairdresserFound">   
-	              <form class="form-wrapper cf" ng-submit="vm.launchSearch(vm.selectedLocation,vm.selectedHaircut)"> 
-	                         <select  ng-model="vm.selectedHaircut" id="haircut-type" name="haircut" class="no-rounder">
-	                            <option ng-repeat = "haircut in vm.listOfavailableHaircuts"  value="{{haircut}}">{{haircut}}</option>
-	                        </select>
-	                        <input type="text" placeholder="{{::vm.selectedLocation}}" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
-	                    
-	                      <button type="submit">GO</button>
-	             </form>
-	          </div> <!--  .hero-footer  -->
-	   		</div> <!-- .row .hidden-xs -->	
-		</div>
-	</div>
+			<div class="row">
+				<div ng-show="vm.isFound" >
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-offset-1 col-sm-4 col-xs-6" ng-repeat="hairdresser in vm.listOfSelectedHairdressers">
+								<hairdresser-card  url = {{hairdresser.profile_picture}} id={{hairdresser._id}} description= {{hairdresser.user.name}}></hairdresser-card>								
+							</div>
+						</div>		
+					</div>
+				</div>
+			</div>
+		</div><!-- end main .container-->	
+	</div>	
 </section>

@@ -175,6 +175,7 @@ class ModalInstanceCtrl {
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
                   templateUrl: 'loading.html',
+                  windowClass:'login',
                   controller:function($uibModalInstance,message){
                      this.message = message;
                      this.gif="http://res.cloudinary.com/hgtagghpz/image/upload/v1476819238/spinning-gif_i5g0jx.gif";
@@ -283,7 +284,7 @@ class ModalInstanceCtrl {
    */
   displayInformationModal(){
       var self = this;
-      this.ModalFactory.trigger(this,'registration-information.html',function($uibModalInstance,topController){
+      this.ModalFactory.trigger(this,'registration-information.html','custom',function($uibModalInstance,topController){
           this.message ='Votre compte vient \'être créé avec succès. \nVeuillez vous connecter à l\'adresse mail que vous avez fourni lors de votre inscription pour activer votre compte ';
           this.ok = ()=>{
               $uibModalInstance.close('OK');
@@ -297,7 +298,7 @@ class ModalInstanceCtrl {
    */
   displayWrongCredentialModal(){
     var self = this;
-    this.ModalFactory.trigger(this,'wrong-credentials.html', function($uibModalInstance, topController){
+    this.ModalFactory.trigger(this,'wrong-credentials.html','custom', function($uibModalInstance, topController){
       this.message = 'Votre nom d\'utilisateur et/ou votre mot de passe est incorrect. Veuillez recommencer avec des identifiants correctes';
       this.ok = ()=>{
         $uibModalInstance.close('ok');

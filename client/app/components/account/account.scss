@@ -61,3 +61,40 @@
   border-top:none;
   text-align:center;
 }
+
+.customer .panel-default >.panel-heading{
+  background-color:inherit;
+  border-color:inherit;
+}
+
+.customer .panel-default >.panel-heading>.panel-title{
+  display: inline-block;
+  padding: 0.5em;
+  background: $default-background-color;
+  border-radius: 4px;
+  font-family: $default-font-groups;
+  font-size:0.9em;
+  color:#fafafa;
+  &:hover,&:active{
+    color:#fafafa;
+  }
+  
+}
+.customer .panel-default >.panel-heading>.panel-title >a{
+  color:#fafafa;
+  outline: none;
+  font-size:0.9em;
+  &:hover,&:visited,&:active{
+    color:#fafafa;
+    outline:none;
+  }
+}
+.customer .panel-group >.btn-lbc{
+   background: #0da7a9;
+    border: 1px solid #0da7a9;
+    font-family: FuturaPT-Books;
+    padding: 0.5em;
+    border-radius: 4px;
+    color: #fafafa;
+}
+   

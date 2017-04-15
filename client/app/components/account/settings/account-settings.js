@@ -5,10 +5,10 @@ import {securityServiceModule} from './../../common/security/security';
 import {securityAuthorizationModule} from './../../common/security/authorization';
 import {servicesAccountResourceModule} from './../../common/services/accountResource';
 import {servicesUtilityModule} from '../../common/services/utility';
+import {customeraccountDirective} from './customeraccount.directive';
 import template from './account-settings.tpl.html';
 import './account-settings.css';
 import './account-settings.scss';
-import {AccountSettingController as controller} from './account-settings.controller';
 //import {directivesServerErrorModule} from '../../common/directives/serverError';
 angular.module('accountSettingsModule', 
   [config.name, 
@@ -22,17 +22,15 @@ angular.module('accountSettingsModule',
 export const accountSettingsModule = angular.module('accountSettingsModule').config(['$stateProvider', 'securityAuthorizationProvider', function($stateProvider){
   $stateProvider
     .state('accountsettings', {
-      url:'/account/settings',
-      template,
-      controller,
-      controllerAs:'vm',
+      url:'/account/settings',      
+      template:'<customeraccount></customeraccount>',
       title: 'Account Settings',
       resolve: {
         accountDetails: ['$q', '$location', 'securityAuthorization', 'accountResource' ,function($q, $location, securityAuthorization, accountResource){
           //get account details only for verified-user, otherwise redirect to /account/verification
           var redirectUrl;
           var promise = securityAuthorization.requireAccountUser()
-            .then(accountResource.getAccountDetails, function(reason){
+            .then(function(){}, function(reason){
               console.log(reason);
               //rejected either user is unverified or un-authenticated
               redirectUrl = reason === 'unverified-client'? '/account/verification': '/login';
@@ -50,4 +48,5 @@ export const accountSettingsModule = angular.module('accountSettingsModule').con
         }]
       }
     });
-}]);
+}])
+.directive('customeraccount',customeraccountDirective);

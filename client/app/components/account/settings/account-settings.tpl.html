@@ -36,13 +36,27 @@
 						</span><!-- .section-title -->
 					</div> <!-- row section-top -->
 					<hr/>
-					<div class=" row section-top">
-						<span class="section-t col-sm-3">
-								<h4>Addresse(s)</h4>
-						</span><!-- .section-title -->
-						<span class="col-sm-3 edit-button">
-							<a class="btn-default-lbc btn-lbc" ng-click ="vm.updatePreferenceModal()">Ajouter</a>
-						</span><!-- .edit-button -->
+					<div class="row section-top">
+						<uib-accordion close-others="oneAtATime">		
+							<div uib-accordion-group class="panel-default" heading="Ajouter une adresse" template-url="gr-template.html">
+									<div class="col-sm-9">
+										<form role="form" class="form-horizontal">
+												<fieldset>
+													<div class="row form-group">
+														<label class="col-sm-4 control-label">Adresse</label>
+														<div class="col-sm-8">
+														<input id="user_input_autocomplete_address" ng-model="location" name="user_input_autocomplete_address"
+																class="form-control" placeholder="Entrez votre adresse ...">
+														</div>
+													</div>
+												</fieldset>
+										</form>
+									</div>
+									<div class="col-sm-3">
+										<button type="submit" ng-click="vm.updateAddress(location)" classs="btn btn-lbc">Enregister</button>
+									</div>
+							</div>
+						</uib-accordion>
 					</div> <!-- row section-top -->
 					<hr/>
 					<div class="row" id="preference">
@@ -138,40 +152,55 @@
 			<h3 class="center modal-tile">Addresse</h3>
 		</div>
 		<div class="modal-body">
-			<form autocomplete="off" role="location"  id="location-form"  name="locationForm"  novalidate ng-submit="$ctrl.updatePreference(locationForm,$ctrl.location)">
-				<div>
-                  <!-- location type (main or secondary) -->
-                  <label  for="location-type">Type de l'adresse</label>
-                  <select name="location-type" id="location-type" ng-model="$ctrl.location.type">
-				      <option value="1">Principale</option>
-				      <option value="2">Secondaire</option>
-			      </select><br>
-			    </div>
-			    <!-- street name -->
-			    <div>
-				    <label  for="street-name">Numéro et nom de la rue </label>
-				    <input type='text' name='street-name' id='street-name' ng-model='$ctrl.location.address'/>
-			    </div>
-			    <!-- town name -->
-			    <div>
-			    	<label  for='town-name'>Nom de la ville </label>
-			    	<input type="text" name='town-name' id='town-name' ng-model='$ctrl.location.city'/>
-			    </div>
-			    <!-- zip code -->
-			    <div>
-				    <label  for='zip-code'>Code postale</label>
-				    <input type='text'  name='zip-code' id='zip-code' ng-model='$ctrl.location.zipcode'/>
-			    </div>
-				 <div class="container">
-					 <div class="row validation">
-					 	<div class=" col-sm-2">
-	              			<input  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-lbc" value="Enregistrer" >
-	              		</div>
-	              		<div class="col-sm-1 col-sm-offset-1">
-	              			<button class="btn btn-lbc" type="button" ng-click="$ctrl.cancel()">Annuler</button>
-	              		</div>
-	            	</div>
-	           </div>
+			<form role="form" class="form-horizontal">
+				<fieldset>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Address</label>
+					<div class="col-sm-8">
+					<input id="user_input_autocomplete_address" name="user_input_autocomplete_address"
+							class="form-control" placeholder="Start typing your address...">
+					</div>
+				</div>
+				</fieldset>
+
+				<fieldset class="disabled">
+				<div class="form-group">
+					<label class="col-sm-4 control-label"><code>street_number</code></label>
+					<div class="col-sm-8">
+					<input id="street_number" name="street_number" disabled="true" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"><code>route</code></label>
+					<div class="col-sm-8">
+					<input id="route" name="route" disabled="true" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"><code>locality</code></label>
+					<div class="col-sm-8">
+					<input id="locality" name="locality" disabled="true" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"><code>administrative_area_level_1</code></label>
+					<div class="col-sm-8">
+					<input id="administrative_area_level_1" name="administrative_area_level_1" disabled="true" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"><code>postal_code</code></label>
+					<div class="col-sm-8">
+					<input id="postal_code" name="postal_code" disabled="true" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"><code>country</code></label>
+					<div class="col-sm-8">
+					<input id="country" name="country" disabled="true" class="form-control">
+					</div>
+				</div>
+				</fieldset>
 			</form>
 		</div>
 	</script>
@@ -236,6 +265,26 @@
 				 </div>	           
 	        </div>
 	</script>
+	<div class="tes">
+		
+	</div>
+	<script type="text/ng-template" id="gr-template.html">
+        <div>
+            <div class="panel-heading">
+          <h6 class="panel-title" style="color:#333">
+            <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()"  is-open="status.open" uib-accordion-transclude="heading">
+              <span uib-accordion-header ng-class="{'text-muted': isDisabled}" >                 
+                {{heading}}
+              </span>
+            </a>
+          </h6>
+        </div>
+        <div class="panel-collapse collapse" uib-collapse="!isOpen">
+          <div class="panel-body" style="text-align: right" ng-transclude></div>
+
+        </div>
+        </div>
+   </script>
 	
 	
 </section>

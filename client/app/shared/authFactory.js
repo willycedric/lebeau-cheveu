@@ -213,7 +213,6 @@ const getUserById = (route, id)=>{
  * @return {[type]}       [description]
  */
   const updateUserProfile = (route,user)=>{
-    console.log('hairdresser id ',user._id);
     var deferred =$q.defer();
     $http.put(apiUrl+route+'/'+user._id,{user:user})
     .then(function updateUserProfileSuccessCallback(response){
@@ -241,8 +240,9 @@ const getUserById = (route, id)=>{
   }
 
 const getHairdresserById = (id)=>{
+  console.log("launched  with id =",id);
     var deferred = $q.defer();
-    $http.get(apiUrl+'/api/hairdressers'+'/'+id)
+    $http.get(apiUrl+'/api/public/hairdresser/'+id.toString())
     .then(function getHairdresserByIdSucccessCallback(response){
         deferred.resolve(response.data);
     },function getHairdresserByIdFailureCallback(err){

@@ -208,7 +208,9 @@
 
  .background-line > span {
     padding: 0 20px;
-    font-family:  "Helvetica Neue";
+    font-family: FuturaPT-Book, Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    color:#333;
 }
  .push--bottom, .push--ends {
     margin-bottom: 32px !important;
@@ -251,8 +253,10 @@
     letter-spacing: 1px;
     font-weight: bolder;
     text-transform: uppercase;
-    font-family: "Helvetica";
-    color: #000;
+    font-family: FuturaPT-Book, FuturaPT-Books,Arial, Helvetica, sans-serif;
+    font-size:1.5em;
+    text-transform:initial;
+    color: #333;
 }
 
  .message-registration-success {

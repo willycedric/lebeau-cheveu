@@ -14,7 +14,8 @@ class SearchbarController {
     this.listOfAvailableCategories = this.searchBar.getListOfavailableCategories();
   	this.asyncSelected = undefined;
   	this.selected = undefined;
-    this.isAtLeastOneHairdresserFound =false; //use to trigger the display of the hairdressers found
+    this.isAtLeastOneHairdresserFound =true; //use to trigger the display of the hairdressers found
+    this.isFound =false;
 
    //Writing the selected category and location to the local storage   
     this.saveOnLocalStorage('selectedLocation',this.$stateParams.selectedLocation);
@@ -35,7 +36,7 @@ class SearchbarController {
     this.launchSearch = (selectedLocation,selectedHaircut)=>{
       var searchParameters={
         location:selectedLocation[0]+selectedLocation[1],
-        haircut:this.listOfavailableHaircuts.indexOf(selectedHaircut),
+        haircut:this.listOfavailableHaircuts.indexOf("Vanilles"),
         category:this.listOfAvailableCategories.indexOf(this.selectedCategory)
       };
       this.findHairdressersAccordingToSelectedArea(searchParameters);
@@ -48,8 +49,7 @@ class SearchbarController {
    * [loadTheRightHaircutList description]
    * @return {[type]} [description]
    */
-  loadTheRightHaircutList(){
-  	this.$log.debug('available categories ',this.availableHaircutCategories);
+  loadTheRightHaircutList(){  	
   	if(this.selectedCategory === this.availableHaircutCategories[0]){ //afro haircuts
   		this.listOfavailableHaircuts = this.searchBar.getListOfavailableAfroHaircuts();
   	}else if (this.selectedCategory === this.availableHaircutCategories[1]) { //european haircuts
@@ -84,6 +84,7 @@ class SearchbarController {
         this.listOfSelectedHairdressers = data;
         this.$log.debug( this.listOfSelectedHairdressers);
         this.isAtLeastOneHairdresserFound=true;
+        this.isFound=true;
     });
   };
 /**

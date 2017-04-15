@@ -1,5 +1,5 @@
 class AccountSettingController {
-	  constructor(Auth,API,ModalFactory,customerMAnager,$window,$state,AuthToken,accountDetails,$scope) {
+	  constructor(Auth,API,ModalFactory,customerMAnager,$window,$state,AuthToken,accountResource,$q,$scope) {
 	  	this.lastName=null;
 	  	this.firstName=null;
 	  	this.Auth = Auth;
@@ -9,15 +9,48 @@ class AccountSettingController {
 	  	this.customerMAnager = customerMAnager;
 	  	this.$state = $state;
 	  	this.AuthToken= AuthToken;
+		this.accountResource=accountResource;
+		this.$q=$q;
+		this.$scope =$scope;
 		
-		var deserialize = (data)=>{	
-			var self=this;		
-			self.customer = data.account;
-			self.user = data.user;		
-			
+		this.updateAddress = (location)=>{
+			var self= this;
+			var location ={};
+			location.type =1;
+			location.address = this.$scope.formatted_address;
+			var successMessage = 'Votre nouvelle adresse a bien été prise en compte';
+			var errorMessage= 'Une erreur est parvenue lors de la sauvegrade de votre nouvelle addresse. Veuillez essayer ultérieurement';
+			this.customerMAnager.updateCustomerPreference(location)
+			.then((rep)=>{
+				this.displayConfirmationModal(successMessage,true);
+			}, (err)=>{
+				this.displayConfirmationModal(errorMessage,false);
+		   });
 		};
-
-	 	deserialize(accountDetails);
+		
+		var deserialize = ()=>{				
+			var self=this;
+			var defered = self.$q.defer();
+			self.accountResource.getAccountDetails()
+			.then((data)=>{
+				defered.resolve(data);
+			}, (err)=>{
+				defered.resolve(err);
+			});
+			return defered.promise;			
+		};
+		var init = ()=>{
+			var self=this;
+			deserialize()
+			.then((data)=>{
+				console.log(data);
+				self.customer = data.account;
+				self.user = data.user;
+			}, (err)=>{
+				throw new Error(err.toString());
+			});
+		};
+	 	init();
 	};//end constructor;
 
 	/**
@@ -227,8 +260,10 @@ class AccountSettingController {
 			});
 		}
 	}
+
+	
 }//End class
 
-AccountSettingController.$inject =['Auth','API','ModalFactory','customerMAnager','$window','$state','AuthToken','accountDetails','$scope'];
+AccountSettingController.$inject =['Auth','API','ModalFactory','customerMAnager','$window','$state','AuthToken','accountResource','$q','$scope'];
 
 export {AccountSettingController};

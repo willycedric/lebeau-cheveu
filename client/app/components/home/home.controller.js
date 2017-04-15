@@ -3,7 +3,7 @@ import images from '../../../../images.json';
 
 
 class HomeController {
-  constructor(Location,$state,$stateParams,AuthToken,$rootScope,$log,Auth,searchBar,Map) {
+  constructor(Location,$state,$stateParams,AuthToken,$rootScope,$log,Auth,searchBar,Map,$scope) {
   	this.url ="http://res.cloudinary.com/hgtagghpz/image/upload/v1475226327/banner10_fdlxry.jpg";
   	this.nbImages = 3;//images.length;
   		//labels
@@ -16,6 +16,7 @@ class HomeController {
 
 	 this.$state = $state;
 	 this.$log =$log;
+	 this.$scope=$scope;
          this.selected =true;
          //Properties used to generate the map
 	 this.Map = Map;
@@ -96,16 +97,21 @@ class HomeController {
 	 * [goToSearchBarView go to the searchbar component with the selected category and location]
 	 * @return {[]} []
 	 */
-	goToSearchBarView(){		
-		if(this.selectedHaircutCategory !== null || this.selectedLocation !==null){
-                    console.log('selectedHaircutCategory ',this.selectedHaircutCategory, 'selectedLocation ',this.selectedLocation);
-			this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:this.selectedLocation});
+	goToSearchBarView(searchForm){
+		if(searchForm.$valid){
+			if(this.selectedLocation!=undefined){
+				if(this.$scope.formatted_address!=undefined){
+					if(this.selectedLocation.toUpperCase()==this.$scope.formatted_address.split(' ')[0].toUpperCase()){
+						this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:this.$scope.formatted_address});
+					}
+				}else{
+					this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:selectedLocation});
+				}
 		}else{
-			//must find a way to display an error message
-			this.$log.info('the form is empty');
+			throw new Error("no selected location was specified.");
 		}
-		
 	}
+}
         
         /**
          * 
@@ -141,7 +147,7 @@ class HomeController {
          }
 };
 
-HomeController.$inject=['Location','$state','$stateParams','AuthToken','$rootScope','$log','Auth','searchBar','Map'];
+HomeController.$inject=['Location','$state','$stateParams','AuthToken','$rootScope','$log','Auth','searchBar','Map','$scope'];
 export {HomeController};
 
 
