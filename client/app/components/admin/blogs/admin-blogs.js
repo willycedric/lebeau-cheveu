@@ -111,7 +111,7 @@ export const adminBlogsIndexModule = angular.module('adminBlogsIndexModule').con
     };
 
     $scope.LaunchAddBlogForm = function(){
-      ModalFactory.trigger(this, "newBlog.html",function($uibModalInstance,topController){
+      ModalFactory.trigger(this, "newBlog.html",'custom',function($uibModalInstance,topController){
         this.categories = topController.categories;
         this.addBlog = function(data){          
           if(!angular.equals({}, data)){

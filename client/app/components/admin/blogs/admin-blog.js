@@ -92,7 +92,7 @@ export const adminBlogsDetailModule = angular.module('adminBlogsDetailModule').c
     };
 
     $scope.updateBlogModal = function(blog){
-         ModalFactory.trigger(this, "updateBlog.html",function($uibModalInstance,topController){
+         ModalFactory.trigger(this, "updateBlog.html",'blog',function($uibModalInstance,topController){
             this.categories = topController.categories;
             this.data = blog;
             this.alerts = topController.blogAlerts;

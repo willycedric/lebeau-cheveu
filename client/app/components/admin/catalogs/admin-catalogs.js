@@ -104,7 +104,7 @@ export const adminCatalogsIndexModule = angular.module('adminCatalogsIndexModule
     };
 
     $scope.LaunchAddCatalogForm = function(){
-      ModalFactory.trigger(this, "newcatalog.html",function($uibModalInstance,topController){
+      ModalFactory.trigger(this, "newcatalog.html",'custom',function($uibModalInstance,topController){
 
         this.addCatalog = function(name,description){
           const controledName = name || '';

@@ -31,17 +31,17 @@
         deferred.resolve(data.hairdresser);
         return deferred.promise;
       };
-      var init = (data)=>{
-        
+      var init = (data)=>{        
           deserializedata(data)
           .then((rep)=>{
-              $scope.hairdresser = rep;
-              $scope.profile_picture = $scope.hairdresser.profile_picture;              
+              this.hairdresser = rep;
+              console.log("current hairdresser", this.hairdresser);                            
               $scope.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(this.hairdresser.appointments);
               //datepicker logic
              angular.forEach(this.hairdresser.appointments, (appt,key)=>{
                this.events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers})
-            });        
+            });  
+            console.log("list of events",this.events); 
           })
           .finally(()=>{
              this.defineCalendarOption($scope)
@@ -83,7 +83,7 @@
    */
   displayListOfAppointmentsOfTheSelectedDay(appointmentOfTheDay){
     var self= this;
-      this.ModalFactory.trigger(self,'appointment-list.html', function($uibModalInstance,topController){
+      this.ModalFactory.trigger(self,'appointment-list.html','custom', function($uibModalInstance,topController){
           this.appointmentOfTheDay = appointmentOfTheDay;
 
           this.appointmentDetails = (apt)=>{        
@@ -153,8 +153,9 @@
    * @return {[type]}     [description]
    */
   displayAppointmentConfirmationModal(apt){
+    console.log('hairdresser apt ', apt);
     var self= this;
-    this.ModalFactory.trigger(self,'appointmentconfirmation.html', function($uibModalInstance, topController){
+    this.ModalFactory.trigger(self,'appointmentconfirmation.html','custom', function($uibModalInstance, topController){
 
       this.apt = apt;
        const updateConfirmationMessage = 'Le rendez-vous a bien été enregistré !';
@@ -165,10 +166,10 @@
        */
       this.ok = () =>{
           //updating hairdresser booking
-          topController.hairdresserMAnager.updateHairdresserBooking(apt)
+          topController.hairdresserMAnager.updateHairdresserBooking(apt)          
           .then((rep)=>{ //update hairdresser booking 
             var deferred = topController.$q.defer();
-            if(rep.success){
+            if(rep){
               deferred.resolve(rep.success);
             }else{
               deferred.reject( new Error(''));
@@ -184,7 +185,7 @@
             })
             .finally(()=>{
                $uibModalInstance.close('ok');
-               topController.$window.location.reload();
+               //topController.$window.location.reload();
             });
           //updating customer booking
          
@@ -230,7 +231,7 @@
  */
 displayConfirmationModal(status,message){
   var self=this;
-  this.ModalFactory.trigger(self,'appointment-update-confirmation.html', function($uibModalInstance,topController){
+  this.ModalFactory.trigger(self,'appointment-update-confirmation.html','custom', function($uibModalInstance,topController){
     this.isSuccess=status;
     this.message =message;
     this.ok=()=>{
@@ -247,7 +248,7 @@ displayConfirmationModal(status,message){
  */
 displayAppointmentReminderDetails(apt){
   var self= this;
-  this.ModalFactory.trigger(self,'appointment-details.html', function($uibModalInstance,topController){
+  this.ModalFactory.trigger(self,'appointment-details.html','custom', function($uibModalInstance,topController){
     this.apt= apt;
     this.ok = ()=>{
       $uibModalInstance.close('ok');
@@ -261,7 +262,7 @@ displayAppointmentReminderDetails(apt){
  */
 displayAppointmentHistoryDetails(apt){
   var self= this;
-  this.ModalFactory.trigger(self,'appointment-history.html', function($uibModalInstance, topController){
+  this.ModalFactory.trigger(self,'appointment-history.html','custom', function($uibModalInstance, topController){
     this.apt= apt;
     this.ok = () =>{
       $uibModalInstance.close('ok');
@@ -283,7 +284,7 @@ displayEmptyAppointmentSlot(date){
     if( tempDate.indexOf(selectedDate.dayOfYear()) != -1){
       this.displayDateLockedModal(date);
     }else{
-        this.ModalFactory.trigger(this,'lockedappointment.html', function($uibModalInstance, topController){
+        this.ModalFactory.trigger(this,'lockedappointment.html','custom', function($uibModalInstance, topController){
         //If the hairdresser decide to locked a date/time period
         this.confirm = (selectedHour)=>{     
             var confirmationMessage = 'La journée du '+date.toLocaleDateString()+' à bien été vérouillée.';
@@ -314,7 +315,7 @@ displayEmptyAppointmentSlot(date){
  */
 displayDateLockedModal(date){
   var self = this;
-  self.ModalFactory.trigger(self,'lockedappointment-details.html', function($uibModalInstance,topController){
+  self.ModalFactory.trigger(self,'lockedappointment-details.html','custom', function($uibModalInstance,topController){
       this.date = date;
       this.hairdrressername = topController.hairdresser.username;
       this.ok = ()=>{
@@ -330,7 +331,7 @@ displayDateLockedModal(date){
  */
 displayEmptyAppointmentInThePast(date){
     var self=this;
-    this.ModalFactory.trigger(self,'date-in-the-pass.html',function($uibModalInstance,topController){
+    this.ModalFactory.trigger(self,'date-in-the-pass.html','custom',function($uibModalInstance,topController){
       this.date = date;
       this.ok = ()=>{
         $uibModalInstance.close('close');
@@ -343,7 +344,7 @@ displayEmptyAppointmentInThePast(date){
  * @param  {[type]} apt [appointment object]
  */
 displayAppointmentLockedDetails(apt){
-  this.ModalFactory.trigger(self,'appointment-locked.html',function($uibModalInstance, topController){
+  this.ModalFactory.trigger(self,'appointment-locked.html','custom',function($uibModalInstance, topController){
     this.apt= apt;
     this.confirm = ()=>{
       $uibModalInstance.close('confirm');

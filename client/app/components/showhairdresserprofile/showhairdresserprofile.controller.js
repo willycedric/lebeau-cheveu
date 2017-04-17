@@ -101,7 +101,6 @@ class ShowhairdresserprofileController {
       $scope.$watch('vm.dt',(newvalue, oldValue)=>{
          security.requestCurrentUser()
           .then((rep)=>{
-              console.log(rep);
               if(newvalue !== oldValue){
                 if(rep==null){
                   this.displayModalAskingToLoggedin('sm');

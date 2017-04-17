@@ -3,14 +3,15 @@
 		<div class="row">
 			<div class="col-sm-3">		
 				<div >
-					<uploader url={{vm.account.photoUrl}}></uploader>
+					<uploader url={{vm.customer.photoUrl}}></uploader>
 				</div>		<!-- end .customer-id-card -->
 				<div class="left-menu">
 					<customer-menu></customer-menu>
 				</div>		<!-- 	end .left-menu -->	
 			</div><!-- col-sm-offset-1 col-sm-3 col-lg-3 -->
 			<div class="col-sm-offset-1  col-sm-8 customer-page-content">
-				<div ng-show="vm.getPendingAppointment(vm.account.nextAppointment)" ng-repeat="apt in vm.account.nextAppointment track by $index">
+				<h3 class="lbc-contains-emphasize section-contains"> Mes rendez-vous confirmé(s) </h3>
+				<div ng-show="vm.getPendingAppointment(vm.customer.nextAppointment)" ng-repeat="apt in vm.customer.nextAppointment track by $index">
 					<div class=" section row" id="details" ng-show="apt.appointmentState==0?true:false">
 					  <div class="row-top">
 						<span class="section-contains lbc-contains-emphasize"> Le {{apt.dayOfWeek| date }} à {{apt.selectedHour}} avec {{apt.hairdresserUsername}} au {{apt.location}}</span>
@@ -23,7 +24,7 @@
 					 </div> <!-- row section-top -->				
 				   </div><!-- .row -->
 			   </div> <!-- .section -->
-			   <div ng-hide="vm.getPendingAppointment(vm.account.nextAppointment)" >
+			   <div ng-hide="vm.getPendingAppointment(vm.customer.nextAppointment)" >
 					<div class="" >
 					  <div class="row row-top section ">				
 							<span class="notification-title">Vous n'avez pas de rendez-vous prévu.</span><br/>
@@ -44,11 +45,11 @@
 						<textarea  name="reason" ng-model="customerReason" ng-minlength="50"></textarea>
 			<div class="container">	
 				<div class="row">
-				 	<div class="col-sm-offset-1 col-sm-2">
-	          			<input  type="submit"  name="reason-submit" id="reason-submit" tabindex="2" class="btn btn-confirm btn-primary" value="Enregistrer" >
+				 	<div class="col-sm-2">
+	          			<input  type="submit"  name="reason-submit" id="reason-submit" tabindex="2" class="btn btn-confirm btn-primary" value="Enregistrer"/>
 	          		</div>
-	          		<div class="col-sm-1">
-	          			<button class="btn btn-primary btn-cancel" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+	          		<div class="col-sm-offset-1 col-sm-2">
+	          			<input type="button" class="btn btn-primary btn-cancel" type="button" ng-click="$ctrl.cancel()" value="Annuler"/>
 	          		</div>
 	        	</div>
 			</div>
@@ -60,11 +61,19 @@
 				<h3 class="center modal-tile">Confirmation </h3>
 			</div>
 			<div class="modal-body">
-				<span> {{$ctrl.message}} </span>
+				<span class="lbc-contains-emphasize"> {{$ctrl.message}} </span>
 		    </div>
 		     <div class="modal-footer" style="text-align:center;">
-	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.confirm($ctrl.apt)">OUI</a>
-	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.cancel($ctrl.apt)">NON</a>
+				 <div class="container">
+					 <div class="row">
+						 <div class="col-sm-1">
+							<a class="btn-lbc" ng-click ="$ctrl.confirm($ctrl.apt)">Oui</a>
+						 </div>
+						 <div class="col-sm-offset-3 col-sm-1">
+							<a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.cancel($ctrl.apt)">Non</a>
+						 </div>
+					 </div>
+				 </div>           
 	        </div>
 	</script>
     <script type="text/ng-template" id=" appoitnment-date-close.html">
@@ -75,7 +84,13 @@
 				<span> {{$ctrl.message}} </span>
 		    </div>
 		     <div class="modal-footer" style="text-align:center;">
-	            <a class="btn-default-lbc btn-lbc" ng-click ="$ctrl.ok($ctrl.apt)">OK</a>
+				 <div class="container">
+					 <div class="row">
+						 <div class="col-sm-offset-5 col-sm-1">
+							<a class="btn-lbc" ng-click ="$ctrl.ok($ctrl.apt)">OK</a>
+						 </div>	
+					 </div>
+				 </div>	            
 	        </div>
 	</script>
    

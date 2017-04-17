@@ -24,7 +24,7 @@
                         <a id ="login-link" href="#" ><login name="Connexion" class="login-t"></login></a>
                     </li>
                      <li ng-if="isAuthenticated()">                        
-                        <a href="#" id="dropdowMenu1" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">JON DOE <b class="caret"></b></a>
+                        <a  id="dropdowMenu1" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{vm.username}}<b class="caret"></b></a>
                           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">                                  
                               <li ng-if="isAccount()"><a ui-sref="account">Mon compte </a></li> 
                               <li ng-if="isHairdresser()"><a ui-sref="hairdresser">Mon compte </a></li>

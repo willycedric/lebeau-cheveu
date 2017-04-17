@@ -1,5 +1,5 @@
 class SearchbarController {
-  constructor($stateParams,API,$log,searchBar,Location,AuthToken,hairdresserMAnager) {
+  constructor($stateParams,API,$log,searchBar,Location,AuthToken,hairdresserMAnager,$scope,$q) {
   	
   	this.$stateParams = $stateParams;
   	this.API = API;
@@ -14,8 +14,12 @@ class SearchbarController {
     this.listOfAvailableCategories = this.searchBar.getListOfavailableCategories();
   	this.asyncSelected = undefined;
   	this.selected = undefined;
-    this.isAtLeastOneHairdresserFound =true; //use to trigger the display of the hairdressers found
-    this.isFound =false;
+    this.isAtLeastOneHairdresserFound =false; //use to trigger the display of the hairdressers found
+    this.disPlayInitialForm =true;
+    this.disPlayNoResult  = true;
+    this.detailAlerts=[]
+    this.$scope=$scope;
+    this.$q = $q;
 
    //Writing the selected category and location to the local storage   
     this.saveOnLocalStorage('selectedLocation',this.$stateParams.selectedLocation);
@@ -34,14 +38,55 @@ class SearchbarController {
   	this.loadTheRightHaircutList();
 
     this.launchSearch = (selectedLocation,selectedHaircut)=>{
-      var searchParameters={
-        location:selectedLocation[0]+selectedLocation[1],
-        haircut:this.listOfavailableHaircuts.indexOf("Vanilles"),
-        category:this.listOfAvailableCategories.indexOf(this.selectedCategory)
-      };
-      this.findHairdressersAccordingToSelectedArea(searchParameters);
-      
-    };   
+      console.log("selectedLocation",selectedLocation);
+      this.detailAlerts =[];  
+      var checkOptions = ()=>{
+        var defered = this.$q.defer();
+         var reason=[];
+         if(selectedHaircut==undefined || selectedHaircut==""){
+            reason.push("haircut");
+          } 
+          if(selectedLocation ==undefined || selectedLocation==""){
+            reason.push("location");
+          }
+          defered.resolve(reason);
+          return defered.promise;
+      };      
+     checkOptions()
+     .then((reason)=>{
+       if(reason.length==0){
+         if(this.$scope.formatted_address){
+            var searchParameters={
+              location:(selectedLocation.toUpperCase()==this.$scope.formatted_address.split(' ')[0].toUpperCase())?this.$scope.formatted_address.split(' ')[0]:selectedLocation[0]+selectedLocation[1],
+              haircut:(this.listOfavailableHaircuts.indexOf(selectedHaircut)-1),
+              category:this.listOfAvailableCategories.indexOf(this.selectedCategory)
+              };
+            this.findHairdressersAccordingToSelectedArea(searchParameters);
+         }else{
+           var searchParameters={
+              location:selectedLocation[0]+selectedLocation[1],
+              haircut:(this.listOfavailableHaircuts.indexOf(selectedHaircut)),
+              category:this.listOfAvailableCategories.indexOf(this.selectedCategory)
+              };
+            this.findHairdressersAccordingToSelectedArea(searchParameters);
+         }          
+        }else{
+          angular.forEach(reason,(elt)=>{
+            switch(elt){
+              case "haircut":
+                this.detailAlerts.push({ type: 'danger', msg: "Veuillez sélectionner une coiffure." });
+                break;
+                case "location":
+                  this.detailAlerts.push({ type: 'danger', msg: "Veuillez sélectionner une location." });
+                break;
+                default:
+                  this.detailAlerts.push({ type: 'danger', msg: "Une option de recherche est absente." });
+                break;
+            }
+          });       
+        }
+     });
+  };   
 
   }//end constructeur
 
@@ -81,10 +126,16 @@ class SearchbarController {
   findHairdressersAccordingToSelectedArea(seachParameters){
     this.hairdresserMAnager.findHairdressers(seachParameters)
     .then((data)=>{
-        this.listOfSelectedHairdressers = data;
-        this.$log.debug( this.listOfSelectedHairdressers);
-        this.isAtLeastOneHairdresserFound=true;
-        this.isFound=true;
+        if(data.length>0){//display the search result if a least on hairdresser is found
+          this.listOfSelectedHairdressers = data;     
+          this.isAtLeastOneHairdresserFound =true;
+           this.disPlayNoResult=true;
+           this.disPlayInitialForm=true;
+        }else{ 
+          this.isAtLeastOneHairdresserFound=false;
+          this.disPlayNoResult=false;
+          this.disPlayInitialForm=false;
+        }
     });
   };
 /**
@@ -102,9 +153,16 @@ class SearchbarController {
   }
 };
 
+ closeAlert(alert, ind){
+      alert.splice(ind, 1);
+    };
+  closeDetailAlert(ind){
+      this.closeAlert(this.detailAlerts, ind);
+    };
+
 }
 
-SearchbarController.$inject= ['$stateParams','API','$log','searchBar','Location','AuthToken','hairdresserMAnager'];
+SearchbarController.$inject= ['$stateParams','API','$log','searchBar','Location','AuthToken','hairdresserMAnager','$scope','$q'];
 
 export {SearchbarController};
 

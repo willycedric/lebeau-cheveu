@@ -4,6 +4,13 @@ $button-confirm-background:#6e6d6d;
 $button-cancel-background:#a94442;
 $button-back-background:#333;
 $default-button-color:#790303;
+$default-background-color:#0da7a9;
+$li-item-font-family:FuturaPT-Medium;
+$button-add-margin-top:2.3em;
+$default-background-color-hover:rgba(0, 148, 150, 0.62);
+$default-button-save-color:#3B7080;
+$default-button-cancel-color:#B6BBBD;
+$default-font-groups:FuturaPT-Medium,"Helvetica Neue",Helvetica,Arial,sans-serif;
 $white:#fff;
 $green:green;
 $red:red;
@@ -55,68 +62,113 @@ $gray:#ACACAC;
 }
 
 /* cancel button in modal windows */
-.btn-cancel{
- 	color: $white;
-    background-color: $button-cancel-background;
-    border-color:$button-cancel-background;
-     margin-top:3%;
-     &:hover,&:focus,&:active{
-    	color:$white;
-    }
-}
+// .btn-cancel{
+//  	color: $white;
+//     background-color: $button-cancel-background;
+//     border-color:$button-cancel-background;
+//      margin-top:3%;
+//      &:hover,&:focus,&:active{
+//     	color:$white;
+//     }
+// }
 
 /* back button in modal windows */
-.btn-back {
-    color: $white;
-    background-color: $button-back-background;
-    border-color:$button-back-background;
-     &:hover,&:focus,&:active{
-    	color:$white;
-    }
-}
+// .btn-back {
+//     color: $white;
+//     background-color: $button-back-background;
+//     border-color:$button-back-background;
+//      &:hover,&:focus,&:active{
+//     	color:$white;
+//     }
+// }
 
-.btn-success {
-  @extend .btn-lbc-default;
-    color: $white;
-    background-color: $green;
-    border-color:$green;
-     &:hover,&:focus,&:active{
-      color:$white;
-      background-color: $green;
-    }
-}
-.btn-error {
-    color: $white;
-    background-color: $red;
-    border-color:$red;
-     &:hover,&:focus,&:active{
-      color:$white;
-      background-color: $red;
-    }
-}
+// .btn-success {
+//   @extend .btn-lbc-default;
+//     color: $white;
+//     background-color: $green;
+//     border-color:$green;
+//      &:hover,&:focus,&:active{
+//       color:$white;
+//       background-color: $green;
+//     }
+// }
+// .btn-error {
+//     color: $white;
+//     background-color: $red;
+//     border-color:$red;
+//      &:hover,&:focus,&:active{
+//       color:$white;
+//       background-color: $red;
+//     }
+// }
 
 .lbc-button-center{
-  float: initial;
-  text-transform:uppercase;
-  font-size:1.3em;
-  clear:none;
+  float: initial; 
+    text-transform: initial;
+    font-size: 1.1em;
+    clear: none;
+    margin-left: -7em;
 }
 
-.btn-lbc-slim{
-  padding:5px 5px;
+// .btn-lbc-slim{
+//   padding:5px 5px;
+//   font-size:1em;
+// }
+
+// .btn-lbc-medium{
+//     color: #fff;
+//     padding: 6px 15px;
+//     border-radius: 4px;
+//     font-weight: 400;
+//     background: #790303;
+//     transition: background 0.3s ease;
+//     font-size: 0.9em;
+// }
+.custom .btn-lbc {
+  color: white;
+  margin-left:22%;
+  padding: 12px 35px;
+  border-radius: 4px;
+  background: $default-background-color;
+  transition: background 0.3s ease;
+  &:hover{
+       background: $default-background-color;
+        color: white;
+    }
+}
+
+.custom .btn-confirm {
+  color: white;
+  margin-left:0;
+  padding: 12px 35px;
+  border-radius: 4px;
+  background: $default-button-save-color;
+  border:1px solid $default-button-save-color;
+  font-family: $default-font-groups;
   font-size:1em;
+  transition: background 0.3s ease;
+  &:hover{
+       background: $default-button-save-color;
+        color: white;
+    }
 }
 
-.btn-lbc-medium{
-    color: #fff;
-    padding: 6px 15px;
-    border-radius: 4px;
-    font-weight: 400;
-    background: #790303;
-    transition: background 0.3s ease;
-    font-size: 0.9em;
+.custom .btn-cancel {
+  color: white;
+  margin-left:0;
+  padding: 12px 35px;
+  margin-top:3%;
+  border-radius: 4px;
+  background: $default-button-cancel-color;
+  font-size:1em;
+  font-family: $default-font-groups;
+  transition: background 0.3s ease;
+  border:1px solid $default-button-cancel-color;
+  &:hover{
+       background: $default-button-cancel-color;
+        color: white;
+    }
 }
-
 .locked button  {
      background-color: $red;
     border-color:$red;

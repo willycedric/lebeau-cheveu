@@ -23,6 +23,8 @@ $default-background-color:#0da7a9;
 $li-item-font-family:FuturaPT-Medium;
 $button-add-margin-top:2.3em;
 $default-background-color-hover:rgba(0, 148, 150, 0.62);
+$default-button-save-color:#3B7080;
+$default-button-cancel-color:#B6BBBD;
 $default-border-radius:4px;
 $default-font-groups:FuturaPT-Medium,"Helvetica Neue",Helvetica,Arial,sans-serif;
 //$green:#1aca1d;
@@ -89,6 +91,9 @@ hr{
 
 .row-top{
 	margin-top:1%;
+}
+.row-top-8{
+    margin-top: 8%;
 }
 .row-bottom{
 	margin-bottom:1%;
@@ -241,8 +246,10 @@ h5{
 }
 
 .lbc-contains-emphasize{
-	font-family:'Helvetica';
-	font-size:1.3em;
+	font-family:$default-font-groups;
+	font-size:1.2em;
+    font-weight: lighter;
+    text-align: center;
 }
 
 .notification-title{
@@ -470,16 +477,12 @@ h5{
   text-align:center;
 }
 
-.custom .btn-lbc {
-  color: white;
-  margin-left:22%;
-  padding: 12px 35px;
-  border-radius: 4px;
+.blog >.modal-dialog>.modal-content>.modal-body select{
+  width: 80em;
+  height: 3em;
+  color:#333;
   font-weight: bold;
-  background: $default-background-color;
-  transition: background 0.3s ease;
-  &:hover{
-       background: $default-background-color;
-        color: white;
-    }
+  background: #ccc;
+  font-family: $default-font-groups;
+  margin: 0 auto;
 }

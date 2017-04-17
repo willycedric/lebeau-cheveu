@@ -14,8 +14,8 @@ class AccountbookingController {
      	//this.refreshAccountProfile(this,token);        
 		var self=this;
 		var deserialize = (data)=>{
-			self.account = data.account;
-			console.log(self.account);
+			self.customer = data.account;
+			
 		}
 
 		deserialize(details);
@@ -27,8 +27,7 @@ class AccountbookingController {
 	 */
 	displayConfirmationModal(appointment){
 		var self=this;
-		this.ModalFactory.trigger(self,'action-confirmation.html', function($uibModalInstance,topController){
-           
+		this.ModalFactory.trigger(self,'action-confirmation.html','custom', function($uibModalInstance,topController){           
 			this.apt=appointment;
 			this.message = 'Voulez vous annulez le rendez-vous du ' + (new Date(appointment.dayOfWeek)).toLocaleDateString()+' à '+appointment.selectedHour+' ?';
 			 this.confirm = (apt)=>{
@@ -54,7 +53,7 @@ class AccountbookingController {
         if(aptDate.diff(currentDate,'days')<1){ //is the date is too close from the appointment date display a modal
             self.displayAppointmentDateToCloseModal(apt);
         }else{
-                self.ModalFactory.trigger(self,'cancel-appointment.html', function($uibModalInstance,topController){
+                self.ModalFactory.trigger(self,'cancel-appointment.html','custom', function($uibModalInstance,topController){
                 var successMessage = 'Votre rendez vous du '+(new Date(apt.dayOfWeek)).toLocaleDateString()+' à '+apt.selectedHour+', a bien été supprimé !';
                 var errorMessage = 'Erreur lors de la suppression du rendez-vous, essayer ultérieurement'
                 var state=-3; //cancel by the account 
@@ -88,7 +87,7 @@ class AccountbookingController {
     
     displayAppointmentDateToCloseModal(apt){
         var self = this;
-        self.ModalFactory.trigger(self,'appoitnment-date-close.html',function($uibModalInstance,topController){
+        self.ModalFactory.trigger(self,'appoitnment-date-close.html','custom',function($uibModalInstance,topController){
              this.message = 'vous ne pouvez pas annuler un rendez à moins de 24h. Votre rendez-vous est maintenu le '+new Date(apt.dayOfWeek).toLocaleDateString();
             this.ok = () =>{
                 $uibModalInstance.close('ok');
@@ -103,7 +102,7 @@ class AccountbookingController {
 	 */
 	displaySuccessModal(state,message){
 		var self=this;
-		this.ModalFactory.trigger(self,'confirmation-modal.html', function($uibModalInstance, topController){
+		this.ModalFactory.trigger(self,'confirmation-modal.html','custom', function($uibModalInstance, topController){
 			this.message= message,
 			this.isSuccess=state;
 			this.ok = () =>{
@@ -130,7 +129,7 @@ class AccountbookingController {
 	 * @param  {[type]} appointments [description]
 	 * @return {[type]}              [description]
 	 */
-	getPendingAppointment(appointments){
+	getPendingAppointment(appointments){		
 		let count=0;
 		angular.forEach(appointments, (apt)=>{
 			if(apt.appointmentState == 0){

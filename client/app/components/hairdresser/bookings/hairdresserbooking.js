@@ -11,6 +11,7 @@ export const hairdresserbooking = angular.module('hairdresserbooking', [uiRouter
     $stateProvider.state('hairdresserbooking', {
       url: '/hairdresser/booking',
       controller,
+      controllerAs:'vm',
       template,
       title:'Mes réservations',
       resolve: {

@@ -2,13 +2,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-3">
-				<div class="row">
-					<!--  <hairdresser-profile-card url="{{url}}" name ="{{hairdresser.name.full}}" type="{{hairdresser.customer_type}"></hairdresser-profile-card>  -->
-
-					<uploader url={{profile_picture}}></uploader>
-			
-				</div> <!-- row id card -->
- 
+				<div class="row">				
+					<uploader url={{vm.hairdresser.profile_picture}}></uploader>			
+				</div> <!-- row id card --> 
 				<menu></menu>
 			</div> <!-- .col-sm-4 left-element -->
 			<div class="col-sm-offset-1 col-sm-5">
@@ -79,7 +75,7 @@
    	<!-- display modal allowing an hairdresser to locked a date/time slot -->
    	<script type="text/ng-template" id="lockedappointment.html">
    	  		<div class="modal-header">
-	             <h5 class="center modal-title">Vérouiller une journée</h5>
+	             <h5 class="center modal-title">Vérouiller une journée ?</h5>
 	        </div>
 	        <div class="modal-body" id="modal-body">
 	           <span class="question-modal" style="text-algin:center;">Souhaitez-vous vérouiller  la journée  du  {{$ctrl.date|date}} ? </span>

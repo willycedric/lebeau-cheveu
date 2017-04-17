@@ -104,7 +104,7 @@ export const adminBlogCategoriesIndexModule = angular.module('adminBlogCategorie
     };
 
     $scope.LaunchAddBlogCategoryForm = function(){
-      ModalFactory.trigger(this, "newBlogCategroy.html",function($uibModalInstance,topController){
+      ModalFactory.trigger(this, "newBlogCategroy.html","custom",function($uibModalInstance,topController){
 
         this.addBlogCategory = function(name,description){
           const controledName = name || '';

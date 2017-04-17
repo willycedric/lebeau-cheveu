@@ -123,7 +123,7 @@ export const adminCatalogDetailModule = angular.module('adminCatalogDetailModule
     };
 
     $scope.removeContent = function(id){
-      ModalFactory.trigger(this, "confirmation.html",function($uibModalInstance,topController){
+      ModalFactory.trigger(this, "confirmation.html",'custom',function($uibModalInstance,topController){
 
         this.ok = function(){        
           $log.debug("current id" ,id);

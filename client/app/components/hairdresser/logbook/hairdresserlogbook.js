@@ -10,7 +10,8 @@ export const hairdresserlogbook = angular.module('hairdresserlogbook', [uiRouter
     $stateProvider.state('hairdresserlogbook', {
       url: '/hairdresser/logbook',
       template,
-      controller,     
+      controller,
+      controllerAs:'vm',
       title:'Mon agenda',
       resolve: {
        logbook: ['$q', '$location', 'securityAuthorization', 'hairdresserResource',function($q, $location, securityAuthorization,hairdresserResource){

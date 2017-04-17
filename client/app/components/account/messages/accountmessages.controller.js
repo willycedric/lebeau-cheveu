@@ -10,7 +10,7 @@ class AccountmessagesController {
 		//If a user is connected through the localStretegy, retrieveed the token from the localStorage
       var self=this;
 		var deserialize = (data)=>{
-			self.account = data.account;
+			self.customer = data.account;
 		};
 
 		deserialize(details);

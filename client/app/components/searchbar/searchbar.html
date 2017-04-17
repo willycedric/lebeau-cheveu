@@ -2,34 +2,36 @@
 	<div class="test">
 		<div class="container">
 			<div class="row hidden-xs" >
-			<div ng-show ="vm.isAtLeastOneHairdresserFound">                 
+			<div ng-show ="vm.disPlayInitialForm">                 
+				<div uib-alert ng-repeat="alert in vm.detailAlerts" type="{{alert.type}}" close="vm.closeDetailAlert($index)">{{alert.msg}}</div>
 				<form class="form-wrapper cf"  name ="search" ng-submit="vm.launchSearch(vm.selectedLocation,vm.selectedHaircut)"> 
-						<select  ng-model="vm.selectedHaircutCategory" id="haircut-type" name="haircut" class="no-rounder">
+						<select  ng-model="vm.selectedHaircut" id="haircut-type" name="haircut" class="no-rounder">
 							<optgroup label="categories">
 								<option value="">Quelle catégorie de coiffure?</option>
 								<option ng-repeat = "haircut in vm.listOfavailableHaircuts"  value="{{haircut}}">{{haircut}}</option>
 							</optgroup>
 						</select>				
 						<!--<input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">-->                            
-						<input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/ required>											
+						<input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/>											
 						<button type="submit">GO</button>
 				</form>
 			</div> <!--  .hero-footer  -->
 		</div> <!-- .row .hidden-xs -->
 		<div class="row">
-			<div  ng-hide ="true" >
+			<div  ng-hide ="vm.disPlayNoResult" >
 					<div class="container">
 						<div class="row hidden-xs" >
 							<div>   
-								<form class="form-wrapper cf"  name ="search" ng-submit="vm.launchSearch(vm.selectedLocation)"> 
+								<div uib-alert ng-repeat="alert in vm.detailAlerts" type="{{alert.type}}" close="vm.closeDetailAlert($index)">{{alert.msg}}</div>
+								<form class="form-wrapper cf"  name ="haircutStyleForm" ng-submit="vm.launchSearch(vm.selectedLocation,vm.selectedHaircut)"> 
 										<select  ng-model="vm.selectedHaircut" id="haircut-type" name="haircut" class="no-rounder">
 											<optgroup label="categories">
 												<option value="">Quelle catégorie de coiffure?</option>
-												<option ng-repeat = "haircut in vm.listOfavailableHaircuts"  value="{{haircut}}">{{haircut}}</option>
+												<option ng-repeat = "haircut in vm.listOfavailableHaircuts" required  value="{{haircut}}">{{haircut}}</option>
 											</optgroup>
 										</select>				
 										<!--<input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">-->                            
-										<input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/ required>											
+										<input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/>											
 										<button type="submit">GO</button>
 								</form>
 							</div> <!--  .hero-footer  -->
@@ -43,7 +45,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div ng-show="vm.isFound" >
+				<div ng-show="vm.isAtLeastOneHairdresserFound" >
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-offset-1 col-sm-4 col-xs-6" ng-repeat="hairdresser in vm.listOfSelectedHairdressers">

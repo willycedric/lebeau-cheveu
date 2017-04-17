@@ -10,3 +10,9 @@ $margin-top:15%;
 .test{
 	margin-left:-18em;
 }
+
+.alert, .alert-danger,.alert-dismissible{
+	width: 50%;
+    margin: 0 auto;
+    font-family: $default-font-groups;
+}

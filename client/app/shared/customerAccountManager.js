@@ -29,7 +29,7 @@
  		 */
  		const updateCustomerAppointmentState = (appointmentId, customerId)=>{
  				var deferred = $q.defer();
- 				$http.put(apiUrl+`${API.dev.customerRoute}`+'/hairdresserAppointmentUpdate', {appointmentId:appointmentId,customerId:customerId})
+ 				$http.put(apiUrl+`${API.dev.customerRoute}`+'/hairdresserAppointmentUpdate', {appointmentId:appointmentId,userId:customerId})
  				.then(function updateAppointmentSlotSuccessCallback(response){
  					deferred.resolve(response.data);
  				}, function updateAppointmentSlotErrorCallback(err){

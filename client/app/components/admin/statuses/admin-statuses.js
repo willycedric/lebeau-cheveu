@@ -101,7 +101,7 @@ export const adminStatusesIndexModule = angular.module('adminStatusesIndexModule
     };
 
     $scope.LaunchAddStatusForm = function(){
-      ModalFactory.trigger(this, "newStatus.html",function($uibModalInstance,topController){
+      ModalFactory.trigger(this, "newStatus.html","custom",function($uibModalInstance,topController){
 
         this.addStatus = function(pivot,name){
           topController.name = name || '';

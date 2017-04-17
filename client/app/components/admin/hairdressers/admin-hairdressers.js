@@ -119,7 +119,7 @@ export const adminHairdressersIndexModule = angular.module('adminHairdressersInd
     };
 
     $scope.lauchAddHairdresserForm = function(){
-      ModalFactory.trigger(this, "newHairdresser.html",function($uibModalInstance,topController){
+      ModalFactory.trigger(this, "newHairdresser.html","custom",function($uibModalInstance,topController){
 
         this.addHairdresser = function(fullname){
           topController.fullname = fullname || '';

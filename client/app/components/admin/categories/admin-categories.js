@@ -105,7 +105,7 @@ export const adminCategoriesIndexModule = angular.module('adminCategoriesIndexMo
     };
 
     $scope.LaunchAddCategoryForm = function(){
-      ModalFactory.trigger(this, "newCategroy.html",function($uibModalInstance,topController){
+      ModalFactory.trigger(this, "newCategroy.html",'custom',function($uibModalInstance,topController){
 
         this.addCategroy = function(pivot,name){
           topController.name = name || '';

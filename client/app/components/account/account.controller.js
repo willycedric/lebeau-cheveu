@@ -12,7 +12,7 @@ class CustomerController {
      	//this.refreshCustomerProfile(this,token);      
 		var self=this;  
 		var deserialize = (data)=>{
-			self.account = data.account;
+			self.customer = data.account;
 		};
 		deserialize(details);
 	};//end constructor;
