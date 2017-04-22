@@ -31,7 +31,7 @@
 											</optgroup>
 										</select>				
 										<!--<input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">-->                            
-										<input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/>											
+										<input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address2"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/>											
 										<button type="submit">GO</button>
 								</form>
 							</div> <!--  .hero-footer  -->
@@ -53,6 +53,15 @@
 							</div>
 						</div>		
 					</div>
+				</div>
+			</div>
+			<div class="row">	
+				{{vm.formatted_address}}			
+				<div class="col-md-7">
+					<ng-map zoom="11" center="{{vm.formatted_address}}" style="height:600px">
+						<marker ng-if="vm.formatted_address==undefined" position="current" animation="Animation.BOUNCE" centered="true"></marker>
+						<marker animation="Animation.BOUNCE" position="{{vm.formatted_address}}" ></marker>
+					</ng-map>
 				</div>
 			</div>
 		</div><!-- end main .container-->	

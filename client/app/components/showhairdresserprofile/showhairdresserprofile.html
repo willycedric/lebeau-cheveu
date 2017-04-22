@@ -20,11 +20,11 @@
 		<div class="container">
 			<div class=" section row category-detail">
 				<select class="category" ng-model="vm.selectedCategory" > 					
-					<option ng-repeat="category in vm.listOfAvailableCategories" value="{{category.categoryName[0]}}"> {{category.categoryName[0]}}</option>
+					<option ng-repeat="category in vm.listOfAvailableCategories" value="{{category.categoryName[0]}}"> {{category.categoryName[0]|lowercase}}</option>
 				</select>
 				<br/>
 				<div class="col-sm-offset-1 category-entry" ng-repeat="category in vm.listOfAvailableCategories" ng-if="vm.selectedCategory == category.categoryName[0]">
-					<catalog-details contents="category.galeryEntries" name="{{category.categoryName[0]}}"></catalog-details>
+					<catalog-details contents="category.galeryEntries" name="{{category.categoryName[0]|lowercase}}"></catalog-details>
 				</div>				
 			</div>	
 		</div>					

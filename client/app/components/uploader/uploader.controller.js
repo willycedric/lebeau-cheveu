@@ -70,7 +70,7 @@ class UploaderController {
 	}//end constructor
 
 		upload(controller,uiDestination){
-			var destination = uiDestination==""?'profil':uiDestination;
+			var destination = uiDestination==undefined?'profil':uiDestination;
 			switch(destination){
 				case "profil":
 				{

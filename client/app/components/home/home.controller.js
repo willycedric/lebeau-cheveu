@@ -98,14 +98,13 @@ class HomeController {
 	 * @return {[]} []
 	 */
 	goToSearchBarView(searchForm){
+		console.log('inside this fucntion',searchForm );
 		if(searchForm.$valid){
 			if(this.selectedLocation!=undefined){
-				if(this.$scope.formatted_address!=undefined){
-					if(this.selectedLocation.toUpperCase()==this.$scope.formatted_address.split(' ')[0].toUpperCase()){
-						this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:this.$scope.formatted_address});
-					}
+				if(this.$scope.data.formatted_address!=undefined){					
+						this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:this.$scope.data.formatted_address,longitude:this.$scope.data.longitude,latitude:this.$scope.data.latitude,address_components:this.$scope.data.address_components});					
 				}else{
-					this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:selectedLocation});
+					this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:this.selectedLocation});
 				}
 		}else{
 			throw new Error("no selected location was specified.");

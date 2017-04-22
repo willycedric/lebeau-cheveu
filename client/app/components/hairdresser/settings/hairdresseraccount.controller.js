@@ -1,6 +1,6 @@
 
 class HairdresseraccountController {
-  constructor($uibModal,API,Auth,ModalFactory,$log,hairdresserMAnager,AuthToken,$state,$window,settings,$scope,$http,$timeout) {
+  constructor($uibModal,API,Auth,ModalFactory,$log,hairdresserMAnager,$q,$state,$window,hairdresserResource,$scope,$http) {
 
   		  var self=this;
   		//List of department in Ile de France
@@ -22,32 +22,44 @@ class HairdresseraccountController {
 	 	/**
 	 	 * 
 	 	 */
-	 	self.ModalFactory=ModalFactory;
-	 	self.AuthToken=AuthToken;
+	 	self.ModalFactory=ModalFactory;	 	
 	 	self.$state =$state;
 	 	self.$window=$window;
 	 	self.hairdresserMAnager= hairdresserMAnager;
-		 self.$timeout =$timeout;
 		 self.Auth = Auth;
+		 this.$scope =$scope;	 
+		 self.$q =$q;
+		 self.hairdresserResource = hairdresserResource;
 
-	   /* Auth.getProfile(`${API.dev.hairdresserRoute}`+'/me')
-	  	.then(function hairdresserProfileSuccesscallback(rep){
-	  			self.hairdresser = rep;
-	  			 self.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(self.hairdresser.appointments);
-	  	}, function hairdresserProfileErrorCallback (err){
-	  		$log.error(new Error("hairdresser account error callback "+err));
-	  	});*/
-	  var deserialize = function(data){
-		  if(data.hasOwnProperty("hairdresser")){
-			self.hairdresser = data.hairdresser;
-			 console.log(self.hairdresser);	
-		  }	
-		  if(data.hasOwnProperty("user")){
-			self.user = data.user;	
-		  }		 
-	  	self.profile_picture=self.hairdresser.profile_picture;
-	  	self.count =hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(self.hairdresser.appointments);
-	  };
+		var deserialize = ()=>{
+			var defered = self.$q.defer();
+			self.hairdresserResource.getSettings()
+			.then((rep)=>{
+				defered.resolve(rep);
+			},(err)=>{
+				defered.reject(rep);
+			});
+			return defered.promise;
+		}
+
+		var init = ()=>{
+			deserialize()
+			.then((data)=>{
+				if(data.hasOwnProperty("hairdresser")){
+				self.hairdresser = data.hairdresser;
+				//console.log(self.hairdresser);	
+				}	
+				if(data.hasOwnProperty("user")){
+					self.user = data.user;	
+				}				
+				self.count =hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(self.hairdresser.appointments);
+			},(err)=>{
+				throw new Error(err.toString());
+			});
+		}
+			
+			
+	
 	  	/**
 	  	 * [description]
 	  	 * @param  {[type]} hairdresser [description]
@@ -60,13 +72,13 @@ class HairdresseraccountController {
 	  		}, function HairdresseraccountControllerUpdateErrorCallback(err){
 	  			$log.error(err);
 	  		})			 
-					.finally(()=>{
-						topController.displayConfirmationModal(successMessage,true);
-						topController.$timeout(()=>{
+			.finally(()=>{
+				topController.displayConfirmationModal(successMessage,true);
+				topController.$timeout(()=>{
 
-						},1000)
-						topController.$window.reload();
-					})
+				},1000)
+				topController.$window.reload();
+			})
 	  	};
 
 	   /**
@@ -104,46 +116,44 @@ class HairdresseraccountController {
 
 				var $ctrl = this;
 				$ctrl.multipleSelect= [];
-				$ctrl.hairdresser =topController.hairdresser;
-				$ctrl.listOfIleDeFranceDepartement = topController.listOfIleDeFranceDepartement;
+				$ctrl.hairdresser =topController.hairdresser;				
 				$ctrl.listOfAvailableHaircut = topController.listOfAvailableHaircut;
-				$ctrl.updatePreference = (multipleSelect1, multipleSelect2,multipleSelect3,multipleSelect4)=>{
+				$ctrl.multipleSelect2 = [];
+				angular.forEach(topController.hairdresser.categories,(elt)=>{
+					$ctrl.multipleSelect2.push(elt.name);
+				});
+				$ctrl.updatePreference = (multipleSelect1, multipleSelect2,multipleSelect3)=>{
 				
 				//if more than one value, the customer type is both men and women
 				if(multipleSelect1 === undefined){
 					
-				}else if (multipleSelect1.length > 1){ // either men or women
+				}else if (multipleSelect1.length > 1){ // either men or women 
 					$ctrl.hairdresser.customer_type = 0;
 				}else{
 					$ctrl.hairdresser.customer_type=parseInt(multipleSelect1[0]);
 				}
 				// Updating  haircuts categories of the hairdresser
-				if(multipleSelect2 === undefined){
-
+				if(multipleSelect2 === undefined){					
 				}
 				else if(multipleSelect2.length!= 0){
 					$ctrl.hairdresser.categories = [];
-					angular.forEach(multipleSelect2, function(val, key){
-						if(val === "0"){
-							$ctrl.hairdresser.categories.push("cheveux bouclés");
-						}else if(val ==="1"){
+					angular.forEach($ctrl.multipleSelect2, function(val, key){
+						if(val === "CHEVEUX AFRO"){
 							$ctrl.hairdresser.categories.push("cheveux afro");
-						}else{
+						}else if(val ==="CHEVEUX LISSES"){
 							$ctrl.hairdresser.categories.push("cheveux lisses");
+						}else{
+							$ctrl.hairdresser.categories.push("cheveux bouclés");
 						}
 					});
 				}
+				if(multipleSelect3===undefined){
 
-				if(multipleSelect3 != undefined && multipleSelect3.length!= 0){					
-					$ctrl.hairdresser.activityArea=[];
-					angular.forEach(multipleSelect3, (val, key)=>{
-						$ctrl.hairdresser.activityArea.push($ctrl.listOfIleDeFranceDepartement[parseInt(val)]);
-					});
 				}
 				//update the hairdresser performance list
-				if(multipleSelect4!= undefined && multipleSelect4.length!= 0){
+				else if(multipleSelect3!= undefined && multipleSelect3.length!= 0){
 					$ctrl.hairdresser.listOfPerformance=[];
-					angular.forEach(multipleSelect4, (val, key)=>{
+					angular.forEach(multipleSelect3, (val, key)=>{
 						$ctrl.hairdresser.listOfPerformance.push($ctrl.listOfAvailableHaircut[parseInt(val)]);
 					});
 				}
@@ -155,17 +165,14 @@ class HairdresseraccountController {
 				//self.updateHairdresserProfile(data)
 				$http.put(`${API.dev.homeUrl}`+`${API.dev.hairdresserRoute}`+'/setting/preference',{user:data})
 				.then((rep)=>{
-					deserialize(rep.data);
-					console.log("update hairdresser", rep);
+					//deserialize(rep.data);
+					init();
+					//console.log("update hairdresser", rep);
 				}, (err)=>{
 					throw new Error(err.toString());
 				})
 				.finally((rep)=>{
 					topController.displayConfirmationModal("Vos Informations ont bien été enregistées.",true);
-					top.$timeout(()=>{
-
-					},1000);
-					topController.$window.location.reload();
 					$uibModalInstance.close('close');
 				})
 				
@@ -192,16 +199,13 @@ class HairdresseraccountController {
 					//topController.updateHairdresserProfile(data);
 					topController.Auth.updateUserProfile(`${API.dev.hairdresserRoute}`,data)
 					.then(function HairdresseraccountControllerUpdateSuccessCallback(rep){
-						deserialize(rep);
+						//deserialize(rep);
+						init();
 					}, function HairdresseraccountControllerUpdateErrorCallback(err){
 						throw new Error(err.toString());
 					})			 
 					.finally(()=>{
-						topController.displayConfirmationModal('Votre description a bien été enregistrée.',true);
-						topController.$timeout(()=>{
-
-						},1000)
-						topController.$window.reload();
+						topController.displayConfirmationModal('Votre description a bien été enregistrée.',true);						
 					})						
 					$uibModalInstance.close('close');
 				};
@@ -211,7 +215,8 @@ class HairdresseraccountController {
 			});	   
 	};// end updateDescriptionModal
 
-	deserialize(settings);
+	//deserialize(settings);
+	init();
   } //end constructor
 
   			/**
@@ -295,6 +300,106 @@ class HairdresseraccountController {
 		return count;
 	}
 
+	/**
+	 * add an activity area to the connected hairdresser
+	 * @param {*} location googple maps place object
+	 */
+	updateCoverZone(location){
+		var self=this;
+		//parse the response returned from the google api
+		var init = ()=>{
+				var defered = self.$q.defer();
+				var data ={};
+				if(this.$scope){			
+				for (var i in this.$scope.address_components)
+				{				
+					var component = this.$scope.address_components[i];
+					for (var j in component.types) {  // Some types are ["country", "political"]
+						switch(component.types[0]){
+							case"postal_code":
+							data.postal_code = component.long_name;
+							break;
+							case "administrative_area_level_1":
+							data.administrative_level_1 = component.long_name;
+							break;
+							case "administrative_area_level_2":
+								data.administrative_level_2 = component.long_name;
+							break;
+							case "locality":
+								data.locality = component.long_name;
+							break;
+							case "country":
+								data.country = component.long_name;
+							break;
+							default:
+							break;
+						}			
+					}
+					
+				}				
+				data.location = [this.$scope.longitude, this.$scope.latitude]
+				data.longitude=this.$scope.longitude;
+				data.latitude = this.$scope.latitude;
+				data.formatted_address = this.$scope.formatted_address;				
+				defered.resolve(data);
+			}else{
+				//throw new Error("the scope variable is not available");
+				defered.reject(new Error("the scope variable is not available"));
+			}
+			return defered.promise;
+		}
+		//send the location information to the backend
+		init()
+		.then((data)=>{
+			console.log(data)
+			var found = self.validate(self.hairdresser.activityArea,data);
+			if(!found){
+				self.hairdresserMAnager.updateHairdresserCoverZone(data)
+				.then((rep)=>{
+					self.displayConfirmationModal(data.formatted_address+" a été ajoutée à liste de vos zone d'activités.",true);
+				},()=>{
+					self.displayConfirmationModal("une erreur est survenue pendant la mise à jour de votre profil. Veuillez recommencer ultérieurement",false);
+				});
+				
+			}else{
+				self.displayConfirmationModal(data.formatted_address+" ,a déja été ajoutée à liste de vos zone d'activités.",true);
+			}			
+		},(err)=>{
+			throw new Error(err.toString());
+		});
+		
+	}
+	/**
+	 * delete the connected hairdresser cover area with the specified id
+	 * @param {*} id mongodb objectId
+	 */
+	deleteArea(id){
+		var self=this;
+		self.hairdresserMAnager.deleteHairdresserCovereArea(id)
+		.then((rep)=>{
+			self.displayConfirmationModal("La location a bien été supprimée de votre list de zones couvertes.", true);
+		},(err)=>{
+			self.displayConfirmationModal("une erreur est survenue pendant la mise à jour de votre profil. Veuillez recommencer ultérieurement",false);
+		})
+	}
+	/**
+	 * check if the new activity area is already add by the connected hairdresser.
+	 * @param {*list of the activity area } collection 
+	 * @param {* new activity area} data 
+	 */
+	validate(collection,data){
+		var found = false;
+		angular.forEach(collection, function(area){
+			if(area.hasOwnProperty("formatted_address")){
+				if(area.formatted_address == data.formatted_address){
+					found = true;
+					return found;
+				}
+			}
+		});
+		return found;
+	}
+
 }//end class
-HairdresseraccountController.$inject =['$uibModal','API','Auth','ModalFactory','$log','hairdresserMAnager','AuthToken','$state','$window','settings','$scope','$http','$timeout'];
+HairdresseraccountController.$inject =['$uibModal','API','Auth','ModalFactory','$log','hairdresserMAnager','$q','$state','$window','hairdresserResource','$scope','$http'];
 export {HairdresseraccountController};

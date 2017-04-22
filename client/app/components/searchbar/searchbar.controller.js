@@ -1,5 +1,5 @@
 class SearchbarController {
-  constructor($stateParams,API,$log,searchBar,Location,AuthToken,hairdresserMAnager,$scope,$q) {
+  constructor($stateParams,API,$log,searchBar,Location,AuthToken,hairdresserMAnager,$scope,$q,geolocation,NgMap) {
   	
   	this.$stateParams = $stateParams;
   	this.API = API;
@@ -20,25 +20,42 @@ class SearchbarController {
     this.detailAlerts=[]
     this.$scope=$scope;
     this.$q = $q;
+    this.geolocation =geolocation;
+   this.NgMap = NgMap;
+   this.formatted_address=this.$stateParams.selectedLocation;
 
+     // Initializes Variables
+    // ----------------------------------------------------------------------------
+    var coords = {};
+    var lat = 0;
+    var long = 0;
+    this.formData ={};
+    // Set initial coordinates to the center of the US
+    this.formData.longitude = -98.350;
+    this.formData.latitude = 39.500;
    //Writing the selected category and location to the local storage   
+   console.log("location",this.$stateParams.selectedLocation);  
     this.saveOnLocalStorage('selectedLocation',this.$stateParams.selectedLocation);
-    this.saveOnLocalStorage('selectedCategory', this.$stateParams.selectedCategory);  
-    
-    
+    this.saveOnLocalStorage('selectedCategory', this.$stateParams.selectedCategory); 
+    this.saveOnLocalStorage('longitude', this.$stateParams.longitude);
+    this.saveOnLocalStorage('latitude',this.$stateParams.latitude);
+    this.AuthToken.saveObj("components",this.$stateParams.address_components);
+   
     
   	//retrieving search parameters from the home page 
   	this.selectedLocation =AuthToken.get('selectedLocation');
   	this.selectedCategory = AuthToken.get('selectedCategory');
+    this.longitude = this.AuthToken.get('longitude');
+    this.latitude = this.AuthToken.get('latitude');
+   // this.components = this.AuthToken.getObj('components');
   	//list of Available haircuts
   	this.listOfavailableHaircuts = null;
   	this.availableHaircutCategories =this.searchBar.getListOfavailableCategories();
-        this.$log.log("availableHaircutCategories ",this.availableHaircutCategories);
+        //this.$log.log("availableHaircutCategories ",this.availableHaircutCategories);
   	//Load the righ haircut list according to the parameters sent by the custome on the home search form
   	this.loadTheRightHaircutList();
-
-    this.launchSearch = (selectedLocation,selectedHaircut)=>{
-      console.log("selectedLocation",selectedLocation);
+   //this.getCurrentUserLocation();
+    this.launchSearch = (selectedLocation,selectedHaircut)=>{      
       this.detailAlerts =[];  
       var checkOptions = ()=>{
         var defered = this.$q.defer();
@@ -56,18 +73,28 @@ class SearchbarController {
      .then((reason)=>{
        if(reason.length==0){
          if(this.$scope.formatted_address){
-            var searchParameters={
-              location:(selectedLocation.toUpperCase()==this.$scope.formatted_address.split(' ')[0].toUpperCase())?this.$scope.formatted_address.split(' ')[0]:selectedLocation[0]+selectedLocation[1],
-              haircut:(this.listOfavailableHaircuts.indexOf(selectedHaircut)-1),
-              category:this.listOfAvailableCategories.indexOf(this.selectedCategory)
-              };
-            this.findHairdressersAccordingToSelectedArea(searchParameters);
+            this.initSearch(this.$scope.address_components,this.$scope.longitude,this.$scope.latitude,this.$scope.formatted_address)
+            .then((data)=>{
+             data.haircut=this.listOfavailableHaircuts.indexOf(selectedHaircut);
+             data.category=this.listOfAvailableCategories.indexOf(this.selectedCategory);
+             console.log("search parameter ",data);
+              this.findHairdressersAccordingToSelectedArea(data);
+            });
+            // var searchParameters={
+            //   location:this.$scope.formatted_address,
+            //   haircut:this.listOfavailableHaircuts.indexOf(selectedHaircut),
+            //   category:this.listOfAvailableCategories.indexOf(this.selectedCategory)
+            //   };
+            // this.findHairdressersAccordingToSelectedArea(searchParameters);
          }else{
            var searchParameters={
-              location:selectedLocation[0]+selectedLocation[1],
+              location:selectedLocation,
               haircut:(this.listOfavailableHaircuts.indexOf(selectedHaircut)),
-              category:this.listOfAvailableCategories.indexOf(this.selectedCategory)
-              };
+              category:this.listOfAvailableCategories.indexOf(this.selectedCategory),
+              longitude:parseFloat(this.longitude),
+              latitude:parseFloat(this.latitude)
+            };
+            console.log(searchParameters);            
             this.findHairdressersAccordingToSelectedArea(searchParameters);
          }          
         }else{
@@ -87,7 +114,7 @@ class SearchbarController {
         }
      });
   };   
-
+  this.NgMapDetails();
   }//end constructeur
 
   /**
@@ -160,9 +187,61 @@ class SearchbarController {
       this.closeAlert(this.detailAlerts, ind);
     };
 
-}
+ initSearch(components,longitude,latitude,formatted_address){
+				var defered = this.$q.defer();
+				var data ={};
+				if(this.$scope){			
+				for (var i in components)
+				{				
+					var component =components[i];
+					for (var j in component.types) {  // Some types are ["country", "political"]
+						switch(component.types[0]){
+							case"postal_code":
+							data.postal_code = component.long_name;
+							break;
+							case "administrative_area_level_1":
+							data.administrative_level_1 = component.long_name;
+							break;
+							case "administrative_area_level_2":
+								data.administrative_level_2 = component.long_name;
+							break;
+							case "locality":
+								data.locality = component.long_name;
+							break;
+							case "country":
+								data.country = component.long_name;
+							break;
+							default:
+							break;
+						}			
+					}
+					
+				}
+				data.longitude = longitude;
+				data.latitude = latitude;
+				data.formatted_address = formatted_address;		
+        this.formatted_address = formatted_address;		
+				defered.resolve(data);
+			}else{
+				//throw new Error("the scope variable is not available");
+				defered.reject(new Error("the scope variable is not available"));
+			}
+			return defered.promise;
+		}
 
-SearchbarController.$inject= ['$stateParams','API','$log','searchBar','Location','AuthToken','hairdresserMAnager','$scope','$q'];
+    
+    /**
+     * 
+     */
+    NgMapDetails(){
+     this.NgMap.getMap().then(function(map) {
+        console.log(map.getCenter());
+        console.log('markers', map.markers);
+        console.log('shapes', map.shapes);
+      });
+    }
+}
+SearchbarController.$inject= ['$stateParams','API','$log','searchBar','Location','AuthToken','hairdresserMAnager','$scope','$q','geolocation','NgMap'];
 
 export {SearchbarController};
 

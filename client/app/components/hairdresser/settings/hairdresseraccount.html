@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-sm-3">
 				<div class="row">
-					<uploader url="{{vm.profile_picture}}"></uploader>
+					<uploader url="{{vm.hairdresser.profile_picture}}"></uploader>
 				</div> <!-- row id card -->
 				<menu></menu>
 			</div> <!-- .col-sm-4 left-element -->
@@ -41,15 +41,46 @@
 					<hr/>
 					<div class="row" id="preference">
 						<div class="col-sm-5 row-top left">
-							<span class="section-contains">Type de client: {{vm.hairdresser.customer_type | customerTypeFilter}}</span>
-							<span class="section-contains">Zone(s) couverte(s): <span ng-repeat="area in vm.hairdresser.activityArea track by $index"> {{area}}</span> </span>
+							<span class="section-contains">Type de client: {{vm.hairdresser.customer_type | customerTypeFilter}}</span>							
 						</div>	
 						<div class="col-sm-5 row - top right">
-							<span class="section-contains">Categorie(s) de coiffure:<span ng-repeat="category in vm.hairdresser.categories track by $index"> {{category.name}} </span> <br/></span>
+							<span class="section-contains">Categorie(s) de coiffure:<span ng-repeat="category in vm.hairdresser.categories track by $index"> {{category.name |lowercase}} </span> <br/></span>
 							<span class="section-contains">Type(s) de coiffure(s):<span ng-repeat="performance in vm.hairdresser.listOfPerformance track by $index"> {{performance}} </span> <br/></span>
 						</div>					
 					</div>
 				</div><!-- .section -->
+				<div class="section">
+					<div class=" row section-top">
+						<span class="section-t col-sm-3">
+								<h4>Zone(s) couverte(s)</h4>
+						</span><!-- .section-title -->
+					</div>
+					<hr>
+					<br>
+					<div class="row">
+						<div class="col-sm-9">
+							<form role="form" name="coverZoneForm">									
+								<div class="row form-group">
+									<label class="col-sm-4 control-label">Code Postal</label>
+									<div class="col-sm-8">										
+									<input 	uib-tooltip="code postale et nom de la ville" id="user_input_autocomplete_address3" name="user_input_autocomplete_address3" ng-model="location"
+											class="form-control" placeholder="Entrez un code postale  ..."/>
+									</div>
+								</div>									
+							</form>
+						</div>
+						<div class="col-sm-2">
+							<input type="button" class="btn-lbc"  ng-click="vm.updateCoverZone(location)"value="Enregister"/>
+						</div>
+						<hr/>
+						<br>
+						<div class="row">							
+							<div class="col-sm-6"ng-repeat="area in vm.hairdresser.activityArea track by $index">
+								<span class="section-contains">Adresse {{$index+1 }}: {{::area.formatted_address }}</span> <button class="btn btn-edit btn-primary" type="button" ng-click="vm.deleteArea(area._id)">Supprimer</button>								
+							</div>
+						</div>
+					</div> <!-- row section-top -->					
+				</div> <!-- .section -->
 				<div class="section">
 					<div class=" row section-top">
 						<span class="section-t col-sm-3">
@@ -162,26 +193,26 @@
 		<h3 class="center modal-tile">Préferences </h3>
 	</div>
 	<div class="modal-body">
-		<form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="$ctrl.updatePreference($ctrl.multipleSelect1,$ctrl.multipleSelect2,$ctrl.multipleSelect3,$ctrl.multipleSelect4)">			
+		<form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="$ctrl.updatePreference($ctrl.multipleSelect1,$ctrl.multipleSelect2,$ctrl.multipleSelect3)">			
 			
 					<label for="multipleSelect1" uib-tooltip="ctrl (PC) ou cmd (Mac) + Click pour sélectionner plusieur choix"> Type de client:  </label><br>				
 				    <select name="multipleSelect1" id="multipleSelect1" ng-model="$ctrl.multipleSelect1" multiple>
 				      <option value="1">Femme</option>
 				      <option value="2">Homme</option>
 				      <option value="0">Mixte</option>
-				    </select><br>
-			      <label for="multipleSelect3" uib-tooltip="ctrl (PC) ou cmd (Mac) + Click pour sélectionner plusieur choix"> Zone(s) couverte(s)  </label><br>				
-				    <select name="multipleSelect3" id="multipleSelect3" ng-model="$ctrl.multipleSelect3" multiple>
-				      <option ng-repeat = "zone in $ctrl.listOfIleDeFranceDepartement track by $index" value="{{$index}}">{{::zone}}</option>
-				    </select><br>
+				    </select><br>			      
 				    <label for="multipleSelect2" uib-tooltip="ctrl (PC) ou cmd (Mac) + Click pour sélectionner plusieur choix"> Categorie de coiffure:  </label><br>				
 				    <select name="multipleSelect2" id="multipleSelect2" ng-model="$ctrl.multipleSelect2" multiple>
-				      <option value="1">Cheveux Afro</option>
-				      <option value="2">Cheveux Lisses</option>
-				      <option value="0">Cheveux Bouclés</option>
+				      <option value="CHEVEUX AFRO">Cheveux Afro</option>
+				      <option value="CHEVEUX LISSES">Cheveux Lisses</option>
+				      <option value="CHEVEUX BOUCLÉS">Cheveux Bouclés</option>
 				    </select><br>
-				      <label for="multipleSelect4" uib-tooltip="ctrl (PC) ou cmd (Mac) + Click pour sélectionner plusieur choix"> Type(s) coiffure  </label><br>				
-				    <select name="multipleSelect4" id="multipleSelect4" ng-model="$ctrl.multipleSelect4" multiple>
+					<!--<input type="checkbox" ng-model="vm.categpries.values1" ng-true-value="'Cheveux Afro'" ng-value-false="''"/><label>Cheveux Afro</label><br/>
+					<input type="checkbox" ng-model="vm.categpries.values2" ng-true-value="'Cheveux Lisses'" ng-value-false="''"/><label>Cheveux Lisses</label><br/>
+					<input type="checkbox" ng-model="vm.categpries.values3" ng-true-value="'Cheveux Bouclés'" ng-value-false="''"/><label>Cheveux Bouclés</label>
+					<br/>-->
+					<label for="multipleSelect3" uib-tooltip="ctrl (PC) ou cmd (Mac) + Click pour sélectionner plusieur choix"> Type(s) coiffure  </label><br>				
+				    <select name="multipleSelect3" id="multipleSelect3" ng-model="$ctrl.multipleSelect3" multiple>
 				      <option ng-repeat = "haircut in $ctrl.listOfAvailableHaircut track by $index" value="{{$index}}">{{::haircut}}</option>
 				    </select><br>
 	    			   
@@ -220,7 +251,7 @@
 		</form>  
 	</div>
 </script>
-<script type="text/ng-template" id="hairdresserPassword.html>"
+<script type="text/ng-template" id="hairdresserPassword.html">
 </script>
 <script type="text/ng-template" id="confirmation-modal.html">
    	  		<div class="modal-header-success"  ng-show="$ctrl.isSuccess">

@@ -35,25 +35,14 @@ export const homeDirective = ()=> {
                                 google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged);
                             }
                         }
-
                         function onPlaceChanged() {
                                 var place = this.getPlace();
-                                scope.formatted_address = place.formatted_address;
-                                //console.log(place);  // Uncomment this line to view the full object returned by Google API.
-                                for (var i in place.address_components) {
-                                    var component = place.address_components[i];
-                                    for (var j in component.types) {  // Some types are ["country", "political"]
-                                    var type_element = document.getElementById(component.types[j]);
-                                    if (type_element) {
-                                        type_element.value = component.long_name;
-                                    }
-                                    }
-                                }
+                                scope.data ={};
+                                scope.data.formatted_address = place.formatted_address;
+                                scope.data.address_components= place.address_components;
+								scope.data.longitude = place.geometry.location.lng();
+								scope.data.latitude = place.geometry.location.lat();	
                         }
-
-                        // google.maps.event.addDomListener(window, 'load', function() {
-                        // initializeAutocomplete('user_input_autocomplete_address');
-                        // });
                      initializeAutocomplete('user_input_autocomplete_address');
                  
                 });

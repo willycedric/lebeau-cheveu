@@ -196,6 +196,28 @@
  			});
  			return deferred.promise;
  		};
+		
+		const updateHairdresserCoverZone = (data)=>{
+			var deferred = $q.defer();
+ 			$http.put(apiUrl+`${API.dev.hairdresserRoute}`+'/update/area',{area:data})
+ 			.then(function updateCovereArezSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function updateCoverArezFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to update the hairdresser's covere area.", err))
+ 			});
+ 			return deferred.promise;
+		}
+
+		const deleteHairdresserCovereArea = (id)=>{
+			var deferred = $q.defer();
+ 			$http.delete(apiUrl+`${API.dev.hairdresserRoute}`+'/delete/area',{params:{id:id}})
+ 			.then(function deleteCoverAreaSuccessCallback(response){
+ 				deferred.resolve(response.data);
+ 			}, function deleHairdresserCoverAreaFailureCallback(err){
+ 				deferred.reject(new Error("An error occurs when trying to delete an hairdresser's coverea state.", err))
+ 			});
+ 			return deferred.promise;
+		}
 
  		return {
  			updateHairdresserAppointment,
@@ -210,7 +232,9 @@
  			updateAppointmentState,
  			deleteHairdresserAccount,
  			availableHaircutCategories,
- 			updateHaircutCategory
+ 			updateHaircutCategory,
+			deleteHairdresserCovereArea,
+			updateHairdresserCoverZone
  		};
  };
 

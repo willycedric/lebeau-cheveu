@@ -7,7 +7,15 @@ const AuthToken = ($window,$log) =>{
   const saveToken = (token)=>{
     $window.localStorage.setItem('jwtToken',token);
   };
+   
+   const saveObj =(key, val)=>{
+     $window.localStorage.setItem(key,JSON.stringify(val));
+   };
 
+   const getObj = (key)=>{
+     var temp= $window.localStorage.getItem(key);
+     return JSON.parse(temp);
+   };
   /**
    * [get the token saved in the sessionStorage]
    * @return {[string]} [token received in the server response and saved in the sessionStorage]
@@ -79,7 +87,9 @@ const AuthToken = ($window,$log) =>{
   	isAuthenticated,
     save,
     get,
-    erase
+    erase,
+    saveObj,
+    getObj
   };
 };
 AuthToken.$inject =['$window','$log'];
