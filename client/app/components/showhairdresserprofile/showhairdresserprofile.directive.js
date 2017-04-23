@@ -11,7 +11,7 @@ export const showhairdresserprofileDirective = ()=> {
 	 	controllerAs:'vm',
 	 	restrict:'E',
 	 	scope:{},
-	 	link: function(scope, elt, atts){
+	 	link: function(scope, elt, atts){ 
    		 },
 	 	replace:true,
 	 	data: { transition: 'slide-in'}
