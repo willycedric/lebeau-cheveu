@@ -1,6 +1,8 @@
 class SearchbarController {
-  constructor($stateParams,API,$log,searchBar,Location,AuthToken,hairdresserMAnager,$scope,$q,geolocation,NgMap) {
+  constructor($stateParams,API,$log,searchBar,Location,AuthToken,hairdresserMAnager,$scope,$q,geolocation,NgMap,$window) {
   	
+     // Initializes Variables
+    // ----------------------------------------------------------------------------
   	this.$stateParams = $stateParams;
   	this.API = API;
   	this.$log = $log;
@@ -22,17 +24,28 @@ class SearchbarController {
     this.$q = $q;
     this.geolocation =geolocation;
    this.NgMap = NgMap;
-   this.formatted_address=this.$stateParams.selectedLocation;
+   this.formatted_address=this.$stateParams.selectedLocation;   
+   this.$window =$window;
+   //this.listOfSelectedHairdressers=[{location:"92500 Rueil-Malmaison, France",
+    //                                profile_picture:"https://res.cloudinary.com/lebeaucheveu/image/upload/v1492826828/qw3xzqz96cq14g6hfefo.png",
+     //                               _id:"58fab91b0af2bad1bce0274c"
+    //                              }];
+        var vm = this;
+        NgMap.getMap().then(function(map) {
+          vm.showCustomMarker= function(evt) {
+            map.customMarkers.foo.setVisible(true);
+            map.customMarkers.foo.setPosition(this.getPosition());
+          };
+          vm.closeCustomMarker= function(evt) {
+            this.style.display = 'none';
+          };
+        });
 
-     // Initializes Variables
-    // ----------------------------------------------------------------------------
-    var coords = {};
-    var lat = 0;
-    var long = 0;
-    this.formData ={};
-    // Set initial coordinates to the center of the US
-    this.formData.longitude = -98.350;
-    this.formData.latitude = 39.500;
+        this.positions =[
+          {pos:"17 rue michelet 92500 Rueil Malmaison, France"},
+          {pos:"38 Rue aimé Fluttaz Courtry, France"}
+        ];
+
    //Writing the selected category and location to the local storage   
    console.log("location",this.$stateParams.selectedLocation);  
     this.saveOnLocalStorage('selectedLocation',this.$stateParams.selectedLocation);
@@ -80,12 +93,7 @@ class SearchbarController {
              console.log("search parameter ",data);
               this.findHairdressersAccordingToSelectedArea(data);
             });
-            // var searchParameters={
-            //   location:this.$scope.formatted_address,
-            //   haircut:this.listOfavailableHaircuts.indexOf(selectedHaircut),
-            //   category:this.listOfAvailableCategories.indexOf(this.selectedCategory)
-            //   };
-            // this.findHairdressersAccordingToSelectedArea(searchParameters);
+           
          }else{
            var searchParameters={
               location:selectedLocation,
@@ -154,7 +162,9 @@ class SearchbarController {
     this.hairdresserMAnager.findHairdressers(seachParameters)
     .then((data)=>{
         if(data.length>0){//display the search result if a least on hairdresser is found
-          this.listOfSelectedHairdressers = data;     
+          this.listOfSelectedHairdressers = data;  
+          //this.$window.location.reload();   
+          console.log("received data", data);
           this.isAtLeastOneHairdresserFound =true;
            this.disPlayNoResult=true;
            this.disPlayInitialForm=true;
@@ -241,7 +251,7 @@ class SearchbarController {
       });
     }
 }
-SearchbarController.$inject= ['$stateParams','API','$log','searchBar','Location','AuthToken','hairdresserMAnager','$scope','$q','geolocation','NgMap'];
+SearchbarController.$inject= ['$stateParams','API','$log','searchBar','Location','AuthToken','hairdresserMAnager','$scope','$q','geolocation','NgMap','$window'];
 
 export {SearchbarController};
 

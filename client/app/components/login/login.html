@@ -5,11 +5,14 @@
             <!-- <h3 class="modal-title">Error!</h3>-->
         </div>
         <div class="modal-body">
-          <sapn style="text-align:center;margin-left:30%;">{{$ctrl.message}}<img style="margin-left:2%; width:5%;" ng-src="{{$ctrl.gif}}" alt="spining"/></span>
+          <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                   <sapn style="text-align:center;margin-left:30%;">{{$ctrl.message}}<img style="margin-left:2%; width:5%;" ng-src="{{$ctrl.gif}}" alt="spining"/></span>
+                </div>
+              </div>  
+          </div>         
         </div>
-       <!-- <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
-        </div>-->
       </script>
       <script type="text/ng-template" id="login.html">
         <div class="modal-body" id="modal-body">
@@ -150,21 +153,7 @@
                                   <span ng-if='registerForm.username.$pending.uniqueusername' class='text-info'>Vérification de la disponibilité ...</span>
                                   <span ng-show='registerForm.username.$invalid&& !registerForm.username.$error.uniqueusername &&!registerForm.username.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
                                   <span ng-show="registerForm.username.$invalid &&registerForm.username.$error.uniqueusername&&!registerForm.username.$pristine" class="text-warning">Le nom d'utilisateur choisi n'est plus disponible.</span>
-                                </div>
-                                 <!-- firstname -->
-                                <div class="field-wrap" ng-class="{ 'has-error' : registerForm.firstname.$invalid && !registerForm.firstname.$pristine }">
-                                  <label class="label-displayed" for="firstname"></label>
-                                  <input type="text" name="firstname" id="register-firstname"  ng-model ="vm.user.firstname" tabindex="1"  placeholder="prénom " value="" required>
-                                  <!-- in case of an error the message below is displayed as part of the list of message errors -->
-                                  <span ng-show='registerForm.firstname.$invalid &&!registerForm.firstname.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
-                                </div>
-                                 <!-- lastname -->
-                                <div class="field-wrap" ng-class="{ 'has-error' : registerForm.lastname.$invalid && !registerForm.lastname.$pristine }">
-                                  <label class="label-displayed" for="lastname"></label>
-                                  <input type="text" name="lastname" id="register-lastname"  ng-model ="vm.user.lastname" tabindex="1"  placeholder="nom" value="" required>
-                                  <!-- in case of an error the message below is displayed as part of the list of message errors -->
-                                  <span ng-show='registerForm.lastname.$invalid &&!registerForm.lastname.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
-                                </div>
+                                </div>                            
                                  <!-- email -->
                                 <div class="field-wrap" ng-class="{ 'has-error' : registerForm.email.$invalid && !registerForm.email.$pristine }">
                                   <label class="label-displayed" for="email"></label>

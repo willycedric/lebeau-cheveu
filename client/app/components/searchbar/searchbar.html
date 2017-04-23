@@ -45,22 +45,34 @@
 				</div>
 			</div>
 			<div class="row">
-				<div ng-show="vm.isAtLeastOneHairdresserFound" >
-					<div class="container">
-						<div class="row">
-							<div class="col-sm-offset-1 col-sm-4 col-xs-6" ng-repeat="hairdresser in vm.listOfSelectedHairdressers">
-								<hairdresser-card  url = {{hairdresser.profile_picture}} id={{hairdresser._id}} description= {{hairdresser.user.name}}></hairdresser-card>								
-							</div>
-						</div>		
-					</div>
+					<div ng-show="vm.isAtLeastOneHairdresserFound" >
+						<div class="container">
+							<!--<div class="row">
+								<div class="col-sm-offset-1 col-sm-4 col-xs-6" ng-repeat="hairdresser in vm.listOfSelectedHairdressers">
+									<hairdresser-card  url = {{hairdresser.profile_picture}} id={{hairdresser._id}} description= {{hairdresser.user.name}}></hairdresser-card>								
+								</div>
+							</div>		-->
+						</div>				
+					<!--<div class="col-md-offset-1 col-md-offset-10">
+						<ng-map zoom="6" center="{{vm.formatted_address}}" style="height:600px">							
+							<marker animation="Animation.BOUNCE" position="{{vm.formatted_address}}" ></marker>
+							<em>{{vm.formatted_address}}</em>
+							<maker ng-repeat="hairdresser in vm.listOfSelectedHairdressers" position="{{hairdresser.location}}"></marker>
+						</ng-map>
+					</div>			-->
 				</div>
 			</div>
-			<div class="row">	
-				{{vm.formatted_address}}			
-				<div class="col-md-7">
-					<ng-map zoom="11" center="{{vm.formatted_address}}" style="height:600px">
+			<div class="row">
+				<div class="col-md-offset-1 col-md-offset-10">
+					<ng-map center="{{vm.formatted_address}}" zoom="11" mayTypeId="TERRAIN" style="height:500px"  on-center-changed="centerCustomMarker()">
 						<marker ng-if="vm.formatted_address==undefined" position="current" animation="Animation.BOUNCE" centered="true"></marker>
-						<marker animation="Animation.BOUNCE" position="{{vm.formatted_address}}" ></marker>
+						<marker animation="Animation.BOUNCE" position="{{vm.formatted_address}}"></marker>
+						<maker ng-repeat="hairdresser in vm.positions track by $index" id="foo-{{$index}}" position="{{hairdresser.pos}}"></marker>
+						<custom-marker   ng-repeat="hairdresser in vm.listOfSelectedHairdressers track by $index" position="{{hairdresser.location}}" id="custom-marker-{{$index}}" on-click="vm.closeCustomMarker()">
+							<div>
+								<img width="64" ng-src="{{hairdresser.profile_picture}}" align="left"/><br>
+							</div>
+						</custom-marker>
 					</ng-map>
 				</div>
 			</div>

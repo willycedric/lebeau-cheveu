@@ -8,6 +8,9 @@ class ModalInstanceCtrl {
     this.security = security;
     this.$location = $location;
     this.SOCIAL = SOCIAL;
+    this.$state =$state;
+    this.$uibModalStack=$uibModalStack;
+    this.$window = $window;
     /**
      * Function used to redirect the user to the facebook login Oauth provider
      * @return {[type]} [description]
@@ -84,44 +87,42 @@ class ModalInstanceCtrl {
         console.error('The login form is not valid');
       }            
     };
+     var signupSuccess = (data)=>{
+      if(data.success){
+        //account/user created, redirect...
+         this.$uibModalStack.dismissAll('closing');   
+        var url = data.defaultReturnUrl || '/';
+        return $location.path(url);
+      }else{
+        //error due to server side validation
+        $scope.errfor = data.errfor;
+        angular.forEach(data.errfor, function(err, field){
+          $scope.signupForm[field].$setValidity('server', false);
+        });
+      }
+    };
+    var signupError = ()=>{
+      $scope.alerts.push({
+        type: 'danger',
+        msg: 'Error creating account, Please try again'
+      });
+    };
     /**
      * Allow user to register an account
      * @param  {[type]} user         [Contains user's required information to create an account]
      * @param  {[type]} registerForm [Form object used for validation purpose]
      * 
      */
-    this.registerNewAccount = (user, registerForm)=>{
-           
-            if(registerForm.$valid){ 
-              if(user.role == 2){ //customers registration
-                this.displayLoading('Registration in progress');
-                Auth.register(`${API.dev.customerRoute}`,user)
-                      .then(function registerSuccessCallback(response){
-                          if(response.status===200){
-                            //$log.log('User is successfully registered');
-                          }
-                      },function registerFailureCallback(err){
-                          //console.error(err);
-                      }).finally(function(){
-                         $uibModalStack.dismissAll('closing'); //remove the spining modal 
-                      }); 
-              }else{ //hairdressers registration
-                this.displayLoading('Registration in progress');
-                Auth.register(`${API.dev.hairdresserRoute}`,user)
-                      .then(function registerSuccessCallback(response){
-                          if(response.status===200){
-                            //$log.log('User is successfully registered');
-                          }
-                      },function registerFailureCallback(err){
-                          //console.error(err);
-                      }).finally(function(){
-                         $uibModalStack.dismissAll('closing'); //remove the spining modal 
-                      }); 
-              }
-            }//end if
-            
-    };
+    
+    this.registerNewAccount = (user,registerForm)=>{
+      // this.displayLoading('Registration in progress');
+        if(registerForm.$valid){ 
+             this.security.signup(user).then(signupSuccess, signupError);
+             //remove the spining modal 
+                          
 
+        }
+    }
     /**
      * [description]
      * @param  {[type]} role [1 for hairdresser and 2 for customer, user to route password reset form to the correct model]
@@ -169,26 +170,13 @@ class ModalInstanceCtrl {
      * [description]
      * @return {[type]} [description]
      */
-    this.displayLoading = (message)=>{              
-                  var modalInstance = $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: 'loading.html',
-                  windowClass:'login',
-                  controller:function($uibModalInstance,message){
-                     this.message = message;
-                     this.gif="http://res.cloudinary.com/hgtagghpz/image/upload/v1476819238/spinning-gif_i5g0jx.gif";
-                  },
-                  controllerAs: '$ctrl',
-                  size: 'sm',
-                  resolve: {
-                    message: function () {
-                      return  message;
-                    }
-                  }
-                });
-        };
+     this.displayLoading = (message)=>{
+       var self= this;
+       self.ModalFactory.trigger(self,'loading.html','custom', function($uibModalInstance, topController){
+         this.message = message;
+         this.gif = "http://res.cloudinary.com/hgtagghpz/image/upload/v1476819238/spinning-gif_i5g0jx.gif";
+       });
+     };
 
 
     /// New controller definition goes here
