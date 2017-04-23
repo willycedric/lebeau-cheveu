@@ -9,14 +9,14 @@ export const securityServiceModule = angular.module('securityServiceModule', [
  uiBootstrap     // Used to display the login form as a modal dialog.
 ])
 
-.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$uibModal', 'AuthToken',function($http, $q, $location, queue, $uibModal,AuthToken) {
+.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$uibModal', 'AuthToken','API',function($http, $q, $location, queue, $uibModal,AuthToken,API) {
 
   // Redirect to the given url (defaults to '/')
   function redirect(url) {
     url = url || '/';
     $location.path(url);
   }
-const baseUrl =  'http://localhost:3500';
+const baseUrl =`${API.dev.homeUrl}`;
   // Login form dialog stuff
   var loginDialog = null;
   function openLoginDialog() {

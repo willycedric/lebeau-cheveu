@@ -1,7 +1,8 @@
 import {securityServiceModule} from './../security/security';
-export const servicesCatalogResourceModule = angular.module('servicesCatalogResourceModule', [securityServiceModule.name]).factory('catalogResource', ['$http', '$q', '$log', 'security', function ($http, $q, $log, security) {
+export const servicesCatalogResourceModule = angular.module('servicesCatalogResourceModule', [securityServiceModule.name]).factory('catalogResource', ['$http', '$q', '$log', 'security','API', function ($http, $q, $log, security,API) {
   // local variable
-  const baseUrl = 'http://localhost:3500/api';
+  //const baseUrl = 'http://localhost:3500/api';
+  const baseUrl =`${API.dev.homeUrl}`+'/api';
   const catalogUrl = baseUrl + '/catalogs';
   var processResponse = function(res){
     return res.data;

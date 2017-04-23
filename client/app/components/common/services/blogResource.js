@@ -1,7 +1,7 @@
 import {securityServiceModule} from './../security/security';
-export const servicesBlogResourceModule = angular.module('servicesBlogResourceModule', [securityServiceModule.name]).factory('blogResource', ['$http', '$q', '$log', 'security', function ($http, $q, $log, security) {
+export const servicesBlogResourceModule = angular.module('servicesBlogResourceModule', [securityServiceModule.name]).factory('blogResource', ['$http', '$q', '$log', 'security','API', function ($http, $q, $log, security,API) {
   // local variable
-  const baseUrl = 'http://localhost:3500/api';
+  const baseUrl =`${API.dev.homeUrl}`+'/api';
   const blogUrl = baseUrl + '/blogs';
   var processResponse = function(res){
     return res.data;

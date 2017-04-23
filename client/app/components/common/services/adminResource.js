@@ -1,6 +1,6 @@
-export const servicesAdminResourceModule = angular.module('servicesAdminResourceModule', []).factory('adminResource', ['$http', '$q', function ($http, $q) {
+export const servicesAdminResourceModule = angular.module('servicesAdminResourceModule', []).factory('adminResource', ['$http', '$q','API', function ($http, $q,API) {
   // local variable
-  const baseUrl = 'http://localhost:3500/api';
+  const baseUrl =`${API.dev.homeUrl}`+'/api';
   var userUrl = baseUrl + '/admin/users';
   var accountUrl = baseUrl + '/admin/accounts';
   var hairdresserUrl = baseUrl+'/admin/hairdressers';
