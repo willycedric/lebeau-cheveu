@@ -8,7 +8,6 @@ import textAngular from 'textangular/dist/textAngular.min.js';
 //import ngSanitize from 'angular-sanitize';
 import uiRouter from 'angular-ui-router';
 import template from './admin-blog.tpl.html';
-import 'textAngular/dist/textAngular.css';
 angular.module('adminBlogsDetailModule', [uiRouter,textAngular,securityAuthorizationModule.name,
      servicesUtilityModule.name, 
      servicesAdminResourceModule.name]);
