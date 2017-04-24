@@ -20,3 +20,28 @@ $margin-top:15%;
 .custom-marker{
 	margin: 3em;
 }
+.custom-marker{
+	display: block;
+}
+
+.marker-body{
+	// background:$default-background-color;
+    // color: white;
+    // margin: 1em;
+    // padding: 0.3em;
+    // padding-bottom: 0;
+    font-family: $default-font-groups;
+	font-weight: bolder;
+	color:#435e64;
+     cursor: pointer;
+	margin-left:0;
+	margin-top: -2.5em;
+	&:hover{
+		cursor:pointer;
+	}
+	// border-radius:3px;
+}
+.marker-img{
+	border-radius: 50%;
+    max-width: 40px;
+}

@@ -187,11 +187,12 @@ h5{
 /** Modal windows default styles */
 /* Modal header */
 .modal-header {
-	background:$button-color;
+	background:$default-background-color;
 	font-weight:$default-font-weight;
 	text-align: center;
-	text-transform:uppercase;
+	text-transform:initial;
 	color:$white;
+    font-family: $default-font-groups;
 }
 
  .modal-header-warning{
@@ -200,6 +201,7 @@ h5{
 	text-align: center;
 	text-transform:initial;
 	padding: 1px;
+    font-family: $default-font-groups;
     border-bottom: 1px solid #e5e5e5;
     border-top-left-radius: $default-border-radius;
     border-top-right-radius: $default-border-radius;
@@ -211,7 +213,8 @@ h5{
 	background:$green;
 	font-weight:$default-font-weight;
 	text-align: center;
-	text-transform:uppercase;
+	text-transform:initial;
+    font-family: $default-font-groups;
 	padding: 1px;
     border-top-left-radius: $default-border-radius;
     border-top-right-radius: $default-border-radius;
@@ -224,6 +227,7 @@ h5{
 	text-align: center;
 	text-transform:initial;
 	padding: 1px;
+    font-family: $default-font-groups;
     border-top-left-radius: $default-border-radius;
     border-top-right-radius: $default-border-radius;
     border-bottom: 1px solid #e5e5e5;

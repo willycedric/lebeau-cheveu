@@ -27,7 +27,7 @@ class UploaderController {
 
 	    $scope.launchModal = ()=>{		    	 
 	    	var self=this;  
-		     ModalFactory.trigger(self,'uploder.html', 'custom',function($uibModalInstance,topController){  
+		     ModalFactory.trigger(self,'uploder.html', 'uploader',function($uibModalInstance,topController){  
 		     	var same = this;   
 	          this.readFileImg = function(files){	          
 				  same.uploadPhoto = null;

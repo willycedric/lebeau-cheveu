@@ -36,9 +36,7 @@ class ShowhairdresserprofileController {
             //default selected category which is displayed when the view is loaded
             this.selectedCategory = null;
             this.accountResource=accountResource;
-            this.$stateParams = $stateParams;
-           
-           
+            this.$stateParams = $stateParams;          
             const currentDay = new Date();
             //let loggedCustomerInformation = AuthToken.parseToken(AuthToken.getToken());
             let loggedCustomerInformation = {};
@@ -57,10 +55,7 @@ class ShowhairdresserprofileController {
           /**
            * 
            */
-          this.getHairdresser(this._id);
-          
-          
-            
+          this.getHairdresser(this._id);                  
           /**
            * Carousel Logic for hairdresser
            */
@@ -377,8 +372,7 @@ class ShowhairdresserprofileController {
   getHairdresser(id){
     var self=this;
     self.Auth.getHairdresserById(id)
-    .then((response)=>{
-      
+    .then((response)=>{      
          self.hairdresser = response;
          var data ={
            categoryName:[],
@@ -400,10 +394,12 @@ class ShowhairdresserprofileController {
               };
           });
           self.listOfAvailableCategories = self.listOfAvailableCategories.slice(1);
+          console.log('list of available categorie ',self.listOfAvailableCategories);
           //initialize the default selected category to the first available in the list
           self.selectedCategory = self.listOfAvailableCategories[0].categoryName[0];               
         angular.forEach(self.hairdresser.appointments, (appt,key)=>{
-            self.events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers})
+            self.events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers});
+            console.log(" about ", self.events);
         });  
           console.log(self.events);
     })
@@ -486,7 +482,7 @@ class ShowhairdresserprofileController {
 defineCalendarOption(){
   var self = this;
   var deferred = this.$q.defer(); 
-  self.options = {
+  self.options ={
             customClass: function(data) {  
             var date = data.date,
               mode = data.mode;
@@ -495,6 +491,7 @@ defineCalendarOption(){
               for (var i = 0; i < self.events.length; i++) {
                 var currentDay = new Date(self.events[i].date).setHours(0,0,0,0);
                 if (dayToCheck === currentDay) {
+                  console.log('event status ',self.events[i].status);
                   return self.events[i].status;
                 }
               } 

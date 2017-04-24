@@ -239,10 +239,11 @@
     width: 40%;
     height: 60px;
     text-align: center;
+    color:white;
     float: left;
     font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
     border: 0;
-    background: #eee;
+    background:#435e64;
     -moz-border-radius: 3px 0 0 3px;
     -webkit-border-radius: 3px 0 0 3px;
     border-radius: 3px 0 0 3px;
@@ -252,7 +253,7 @@
         background-repeat:no-repeat;
         background-position: right 10px top 15px;
         background-size: 16px 16px;
-        background-color:#eee;
+        background-color:#435e64;
         font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
         height: 60px;
         padding: 5px;
@@ -271,30 +272,31 @@
         -moz-appearance: none;
         border:0;
         outline:0;
+        color:white;
     }
     .home .form-wrapper > input:focus {
         outline: 0;
-        background: #fff;
+        background: #435e64;
         -moz-box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
         -webkit-box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
         box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
     }
     
     .home .form-wrapper > input:-webkit-input-placeholder {
-       color: #999;
+       color: white;
        font-weight: normal;
        font-style: italic;
        
     }
     
     .home .form-wrapper > input:-moz-placeholder {
-        color: #999;
+        color: white;
         font-weight: normal;
         font-style: italic;
     }
     
     .home .form-wrapper > input:-ms-input-placeholder {
-        color: #999;
+        color: white;
         font-weight: normal;
         font-style: italic;
     }    
@@ -312,7 +314,7 @@
     font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
     color: #fff;
     text-transform: uppercase;
-    background: rgba(13,167,169,0.8);
+    background: rgba(13,167,169,0.99);
     -moz-border-radius: 0 3px 3px 0;
     -webkit-border-radius: 0 3px 3px 0;
     border-radius: 0 3px 3px 0;

@@ -18,7 +18,9 @@
 	</section><!-- #profil -->
 	<section id="category-content">
 		<div class="container">
+			
 			<div class=" section row category-detail">
+					<h3> Mes réalisations </h3>
 				<select class="category" ng-model="vm.selectedCategory" > 					
 					<option ng-repeat="category in vm.listOfAvailableCategories" value="{{category.categoryName[0]}}"> {{category.categoryName[0]|lowercase}}</option>
 				</select>

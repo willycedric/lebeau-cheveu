@@ -1,5 +1,5 @@
 class SearchbarController {
-  constructor($stateParams,API,$log,searchBar,Location,AuthToken,hairdresserMAnager,$scope,$q,geolocation,NgMap,$window) {
+  constructor($stateParams,API,$log,searchBar,Location,AuthToken,hairdresserMAnager,$scope,$q,geolocation,NgMap,$window,$location) {
   	
      // Initializes Variables
     // ----------------------------------------------------------------------------
@@ -26,25 +26,40 @@ class SearchbarController {
    this.NgMap = NgMap;
    this.formatted_address=this.$stateParams.selectedLocation;   
    this.$window =$window;
-   //this.listOfSelectedHairdressers=[{location:"92500 Rueil-Malmaison, France",
-    //                                profile_picture:"https://res.cloudinary.com/lebeaucheveu/image/upload/v1492826828/qw3xzqz96cq14g6hfefo.png",
-     //                               _id:"58fab91b0af2bad1bce0274c"
-    //                              }];
-        var vm = this;
-        NgMap.getMap().then(function(map) {
-          vm.showCustomMarker= function(evt) {
-            map.customMarkers.foo.setVisible(true);
-            map.customMarkers.foo.setPosition(this.getPosition());
-          };
-          vm.closeCustomMarker= function(evt) {
-            this.style.display = 'none';
-          };
-        });
+   this.$location =$location;
 
-        this.positions =[
-          {pos:"17 rue michelet 92500 Rueil Malmaison, France"},
-          {pos:"38 Rue aimé Fluttaz Courtry, France"}
-        ];
+    var vm = this;
+    NgMap.getMap().then(function(map) {
+      console.log(map.markers.user);//.style.background="blue";
+     
+      vm.showCustomMarker= function(evt) {
+        map.customMarkers.foo.setVisible(true);
+        map.customMarkers.foo.setPosition(this.getPosition());
+      };
+       //redirect to user to the selected hairdresser profile
+      vm.goToHairdresserProfile= function(evt,hairdresserId) {
+          console.log("Moouse event ",evt);
+          var url = "/showhairdresserprofile/"+hairdresserId.toString();
+          if(hairdresserId!=undefined){
+            vm.$location.path(url);
+          }else{
+            throw new Error(" the hairdresser id is not defined");
+          }
+      };
+    });
+
+
+    //toggle animation of the customer marker
+    vm.toggleBounce = function() {
+      if (this.getAnimation() != null) {
+        this.setAnimation(null);
+      } else {
+        this.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    }
+
+   
+    
 
    //Writing the selected category and location to the local storage   
    console.log("location",this.$stateParams.selectedLocation);  
@@ -122,7 +137,6 @@ class SearchbarController {
         }
      });
   };   
-  this.NgMapDetails();
   }//end constructeur
 
   /**
@@ -238,20 +252,9 @@ class SearchbarController {
 			}
 			return defered.promise;
 		}
-
-    
-    /**
-     * 
-     */
-    NgMapDetails(){
-     this.NgMap.getMap().then(function(map) {
-        console.log(map.getCenter());
-        console.log('markers', map.markers);
-        console.log('shapes', map.shapes);
-      });
-    }
+   
 }
-SearchbarController.$inject= ['$stateParams','API','$log','searchBar','Location','AuthToken','hairdresserMAnager','$scope','$q','geolocation','NgMap','$window'];
+SearchbarController.$inject= ['$stateParams','API','$log','searchBar','Location','AuthToken','hairdresserMAnager','$scope','$q','geolocation','NgMap','$window','$location'];
 
 export {SearchbarController};
 
