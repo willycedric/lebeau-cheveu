@@ -4,10 +4,13 @@ import {showhairdresserprofileDirective} from './showhairdresserprofile.directiv
 import {securityServiceModule} from './../common/security/security';
 import {servicesAccountResourceModule} from './../common/services/accountResource';
 import hairdresserProfileCard from './hairdresser-profile-card.html';
+import {uiCalendar} from './uiCalendar';
 import './hairdresser-profile-card.scss';
+import './calendar.scss';
 export const showhairdresserprofile = angular.module('showhairdresserprofile', [uiRouter,
 securityServiceModule.name,
-servicesAccountResourceModule.name
+servicesAccountResourceModule.name,
+uiCalendar.name
 ])
   .config(($stateProvider) => {
     $stateProvider.state('showhairdresserprofile', {

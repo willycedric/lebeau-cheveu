@@ -12,10 +12,7 @@
       this.hairdresserMAnager = hairdresserMAnager; 
       this.customerMAnager=customerMAnager;
       this.DateHandler = DateHandler;
-      this.$window = $window;
-      $scope.loadLogbook = false;
-      $scope.spinner="http://i.imgur.com/Xqtymmo.gif";
-      $scope.url ="logbook.html"
+      this.$window = $window;      
       const availableAppointmentDays=31; //Use to limit the datepicker to one month in order to prevent user to go to far in the future
       $scope.dt = new Date();
     //If a user is connected through the localStretegy, retrieveed the token from the localStorage
@@ -40,8 +37,7 @@
               //datepicker logic
              angular.forEach(this.hairdresser.appointments, (appt,key)=>{
                this.events.push({id:appt._id, date:appt.dayOfWeek, time:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers})
-            });  
-            console.log("list of events",this.events); 
+            });              
           })
           .finally(()=>{
              this.defineCalendarOption($scope)
@@ -50,28 +46,32 @@
               });          
           }); 
         };        
-      //Logic to handle hairdresser click on the logbook 
-      $scope.$watch('dt', (newValue, oldValue)=>{      
-          if(newValue !== oldValue){
-            appointmentOfTheDay=[];
-            //checking if the selected date belongs to the hairdresser's appointment list
-            angular.forEach(this.events, (apt,key)=>{
-               if(DateHandler.isEqual(apt.date,newValue)){ //there is a date with an appointment
-                  appointmentOfTheDay.push(apt);                   
-               }
-            });
-            //check that the date picked contains appointments
-            if(typeof appointmentOfTheDay !== undefined && appointmentOfTheDay.length>0){
-               this.displayListOfAppointmentsOfTheSelectedDay(appointmentOfTheDay);
-            }else{
-              if(newValue < (new Date())){ //haidresser has selected an empty date in the past
-                this.displayEmptyAppointmentInThePast(newValue);
-              }else{ 
-                this.displayEmptyAppointmentSlot(newValue);
-              }              
-            }           
-          }
-      });      
+   
+
+      /**
+       * 
+       */
+       this.onTimeSelected = (selectedTime, events)=>{ 
+                var self = this;
+                appointmentOfTheDay=[];
+                console.log("selected date", selectedTime);
+                //checking if the selected date belongs to the hairdresser's appointment list
+                angular.forEach(this.events, (apt,key)=>{
+                  if(DateHandler.isEqual(apt.date,selectedTime)){ //there is a date with an appointment
+                      appointmentOfTheDay.push(apt);                   
+                  }
+                });
+                //check that the date picked contains appointments
+                if(typeof appointmentOfTheDay !== undefined && appointmentOfTheDay.length>0){
+                  this.displayListOfAppointmentsOfTheSelectedDay(appointmentOfTheDay);
+                }else{
+                  if(self.DateHandler.moment( new Date()).diff(self.DateHandler.moment(selectedTime))>0){ //haidresser has selected an empty date in the past
+                    this.displayEmptyAppointmentInThePast(selectedTime);
+                  }else{ 
+                    this.displayEmptyAppointmentSlot(selectedTime);
+                  }              
+                }         
+       }     
       this.getTheSelectedStatus();
       init(logbook);
   };//end constructor;
@@ -194,6 +194,7 @@
        * [delete an appointment and send a notification to the related customer]
        * @return {[type]} [description]
        */
+      
       this.decline = () =>{
         topController.hairdresserMAnager.removeHairdresserAppointement(apt.id)
         .then((rep)=>{
@@ -286,6 +287,7 @@ displayEmptyAppointmentSlot(date){
     }else{
         this.ModalFactory.trigger(this,'lockedappointment.html','custom', function($uibModalInstance, topController){
         //If the hairdresser decide to locked a date/time period
+        this.date = date;       
         this.confirm = (selectedHour)=>{     
             var confirmationMessage = 'La journée du '+date.toLocaleDateString()+' à bien été vérouillée.';
             var errorMessage = 'Erreur lors de la procédure de réservation. Veuillez essayer ultérieurement.'
@@ -370,35 +372,6 @@ getTheSelectedStatus(date){
         }
       }
   })
-}
-/**
- * [defineCalendarOption description]
- * @return {[type]} [description]
- */
-defineCalendarOption($scope){
-  var self = this;
-  var deferred = this.$q.defer(); 
-  $scope.options = {
-            customClass: function(data) {  
-            var date = data.date,
-              mode = data.mode;
-            if (mode === 'day') { 
-              var dayToCheck = new Date(date).setHours(0,0,0,0);
-              for (var i = 0; i < self.events.length; i++) {
-                var currentDay = new Date(self.events[i].date).setHours(0,0,0,0);
-                if (dayToCheck === currentDay) {
-                  return self.events[i].status;
-                }
-              } 
-            }
-            return '';
-          },
-            minDate: null, //Allow us to select date in the past 
-            showWeeks: false,
-            datepickerMode:'day'
-      };
-    deferred.resolve(true);
-    return deferred.promise;
 }
 
 /**

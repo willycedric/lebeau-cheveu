@@ -7,7 +7,7 @@ const userFactory = () =>{
 	};
 
 	const getUser =() =>{
-		return loggedUser;
+		return loggedUser; 
 	};
 
 	const getLogged= ()=>{

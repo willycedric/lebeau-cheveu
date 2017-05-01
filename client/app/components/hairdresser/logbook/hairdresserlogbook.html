@@ -8,7 +8,7 @@
 				<menu></menu>
 			</div> <!-- .col-sm-4 left-element -->
 			<div class="col-sm-offset-1 col-sm-5">
-				<div class="row">
+				<!--<div class="row">
 					<div>
 						<div ng-hide="loadLogbook">
 						<img class="logbook-spinner" ng-src={{spinner}}/>					 
@@ -18,10 +18,19 @@
 							    <div class='datepicker'>
 							      <div uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></div>
 							    </div>
-							</div> <!-- logbook --> 									
+							</div> 								
 						</div>	
 					</div>
-				</div><!-- .row -->
+				</div> -->
+				<div class="row">
+					 <div class="well well-sm">
+							<calendar all-day-label="Toute la journée" ng-model="vm.currentDate" calendar-mode="mode" event-source="vm.eventSource"
+									range-changed="vm.reloadSource(startTime, endTime)"
+									event-selected="vm.onEventSelected(event)"
+									time-selected="vm.onTimeSelected(selectedTime, events)">
+							</calendar>
+					</div>
+				</div> <!-- calendar -->
 			</div> <!-- right element -->	
 			<div class="col-sm-3 row-top">				
 				<div class="row logbook-legend">
@@ -78,10 +87,10 @@
 	             <h5 class="center modal-title">Vérouiller une journée ?</h5>
 	        </div>
 	        <div class="modal-body" id="modal-body">
-	           <span class="question-modal" style="text-algin:center;">Souhaitez-vous vérouiller  la journée  du  {{$ctrl.date|date}} ? </span>
+	           <span class="question-modal" style="text-algin:center;">Souhaitez-vous v&erouiller  la journée  du  {{$ctrl.date|date}} ? </span>
 	        </div>
 	        <div class="modal-footer" style="text-align:center;">
-	            <button class="btn btn-primary" type="button" ng-click="$ctrl.confirm()">Vérouiller</button>
+	            <button class="btn btn-primary" type="button" ng-click="$ctrl.confirm()">V&erouiller</button>
 	            <button class="btn btn-primary" type="button" ng-click="$ctrl.back()">Annuler</button>
 	        </div>
   	</script>
@@ -91,7 +100,7 @@
          <h5 class="center modal-title"> Journée réservée </h5>
         </div>
         <div class="modal-body" id="modal-body">
-           <span class="question-modal" style="text-algin:center;">Vous avez réservée la journée du  {{$ctrl.date|date}}. </span>
+           <span class="question-modal" style="text-algin:center;">Vous avez réservée la journ&ee du  {{$ctrl.date|date}}. </span>
         </div>
         <div class="modal-footer" style="text-align:center;">
             <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
@@ -126,7 +135,7 @@
 				</div>-->
 		        <div class="modal-body default" id="modal-body">
 		           <div>
-		           		<p> Vous avez vérouillé la journée du {{apt.date|date}}.</p>
+		           		<p> Vous avez v&erouillé la journ&ee du {{apt.date|date}}.</p>
 		           </div>
 		        </div>
 	        </div>
@@ -134,7 +143,7 @@
 				
 		        <div class="modal-body default" id="modal-body">
 		           <div>
-		           		<p> {{apt.date |date}} à {{apt.time}} avec {{apt.relatedCustomer.customerFirstname}} {{apt.relatedCustomer.customerLastname}} </p>
+		           		<p> {{apt.date |date}} à {{apt.time}} avec {{apt.relatedCustomer}} </p>
 		           		<button class="btn btn-primary" ng-click="$ctrl.appointmentDetails(apt)">Détails</button>
 		           </div>
 		        </div>
@@ -172,7 +181,7 @@
 			</div>
 	        <div class="modal-body default" id="modal-body">
 	           <div class="appointment-details">
-	           		<p> Rendez-vous confirmé pour le {{$ctrl.apt.date |date}} à {{$ctrl.apt.time}} avec {{$ctrl.apt.relatedCustomer.customerFirstname}} {{$ctrl.apt.relatedCustomer.customerLastname}} </p>
+	           		<p> Rendez-vous confirmé pour le {{$ctrl.apt.date |date}} à {{$ctrl.apt.time}} avec {{$ctrl.apt.relatedCustomer}} </p>
 	           </div>
 	        </div>
 	        <div class="modal-footer default">
@@ -186,7 +195,7 @@
 			</div>
 	        <div class="modal-body default" id="modal-body">
 	           <div class="appointment-details">
-	           		<p> Rendez-vous confirmé le {{$ctrl.apt.date |date}} à {{$ctrl.apt.time}} avec {{$ctrl.apt.relatedCustomer.customerFirstname}} {{$ctrl.apt.relatedCustomer.customerLastname}} </p>
+	           		<p> Rendez-vous confirmé le {{$ctrl.apt.date |date}} à {{$ctrl.apt.time}} avec {{$ctrl.apt.relatedCustomer}} </p>
 	           </div>
 	        </div>
 	        <div class="modal-footer default">
