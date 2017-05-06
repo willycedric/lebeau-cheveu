@@ -1,0 +1,31 @@
+<section class="accountactivation section-padding">
+ <div class="container top-5 " ng-show="vm.isSuccess">
+ 		<div class="row">
+ 			<div class="col-sm-offset-3 col-sm-6">
+ 				<div class="section-success section-height-min">
+ 					<h5 class="section-t-lower"> Activation </h5>
+ 				</div> <!-- .section -->
+ 				<div class="section-padding-3">
+ 					<p class="section-content">
+ 						Votre compte vient d'être activé .
+ 					</p><br/>
+ 						<login name="connexion"></login>
+ 					
+ 				</div>  <!-- .section -->
+ 			</div>
+ 		</div> <!-- .row -->
+ </div>
+ <div class="container top-5" ng-hide="vm.isSuccess">
+ 		<div class="row">
+ 			<div class="col-sm-offset-3 col-sm-6"> 				
+ 				<div class="section-default section-height-min">
+ 					<h5 class="section-t-lower"> Activation en cours</h5>
+ 				</div> <!-- .section -->
+ 				<div class="section">
+ 					<sapn>{{vm.message}}<img style="margin-left:2%; width:5%;" ng-src="{{vm.gif}}" alt="spining"/></span>
+ 				</div>  <!-- .section -->
+
+ 			</div>
+ 		</div>
+ </div>
+</section>
