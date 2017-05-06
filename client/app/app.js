@@ -97,10 +97,10 @@ angular.module('app', [
 .config(['$httpProvider','XSRF_COOKIE_NAME', 'csrfCDProvider',function($httpProvider, XSRF_COOKIE_NAME,csrfCDProvider){
     $httpProvider.defaults.xsrfCookieName = XSRF_COOKIE_NAME;
     $httpProvider.defaults.withCredentials = true;
-   /* $httpProvider.defaults.headers.common = {};
+    $httpProvider.defaults.headers.common = {};
     $httpProvider.defaults.headers.post = {};
     $httpProvider.defaults.headers.put = {};
-    $httpProvider.defaults.headers.patch = {};*/
+    $httpProvider.defaults.headers.patch = {};
    // csrfCDProvider.setHeaderName('X-XSRF-TOKEN');
     //csrfCDProvider.setCookieName(XSRF_COOKIE_NAME);
     //$httpProvider.defaults.useXDomain = true;
