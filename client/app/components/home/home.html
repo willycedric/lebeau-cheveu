@@ -20,12 +20,14 @@
           <div class="container carousel-overlay text-center">
               <div class="row catch-phrase-top">
                   <div class=" col-sm-offset-3 col-sm-3" id="home-start-change">
-                      <h1><i>LeBeauCheveu</i></h1>
+                      <h1><i>Lebeaucheveu</i></h1>
                   </div>
               </div><!-- .row-->
               <div class="row">
-                  <div class=" catch-phrase-low col-sm-offset-3 col-sm-6">
-                      <h2><i>Ne vous déplacez plus pour vous faire belle.</i></h2>
+                  <div class="col-sm-offset-3 col-sm-6">
+                      <h2>
+                          <span class="catch-phrase-low">Prenez rendez-vous avec votre coiffeuse !</span>
+                     </h2>
                   </div>
               </div><!-- .row-->            
              <div class="row">
@@ -37,7 +39,7 @@
                                 </optgroup>
                             </select>
                             <!--<input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">-->                            
-                            <input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/ required>											
+                            <input uib-tooltip="adresse, ville" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/ required>											
                             <button type="submit">GO</button>
                 </form>
               </div><!-- .row -->
@@ -54,10 +56,7 @@
                   <div class="row">
                     <h4>Des intervenants qualifiés </h4>
                     <p class="text-muted">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                          consequat.
+                        Des coiffeuses professionnelles et expérimentées soigneusement sélectionnées par notre équipe aux services de vos cheveux  dans toute la France.
                     </p>
                   </div><!-- end .row-->
               </div><!-- end .catching-details-->
@@ -67,11 +66,8 @@
                   </div><!-- end .row-->
                   <div class="row">
                     <h4>Des conseils et astuces </h4>
-                    <p class="text-muted">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                          consequat.
+                    <p class="text-muted">                        
+                         Lisez régulièrement notre blog et profitez des astuces et des dernières tendances beauté en rejoignant la communauté Lebeaucheveu.                    .
                     </p>
                   </div><!-- end .row-->
               </div><!-- end .catching-details-->
@@ -82,10 +78,7 @@
                   <div class="row">
                     <h4>Toujours plus près de vous </h4>
                     <p class="text-muted">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                          consequat.
+                       Grâce à notre réseau de coiffeuses présentes dans toute la France, vous trouverez toujours des intervenants qualifiés à proximité de chez vous.
                     </p>
                   </div><!-- end .row-->
               </div><!-- end .catching-details-->
@@ -101,13 +94,10 @@
                       <div class="col-sm-offset-1  col-sm-11">
                           <h3 class="section-title"> Comment ça marche ? </h3>
                           <p class="text">
-                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                          consequat.
+                             Il suffit de quelques clics, pour réserver un rendez-vous avec une coiffeuse à proximité de chez vous...
                           </p>
                       </div>
-                      <button class="btn-lbc-default btn-home" ng-click="vm.goToJoinState()">En savoir plus </button>
+                      <button class="btn-lbc-default btn-more-info btn-home" ng-click="vm.goToJoinState()">En savoir plus </button>
                   </div><!-- end .row -->
               </div>
           </div><!-- end .row -->
@@ -127,6 +117,11 @@
                         {{vm.name}}
                     </div>
             </div><!-- end map -->
+            <div class="col-sm-6">
+                <div class="row">
+                    <h3>Selectionnez votre région et trouvez votre coiffeuse </h3>
+                </div><!-- .row -->
+            </div><!-- col-sm-6 -->
         </div> <!-- .row -->        
     </div> <!-- .container -->     
   </section> <!-- #motivation -->

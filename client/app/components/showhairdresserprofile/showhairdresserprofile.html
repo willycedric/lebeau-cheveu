@@ -16,21 +16,7 @@
 			</div> <!-- .row -->
 		</div><!-- .container -->
 	</section><!-- #profil -->
-	<section id="category-content">
-		<div class="container">
-			
-			<div class=" section row category-detail">
-					<h3> Mes réalisations </h3>
-				<select class="category" ng-model="vm.selectedCategory" > 					
-					<option ng-repeat="category in vm.listOfAvailableCategories" value="{{category.categoryName[0]}}"> {{category.categoryName[0]|lowercase}}</option>
-				</select>
-				<br/>
-				<div class="col-sm-offset-1 category-entry" ng-repeat="category in vm.listOfAvailableCategories" ng-if="vm.selectedCategory == category.categoryName[0]">
-					<catalog-details contents="category.galeryEntries" name="{{category.categoryName[0]|lowercase}}"></catalog-details>
-				</div>				
-			</div>	
-		</div>					
-	</section>	 
+	 
 	<section id="logbook" class="">
 		<div class="container">
 		  <div class="section row">							
@@ -111,6 +97,21 @@
 	</div><!-- .row -->
 	</div><!-- .container -->  	
 	</section><!-- #prestation-avis -->
+	<section id="category-content">
+		<div class="container">
+			
+			<div class=" section row category-detail">
+					<h3> Mes réalisations </h3>
+				<select class="category" ng-model="vm.selectedCategory" > 					
+					<option ng-repeat="category in vm.listOfAvailableCategories" value="{{category.categoryName[0]}}"> {{category.categoryName[0]|lowercase}}</option>
+				</select>
+				<br/>
+				<div class="col-sm-offset-1 category-entry" ng-repeat="category in vm.listOfAvailableCategories" ng-if="vm.selectedCategory == category.categoryName[0]">
+					<catalog-details contents="category.galeryEntries" name="{{category.categoryName[0]|lowercase}}"></catalog-details>
+				</div>				
+			</div>	
+		</div>					
+	</section>	
 
   		<script type="text/ng-template" id="confirmation.html">
   			<div class="modal-header">

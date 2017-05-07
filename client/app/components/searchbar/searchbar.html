@@ -63,7 +63,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-offset-1 col-md-offset-10">
+				<div class="col-md-offset-1 col-md-6">
 					<div>
 						<ng-map center="{{vm.formatted_address}}" zoom="11" mayTypeId="TERRAIN" style="height:500px"  on-center-changed="centerCustomMarker()">
 							<marker position="{{vm.formatted_address}}" id="user"	animation="BOUNCE" on-click="vm.toggleBounce()" draggable="false"></marker>

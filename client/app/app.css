@@ -176,6 +176,11 @@ object{
     src: url(../../dist/3069A7_0_0.eot);
     src: url(../../dist/3069A7_0_0.eot?#iefix) format('embedded-opentype'), url(../../dist/3069A7_0_0.woff2) format('woff2'), url(../../dist/3069A7_0_0.woff) format('woff'), url(../../dist/3069A7_0_0.ttf) format('truetype')
 }
+@font-face{
+    font-family: Lobster;
+    src:url(../../dist/lobster.eot);
+    src:url(../../dist/lobster.eot?#iefix) format('embedded-opentype'),url(../../dist/lobster.woff) format('woff'), url(../../dist/lobster.ttf) format('truetype')
+}
 
 @font-face {
     font-family: FuturaPT-Medium;
