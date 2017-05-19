@@ -1,7 +1,6 @@
 import './searchbar.css';
 import {SearchbarController as controller} from './searchbar.controller';
 import template from './searchbar.html';
-
 export const searchbarDirective = ()=> {
 	 return{
 	 	template,
@@ -10,7 +9,13 @@ export const searchbarDirective = ()=> {
 	 	restrict:'E',
 	 	scope:{},
 		  link: function(scope, elt, atts){
-                $(document).ready(function(){					         
+                $(document).ready(function(){
+					//put the default navbar color to white after page loading
+					$(".navbar-default").css('background-color', '#fff');
+					$(".navbar-default .navbar-nav>li>a").css("color","#ddd");
+					
+
+					//google geolocation feature 			         
                      function initializeAutocomplete(id) {
 						var element = document.getElementById(id);	                        					
 						if (element) {
@@ -25,8 +30,8 @@ export const searchbarDirective = ()=> {
 								scope.longitude = place.geometry.location.lng();
 								scope.latitude = place.geometry.location.lat();	                         
                         }
-                     initializeAutocomplete('user_input_autocomplete_address');
-					 initializeAutocomplete('user_input_autocomplete_address2');                 
+                     initializeAutocomplete('user_input_autocomplete_address');					 
+					 //end google geolocation feature
                 });
 	    },
 	 	replace:true,

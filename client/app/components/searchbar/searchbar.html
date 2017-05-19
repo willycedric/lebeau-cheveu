@@ -1,29 +1,27 @@
-<section class="home search-form">
-	<div class="test">
-		<div class="container">
+<section class="search-form">	
+		<div class="container home search-area">
 			<div class="row hidden-xs" >
-			<div ng-show ="vm.disPlayInitialForm">                 
+			<div ng-show ="vm.disPlayInitialForm" class="search-hairdresser-form">                 
 				<div uib-alert ng-repeat="alert in vm.detailAlerts" type="{{alert.type}}" close="vm.closeDetailAlert($index)">{{alert.msg}}</div>
-				<form class="form-wrapper cf"  name ="search" ng-submit="vm.launchSearch(vm.selectedLocation,vm.selectedHaircut)"> 
+				<form class="form-wrapper form-left cf"  name ="search" ng-submit="vm.launchSearch(vm.selectedLocation,vm.selectedHaircut,longitude, latitudes)"> 
 						<select  ng-model="vm.selectedHaircut" id="haircut-type" name="haircut" class="no-rounder">
 							<optgroup label="categories">
 								<option value="">Quelle catégorie de coiffure?</option>
 								<option ng-repeat = "haircut in vm.listOfavailableHaircuts"  value="{{haircut}}">{{haircut}}</option>
 							</optgroup>
-						</select>				
-						<!--<input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">-->                            
+						</select>										
 						<input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/>											
 						<button type="submit">GO</button>
 				</form>
 			</div> <!--  .hero-footer  -->
 		</div> <!-- .row .hidden-xs -->
 		<div class="row">
-			<div  ng-hide ="vm.disPlayNoResult" >
-					<div class="container">
+			<div  ng-hide ="vm.disPlayNoResult">
+					<div class="container search-hairdresser-form">
 						<div class="row hidden-xs" >
 							<div>   
 								<div uib-alert ng-repeat="alert in vm.detailAlerts" type="{{alert.type}}" close="vm.closeDetailAlert($index)">{{alert.msg}}</div>
-								<form class="form-wrapper cf"  name ="haircutStyleForm" ng-submit="vm.launchSearch(vm.selectedLocation,vm.selectedHaircut)"> 
+								<form class="form-wrapper form-left cf"  name ="haircutStyleForm" ng-submit="vm.launchSearch(vm.selectedLocation,vm.selectedHaircut,longitude,latitude)"> 
 										<select  ng-model="vm.selectedHaircut" id="haircut-type" name="haircut" class="no-rounder">
 											<optgroup label="categories">
 												<option value="">Quelle catégorie de coiffure?</option>
@@ -31,7 +29,7 @@
 											</optgroup>
 										</select>				
 										<!--<input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">-->                            
-										<input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address2"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/>											
+										<input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/>											
 										<button type="submit">GO</button>
 								</form>
 							</div> <!--  .hero-footer  -->
@@ -44,25 +42,62 @@
 					</div>
 				</div>
 			</div>
+		</div> <!-- end .container -->
+		<div class="container result-container">	
 			<div class="row">
-					<div ng-show="vm.isAtLeastOneHairdresserFound" >
-						<div class="container">
-							<!--<div class="row">
-								<div class="col-sm-offset-1 col-sm-4 col-xs-6" ng-repeat="hairdresser in vm.listOfSelectedHairdressers">
-									<hairdresser-card  url = {{hairdresser.profile_picture}} id={{hairdresser._id}} description= {{hairdresser.user.name}}></hairdresser-card>								
-								</div>
-							</div>		-->
-						</div>				
-					<!--<div class="col-md-offset-1 col-md-offset-10">
-						<ng-map zoom="6" center="{{vm.formatted_address}}" style="height:600px">							
-							<marker animation="Animation.BOUNCE" position="{{vm.formatted_address}}" ></marker>
-							<em>{{vm.formatted_address}}</em>
-							<maker ng-repeat="hairdresser in vm.listOfSelectedHairdressers" position="{{hairdresser.location}}"></marker>
-						</ng-map>
-					</div>			-->
+				<div class="col-md-9 single-result">
+						<div  class= "row " ng-show="vm.isAtLeastOneHairdresserFound" ng-repeat="hairdresser in vm.listOfSelectedHairdressers track by $index">				
+									<div class="single-result" ng-class="{'first-element':$index==0}">
+										<div class="col-md-5 hairdresser-sticker">
+											<div class="row hairdresser-buble">
+												<div class="col-md-4 hairdresser-profile">
+													<img  ng-src="{{hairdresser.profile_picture}}" alt="test"   ng-click="vm.takeAnAppointment(hairdresser._id)"/>
+												</div>
+												<div class="col-md-8">
+													<div class="row">
+														<h3 class="hairdresser-name" ng-click="vm.takeAnAppointment(hairdresser._id)">
+															{{hairdresser.username}}
+														</h3>
+													</div>
+													<div class="row hairdresser-info">
+														<div class="row">
+															<div class="col-md-6 right-block">
+																<p>{{hairdresser.location}}</p>
+															</div>
+															<div class="col-md-6 left-block">
+																<p>{{hairdresser.customer_type | customerTypeFilter}}</p>
+															</div>
+														</div>
+														<div class="row">
+															<div class="rating" star-rating ng-model="hairdresser.rating" max="5" readonly="true"></div>
+														</div>							
+													</div>
+													
+												</div>				
+											</div> <!-- end .row -->
+											<div class="row">
+												<button class="hairdresser-booking"  ng-click="vm.takeAnAppointment(hairdresser._id)">
+													Prendre RDV
+												</button>
+											</div>
+										</div><!-- end .hairdresser-sticker -->								
+										<div class="col-md-7 hairdresser-weekly-logbook">
+											<calendar ng-model="currentDate" calendar-mode="vm.mode" event-source="vm.events[$index]"
+												range-changed="reloadSource(startTime, endTime)"
+												event-selected="onEventSelected(event)"
+												time-selected="onTimeSelected(selectedTime, events)">
+											</calendar>
+										</div> <!-- end .hairdresser-weekly-logbook-->										
+									</div> <!-- end .single-result -->							
+					</div> <!-- end ng-repeat -->
+				</div>	<!-- end .col-md-9 -->				
+				<div class="col-md-3 first-element">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime quasi qui alias excepturi, quibusdam architecto sapiente incidunt cumque ipsum, nihil assumenda, tempora? Numquam unde, harum voluptatibus quos fugit, fugiat voluptas!</p>
 				</div>
-			</div>
-			<div class="row">
+			</div> <!-- end .row -->		
+			
+			<!-- end hairdresser-details -->
+			<div class="row" style="display:none;">
 				<div class="col-md-offset-1 col-md-6">
 					<div>
 						<ng-map center="{{vm.formatted_address}}" zoom="11" mayTypeId="TERRAIN" style="height:500px"  on-center-changed="centerCustomMarker()">
@@ -81,6 +116,6 @@
 					</div>
 				</div>
 			</div>
-		</div><!-- end main .container-->	
-	</div>	
+	
+	</div><!-- end  .container-->	
 </section>

@@ -6,15 +6,27 @@
     text-align: right;
 }
 
-.scrollable {
+ .scrollable {
     width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    display: none;
+    height: 195px !important;
 }
 
 .table-fixed {
     table-layout: fixed;
+}
+
+.btn-nav{
+    color: white;
+    background: #0da7a9;
+    border: 1px solid white;
+    &:hover,&:focus,&:active,&:visited{
+        color: white;
+        background: #0da7a9;
+        border: 1px solid white;
+        outline: none;
+    }
 }
 
 .no-event-label {

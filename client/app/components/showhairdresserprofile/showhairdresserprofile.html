@@ -6,12 +6,24 @@
 					<hairdresser-id url="{{vm.hairdresser.profile_picture}}" name ="{{vm.hairdresser.name}}" type="{{vm.hairdresser.customer_type | customerTypeFilter}}"></hairdresser-id>
 				</div>				
 				<div class="col-sm-5  col-sm-offset-2 description">
-						<div >
-							<h3 style="text-align:center;">Description</h3>
+						<div class="row">
+							<div >
+								<h3 style="text-align:center;">Description</h3>
+							</div>
+							<hr/>
+							<p class="row-top"> 
+							{{:: vm.hairdresser.description}}
+							</p>
 						</div>
-						<hr/>
-						<p class="row-top">
-						{{:: vm.hairdresser.description}}</p>
+						<div class="row">
+							<div >
+								<h3 style="text-align:center;">Avis</h3>
+							</div>
+							<hr/>
+							<p class="row-top">																
+								<div  star-rating  ng-model="vm.rating" max="5" readonly="true"></div>														
+							</p>
+						</div>
 				</div>				
 			</div> <!-- .row -->
 		</div><!-- .container -->
@@ -21,12 +33,13 @@
 		<div class="container">
 		  <div class="section row">							
 					<div class="col-md-6">
-						<h3> Prochaines disponibilités </h3>
+						<h3> Prochaines disponibilités </h3>						
 						 <div class="well well-sm">
-							<calendar all-day-label="Toute la journée" ng-model="vm.currentDate" calendar-mode="mode" event-source="vm.eventSource"
+							<calendar all-day-label="Toute la journée" ng-model="vm.currentDate" calendar-mode="vm.mode" event-source="vm.eventSource"
 									range-changed="vm.reloadSource(startTime, endTime)"
 									event-selected="vm.onEventSelected(event)"
-									time-selected="vm.onTimeSelected(selectedTime, events)"></calendar>
+									time-selected="vm.onTimeSelected(selectedTime, events)">
+							</calendar>
 						</div>
 					</div>
 					<div class="col-sm-4 row-top">				
@@ -181,7 +194,7 @@
 	             <h5 class="center modal-title"> Bloqué</h5>
 	        </div>
 	        <div class="modal-body" id="modal-body">
-	           <span class="question-modal" style="text-algin:center;"> Seul les clients peuvent accéder à cette fonctionnalités</span>
+	           <span class="question-modal" style="text-algin:center;"> Seuls les clients peuvent accéder à cette fonctionnalité.</span>
 	        </div>
 	        <div class="modal-footer" style="text-align:center;">
 	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>

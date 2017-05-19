@@ -12,7 +12,8 @@ export const appDirective = ()=> {
     restrict: 'E',
     scope: {},
     link: function(scope, elt, atts){
-    },
+      
+  },
     replace: true
   };
 };

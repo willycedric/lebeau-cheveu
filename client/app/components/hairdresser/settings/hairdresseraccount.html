@@ -34,19 +34,70 @@
 						<span class="section-t col-sm-3">
 								<h4>Préferences</h4>
 						</span><!-- .section-title -->
-						<span class="col-sm-3 edit-button">
+						<!--<span class="col-sm-3 edit-button">
 							<a class="btn-default-lbc btn-lbc" ng-click ="vm.updatePreferenceModal()">Modifier</a>
-						</span><!-- .edit-button -->
+						</span>-->
 					</div> <!-- row section-top -->
 					<hr/>
 					<div class="row" id="preference">
-						<div class="col-sm-5 row-top left">
+						<div class="col-sm-5 row-top-2 left">
 							<span class="section-contains">Type de client: {{vm.hairdresser.customer_type | customerTypeFilter}}</span>							
-						</div>	
-						<div class="col-sm-5 row - top right">
+						</div>
+						<div class="col-sm-3 edit-button" >
+							<button type="button" class="btn-edit" ng-click ="vm.updateCustomerType()" aria-label="Left Align">
+									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+							</button>								
+						</div>
+					</div>
+					<div class="row">
+						<uib-accordion close-others="oneAtATime">
+							<div uib-accordion-group class="panel-default" heading="Nouvelle photo" template-url="gr-template.html">
+								<div class="row">   
+									<div id="new-entry">                        
+										<div class="browse-or-drop"><fieldset>                   
+											<legend>Parcourir ou glisser et déposer </legend>
+											<uploader url={{vm.entryUrl}} destination="galery"></uploader>                 
+										</fieldset></div>
+										<span class="alternative-choice">Ou</span>
+										<form class="form" name="contentForm" ng-submit="vm.update(url)"><fieldset>
+											<legend>Entrez le lien de la photo</legend>
+											<div uib-alert ng-repeat="alert in detailAlerts" type="{{alert.type}}" close="closeDetailAlert($index)">{{alert.msg}}</div>               
+											<div class="form-group" ng-class="{'has-error': hasError(contentForm.name)}">
+												<label class="control-label" for="url">Lien:</label>
+												<input type="text" name="url" placeholder="http://" id="url" class="form-control" ng-model="url" required>
+												<span class="danger" ng-show="contentForm.url.$invalid && !contentForm.url.$pristine">Ce champ est requis</span>
+											</div>                
+											
+											<div class="form-group">
+												<button type="submit" class="btn btn-primary" ng-disabled="contentForm.url.$invalid" >Enregistrer</button>
+											</div>
+										</fieldset></form>              
+									</div>                
+								</div>
+							</div>
+						</uib-accordion>
+					</div> 
+					<hr/>
+					<div class="row">
+						<div class="col-sm-5 row-top-2 left">
 							<span class="section-contains">Categorie(s) de coiffure:<span ng-repeat="category in vm.hairdresser.categories track by $index"> {{category.name |lowercase}} </span> <br/></span>
+						</div>
+						<div class="col-sm-3 edit-button" >
+							<button type="button" class="btn-edit" ng-click ="vm.updatePreferenceModal()" aria-label="Left Align">
+									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+							</button>								
+						</div>
+					</div>
+					<hr/>
+					<div class="row">
+						<div class="col-sm-8 row-top-2 left">
 							<span class="section-contains">Type(s) de coiffure(s):<span ng-repeat="performance in vm.hairdresser.listOfPerformance track by $index"> {{performance}} </span> <br/></span>
-						</div>					
+						</div>
+						<div class="col-sm-3 edit-button" >
+							<button type="button" class="btn-edit" ng-click ="vm.updatePreferenceModal()" aria-label="Left Align">
+									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+							</button>								
+						</div>			
 					</div>
 				</div><!-- .section -->
 				<div class="section">
@@ -293,4 +344,60 @@
 	            <button class="btn-lbc btn-error" type="button" ng-click="$ctrl.ok()">OK</button>
 	        </div>
 	</script>
+	<script type="text/ng-template" id="hairdresserCutomerType.html">
+		<div class="modal-header">
+			<h3 class="center modal-tile"> Type de client </h3>
+		</div>
+		<div class="modal-body">
+			<div class="container">				
+				<form autocomplete="off" role="customer"  id="customer-form"  name="customerTypeForm"  novalidate ng-submit="$ctrl.updateCustomerType(selection)">			
+				<div class="row">
+						<label> Femme:
+							<input type="checkbox" ng-model="selection.men">
+						</label>
+				</div>
+				<div class="row">
+					<label>Homme:
+						<input type="checkbox" ng-model="selection.women"/>
+					</label>
+				</div>
+				<div class="row">
+					<label>Mixte:
+						<input type="checkbox" ng-model="selection.both"/>
+					</label>
+				</div>				
+			</form> 
+		</div>			 			
+		<div class="container">	
+			<div class="row row-top ">
+				<div class=" col-sm-2">
+					<button  type="submit"  name="update-submit" id="customer-submit" tabindex="2" class="btn btn-lbc">
+						<span class=" glyphicon glyphicon-saved" aria-hidden="true">Enregister</span>
+					</button>					 
+				</div>
+				<div class="col-sm-offset-1 col-sm-1">
+					<button class="btn btn-lbc " type="button" ng-click="$ctrl.cancel()">Annuler</button>
+				</div>
+			</div>
+		</div>			
+	</div>
+</script>
+<script type="text/ng-template" id="gr-template.html">
+        <div>
+            <div class="panel-heading">
+          <h4 class="panel-title" style="color:#333">
+            <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()"  is-open="status.open" uib-accordion-transclude="heading">
+              <span uib-accordion-header ng-class="{'text-muted': isDisabled}" >
+                  <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                {{heading}}
+              </span>
+            </a>
+          </h4>
+        </div>
+        <div class="panel-collapse collapse" uib-collapse="!isOpen">
+          <div class="panel-body" style="text-align: right" ng-transclude></div>
+
+        </div>
+        </div>
+   </script>
 </section><!-- hairdresser -- >

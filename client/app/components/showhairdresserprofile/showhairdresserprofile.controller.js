@@ -26,6 +26,7 @@ class ShowhairdresserprofileController {
             this.events=[];
             this.$uibModal = $uibModal;         
             this.securityAuthorization = securityAuthorization;
+            this.mode="month";
             this.listOfAvailableCategories = [{
               categoryName:[],
               galeryEntries:[]             
@@ -50,6 +51,7 @@ class ShowhairdresserprofileController {
             
             //default selected category which is displayed when the view is loaded
             this.selectedCategory = null;
+            this.rating =0;
             this.accountResource=accountResource;
             this.$stateParams = $stateParams;          
             const currentDay = new Date();
@@ -78,6 +80,7 @@ class ShowhairdresserprofileController {
                 // if(self.isToday()){
                 //   alert('is today');
                 // }
+                this.dt = selectedTime;
                 security.requestCurrentUser()
                 .then((rep)=>{
                     if(true){
@@ -270,7 +273,7 @@ class ShowhairdresserprofileController {
                     return "";
                   }else{
                     self.ModalFactory.trigger(self,'slot-confirmation.html','custom',function($uibModalInstance,topController){
-                    //this.dt = topController.dt;
+                    this.dt = topController.dt;
                     topController.getAvailableSloteTimeForTheSelectedDay(selectedTime)
                     .then((resp)=>{ 
                                        
@@ -357,6 +360,8 @@ class ShowhairdresserprofileController {
     self.Auth.getHairdresserById(id)
     .then((response)=>{      
          self.hairdresser = response;
+         self.rating = self.hairdresser.rating;
+         console.log(JSON.stringify(self.hairdresser.rating));
          var data ={
            categoryName:[],
            galeryEntries:[]
@@ -376,9 +381,7 @@ class ShowhairdresserprofileController {
                 galeryEntries:[]
               };
           });
-          self.listOfAvailableCategories = self.listOfAvailableCategories.slice(1);
-          //console.log('list of available categorie ',self.listOfAvailableCategories);
-          //initialize the default selected category to the first available in the list
+          self.listOfAvailableCategories = self.listOfAvailableCategories.slice(1);       
           self.selectedCategory = self.listOfAvailableCategories[0].categoryName[0];               
         angular.forEach(self.hairdresser.appointments, (appt,key)=>{
             //self.events.push({id:appt._id, date:appt.dayOfWeek, startTime:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers,allDay:false});
@@ -409,14 +412,14 @@ class ShowhairdresserprofileController {
             }              
             
         });  
-          //console.log(self.events);
+          console.log("events array struct ",self.events);
           self.eventSource = self.events;
     })
     .finally(()=>{
-         this.defineCalendarOption()
-         .then(()=>{
-            this.loadLogbook=true;
-          });          
+        //  this.defineCalendarOption()
+        //  .then(()=>{
+        //     this.loadLogbook=true;
+        //   });          
       });
   };
 

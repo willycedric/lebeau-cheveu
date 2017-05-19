@@ -1,4 +1,4 @@
-angular.module("ui.rCalendar.tpls", ["template/rcalendar/calendar.html","template/rcalendar/month.html"]);
+angular.module("ui.rCalendar.tpls", ["template/rcalendar/calendar.html","template/rcalendar/day.html","template/rcalendar/month.html","template/rcalendar/week.html"]);
 export const uiCalendar = angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
     .constant('calendarConfig', {
         formatDay: 'dd',
@@ -244,6 +244,7 @@ export const uiCalendar = angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
             templateUrl: 'template/rcalendar/calendar.html',
             scope: {
                 calendarMode: '=',
+                displayScrollable:'=',
                 rangeChanged: '&',
                 eventSelected: '&',
                 timeSelected: '&'
@@ -267,6 +268,309 @@ export const uiCalendar = angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
             }
         };
     })
+    .directive('weekview', ['dateFilter', '$timeout', function (dateFilter, $timeout) {
+        'use strict';
+        return {
+            restrict: 'EA',
+            replace: true,
+            templateUrl: 'template/rcalendar/week.html',
+            require: '^calendar',
+            link: function (scope, element, attrs, ctrl) {
+                scope.formatWeekViewDayHeader = ctrl.formatWeekViewDayHeader;
+                scope.formatHourColumn = ctrl.formatHourColumn;
+                scope.allDayLabel = ctrl.allDayLabel;
+
+                $timeout(function () {
+                    updateScrollGutter();
+                });
+
+                ctrl.mode = {
+                    step: {days: 7}
+                };
+
+                function updateScrollGutter() {
+                    var children = element.children();
+                    var allDayEventBody = children[1].children[1];
+                    var allDayEventGutterWidth = allDayEventBody.offsetWidth - allDayEventBody.clientWidth;
+                    var normalEventBody = children[2];
+                    var normalEventGutterWidth = normalEventBody.offsetWidth - normalEventBody.clientWidth;
+                    var gutterWidth = allDayEventGutterWidth || normalEventGutterWidth || 0;
+                    if (gutterWidth > 0) {
+                        scope.gutterWidth = gutterWidth;
+                        if (allDayEventGutterWidth <= 0) {
+                            scope.allDayEventGutterWidth = gutterWidth;
+                        } else {
+                            scope.allDayEventGutterWidth = 0;
+                        }
+                        if (normalEventGutterWidth <= 0) {
+                            scope.normalGutterWidth = gutterWidth;
+                        } else {
+                            scope.normalGutterWidth = 0;
+                        }
+                    }
+                }
+
+                function getDates(startTime, n) {
+                    var dates = new Array(n),
+                        current = new Date(startTime),
+                        i = 0;
+                    current.setHours(12); // Prevent repeated dates because of timezone bug
+                    while (i < n) {
+                        dates[i++] = {
+                            date: new Date(current)
+                        };
+                        current.setDate(current.getDate() + 1);
+                    }
+                    return dates;
+                }
+
+                function createDateObjects(startTime) {
+                    var times = [],
+                        row,
+                        time,
+                        currentHour = startTime.getHours(),
+                        currentDate = startTime.getDate();
+
+                    for (var hour = 0; hour < 24; hour += 1) {
+                        row = [];
+                        for (var day = 0; day < 7; day += 1) {
+                            time = new Date(startTime.getTime());
+                            time.setHours(currentHour + hour);
+                            time.setDate(currentDate + day);
+                            row.push({
+                                time: time
+                            });
+                        }
+                        times.push(row);
+                    }
+                    return times;
+                }
+
+                scope.select = function (selectedTime, events) {
+                    if (scope.timeSelected) {
+                        scope.timeSelected({
+                            selectedTime: selectedTime,
+                            events: events
+                        });
+                    }
+                };
+
+                ctrl._onDataLoaded = function () {
+                    var eventSource = ctrl.eventSource,
+                        len = eventSource ? eventSource.length : 0,
+                        startTime = ctrl.range.startTime,
+                        endTime = ctrl.range.endTime,
+                        utcStartTime = new Date(Date.UTC(startTime.getFullYear(), startTime.getMonth(), startTime.getDate())),
+                        utcEndTime = new Date(Date.UTC(endTime.getFullYear(), endTime.getMonth(), endTime.getDate())),
+                        rows = scope.rows,
+                        dates = scope.dates,
+                        oneHour = 3600000,
+                        oneDay = 86400000,
+                    //add allday eps
+                        eps = 0.016,
+                        eventSet,
+                        allDayEventInRange = false,
+                        normalEventInRange = false,
+                        day,
+                        hour;
+
+                    if (rows.hasEvent) {
+                        for (day = 0; day < 7; day += 1) {
+                            for (hour = 0; hour < 24; hour += 1) {
+                                if (rows[hour][day].events) {
+                                    rows[hour][day].events = null;
+                                }
+                            }
+                        }
+                        rows.hasEvent = false;
+                    }
+
+                    if (dates.hasEvent) {
+                        for (day = 0; day < 7; day += 1) {
+                            if (dates[day].events) {
+                                dates[day].events = null;
+                            }
+                        }
+                        dates.hasEvent = false;
+                    }
+
+                    for (var i = 0; i < len; i += 1) {
+                        var event = eventSource[i];
+                        var eventStartTime = new Date(event.startTime);
+                        var eventEndTime = new Date(event.endTime);
+
+                        if (event.allDay) {
+                            if (eventEndTime <= utcStartTime || eventStartTime >= utcEndTime) {
+                                continue;
+                            } else {
+                                allDayEventInRange = true;
+
+                                var allDayStartIndex;
+                                if (eventStartTime <= utcStartTime) {
+                                    allDayStartIndex = 0;
+                                } else {
+                                    allDayStartIndex = Math.floor((eventStartTime - utcStartTime) / oneDay);
+                                }
+
+                                var allDayEndIndex;
+                                if (eventEndTime >= utcEndTime) {
+                                    allDayEndIndex = Math.ceil((utcEndTime - utcStartTime) / oneDay);
+                                } else {
+                                    allDayEndIndex = Math.ceil((eventEndTime - utcStartTime) / oneDay);
+                                }
+
+                                var displayAllDayEvent = {
+                                    event: event,
+                                    startIndex: allDayStartIndex,
+                                    endIndex: allDayEndIndex
+                                };
+
+                                eventSet = dates[allDayStartIndex].events;
+                                if (eventSet) {
+                                    eventSet.push(displayAllDayEvent);
+                                } else {
+                                    eventSet = [];
+                                    eventSet.push(displayAllDayEvent);
+                                    dates[allDayStartIndex].events = eventSet;
+                                }
+                            }
+                        } else {
+                            if (eventEndTime <= startTime || eventStartTime >= endTime) {
+                                continue;
+                            } else {
+                                normalEventInRange = true;
+
+                                var timeDiff;
+                                var timeDifferenceStart;
+                                if (eventStartTime <= startTime) {
+                                    timeDifferenceStart = 0;
+                                } else {
+                                    timeDiff = eventStartTime - startTime - (eventStartTime.getTimezoneOffset() - startTime.getTimezoneOffset()) * 60000;
+                                    timeDifferenceStart = timeDiff / oneHour;
+                                }
+
+                                var timeDifferenceEnd;
+                                if (eventEndTime >= endTime) {
+                                    timeDiff = endTime - startTime - (endTime.getTimezoneOffset() - startTime.getTimezoneOffset()) * 60000;
+                                    timeDifferenceEnd = timeDiff / oneHour;
+                                } else {
+                                    timeDiff = eventEndTime - startTime - (eventEndTime.getTimezoneOffset() - startTime.getTimezoneOffset()) * 60000;
+                                    timeDifferenceEnd = timeDiff / oneHour;
+                                }
+
+                                var startIndex = Math.floor(timeDifferenceStart);
+                                var endIndex = Math.ceil(timeDifferenceEnd - eps);
+                                var startRowIndex = startIndex % 24;
+                                var dayIndex = Math.floor(startIndex / 24);
+                                var endOfDay = dayIndex * 24;
+                                var endRowIndex;
+
+                                do {
+                                    endOfDay += 24;
+                                    if (endOfDay <= endIndex) {
+                                        endRowIndex = 24;
+                                    } else {
+                                        endRowIndex = endIndex % 24;
+                                    }
+                                    var displayEvent = {
+                                        event: event,
+                                        startIndex: startRowIndex,
+                                        endIndex: endRowIndex
+                                    };
+                                    eventSet = rows[startRowIndex][dayIndex].events;
+                                    if (eventSet) {
+                                        eventSet.push(displayEvent);
+                                    } else {
+                                        eventSet = [];
+                                        eventSet.push(displayEvent);
+                                        rows[startRowIndex][dayIndex].events = eventSet;
+                                    }
+                                    startRowIndex = 0;
+                                    dayIndex += 1;
+                                } while (endOfDay < endIndex);
+                            }
+                        }
+                    }
+
+                    if (normalEventInRange) {
+                        for (day = 0; day < 7; day += 1) {
+                            var orderedEvents = [];
+                            for (hour = 0; hour < 24; hour += 1) {
+                                if (rows[hour][day].events) {
+                                    orderedEvents = orderedEvents.concat(rows[hour][day].events);
+                                }
+                            }
+                            if (orderedEvents.length > 0) {
+                                rows.hasEvent = true;
+                                ctrl.placeEvents(orderedEvents);
+                            }
+                        }
+                    }
+
+                    if (allDayEventInRange) {
+                        var orderedAllDayEvents = [];
+                        for (day = 0; day < 7; day += 1) {
+                            if (dates[day].events) {
+                                orderedAllDayEvents = orderedAllDayEvents.concat(dates[day].events);
+                            }
+                        }
+                        if (orderedAllDayEvents.length > 0) {
+                            dates.hasEvent = true;
+                            ctrl.placeAllDayEvents(orderedAllDayEvents);
+                        }
+                    }
+                    console.log("rows",rows);
+                    rows.splice(0,9);
+                    $timeout(function () {
+                        updateScrollGutter();
+                    });
+                };
+
+                ctrl._refreshView = function () {
+                    var firstDayOfWeek = ctrl.range.startTime,
+                        dates = getDates(firstDayOfWeek, 7),
+                        weekNumberIndex,
+                        weekFormatPattern = 'w',
+                        title;
+
+                    scope.rows = createDateObjects(firstDayOfWeek);
+                    scope.dates = dates;
+                    weekNumberIndex = ctrl.formatWeekTitle.indexOf(weekFormatPattern);
+                    title = dateFilter(firstDayOfWeek, ctrl.formatWeekTitle);
+                    if (weekNumberIndex !== -1) {
+                        title = title.replace(weekFormatPattern, getISO8601WeekNumber(firstDayOfWeek));
+                    }
+                    scope.$parent.title = title;
+                };
+
+                ctrl._getRange = function getRange(currentDate) {
+                    var year = currentDate.getFullYear(),
+                        month = currentDate.getMonth(),
+                        date = currentDate.getDate(),
+                        day = currentDate.getDay(),
+                        firstDayOfWeek = new Date(year, month, date - day),
+                        endTime = new Date(year, month, date - day + 7);
+
+                    return {
+                        startTime: firstDayOfWeek,
+                        endTime: endTime
+                    };
+                };
+
+                //This can be decomissioned when upgrade to Angular 1.3
+                function getISO8601WeekNumber(date) {
+                    var checkDate = new Date(date);
+                    checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7)); // Thursday
+                    var time = checkDate.getTime();
+                    checkDate.setMonth(0); // Compare with Jan 1
+                    checkDate.setDate(1);
+                    return Math.floor(Math.round((time - checkDate) / 86400000) / 7) + 1;
+                }
+
+                ctrl.refreshView();
+            }
+        };
+    }])
     .directive('monthview', ['dateFilter', function (dateFilter) {
         'use strict';
         return {
@@ -556,18 +860,67 @@ export const uiCalendar = angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
             }
         };
 }]);
-  
+
+angular.module("template/rcalendar/day.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/rcalendar/day.html",
+    "<div>\n" +
+    "    <div class=\"dayview-allday-table\">\n" +
+    "        <div class=\"dayview-allday-label\">\n" +
+    "            {{allDayLabel}}\n" +
+    "        </div>\n" +
+    "        <div class=\"dayview-allday-content-wrapper\">\n" +
+    "            <table class=\"table table-bordered dayview-allday-content-table\">\n" +
+    "                <tbody>\n" +
+    "                <tr>\n" +
+    "                    <td class=\"calendar-cell\" ng-class=\"{'calendar-event-wrap':allDayEvents}\"\n" +
+    "                        ng-style=\"{height: 25*allDayEvents.length+'px'}\">\n" +
+    "                        <div ng-repeat=\"displayEvent in allDayEvents\" class=\"calendar-event\"\n" +
+    "                             ng-click=\"eventSelected({event:displayEvent.event})\"\n" +
+    "                             ng-style=\"{top: 25*$index+'px',width: '100%',height:'25px'}\">\n" +
+    "                            <div class=\"calendar-event-inner\">{{displayEvent.event.title}}</div>\n" +
+    "                        </div>\n" +
+    "                    </td>\n" +
+    "                    <td ng-if=\"allDayEventGutterWidth>0\" class=\"gutter-column\"\n" +
+    "                        ng-style=\"{width:allDayEventGutterWidth+'px'}\"></td>\n" +
+    "                </tr>\n" +
+    "                </tbody>\n" +
+    "            </table>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"scrollable\" style=\"height: 400px\">\n" +
+    "        <table class=\"table table-bordered table-fixed\">\n" +
+    "            <tbody>\n" +
+    "            <tr ng-repeat=\"tm in rows track by $index\">\n" +
+    "                <td class=\"calendar-hour-column text-center\">\n" +
+    "                    {{tm.time | date: formatHourColumn}}\n" +
+    "                </td>\n" +
+    "                <td class=\"calendar-cell\" ng-click=\"select(tm.time, tm.events)\">\n" +
+    "                    <div ng-class=\"{'calendar-event-wrap': tm.events}\" ng-if=\"tm.events\">\n" +
+    "                        <div ng-repeat=\"displayEvent in tm.events\" class=\"calendar-event\"\n" +
+    "                             ng-click=\"eventSelected({event:displayEvent.event})\"\n" +
+    "                             ng-style=\"{left: 100/displayEvent.overlapNumber*displayEvent.position+'%', width: 100/displayEvent.overlapNumber+'%', height: 37*(displayEvent.endIndex-displayEvent.startIndex)+'px'}\">\n" +
+    "                            <div class=\"calendar-event-inner\">{{displayEvent.event.title}}</div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </td>\n" +
+    "            </tr>\n" +
+    "            </tbody>\n" +
+    "        </table>\n" +
+    "    </div>\n" +
+    "</div>");
+}]);
+
 angular.module("template/rcalendar/calendar.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/rcalendar/calendar.html",
     "<div ng-switch=\"calendarMode\">\n" +
     "    <div class=\"row calendar-navbar\">\n" +
     "        <div class=\"nav-left col-xs-2\">\n" +
-    "            <button type=\"button\" class=\"btn btn-default btn-sm\" ng-click=\"move(-1)\"><i\n" +
+    "            <button type=\"button\" class=\"btn btn-default btn-nav btn-sm\" ng-click=\"move(-1)\"><i\n" +
     "                    class=\"glyphicon glyphicon-chevron-left\"></i></button>\n" +
     "        </div>\n" +
     "        <div class=\"calendar-header col-xs-8\">{{title}}</div>\n" +
     "        <div class=\"nav-right col-xs-2\">\n" +
-    "            <button type=\"button\" class=\"btn btn-default btn-sm\" ng-click=\"move(1)\"><i\n" +
+    "            <button type=\"button\" class=\"btn btn-default btn-nav btn-sm\" ng-click=\"move(1)\"><i\n" +
     "                    class=\"glyphicon glyphicon-chevron-right\"></i></button>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -604,7 +957,7 @@ angular.module("template/rcalendar/month.html", []).run(["$templateCache", funct
     "        </tr>\n" +
     "        </tbody>\n" +
     "    </table>\n" +
-    "    <div ng-if=\"showEventDetail\" class=\"event-detail-container\">\n" +
+    "    <div ng-if=\"showEventDetail && displayScrollable\" class=\"event-detail-container\">\n" +
     "        <div class=\"scrollable\" style=\"height: 200px\">\n" +
     "            <table class=\"table table-bordered table-striped table-fixed\">\n" +
     "                <tr ng-repeat=\"event in selectedDate.events\" ng-if=\"selectedDate.events\">\n" +
@@ -618,6 +971,68 @@ angular.module("template/rcalendar/month.html", []).run(["$templateCache", funct
     "                <tr ng-if=\"!selectedDate.events\"><td class=\"no-event-label\">{{noEventsLabel}}</td></tr>\n" +
     "            </table>\n" +
     "        </div>\n" +
+    "    </div>\n" +
+    "</div>");
+}]);
+angular.module("template/rcalendar/week.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/rcalendar/week.html",
+    "<div>\n" +
+    "    <table class=\"table table-bordered table-fixed weekview-header\">\n" +
+    "        <thead>\n" +
+    "        <tr>\n" +
+    "            <th class=\"calendar-hour-column\"></th>\n" +
+    "            <th ng-repeat=\"dt in dates\" class=\"text-center weekview-header-label\">{{dt.date| date:\n" +
+    "                formatWeekViewDayHeader}}\n" +
+    "            </th>\n" +
+    "            <th ng-if=\"gutterWidth>0\" class=\"gutter-column\" ng-style=\"{width: gutterWidth+'px'}\"></th>\n" +
+    "        </tr>\n" +
+    "        </thead>\n" +
+    "    </table>\n" +
+    "    <div class=\"weekview-allday-table\">\n" +
+    "        <div class=\"weekview-allday-label\">\n" +
+    "            {{allDayLabel}}\n" +
+    "        </div>\n" +
+    "        <div class=\"weekview-allday-content-wrapper\">\n" +
+    "            <table class=\"table table-bordered table-fixed weekview-allday-content-table\">\n" +
+    "                <tbody>\n" +
+    "                <tr>\n" +
+    "                    <td ng-repeat=\"day in dates track by day.date\" class=\"calendar-cell\">\n" +
+    "                        <div ng-class=\"{'calendar-event-wrap': day.events}\" ng-if=\"day.events\"\n" +
+    "                             ng-style=\"{height: 25*day.events.length+'px'}\">\n" +
+    "                            <div ng-repeat=\"displayEvent in day.events\" class=\"calendar-event\"\n" +
+    "                                 ng-click=\"eventSelected({event:displayEvent.event})\"\n" +
+    "                                 ng-style=\"{top: 25*displayEvent.position+'px', width: 100*(displayEvent.endIndex-displayEvent.startIndex)+'%', height: '25px'}\">\n" +
+    "                                <div class=\"calendar-event-inner\">{{displayEvent.event.title}}</div>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "                    </td>\n" +
+    "                    <td ng-if=\"allDayEventGutterWidth>0\" class=\"gutter-column\"\n" +
+    "                        ng-style=\"{width: allDayEventGutterWidth+'px'}\"></td>\n" +
+    "                </tr>\n" +
+    "                </tbody>\n" +
+    "            </table>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"scrollable\" style=\"height: 400px\">\n" +
+    "        <table class=\"table table-bordered table-fixed\">\n" +
+    "            <tbody>\n" +
+    "            <tr ng-repeat=\"row in rows track by $index\">\n" +
+    "                <td class=\"calendar-hour-column text-center\">\n" +
+    "                    {{row[0].time | date: formatHourColumn}}\n" +
+    "                </td>\n" +
+    "                <td ng-repeat=\"tm in row track by tm.time\" class=\"calendar-cell\" ng-click=\"select(tm.time, tm.events)\">\n" +
+    "                    <div ng-class=\"{'calendar-event-wrap': tm.events}\" ng-if=\"tm.events\">\n" +
+    "                        <div ng-repeat=\"displayEvent in tm.events\" class=\"calendar-event\"\n" +
+    "                             ng-click=\"eventSelected({event:displayEvent.event})\"\n" +
+    "                             ng-style=\"{left: 100/displayEvent.overlapNumber*displayEvent.position+'%', width: 100/displayEvent.overlapNumber+'%', height: 37*(displayEvent.endIndex-displayEvent.startIndex)+'px'}\">\n" +
+    "                            <div class=\"calendar-event-inner\">{{displayEvent.event.title}}</div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </td>\n" +
+    "                <td ng-if=\"normalGutterWidth>0\" class=\"gutter-column\" ng-style=\"{width: normalGutterWidth+'px'}\"></td>\n" +
+    "            </tr>\n" +
+    "            </tbody>\n" +
+    "        </table>\n" +
     "    </div>\n" +
     "</div>");
 }]);

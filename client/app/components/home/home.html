@@ -34,12 +34,12 @@
                 <form class="form-wrapper cf"  name ="search" ng-submit="vm.goToSearchBarView(search)"> 
                             <select  ng-model="vm.selectedHaircutCategory" id="haircut-type" name="haircut" class="no-rounder">
                                 <optgroup label="categories">
-                                    <option value="">Quelle catégorie de coiffure?</option>
+                                    <option value="">Type de cheveu</option>
                                     <option ng-repeat = "haircut in vm.listOfAvailableCategories"  value="{{haircut}}">{{haircut}}</option>
                                 </optgroup>
                             </select>
-                            <!--<input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">-->                            
-                            <input uib-tooltip="adresse, ville" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/ required>											
+                            <!--<input type="text" placeholder="adresse, ville ... " required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">-->                            
+                            <input uib-tooltip="adresse, ville" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Où se coiffer (adresse, ville ... ) ?"/ required>											
                             <button type="submit">GO</button>
                 </form>
               </div><!-- .row -->

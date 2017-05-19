@@ -17,14 +17,18 @@ export const homeDirective = ()=> {
                     var scroll_start = 0;
                     var startchange = $(elt).find('#home-start-change');
                     var offset = startchange.offset();
+                    console.log('home directive ', offset);
                      if (startchange.length){
                     $(document).scroll(function() { 
                        scroll_start = $(this).scrollTop();
-                       if(scroll_start > offset.top) {
-                           $(".navbar-default").css('background-color', '#f0f0f0');
+                       if(scroll_start > 40) {
+                           //$(".navbar-default").css('background-color', '#f0f0f0');
+                           $('.navbar-default').addClass('transparent');
                         } else {
-                           $('.navbar-default').css('background-color', 'transparent');
+                           //$('.navbar-default').css('background-color', 'transparent');
+                           $('.navbar-default').removeClass('transparent');
                         }
+                    
                     });
                    }
 

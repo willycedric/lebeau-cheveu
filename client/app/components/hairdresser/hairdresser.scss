@@ -33,3 +33,26 @@
         color: white;
     }
 }
+
+.hairdresser .btn-edit{
+      color: white;
+    padding: 6px 12px !important;
+    border-radius: 4px;    
+    background: #0da7a9;
+    border: 1px solid #0da7a9;
+    margin-top: 0.4em !important;
+    transition: background 0.3s ease;
+    text-transform: lowercase;
+    display: inline-block;
+     &:hover{
+       background: $default-background-color;
+        color: white;
+    }
+	&:focus,&:active,&:visited{
+		outline: none;
+	}
+}
+
+.hairdreser .row-top-2{
+	margin-top: 4%;
+}

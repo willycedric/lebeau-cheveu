@@ -30,6 +30,7 @@ class HairdresseraccountController {
 		 this.$scope =$scope;	 
 		 self.$q =$q;
 		 self.hairdresserResource = hairdresserResource;
+		 
 
 		var deserialize = ()=>{
 			var defered = self.$q.defer();
@@ -398,6 +399,19 @@ class HairdresseraccountController {
 			}
 		});
 		return found;
+	}
+
+	updateCustomerType(){
+		var self = this;
+		self.ModalFactory.trigger(self, 'hairdresserCutomerType.html','hairdresserPreference', function($uibModalInstance, topController){
+			this.updateCustomerType = (selections)=>{
+				console.log("Current selctions ",selections);
+			};
+
+			this.cancel = ()=>{
+				$uibModalInstance.dismiss('cancel');
+			}
+		})
 	}
 
 }//end class

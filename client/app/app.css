@@ -9,9 +9,33 @@
     left: 0;
     right: 0;
 }
+.app .navbar-default{
+    background: transparent;
+}
 .app .navbar-default.transparent {
-    background-color: transparent; 
+    background-color: #fafafa; 
+    border-bottom-color: #0da7a9;
     position:fixed;
+    /*-webkit-transition: background-color 0.3s linear ease-in;
+    -moz-transition: background-color 0.3s  linear ease-in;
+    -o-transition: background-color 0.3s  linear ease-in;
+    -ms-transition: background-color 0.3s  linear ease-in;*/
+    transition: background-color 0.8s ease-in ;
+}
+.app .navbar-default.transparent-out {
+    background-color: transparent; 
+    position:absolute;
+    /*-webkit-transition: background-color 0.3s linear ease-in;
+    -moz-transition: background-color 0.3s  linear ease-in;
+    -o-transition: background-color 0.3s  linear ease-in;
+    -ms-transition: background-color 0.3s  linear ease-in;*/
+    transition: background-color 0.8s ease-out ;
+}
+.app .navbar-default.transparent ul > li >a{
+    color: #0da7a9;    
+}
+.app .navbar-default.transparent-out ul > li >a{
+    color: #fafafa;    
 }
 /****************************/
 /*                          */

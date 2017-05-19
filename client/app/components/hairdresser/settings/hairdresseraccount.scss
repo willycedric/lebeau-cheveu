@@ -35,6 +35,7 @@ $margin-bottom:3%;
 .hairdresser-account .section-contains{
 	margin-bottom:5%;
 	font-size:1.0em;
+  margin-top: 0.3em;
 }
 
 .hairdresser-account .right{
@@ -146,3 +147,20 @@ form {
         color: white;
     }
 }
+
+.hairdresserPreference .btn-edit {
+      color: white;
+    padding: 6px 6px !important;
+    border-radius: 4px;    
+    background: #0da7a9;
+    border: 1px solid #0da7a9;
+    margin-top: 1em !important;
+    transition: background 0.3s ease;
+    text-transform: lowercase;
+    display: inline-block;
+     &:hover{
+       background: $default-background-color;
+        color: white;
+    }
+}
+

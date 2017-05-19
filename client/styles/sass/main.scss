@@ -443,7 +443,7 @@ h5{
     color: #898686;
 }
 .custom> .modal-dialog > .modal-content{  
-  background-color:#ccc;
+  background-color:white;
   color:#fafafa;
 }
 .custom> .modal-dialog > .modal-content > .modal-header{
@@ -461,6 +461,7 @@ h5{
   text-align:center;
 }
 .custom >.modal-dialog>.modal-content>.modal-body {
+    background-color:white;
     color:#333;
 }
 .custom >.modal-dialog>.modal-content>.modal-body select{
@@ -468,7 +469,7 @@ h5{
   height: 3em;
   color:#333;
   font-weight: bold;
-  background: #ccc;
+   background-color:white;
   font-family: $default-font-groups;
   margin: 0 auto;
 }
@@ -479,6 +480,7 @@ h5{
 .custom> .modal-dialog > .modal-content >.modal-footer{
   border-top:none;
   text-align:center;
+   background-color:white;
 }
 
 .blog >.modal-dialog>.modal-content>.modal-body select{
@@ -486,7 +488,7 @@ h5{
   height: 3em;
   color:#333;
   font-weight: bold;
-  background: #ccc;
+  background-color:white;
   font-family: $default-font-groups;
   margin: 0 auto;
 }
