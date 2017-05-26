@@ -1,0 +1,117 @@
+<section class="hairdresser-account hairdresser section-padding">
+	<div class="container">
+        <div class="row">
+           <form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="vm.updatePreference()">						
+					<!--<label for="multipleSelect1" uib-tooltip="ctrl (PC) ou cmd (Mac) + Click pour sélectionner plusieur choix"> Type de client:  </label><br>				
+				    <select name="multipleSelect1" id="multipleSelect1" ng-model="$ctrl.multipleSelect1">
+				      <option value="1">Femme</option>
+				      <option value="2">Homme</option>
+				      <option value="0">Mixte</option>
+				    </select><br>			      -->
+				    <!--<label for="multipleSelect2" uib-tooltip="ctrl (PC) ou cmd (Mac) + Click pour sélectionner plusieur choix"> Categorie de coiffure:  </label><br>				
+				    <select name="multipleSelect2" id="multipleSelect2" ng-model="$ctrl.multipleSelect2" >
+				      <option value="CHEVEUX AFRO">Cheveux Afro</option>
+				      <option value="CHEVEUX LISSES">Cheveux Lisses</option>
+				      <option value="CHEVEUX BOUCLÉS">Cheveux Bouclés</option>
+				    </select><br>-->
+					<!--<input type="checkbox" ng-model="vm.categpries.values1" ng-true-value="'Cheveux Afro'" ng-value-false="''"/><label>Cheveux Afro</label><br/>
+					<input type="checkbox" ng-model="vm.categpries.values2" ng-true-value="'Cheveux Lisses'" ng-value-false="''"/><label>Cheveux Lisses</label><br/>
+					<input type="checkbox" ng-model="vm.categpries.values3" ng-true-value="'Cheveux Bouclés'" ng-value-false="''"/><label>Cheveux Bouclés</label>-->
+					<!--<div class="checkbox">
+						<label><input type="checkbox" ng-model="vm.categpries.values1" ng-true-value="'Cheveux Afro'" ng-false-value="0" ng-change="vm.updateSelectionList(vm.categpries)">Cheveux Afro</label>
+					</div>
+					<div class="checkbox">
+						<label><input type="checkbox" ng-model="vm.categpries.values2" ng-true-value="'Cheveux Lisses'" ng-false-value="1" ng-change="vm.updateSelectionList(vm.categpries)">Cheveux Lisses</label>
+					</div>					
+					<div class="checkbox">
+						<label><input type="checkbox" ng-model="vm.categpries.values3" ng-true-value="'Cheveux Bouclés'" ng-false-value="2" ng-change="vm.updateSelectionList(vm.categpries)">Cheveux Bouclés</label>
+					</div>
+					{{vm.selectionList}}
+					<br/>-->
+					<!--<label for="multipleSelect3" uib-tooltip="ctrl (PC) ou cmd (Mac) + Click pour sélectionner plusieur choix"> Type(s) coiffure  </label><br>				
+				    <select name="multipleSelect3" id="multipleSelect3" ng-model="$ctrl.multipleSelect3">
+				      <option ng-repeat = "haircut in vm.listOfAvailableHaircut track by $index" value="{{$index}}">{{::haircut}}</option>
+				    </select><br>							
+					<div class="container">	
+						<div class="row row-top ">
+							<div class=" col-sm-2">
+								<input  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-lbc" value="Enregistrer" >
+							</div>
+							<div class="col-sm-offset-1 col-sm-1">
+								<button class="btn btn-lbc " type="button" ng-click="$ctrl.cancel()">Anuller</button>
+							</div>
+						</div>
+					</div>-->
+					<div class="col-md-offset-2 col-md-8">
+						<div class="row">
+							<h4 class="section-edition-first-title">Préferences </h4>
+						</div>
+						<div class="row section-edition">
+							<h5 class="section-edtion-second-title">Type de client</h5>
+							<div class="col-md-4 checkbox ">
+								<label><input type="checkbox" ng-model="customer.type1" ng-true-value="'Femme'" ng-false-value="0" ng-checked="vm.isAlreadySelected(0, vm.customerType, vm.listOfAvailableCustomerType)" ng-change = "vm.updateSelectionList(customer,vm.customerType, vm.listOfAvailableCustomerType)"/>Femme</label>								
+								
+							</div>
+							<div class="col-md-4 checkbox">
+								<label><input type="checkbox" ng-model="customer.type2" ng-true-value="'Homme'" ng-false-value="1" ng-checked="vm.isAlreadySelected(1, vm.customerType, vm.listOfAvailableCustomerType)" ng-change = "vm.updateSelectionList(customer,vm.customerType, vm.listOfAvailableCustomerType)"/>Homme</label>
+							</div>
+							<div class="col-md-4 checkbox">
+								<label><input type="checkbox" ng-model="customer.type3" ng-true-value="'Mixte'" ng-false-value="2" ng-checked="vm.isAlreadySelected(2, vm.customerType, vm.listOfAvailableCustomerType)" ng-change = "vm.updateSelectionList(customer,vm.customerType,vm.listOfAvailableCustomerType)"/>Mixte</label>
+							</div>
+							{{vm.customerType}}
+						</div><!-- end customer type -->
+						<div class="row section-edition">
+							<h5 class="section-edtion-second-title">Catégorie de coiffure</h5>
+							<div class="col-md-4 checkbox">
+								<label><input type="checkbox" ng-model="categpries.values1"  ng-checked="vm.isAlreadySelected(0, vm.haircutCategory,vm.listOfAvailableCategories)" ng-true-value="'Cheveux Afro'" ng-false-value="0" ng-change="vm.updateSelectionList(categpries,vm.haircutCategory, vm.listOfAvailableCategories)">Cheveux Afro</label>
+							</div>
+							<div class="col-md-4 checkbox">
+								<label><input type="checkbox" ng-model="categpries.values2"  ng-checked="vm.isAlreadySelected(1, vm.haircutCategory,vm.listOfAvailableCategories)" ng-true-value="'Cheveux Lisses'" ng-false-value="1" ng-change="vm.updateSelectionList(categpries,vm.haircutCategory, vm.listOfAvailableCategories)">Cheveux Lisses</label>
+							</div>
+							<div class="col-md-4 checkbox">
+								<label><input type="checkbox" ng-model="categpries.values3"  ng-checked="vm.isAlreadySelected(2, vm.haircutCategory,vm.listOfAvailableCategories)" ng-true-value="'Cheveux Bouclés'" ng-false-value="2" ng-change="vm.updateSelectionList(categpries,vm.haircutCategory, vm.listOfAvailableCategories)">Cheveux Bouclés</label>
+							</div>
+							{{vm.haircutCategory}}
+						</div><!-- end haircut category type -->
+						<div class="row section-edition">
+							<h5 class="section-edtion-second-title">Type de coiffure</h5>
+							<div class="col-md-4 checkbox" ng-repeat="haircut in vm.listOfAvailableHaircut track by $index">
+								<label><input type="checkbox" ng-model="hairctuts.value" ng-change="vm.updateSelectionList(hairctuts,vm.haircutType, vm.listOfAvailableHaircut)"  ng-checked="vm.isAlreadySelected($index, vm.haircutType, vm.listOfAvailableHaircut)" ng-true-value="'{{haircut}}'" ng-false-value="{{$index}}">{{haircut}}</label>
+							</div>	
+							{{vm.haircutType}}						
+						</div><!-- end haircut category type -->
+						<div class="row">
+							<div class="col-md-offset-3">
+								<div class=" col-sm-3">
+									<button  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-lbc">Enregistrer</button>
+								</div>
+								<div class="col-sm-offset-1 col-sm-1">
+									<button class="btn btn-lbc " type="button" ng-click="vm.goBackToHairdresserAccount()">Annuler</button>
+								</div>
+							</div>
+						</div>
+					</div>					
+			</form>            
+        </div>
+	</div>
+    <script type="text/ng-template" id="confirmation-modal.html">
+   	  		<div class="modal-header-success"  ng-show="$ctrl.isSuccess">
+	             <h5 class="center success modal-title">Confirmation </h5>
+	        </div>
+	        <div class="modal-header-error"  ng-hide="$ctrl.isSuccess">
+	             <h5 class="center error modal-title">Erreur </h5>
+	        </div>
+	        <div class="modal-body" id="modal-body" ng-show="$ctrl.isSuccess">
+	           <span class="question-modal" style="text-algin:center;"> {{$ctrl.message}}</span>
+	        </div>
+	        <div class="modal-body" id="modal-body" ng-hide="$ctrl.isSuccess">
+	           <span class="question-modal" style="text-algin:center;"> {{$ctrl.message}} !</span>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;"  ng-show="$ctrl.isSuccess">
+	            <button class="btn-lbc btn-success" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;"  ng-hide="$ctrl.isSuccess">
+	            <button class="btn-lbc btn-error" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+	</script>
+</section><!-- hairdresser -- >

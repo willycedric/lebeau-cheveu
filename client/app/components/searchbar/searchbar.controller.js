@@ -391,11 +391,12 @@ class SearchbarController {
 
   init(){
       var self = this;      
+      console.log("homePage ", self.$stateParams.homePage);
       var locationParameter = self.AuthToken.get('locationParameter');
       var selectedHaircut = self.AuthToken.get('selectedHaircut');
       var longitude = self.AuthToken.get('longitude');
       var latitude = self.AuthToken.get('latitude');
-      if(selectedHaircut != undefined && locationParameter !=undefined){
+      if(selectedHaircut != undefined && locationParameter !=undefined && self.$stateParams.homePage!=true){
           self.launchSearch(locationParameter,selectedHaircut,longitude,latitude);
       }
     }  

@@ -1,6 +1,6 @@
 
 class HairdresseraccountController {
-  constructor($uibModal,API,Auth,ModalFactory,$log,hairdresserMAnager,$q,$state,$window,hairdresserResource,$scope,$http) {
+  constructor($uibModal,API,Auth,ModalFactory,$log,hairdresserMAnager,$q,$state,$window,hairdresserResource,$scope,$http,$location) {
 
   		  var self=this;
   		//List of department in Ile de France
@@ -30,7 +30,8 @@ class HairdresseraccountController {
 		 this.$scope =$scope;	 
 		 self.$q =$q;
 		 self.hairdresserResource = hairdresserResource;
-		 
+		 self.$location =$location;
+		 self.hairdresserDetails={};
 
 		var deserialize = ()=>{
 			var defered = self.$q.defer();
@@ -48,6 +49,9 @@ class HairdresseraccountController {
 			.then((data)=>{
 				if(data.hasOwnProperty("hairdresser")){
 				self.hairdresser = data.hairdresser;
+				self.hairdresserDetails.customer_type = self.hairdresser.customer_type;
+				self.hairdresserDetails.listOfPerformance = self.hairdresser.listOfPerformance;
+				self.hairdresserDetails.categories = self.hairdresser.categories;
 				//console.log(self.hairdresser);	
 				}	
 				if(data.hasOwnProperty("user")){
@@ -111,7 +115,7 @@ class HairdresseraccountController {
 	    * [description]
 	    * @return {[type]} [description]
 	    */
-	   self.updatePreferenceModal = ()=>{
+	   self.updatePreferenceModal = ()=>{   
 		   var self= this;
 	   	  ModalFactory.trigger(self,'hairdresserPreference.html','hairdresserPreference',function ( $uibModalInstance,topController){
 
@@ -220,6 +224,19 @@ class HairdresseraccountController {
 	init();
   } //end constructor
 
+				/**
+				 * delete the connected hairdresser cover area with the specified id
+				 * @param {*} id mongodb objectId
+				 */
+				deleteArea(id){
+					var self=this;
+					self.hairdresserMAnager.deleteHairdresserCovereArea(id)
+					.then((rep)=>{
+						self.displayConfirmationModal("La location a bien été supprimée de votre list de zones couvertes.", true);
+					},(err)=>{
+						self.displayConfirmationModal("une erreur est survenue pendant la mise à jour de votre profil. Veuillez recommencer ultérieurement",false);
+					})
+				}
   			/**
   			 * [updateHairdresserSetting description]
   			 * @param  {[Array]} hairdresserSelectedSettings [List of selected settings]
@@ -301,119 +318,38 @@ class HairdresseraccountController {
 		return count;
 	}
 
-	/**
-	 * add an activity area to the connected hairdresser
-	 * @param {*} location googple maps place object
-	 */
-	updateCoverZone(location){
-		var self=this;
-		//parse the response returned from the google api
-		var init = ()=>{
-				var defered = self.$q.defer();
-				var data ={};
-				if(this.$scope){			
-				for (var i in this.$scope.address_components)
-				{				
-					var component = this.$scope.address_components[i];
-					for (var j in component.types) {  // Some types are ["country", "political"]
-						switch(component.types[0]){
-							case"postal_code":
-							data.postal_code = component.long_name;
-							break;
-							case "administrative_area_level_1":
-							data.administrative_level_1 = component.long_name;
-							break;
-							case "administrative_area_level_2":
-								data.administrative_level_2 = component.long_name;
-							break;
-							case "locality":
-								data.locality = component.long_name;
-							break;
-							case "country":
-								data.country = component.long_name;
-							break;
-							default:
-							break;
-						}			
-					}
-					
-				}				
-				data.location = [this.$scope.longitude, this.$scope.latitude]
-				data.longitude=this.$scope.longitude;
-				data.latitude = this.$scope.latitude;
-				data.formatted_address = this.$scope.formatted_address;				
-				defered.resolve(data);
-			}else{
-				//throw new Error("the scope variable is not available");
-				defered.reject(new Error("the scope variable is not available"));
-			}
-			return defered.promise;
-		}
-		//send the location information to the backend
-		init()
-		.then((data)=>{
-			console.log(data)
-			var found = self.validate(self.hairdresser.activityArea,data);
-			if(!found){
-				self.hairdresserMAnager.updateHairdresserCoverZone(data)
-				.then((rep)=>{
-					self.displayConfirmationModal(data.formatted_address+" a été ajoutée à liste de vos zone d'activités.",true);
-				},()=>{
-					self.displayConfirmationModal("une erreur est survenue pendant la mise à jour de votre profil. Veuillez recommencer ultérieurement",false);
-				});
-				
-			}else{
-				self.displayConfirmationModal(data.formatted_address+" ,a déja été ajoutée à liste de vos zone d'activités.",true);
-			}			
-		},(err)=>{
-			throw new Error(err.toString());
-		});
-		
-	}
-	/**
-	 * delete the connected hairdresser cover area with the specified id
-	 * @param {*} id mongodb objectId
-	 */
-	deleteArea(id){
-		var self=this;
-		self.hairdresserMAnager.deleteHairdresserCovereArea(id)
-		.then((rep)=>{
-			self.displayConfirmationModal("La location a bien été supprimée de votre list de zones couvertes.", true);
-		},(err)=>{
-			self.displayConfirmationModal("une erreur est survenue pendant la mise à jour de votre profil. Veuillez recommencer ultérieurement",false);
-		})
-	}
-	/**
-	 * check if the new activity area is already add by the connected hairdresser.
-	 * @param {*list of the activity area } collection 
-	 * @param {* new activity area} data 
-	 */
-	validate(collection,data){
-		var found = false;
-		angular.forEach(collection, function(area){
-			if(area.hasOwnProperty("formatted_address")){
-				if(area.formatted_address == data.formatted_address){
-					found = true;
-					return found;
-				}
-			}
-		});
-		return found;
-	}
-
+	
 	updateCustomerType(){
 		var self = this;
 		self.ModalFactory.trigger(self, 'hairdresserCutomerType.html','hairdresserPreference', function($uibModalInstance, topController){
 			this.updateCustomerType = (selections)=>{
 				console.log("Current selctions ",selections);
 			};
-
 			this.cancel = ()=>{
 				$uibModalInstance.dismiss('cancel');
 			}
 		})
 	}
+	/**
+	 * Redirect hairdresser to the description edition page.
+	 * @param {*ObjectId} id 
+	 */
+	updateHairdresserInformations(information){
+		var self=this;		
+		//self.$location.path(information);		
+		self.$state.go("hairdressersettingsedit",{details:self.hairdresserDetails});
+	}
+
+	/**
+	 * 
+	 * @param {*} activityArea 
+	 */
+	updateHairdresserCoverArea(activityArea){
+		console.log('HairdesserActivity', activityArea);
+		var self=this;
+		self.$state.go('hairdresserareaedit',{area:activityArea});
+	}
 
 }//end class
-HairdresseraccountController.$inject =['$uibModal','API','Auth','ModalFactory','$log','hairdresserMAnager','$q','$state','$window','hairdresserResource','$scope','$http'];
+HairdresseraccountController.$inject =['$uibModal','API','Auth','ModalFactory','$log','hairdresserMAnager','$q','$state','$window','hairdresserResource','$scope','$http','$location'];
 export {HairdresseraccountController};

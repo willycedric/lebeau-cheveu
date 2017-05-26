@@ -1,0 +1,13 @@
+<section class="hairdresser-account hairdresser section-padding">
+	<div class="container">
+        <div class="row">
+            <form name="description" id="description" ng-submit="vm.updateHairdresserDescription(hairdresserDescription)">
+                <label for="haidresser-description">description</label>
+                <textarea ng-model="hairdresserDescription" name="haidresser-description" rows="9" cols="60">
+                </textarea>
+                <button type="submit" name="submit" > Enregistrer</button>
+                <button name="cancel" type="button" ng-click="vm.goBackToHairdresserAccount()">Annuler</button>
+            </form>
+        </div>
+	</div>
+</section><!-- hairdresser -- >

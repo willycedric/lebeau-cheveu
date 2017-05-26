@@ -1,0 +1,43 @@
+<section class="hairdresser-account hairdresser section-padding">
+	<div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <form role="form" name="coverZoneForm" ng-submit="vm.updateCoverZone(area)">									
+                    <div class="row form-group">
+                        <label class="col-sm-4 control-label">Code Postal</label>
+                        <div class="col-sm-8">										
+                        <input 	uib-tooltip="code postale et nom de la ville" id="user_input_autocomplete_address3" name="user_input_autocomplete_address3" ng-model="area"
+                                class="form-control" placeholder="Entrez un code postale  ..."/>
+                        </div>
+                    </div>
+					<div class="row">
+						<div class="col-md-offset-4">
+							<button type="submit"  class="btn-lbc">Enregister</button>
+                   			 <button type="button"  class="btn-lbc"  ng-click="vm.goBackToHairdresserAccount()">Annuler</button>
+						</div>							
+					</div>	                    							
+                </form>
+            </div>            
+        </div>
+	</div>
+    <script type="text/ng-template" id="confirmation-modal.html">
+   	  		<div class="modal-header-success"  ng-show="$ctrl.isSuccess">
+	             <h5 class="center success modal-title">Confirmation </h5>
+	        </div>
+	        <div class="modal-header-error"  ng-hide="$ctrl.isSuccess">
+	             <h5 class="center error modal-title">Erreur </h5>
+	        </div>
+	        <div class="modal-body" id="modal-body" ng-show="$ctrl.isSuccess">
+	           <span class="question-modal" style="text-algin:center;"> {{$ctrl.message}}</span>
+	        </div>
+	        <div class="modal-body" id="modal-body" ng-hide="$ctrl.isSuccess">
+	           <span class="question-modal" style="text-algin:center;"> {{$ctrl.message}} !</span>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;"  ng-show="$ctrl.isSuccess">
+	            <button class="btn-lbc btn-success" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+	        <div class="modal-footer" style="text-align:center;"  ng-hide="$ctrl.isSuccess">
+	            <button class="btn-lbc btn-error" type="button" ng-click="$ctrl.ok()">OK</button>
+	        </div>
+	</script>
+</section><!-- hairdresser -- >

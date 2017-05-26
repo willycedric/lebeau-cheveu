@@ -34,70 +34,43 @@
 						<span class="section-t col-sm-3">
 								<h4>Préferences</h4>
 						</span><!-- .section-title -->
-						<!--<span class="col-sm-3 edit-button">
-							<a class="btn-default-lbc btn-lbc" ng-click ="vm.updatePreferenceModal()">Modifier</a>
-						</span>-->
+						<span class="col-sm-3 edit-button">
+							<a class="btn-default-lbc btn-lbc" ng-click ="vm.updateHairdresserInformations('/hairdresser/settings/edit/')">Modifier</a>
+						</span>
 					</div> <!-- row section-top -->
 					<hr/>
 					<div class="row" id="preference">
 						<div class="col-sm-5 row-top-2 left">
 							<span class="section-contains">Type de client: {{vm.hairdresser.customer_type | customerTypeFilter}}</span>							
 						</div>
-						<div class="col-sm-3 edit-button" >
+						<!--<div class="col-sm-3 edit-button" >
 							<button type="button" class="btn-edit" ng-click ="vm.updateCustomerType()" aria-label="Left Align">
 									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 							</button>								
-						</div>
+						</div>-->
 					</div>
-					<div class="row">
-						<uib-accordion close-others="oneAtATime">
-							<div uib-accordion-group class="panel-default" heading="Nouvelle photo" template-url="gr-template.html">
-								<div class="row">   
-									<div id="new-entry">                        
-										<div class="browse-or-drop"><fieldset>                   
-											<legend>Parcourir ou glisser et déposer </legend>
-											<uploader url={{vm.entryUrl}} destination="galery"></uploader>                 
-										</fieldset></div>
-										<span class="alternative-choice">Ou</span>
-										<form class="form" name="contentForm" ng-submit="vm.update(url)"><fieldset>
-											<legend>Entrez le lien de la photo</legend>
-											<div uib-alert ng-repeat="alert in detailAlerts" type="{{alert.type}}" close="closeDetailAlert($index)">{{alert.msg}}</div>               
-											<div class="form-group" ng-class="{'has-error': hasError(contentForm.name)}">
-												<label class="control-label" for="url">Lien:</label>
-												<input type="text" name="url" placeholder="http://" id="url" class="form-control" ng-model="url" required>
-												<span class="danger" ng-show="contentForm.url.$invalid && !contentForm.url.$pristine">Ce champ est requis</span>
-											</div>                
-											
-											<div class="form-group">
-												<button type="submit" class="btn btn-primary" ng-disabled="contentForm.url.$invalid" >Enregistrer</button>
-											</div>
-										</fieldset></form>              
-									</div>                
-								</div>
-							</div>
-						</uib-accordion>
-					</div> 
+				
 					<hr/>
 					<div class="row">
 						<div class="col-sm-5 row-top-2 left">
 							<span class="section-contains">Categorie(s) de coiffure:<span ng-repeat="category in vm.hairdresser.categories track by $index"> {{category.name |lowercase}} </span> <br/></span>
 						</div>
-						<div class="col-sm-3 edit-button" >
+						<!--<div class="col-sm-3 edit-button" >
 							<button type="button" class="btn-edit" ng-click ="vm.updatePreferenceModal()" aria-label="Left Align">
 									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 							</button>								
-						</div>
+						</div>-->
 					</div>
 					<hr/>
 					<div class="row">
 						<div class="col-sm-8 row-top-2 left">
 							<span class="section-contains">Type(s) de coiffure(s):<span ng-repeat="performance in vm.hairdresser.listOfPerformance track by $index"> {{performance}} </span> <br/></span>
 						</div>
-						<div class="col-sm-3 edit-button" >
+						<!--<div class="col-sm-3 edit-button" >
 							<button type="button" class="btn-edit" ng-click ="vm.updatePreferenceModal()" aria-label="Left Align">
 									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 							</button>								
-						</div>			
+						</div>			-->
 					</div>
 				</div><!-- .section -->
 				<div class="section">
@@ -105,32 +78,17 @@
 						<span class="section-t col-sm-3">
 								<h4>Zone(s) couverte(s)</h4>
 						</span><!-- .section-title -->
-					</div>
-					<hr>
-					<br>
-					<div class="row">
-						<div class="col-sm-9">
-							<form role="form" name="coverZoneForm">									
-								<div class="row form-group">
-									<label class="col-sm-4 control-label">Code Postal</label>
-									<div class="col-sm-8">										
-									<input 	uib-tooltip="code postale et nom de la ville" id="user_input_autocomplete_address3" name="user_input_autocomplete_address3" ng-model="location"
-											class="form-control" placeholder="Entrez un code postale  ..."/>
-									</div>
-								</div>									
-							</form>
-						</div>
-						<div class="col-sm-2">
-							<input type="button" class="btn-lbc"  ng-click="vm.updateCoverZone(location)"value="Enregister"/>
-						</div>
+						<span class="col-sm-3 edit-button">
+							<a class="btn-default-lbc btn-lbc" ng-click="vm.updateHairdresserCoverArea(vm.hairdresser.activityArea)">Ajouter</a>
+						</span><!-- .edit-button -->
+					</div>				
 						<hr/>
 						<br>
-						<div class="row">							
-							<div class="col-sm-6"ng-repeat="area in vm.hairdresser.activityArea track by $index">
-								<span class="section-contains">Adresse {{$index+1 }}: {{::area.formatted_address }}</span> <button class="btn btn-edit btn-primary" type="button" ng-click="vm.deleteArea(area._id)">Supprimer</button>								
-							</div>
+					<div class="row">							
+						<div class="col-sm-6"ng-repeat="area in vm.hairdresser.activityArea track by $index">
+							<span class="section-contains">{{::area.formatted_address }}</span> <button class="btn btn-edit btn-primary" type="button" ng-click="vm.deleteArea(area._id)">Supprimer</button>								
 						</div>
-					</div> <!-- row section-top -->					
+					</div>									
 				</div> <!-- .section -->
 				<div class="section">
 					<div class=" row section-top">
@@ -138,7 +96,7 @@
 								<h4>Description</h4>
 						</span><!-- .section-title -->
 						<span class="col-sm-3 edit-button">
-							<a class="btn-default-lbc btn-lbc" ng-click="vm.updateDescriptionModal()">Modifier</a>
+							<a class="btn-default-lbc btn-lbc" ng-click="vm.updateHairdresserInformations('/hairdresser/description/edit/')">Modifier</a>
 						</span><!-- .edit-button -->
 					</div> <!-- row section-top -->
 					<hr>
@@ -323,27 +281,7 @@
 	        <div class="modal-footer" style="text-align:center;"  ng-hide="$ctrl.isSuccess">
 	            <button class="btn-lbc btn-error" type="button" ng-click="$ctrl.ok()">OK</button>
 	        </div>
-	</script>
-	<script type="text/ng-template" id="confirmation-modal.html">
-   	  		<div class="modal-header-success"  ng-show="$ctrl.isSuccess">
-	             <h5 class="center success modal-title">Confirmation </h5>
-	        </div>
-	        <div class="modal-header-error"  ng-hide="$ctrl.isSuccess">
-	             <h5 class="center error modal-title">Erreur </h5>
-	        </div>
-	        <div class="modal-body" id="modal-body" ng-show="$ctrl.isSuccess">
-	           <span class="question-modal" style="text-algin:center;"> {{$ctrl.message}}</span>
-	        </div>
-	        <div class="modal-body" id="modal-body" ng-hide="$ctrl.isSuccess">
-	           <span class="question-modal" style="text-algin:center;"> {{$ctrl.message}} !</span>
-	        </div>
-	        <div class="modal-footer" style="text-align:center;"  ng-show="$ctrl.isSuccess">
-	            <button class="btn-lbc btn-success" type="button" ng-click="$ctrl.ok()">OK</button>
-	        </div>
-	        <div class="modal-footer" style="text-align:center;"  ng-hide="$ctrl.isSuccess">
-	            <button class="btn-lbc btn-error" type="button" ng-click="$ctrl.ok()">OK</button>
-	        </div>
-	</script>
+	</script>	
 	<script type="text/ng-template" id="hairdresserCutomerType.html">
 		<div class="modal-header">
 			<h3 class="center modal-tile"> Type de client </h3>

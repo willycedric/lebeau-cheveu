@@ -10,7 +10,8 @@ export const searchbar = angular.module('searchbar', [uiRouter,'geolocation','ng
       url: '/searchbar',
       params:{
       	selectedLocation:null,
-      	selectedCategory:null
+      	selectedCategory:null,
+        homePage:null
       },
       template: '<searchbar></searchbar>'
     })

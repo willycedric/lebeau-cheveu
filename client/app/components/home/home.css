@@ -267,9 +267,10 @@
 }
     .home select {
         /*background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>");*/
+        background: url(https://res.cloudinary.com/lebeaucheveu/image/upload/v1495805920/icon-arrow-down-edit_kvk5hd.png) no-repeat right #0da7a9;
         background-repeat:no-repeat;
         background-position: right 10px top 15px;
-        background-size: 16px 16px;
+        background-size: 28px 28px;
         background-color:transparent;
         font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
         height: 60px;
@@ -302,7 +303,12 @@
         background: rgba(255,255,255,0.2);
     }
     .home .form-wrapper>select:hover{
-        background: rgba(255,255,255,0.2);
+        /*background: rgba(255,255,255,0.2);*/
+        background: url(https://res.cloudinary.com/lebeaucheveu/image/upload/v1495805920/icon-arrow-down-edit_kvk5hd.png) no-repeat right;        
+        background-repeat:no-repeat;
+        background-position: right 10px top 15px;
+        background-size: 28px 28px;
+        background-color:rgba(255,255,255,0.2);
     }   
     
     .home .form-wrapper > input:-webkit-input-placeholder {
@@ -356,6 +362,7 @@
     }
     
     .home .form-wrapper > button:before {
+        display: none;
         content: '';
         position: absolute;
         border-width: 8px 8px 8px 0;

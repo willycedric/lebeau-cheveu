@@ -7,6 +7,9 @@ import {hairdressermessage} from './messages/hairdressermessage';
 import {hairdresserbooking} from './bookings/hairdresserbooking';
 import {hairdresserpicture} from './pictures/hairdresserpicture';
 import {hairdresseraccount} from './settings/hairdresseraccount';
+import {hairdresserdescription} from './settings/hairdresser-edit-description/hairdresser-edit-description';
+import {hairdresserarea} from './settings/hairdresser-edit-area/hairdresser-edit-area';
+import {hairdressersetting} from './settings/hairdresser-edit-settings/hairdresser-edit-setting';
 import {servicesHairdresserResourceModule} from './../common/services/hairdresserResource';
 import {securityAuthorizationModule} from './../common/security/authorization';
 import hairdresserProfileCard from './haidresser-profile-card.html';
@@ -23,7 +26,10 @@ export const hairdresser = angular.module('hairdresser',
     hairdressermessage.name,
     hairdresserbooking.name,
     hairdresserpicture.name,
-    hairdresseraccount.name,
+    hairdresseraccount.name,,
+    hairdresserdescription.name,
+    hairdresserarea.name,
+    hairdressersetting.name,
     servicesHairdresserResourceModule.name
 
   ]

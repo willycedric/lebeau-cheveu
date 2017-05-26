@@ -498,3 +498,10 @@ h5{
     font-size:700;
     color:black;
 }
+
+.form-control{
+    &:focus{
+        border-color:$default-background-color;
+    }
+    outline: none;
+}

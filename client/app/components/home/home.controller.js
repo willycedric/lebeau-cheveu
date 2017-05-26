@@ -102,9 +102,9 @@ class HomeController {
 		if(searchForm.$valid){
 			if(this.selectedLocation!=undefined){
 				if(this.$scope.data.formatted_address!=undefined){					
-						this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:this.$scope.data.formatted_address,longitude:this.$scope.data.longitude,latitude:this.$scope.data.latitude,address_components:this.$scope.data.address_components});					
-				}else{
-					this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:this.selectedLocation});
+						this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:this.$scope.data.formatted_address,longitude:this.$scope.data.longitude,latitude:this.$scope.data.latitude,address_components:this.$scope.data.address_components,homePage:true});					
+				}else{					
+					this.$state.go('searchbar', {selectedCategory:this.selectedHaircutCategory,selectedLocation:this.selectedLocation,homePage:true});//the boolean homePage allows the system to know that request is initiated from the homePage
 				}
 		}else{
 			throw new Error("no selected location was specified.");
