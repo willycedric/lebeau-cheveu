@@ -505,3 +505,24 @@ h5{
     }
     outline: none;
 }
+
+/*Place holder default style */
+input::-webkit-input-placeholder {
+  font-family:$default-font-groups;
+  font-weight: lighter;
+}
+
+input:-ms-input-placeholder {
+  font-family:$default-font-groups;
+  font-weight: lighter;
+}
+
+input:-moz-placeholder {
+  font-family: $default-font-groups;
+  font-weight: lighter;
+}
+
+input::-moz-placeholder {
+  font-family: $default-font-groups;
+  font-weight: lighter;
+}

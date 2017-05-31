@@ -32,33 +32,38 @@ class SearchbarController {
    this.$location =$location;
    this.defaultRating =3.6;
    this.events =[];//list of hairdresser appointments
-    var vm = this;
-    NgMap.getMap().then(function(map) {
-      console.log(map.markers.user);//.style.background="blue";
+   //list of available search perimeters
+   this.distanceRange = {'10KM':"Ten",'15KM':"Fifteen",'20KM':"Twenty"};
+   this.listOfavailablePerimeters = Object.keys(this.distanceRange); //get all the keys of the distanceRange Object
+   this.selectedPerimeter = "Five";//default value
+   
+    // var vm = this;
+    // NgMap.getMap().then(function(map) {
+    //   console.log(map.markers.user);//.style.background="blue";
      
-      vm.showCustomMarker= function(evt) {
-        map.customMarkers.foo.setVisible(true);
-        map.customMarkers.foo.setPosition(this.getPosition());
-      };
-       //redirect to user to the selected hairdresser profile
-      vm.goToHairdresserProfile= function(evt,hairdresserId) {          
-          var url = "/showhairdresserprofile/"+hairdresserId.toString();
-          if(hairdresserId!=undefined){
-            vm.$location.path(url);
-          }else{
-            throw new Error(" the hairdresser id is not defined");
-          }
-      };
-    });    
+    //   vm.showCustomMarker= function(evt) {
+    //     map.customMarkers.foo.setVisible(true);
+    //     map.customMarkers.foo.setPosition(this.getPosition());
+    //   };
+    //    //redirect to user to the selected hairdresser profile
+    //   vm.goToHairdresserProfile= function(evt,hairdresserId) {          
+    //       var url = "/showhairdresserprofile/"+hairdresserId.toString();
+    //       if(hairdresserId!=undefined){
+    //         vm.$location.path(url);
+    //       }else{
+    //         throw new Error(" the hairdresser id is not defined");
+    //       }
+    //   };
+    // });    
 
-    //toggle animation of the customer marker
-    vm.toggleBounce = function() {
-      if (this.getAnimation() != null) {
-        this.setAnimation(null);
-      } else {
-        this.setAnimation(google.maps.Animation.BOUNCE);
-      }
-    }
+    // //toggle animation of the customer marker
+    // vm.toggleBounce = function() {
+    //   if (this.getAnimation() != null) {
+    //     this.setAnimation(null);
+    //   } else {
+    //     this.setAnimation(google.maps.Animation.BOUNCE);
+    //   }
+    // }
 
  
 
@@ -184,30 +189,35 @@ class SearchbarController {
     var defered = this.$q.defer();
     this.hairdresserMAnager.findHairdressers(seachParameters)
     .then((data)=>{
-        if(data.length>0){//display the search result if a least on hairdresser is found
-          this.listOfSelectedHairdressers = data;
-
-          //this.$window.location.reload();             
+        console.log("search results ", JSON.stringify(data,null,7));
+        if(data.structuredResult.length>0){//display the search result if a least on hairdresser is found
+          this.listOfSelectedHairdressers = data.structuredResult;          
           this.isAtLeastOneHairdresserFound =true;
            this.disPlayNoResult=true;
            this.disPlayInitialForm=true;
-           defered.resolve(data);
+           defered.resolve(data.structuredResult);          
            return defered.promise;
         }else{ 
           this.isAtLeastOneHairdresserFound=false;
           this.disPlayNoResult=false;
-          this.disPlayInitialForm=false;
+          //this.disPlayInitialForm=false;
+          for(var key in data.resultNumbers){
+            var t = Object.keys(data.resultNumbers[key]);
+            console.log('matching hairdresser by perimeter ',t[0], '-->', data.resultNumbers[key][t])
+            if(data.resultNumbers[key][t]>0){
+              this.resultDetails = 'vous avez des coiffeuses disponibles à environ ' +t[0]=='ten'?'10KM':t[0]=='fifteen'?'15KM':'20KM'+' de vous';
+            }
+          }
           return "";
         }
     })
-  .then((data)=>{
-    console.log("data ", data);
+  .then((data)=>{    
     angular.forEach(data,(hairdresser,index)=>{    
        var tempArray =[];               
           angular.forEach(hairdresser.appointments, (appt,key)=>{
             //self.events.push({id:appt._id, date:appt.dayOfWeek, startTime:appt.slotTime, type:appt.slotType,state:appt.slotState,status: appt.slotState==0?'booked':(appt.slotState==-1?'pending':(appt.slotType===-1?'locked':'free')), relatedCustomer:appt.relatedCustomers,allDay:false});
             if(appt.slotType!=-1 && appt.hasOwnProperty('slotTime')){
-                console.log("I am here");
+                
                 tempArray.push({
                 id:appt._id, 
                 startTime:self.DateHandler.moment(appt.dayOfWeek.split('T')[0]).add(parseInt(appt.slotTime.split('h')[0]),'hours').toDate() , 
@@ -297,7 +307,9 @@ class SearchbarController {
 				}
 				data.longitude = longitude;
 				data.latitude = latitude;
-				data.formatted_address = formatted_address;		
+				data.formatted_address = formatted_address;	
+        data.perimeter = this.selectedPerimeter;
+        console.log("Search parameter ", JSON.stringify(data,null,7));
         this.formatted_address = formatted_address;		
 				defered.resolve(data);
 			}else{
@@ -321,7 +333,7 @@ class SearchbarController {
     }
 
     launchSearch(selectedLocation,selectedHaircut,longitude,latitude){ 
-        var self = this;      
+      var self = this;      
       self.AuthToken.save("locationParameter", selectedLocation);
       self.AuthToken.save('selectedHaircut',selectedHaircut);
       self.AuthToken.save('longitude',self.$scope.longitude);
@@ -348,7 +360,8 @@ class SearchbarController {
               .then((data)=>{
               data.haircut=self.listOfavailableHaircuts.indexOf(selectedHaircut);
               data.category=self.listOfAvailableCategories.indexOf(self.selectedCategory);
-              
+              data.perimeter = self.selectedPerimeter;
+             debugger;
                 self.findHairdressersAccordingToSelectedArea(data);
               });
            }else{
@@ -356,17 +369,19 @@ class SearchbarController {
               .then((data)=>{
               data.haircut=self.listOfavailableHaircuts.indexOf(selectedHaircut);
               data.category=self.listOfAvailableCategories.indexOf(self.selectedCategory);
-             
+             data.perimeter =self.selectedPerimeter;
+            // debugger;
                 self.findHairdressersAccordingToSelectedArea(data);
               });
            }        
-         }else{
+         }else{           
            var searchParameters={
               location:selectedLocation,
               haircut:(self.listOfavailableHaircuts.indexOf(selectedHaircut)),
               category:self.listOfAvailableCategories.indexOf(self.selectedCategory),
               longitude:parseFloat(self.longitude),
-              latitude:parseFloat(self.latitude)
+              latitude:parseFloat(self.latitude),
+              perimeter:self.selectedPerimeter
             };
            
             self.findHairdressersAccordingToSelectedArea(searchParameters);
@@ -388,7 +403,9 @@ class SearchbarController {
         }
      });
   }; 
-
+/**
+ * 
+ */
   init(){
       var self = this;      
       console.log("homePage ", self.$stateParams.homePage);
@@ -396,10 +413,20 @@ class SearchbarController {
       var selectedHaircut = self.AuthToken.get('selectedHaircut');
       var longitude = self.AuthToken.get('longitude');
       var latitude = self.AuthToken.get('latitude');
-      if(selectedHaircut != undefined && locationParameter !=undefined && self.$stateParams.homePage!=true){
+      if(selectedHaircut != undefined && locationParameter !=undefined && self.$stateParams.homePage!=true){          
           self.launchSearch(locationParameter,selectedHaircut,longitude,latitude);
       }
-    }  
+    }
+  /**
+   * Update the search perimeter selected by the user
+   * @param {string} perimeter 
+   */
+  updatePerimeter(perimeter){
+    console.log('updatePerimeter','selected perimeter ', perimeter);
+    var self = this;
+    self.selectedPerimeter = self.distanceRange[perimeter];
+    console.log('Exit updatePerimeter ', self.selectedPerimeter);
+  }
    
 }
 SearchbarController.$inject= ['$stateParams','API','$log','searchBar','Location','AuthToken','hairdresserMAnager','$scope','$q','geolocation','NgMap','$window','$location','DateHandler'];

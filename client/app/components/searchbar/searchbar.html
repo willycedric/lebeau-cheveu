@@ -17,8 +17,8 @@
 		</div> <!-- .row .hidden-xs -->
 		<div class="row">
 			<div  ng-hide ="vm.disPlayNoResult">
-					<div class="container search-hairdresser-form">
-						<div class="row hidden-xs" >
+					<div class="search-hairdresser-form">
+						<!--<div class="row hidden-xs" >
 							<div>   
 								<div uib-alert ng-repeat="alert in vm.detailAlerts" type="{{alert.type}}" close="vm.closeDetailAlert($index)">{{alert.msg}}</div>
 								<form class="form-wrapper form-left cf"  name ="haircutStyleForm" ng-submit="vm.launchSearch(vm.selectedLocation,vm.selectedHaircut,longitude,latitude)"> 
@@ -27,15 +27,14 @@
 												<option value="">Quelle catégorie de coiffure?</option>
 												<option ng-repeat = "haircut in vm.listOfavailableHaircuts" required  value="{{haircut}}">{{haircut}}</option>
 											</optgroup>
-										</select>				
-										<!--<input type="text" placeholder="Se coiffer où?" required  ng-model="vm.selectedLocation"  uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">-->                            
+										</select>														
 										<input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/>											
 										<button type="submit">GO</button>
 								</form>
-							</div> <!--  .hero-footer  -->
-						</div> <!-- .row .hidden-xs -->	
+							</div> 
+						</div>--> <!-- .row .hidden-xs -->	
 						<div class="row">
-							<h3 class="no-results"> Nous n'avons pas trouvé d'annonce correspondant exactement à vos critères. </h3>
+							<h3 class="no-results"> Nous n'avons pas trouvé de professionnels correspondant exactement à vos critères. </h3>
 							<br/>					
 						</div>
 						
@@ -91,8 +90,21 @@
 									</div> <!-- end .single-result -->							
 					</div> <!-- end ng-repeat -->
 				</div>	<!-- end .col-md-9 -->				
-				<div class="col-md-3 first-element">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime quasi qui alias excepturi, quibusdam architecto sapiente incidunt cumque ipsum, nihil assumenda, tempora? Numquam unde, harum voluptatibus quos fugit, fugiat voluptas!</p>
+				<div class="col-md-3 first-element" ng-hide ="vm.disPlayNoResult">
+					<div class="additional-results">
+						<p>{{vm.resultDetails}}</p>
+					</div>
+					<div>
+						<form name="distance-filter">
+							<select class="perimeter" ng-model="selectedPerimeter" id="location-filter" name="location-filter" class="no-rounder" ng-change="vm.updatePerimeter(selectedPerimeter)">
+								<optgroup label="distance">
+									<option value="">resultats supplémentaires?</option>
+									<option ng-repeat = "perimeter in vm.listOfavailablePerimeters"  value="{{perimeter}}">{{perimeter}}</option>
+								</optgroup>
+							</select>	
+						</form>
+						<pre><code>{{vm.listOfavailablePerimeters|json}}</code></pre>
+					</div>
 				</div>
 			</div> <!-- end .row -->		
 			
