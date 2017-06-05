@@ -1,3 +1,4 @@
+import axios from 'axios';
 export const servicesAdminResourceModule = angular.module('servicesAdminResourceModule', []).factory('adminResource', ['$http', '$q','API', function ($http, $q,API) {
   // local variable
   const baseUrl =`${API.dev.homeUrl}`+'/api';
@@ -11,10 +12,13 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
   var adminBlogsUrl = baseUrl + '/admin/blogs';
   var adminBlogCategoryUrl = baseUrl + '/admin/blog-category';
   var adminCatalogUrl = baseUrl+'/admin/catalogs';
+  var publicHairdressers = baseUrl+'/public/hairdressers';
+  var haircutCategory = baseUrl+'/admin/haircut/categories';
   var processResponse = function(res){
     return res.data;
   };
   var processError = function(e){
+    console.error(e);
     var msg = [];
     if(e.status)         { msg.push(e.status); }
     if(e.statusText)     { msg.push(e.statusText); }
@@ -370,5 +374,39 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
     var url = adminCategoriesUrl + '/' + _id;
     return $http.delete(url).then(processResponse, processError);
   };
+
+   // ----- accounts api -----
+  resource.getGalleyEntries = function(filters){
+    if(angular.equals({}, filters)){
+      filters = undefined;
+    }
+    return $http.get(publicHairdressers, { params: filters }).then(processResponse, processError);
+  };
+
+  // ----- haircut categories  api -----
+  resource.addHaircutCategory = function(data){
+    return $http.post(haircutCategory, data).then(processResponse, processResponse);
+  }
+  resource.deleteHaircutCategory = function(id){
+    var url = haircutCategory+'/'+id;
+    return $http.delete(url).then(processResponse, processResponse);
+  }
+  resource.updateHaircutCategory = function(_id,data){
+    var url = haircutCategory + '/' + _id;
+    return $http.put(url, data).then(processResponse, processError);
+  }
+
+  resource.gethaircutCategories = function(filters){
+    console.log("I am here too");
+      if(angular.equals({}, filters)){
+        filters = undefined;
+      }
+    return $http.get(haircutCategory, { params: filters }).then(processResponse, processError);
+     
+  }
+  resource.findHaircutCategory = function(id) {
+     var url = haircutCategory + '/' + id;
+    return $http.get(url).then(processResponse, processError);
+  }
   return resource;
 }]);

@@ -1,6 +1,6 @@
 <section class="catalog  home section-padding container">
     <div class="row">
-        <form class=" search-catalog form-wrapper cf" ng-submit="updateFilter(selectedHaircutCategory,selectedHaircut)"> 
+        <form class=" search-catalog form-wrapper cf" id="start-change" ng-submit="updateFilter(selectedHaircutCategory,selectedHaircut)"> 
            <select  ng-model="selectedHaircutCategory" id="haircut-type" name="haircut" class="no-rounder" ng-change="filtersUpdated(selectedHaircutCategory)">
                <optgroup label="categories">
                    <option value="">Quelle catégorie de coiffure?</option>

@@ -1,0 +1,9 @@
+<section class="admin section-padding">
+    <div class="container">            
+        <div class="row section-padding"> 
+            <div class="col-md-4" ng-repeat="entry in galleryEntries | orderBy: -sortEntry: true">
+                <img ng-src ="{{entry.url}}" alt="gallery-entry"/>
+            </div>
+        </div> <!-- .row -->
+    </div><!-- .container -->    
+</section>

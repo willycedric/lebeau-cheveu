@@ -526,3 +526,12 @@ input::-moz-placeholder {
   font-family: $default-font-groups;
   font-weight: lighter;
 }
+.default-label {
+    font-weight: lighter;
+    font-family: FuturaPT-Medium;
+    margin-bottom: 0.5em;
+}
+
+.admin h1 >a {
+    color:$default-background-color;
+}

@@ -33,7 +33,7 @@ import {hairdressers} from './components/hairdressers/hairdressers';
 import {showhairdresserprofile} from './components/showhairdresserprofile/showhairdresserprofile';
 import {verificationaccount} from './components/verificationaccount/verification-account';
 import {rating} from './components/starrating/starrating';
-
+import {forgot} from './components/forgot/forgot';
 import moment from 'moment';
 import './app.scss';
 
@@ -65,7 +65,8 @@ angular.module('app', [
   hairdressers.name,
   showhairdresserprofile.name,
   verificationaccount.name,
-  rating.name
+  rating.name,
+  forgot.name
 ])
 .provider(
         'csrfCD',

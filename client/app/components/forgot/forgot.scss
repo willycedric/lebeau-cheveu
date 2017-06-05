@@ -1,7 +1,8 @@
+@import "../../styles/sass/main"; 
+
 $default-padding:4%;
 $white:#fafafa;
-$default-button-color:#790303;
-$default-button-color-hover:#901a18;
+
 .forgot .forgot-row-top-4{
 	margin-top:4%;
 }
@@ -28,19 +29,25 @@ $default-button-color-hover:#901a18;
 }
 
 .forgot .btn-lbc {
-	background: none;
-    border: none;
-    color: $default-button-color;
-    padding: 0;
-    font-weight: 100;
-    font-size: 1em;
+	background: $default-background-color;
+    border: 1px solid white;
+    color: white;
+    padding: 0.5em;
+    font-weight: lighter;
+    font-size: 1.2em;
+
     &:hover{
     	text-decoration:none;
-    	color:$default-button-color-hover;
-    	background:none;
+    	color:white;
+    	background:$default-background-color;
+        border:1px solid white;
     }
     &:focus{
     	outline:none;
+        text-decoration:none;
+    	color:white;
+    	background:$default-background-color;
+        border:1px solid white;
     }
 }
 
@@ -52,15 +59,22 @@ $default-button-color-hover:#901a18;
 
 .forgot .btn-forgot {
     margin-top:5%;
-    background-color:$default-button-color;
+    background-color:$default-background-color;
     outline: none;
     color: #fff;
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: $default-button-color;
+    border-color: $default-background-color;
     &:hover{
-        background-color:$default-button-color-hover;
-         border-color:$default-button-color;
+        background-color:$default-background-color;
+         border-color:$default-background-color;
     }
+}
+
+
+.forgot .panel-forgot>.panel-heading a.active{
+    color: $default-background-color;
+    font-size: 1.3em;
+    font-family:$default-font-groups;
 }

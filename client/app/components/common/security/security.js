@@ -9,7 +9,7 @@ export const securityServiceModule = angular.module('securityServiceModule', [
  uiBootstrap     // Used to display the login form as a modal dialog.
 ])
 
-.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$uibModal', 'AuthToken','API',function($http, $q, $location, queue, $uibModal,AuthToken,API) {
+.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$uibModal', 'AuthToken','API','$window',function($http, $q, $location, queue, $uibModal,AuthToken,API,$window) {
 
   // Redirect to the given url (defaults to '/')
   function redirect(url) {
@@ -117,6 +117,7 @@ const baseUrl =`${API.dev.homeUrl}`;
         if (data.success) {
           closeLoginDialog(true);
           service.currentUser = data.user;
+          $window.location.reload();
         }
         return data;
       });
@@ -135,6 +136,7 @@ const baseUrl =`${API.dev.homeUrl}`;
           closeLoginDialog(true);
           
           service.currentUser = data.user;
+           $window.location.reload();
         }
         return data;
       });
@@ -212,6 +214,7 @@ const baseUrl =`${API.dev.homeUrl}`;
 
     //Is the current user an hairdresser
     isHairdresser: function(){
+      console.log('inside security hairdresser');
       return !!(service.currentUser && service.currentUser.hairdresser);
     },
     //Is the current user is a customer account 

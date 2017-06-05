@@ -1,6 +1,6 @@
 
 class HairdressersettingsController {
-  constructor(API,$log,$location,Auth,$stateParams,$q,$scope,ModalFactory,hairdresserMAnager,$http) {
+  constructor(API,$log,$location,Auth,$stateParams,$q,$scope,ModalFactory,hairdresserMAnager,$http,hairdresserResource) {
         var self=this;	 		 	 
 		 self.$location=$location;
 		 self.Auth = Auth;	
@@ -12,7 +12,7 @@ class HairdressersettingsController {
 		 self.ModalFactory  = ModalFactory;
 		 self.hairdresserMAnager = hairdresserMAnager;
 		 self.$http = $http;
-		 self.listOfAvailableCategories=['Cheveux Afro','Cheveux Lisses','Cheveux Bouclés'];
+		 self.hairdresserResource = hairdresserResource;
 		 self.listOfAvailableHaircut =["Vanilles",
 									"Tresses (Braids)",
 									"Crochet braids",
@@ -31,7 +31,15 @@ class HairdressersettingsController {
 			self.customerType =[];//list of selected customer type
 			self.haircutCategory=[];//list of selected haircut category
 			self.haircutType = [];
-			var init = ()=>{
+			var init = ()=>{				
+				//Get the list of available Hairtcut categories defined by the administrator
+				self.hairdresserResource.getAvailableHaircutCategories()
+				.then((result) => {
+					self.listOfAvailableCategories.push(result.data.name);
+					console.log('List of available haircuts categories ', JSON.stringify(self.listOfAvailableCategories, null, 6));
+				}, (err) => {
+					console.error(err.toString());
+				});
 				self.details =  self.$stateParams.details;//Object containing hairdresser customer type, haircuts category and performance list				
 				if(self.details.customer_type == 0){
 					self.customerType.push("Mixte");
@@ -58,8 +66,7 @@ class HairdressersettingsController {
 					customerType:self.customerType,
 					haircutCategory:self.haircutCategory,
 					haircutType:self.haircutType
-				};
-				console.log("hairdresser details", data,JSON.stringify(self.details,null,6));
+				};				
 			};
 			init();						
 			
@@ -93,17 +100,16 @@ class HairdressersettingsController {
 	 * @param {*} values 
 	 */
 	updateSelectionList(values,selectionList,listOfAvailable){		
-		var self=this;	
-		console.log("not fired");
+		var self=this;			
 		for(var value in values){			
 			if(typeof values[value] == typeof("ABC")){
-				var index = selectionList.indexOf(values[value]);				
+				var index = selectionList.indexOf(values[value].toUpperCase());				
 				if(index==-1){
-					selectionList.push(values[value]);
+					selectionList.push(values[value].toUpperCase());
 				}
 			}else{
 				if(selectionList.length!=0){					
-					var index = selectionList.indexOf(listOfAvailable[parseInt(values[value])]);					
+					var index = selectionList.indexOf(listOfAvailable[parseInt(values[value])].toUpperCase());					
 					if(index>=0){
 						selectionList.splice(index,1);
 					}					
@@ -137,9 +143,7 @@ class HairdressersettingsController {
 			}			
 			self.$http.put(`${self.API.dev.homeUrl}`+`${self.API.dev.hairdresserRoute}`+'/setting/preference',{data})
 				.then((rep)=>{
-					//deserialize(rep.data);
-					
-					//console.log("update hairdresser", rep);
+					//deserialize(rep.data);					
 				}, (err)=>{
 					throw new Error(err.toString());
 				})
@@ -169,5 +173,5 @@ class HairdressersettingsController {
 	}
 
 }//end class
-HairdressersettingsController.$inject =['API','$log','$location','Auth','$stateParams','$q','$scope','ModalFactory','hairdresserMAnager','$http'];
+HairdressersettingsController.$inject =['API','$log','$location','Auth','$stateParams','$q','$scope','ModalFactory','hairdresserMAnager','$http','hairdresserResource'];
 export {HairdressersettingsController};

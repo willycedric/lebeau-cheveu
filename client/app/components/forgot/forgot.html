@@ -1,5 +1,5 @@
 <section class="forgot">
- <div class="container top-5">
+ <div class="container  section-padding top-5">
  		<!-- username for password update form -->
 	    <div ng-hide="vm.confirmationOfMailSent || vm.isUser" class="row">
 	      <div class="col-md-6 col-md-offset-3">
@@ -9,20 +9,20 @@
 		              <div class="col-xs-3">               
 		              </div>
 		              <div class="col-xs-6">
-		                <a href="#" class="active" id="login-form-link">Mot de passe oublié</a>
+		                <a href="#" class="active" id="login-form-link">Mot de passe oublié?</a>
 		              </div>
 		              <div class="col-xs-3">               
 		              </div>
 		            </div>
 		            <hr>
 		          </div>
-		          <div class="panel-body">
+		          <div class="panel-body" id="start-change">
 		            <div class="row">
 		              <div class="col-lg-12">
 			                <form id="password-form" role="form" name="forgotForm" style="display: block;">
 			                  <!-- username -->
                               <div class="field-wrap" ng-class="{ 'has-error' : registerForm.username.$invalid && !registerForm.username.$pristine }">
-                                  <label class="label-displayed" for="username"></label>
+                                  <label class="default-label" for="username">Veuillez entrer votre nom d'utilisateur</label>
                                   <input type="text" name="username" id="username"  ng-model ="user.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required>
                                   <!-- in case of an error the message below is displayed as part of the list of message errors -->
                                   <span ng-show='registerForm.username.$invalid&& !registerForm.username.$error.uniqueusername &&!registerForm.username.$pristine' class='text-danger'>Le nom d'utilisateur est requis </span>
@@ -30,7 +30,7 @@
 			                  <div class="form-group">
 			                    <div class="row">
 			                      <div class="col-sm-6 col-sm-offset-3">
-			                        <input type="submit" name="password-submit" id="password-submit" tabindex="4" class="btn-default btn-lbc top-3" value="Réinitialiser" ng-click="vm.passwordReset(user)">
+			                        <button type="submit" name="password-submit" id="password-submit" tabindex="4" class="btn-default btn-lbc top-3" ng-click="vm.passwordReset(user)">Réinitialiser</button>
 			                      </div>
 			                    </div>
 			                  </div>

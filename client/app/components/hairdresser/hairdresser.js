@@ -43,6 +43,7 @@ export const hairdresser = angular.module('hairdresser',
         summaries: ['$q', '$location', 'securityAuthorization', 'hairdresserResource',function($q, $location, securityAuthorization,hairdresserResource){
           //get app stats only for admin-user, otherwise redirect to /account
           var redirectUrl;
+          console.log("Je suis a ce niveau");
           var promise = securityAuthorization.requireHairdresserUser()
             .then(hairdresserResource.getSettings, function(reason){
                 //rejected either user is unverified or un-authenticated               

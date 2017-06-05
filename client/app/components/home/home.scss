@@ -14,7 +14,7 @@ $customer-advice-background-color:#c05;
 $legal-notice-background-color:#c06;
 $home-section-height:50em;
 $how-to-use-margin:0;
-$section-default-background-color-1:rgba(229, 229, 229, 0.29);//rgba(15, 124, 125, 0.65);//rgb(13,167,169);
+$section-default-background-color-1:#b6bbbd;//rgba(15, 124, 125, 0.65);//rgb(13,167,169);
 $section-default-background-color-2:rgba(240, 240, 240, 0.25);
 $footer-background-color:#435e64;
 /** How it work section */
@@ -138,7 +138,8 @@ $footer-background-color:#435e64;
 }
 
 #customer-advice{
-    background: #fdfaef;
+    // background: #fdfaef;
+    background: $section-default-background-color-1;
     margin: $how-to-use-margin;
     padding: $home-section-padding;
 }

@@ -217,7 +217,7 @@
  				deferred.reject(new Error("An error occurs when trying to delete an hairdresser's coverea state.", err))
  			});
  			return deferred.promise;
-		}
+		}	
 
  		return {
  			updateHairdresserAppointment,

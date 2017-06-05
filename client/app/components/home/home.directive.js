@@ -16,8 +16,7 @@ export const homeDirective = ()=> {
                   $(".lebeaucheveu-logo").css('margin-top','0');       
                     var scroll_start = 0;
                     var startchange = $(elt).find('#home-start-change');
-                    var offset = startchange.offset();
-                    console.log('home directive ', offset);
+                    var offset = startchange.offset();                    
                      if (startchange.length){
                     $(document).scroll(function() { 
                        scroll_start = $(this).scrollTop();
