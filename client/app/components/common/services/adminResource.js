@@ -14,6 +14,8 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
   var adminCatalogUrl = baseUrl+'/admin/catalogs';
   var publicHairdressers = baseUrl+'/public/hairdressers';
   var haircutCategory = baseUrl+'/admin/haircut/categories';
+  var homeGallery = baseUrl+'/admin/home/gallery';
+
   var processResponse = function(res){
     return res.data;
   };
@@ -408,5 +410,32 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
      var url = haircutCategory + '/' + id;
     return $http.get(url).then(processResponse, processError);
   }
+  //---- home gallery entries ---- 
+   
+  resource.deleteHomeGalleryEntry = function(id){
+    var url = homeGallery+'/'+id;
+    return $http.delete(url).then(processResponse, processResponse);
+  }
+  resource.updateHomeGalleryEntry = function(_id){
+    var url = homeGallery + '/' + _id;
+    return $http.put(url).then(processResponse, processError);
+  }
+
+  resource.getHomeGalleryEntry = function(filters){    
+      if(angular.equals({}, filters)){
+        filters = undefined;
+      }
+    return $http.get(homeGallery, { params: filters }).then(processResponse, processError);
+     
+  }
+  resource.findHomeGalleryEntry = function(id) {
+     var url = homeGallery + '/' + id;
+    return $http.get(url).then(processResponse, processError);
+  }
+
+  resource.createHomeGalleryEntry = function(data) {     
+    return $http.post(homeGallery,data).then(processResponse, processError);
+  }
+  
   return resource;
 }]);

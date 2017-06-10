@@ -9,12 +9,12 @@
 				<menu></menu>
 			</div> <!-- .col-sm-4 left-element -->	
 			<div class="col-sm-9">				
-		        <div class="row" id="admin-catalogs-index"">
+		        <div class="row" id="admin-catalogs-index">
 		            <div class="col-sm-9 page-header">                
 		                <h1>Mon catalogue</h1>
 		            </div>		            
 		            <div class="col-sm-3">                                
-		                <button type="button" class="btn btn-primary button-add" ng-click="vm.LaunchAddCategoryForm()">Ajouter un style de coiffure</button>                   
+		                <button type="button" style="display:none;" class="btn btn-primary button-add" ng-click="vm.LaunchAddCategoryForm()">Ajouter un style de coiffure</button>                   
 		            </div>
 		        </div>
 		        <div class="row">
@@ -27,7 +27,7 @@
 		                </tr>
 		                </thead>
 		                <tbody>
-		                <tr ng-repeat="category in vm.hairdresser.categories track by $index" ng-click="vm.redirectToCategoryDetails(category,$index)">
+		                <tr ng-repeat="category in vm.availableHaircutCompleteCategories track by $index" ng-click="vm.redirectToCategoryDetails(category,$index)">
 		                    <td ng-bind="category.createdAt|date"></td>
 		                    <td ng-bind="category.name"></td>
 		                    <td class="nowrap" ng-bind="vm.getGaleryEntry(category._id)"></td>

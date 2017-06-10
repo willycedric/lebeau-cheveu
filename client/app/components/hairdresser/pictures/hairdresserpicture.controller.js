@@ -1,34 +1,37 @@
 class HairdresserpictureController {
-	  constructor($location,$log,hairdresserMAnager,$q,pictures,$scope,ModalFactory,$timeout,$state,haircutCategory) {
+	  constructor($location,$log,hairdresserMAnager,$q,pictures,$scope,ModalFactory,$timeout,$state,haircutCategory,hairdresserResource) {
 	  	// hairdressers account informations
 	  	var self = this;
 	  	self.$q=$q;
 	  	self.hairdresser={};
 	  	self.profile_picture="";
 	  	self.hairdresserMAnager = hairdresserMAnager;
+		self.hairdresserResource = hairdresserResource;
 	  	self.$timeout=$timeout;
 	  	self.$location =$location;  	
 	  	self.$log = $log;
 	  	self.$state=$state;
-	  	
-
-	    var deserialize = (data)=>{
-          var defered = self.$q.defer();
-          defered.resolve(data.hairdresser);
-          return defered.promise;
-        };
-
-	    var init = (data)=>{
-	      deserialize(data)
-	      .then(function HairdresserControllerGetProfileSuccessCallback(response){
-	     	 self.hairdresser= response;
+		//Array containing the list of available categories's name defined by the admin
+		self.availableHaircutCategories = [];
+		//Array containing the list of catgories object defined by the admin. 
+		self.availableHaircutCompleteCategories = [];
+	    var init = (data) => {			
+	     self.hairdresserResource.getAvailableHaircutCategories()
+	      .then((results) => {
+			  self.availableHaircutCompleteCategories = results.data;
+			  results.data.map( (category ) => {
+				self.availableHaircutCategories.push(category.name);				
+			  });
+			  
+	     	 self.hairdresser= data.hairdresser;
 	     	 $scope.profile_picture= self.hairdresser.profile_picture;
 	          self.count = hairdresserMAnager.getHairdresserNotYetConfirmedAppointmentNumber(self.hairdresser.appointments);
 	      }, function HairdresserControllerGetProfileErrorCallback(err){
 
 	      });
 	    };
-	    self.updateHairdresserProfile = (hairdresser)=>{
+
+	    self.updateHairdresserProfile = (hairdresser) => {
 	  		Auth.updateUserProfile(`${API.dev.hairdresserRoute}`,hairdresser)
 	  		.then(function HairdresseraccountControllerUpdateSuccessCallback(rep){
 	  			self.hairdresser =rep;
@@ -36,7 +39,7 @@ class HairdresserpictureController {
 	  			$log.error(err);
 	  		})
 	  	};
-	    self.LaunchAddCategoryForm = ()=>{
+	    self.LaunchAddCategoryForm = () => {
 	    	var top = this;
 	   	  ModalFactory.trigger(top,'new-category.html',function ( $uibModalInstance,topController){
 				var $ctrl = this;
@@ -81,7 +84,7 @@ class HairdresserpictureController {
 							  	},2000);
 							  });
 						}
-						console.log("After categories check");						
+						
 					}					
 					
 				};
@@ -98,17 +101,17 @@ class HairdresserpictureController {
 	   	 	}else{
 	   	 		throw new Error(" the category id is not defined");
 	   	 	}
-	   	 };
-	self.getGaleryEntry = (id)=>{
-				console.log("category entry",id);
+	};
+
+	self.getGaleryEntry = (id)=>{				
 				var count =0;
-				angular.forEach(self.hairdresser.gallery_pictures,function(entry){
+				angular.forEach(self.hairdresser.gallery_pictures,function(entry){					
 					if(entry.category == id && entry.published){
 						count++;
 					}
 				});
 				return count;
-		};	 
+	};	 
 	    init(pictures);
 
 	};//end constructor;
@@ -128,7 +131,7 @@ class HairdresserpictureController {
 		return count;
 	}
 }
-HairdresserpictureController.$inject =['$location','$log','hairdresserMAnager','$q','pictures','$scope','ModalFactory','$timeout','$state','haircutCategory'];
+HairdresserpictureController.$inject =['$location','$log','hairdresserMAnager','$q','pictures','$scope','ModalFactory','$timeout','$state','haircutCategory','hairdresserResource'];
 
 export {HairdresserpictureController};
 

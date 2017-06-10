@@ -1,9 +1,17 @@
 <section class="admin section-padding">
     <div class="container">            
         <div class="row section-padding"> 
-            <div class="col-md-4" ng-repeat="entry in galleryEntries | orderBy: -sortEntry: true">
-                <img ng-src ="{{entry.url}}" alt="gallery-entry"/>
+            <div class="col-md-4" ng-repeat="hairtCategory in galleryEntries | orderBy: -sortEntry: true track by $index">
+                <div class="gallery-contain">      
+                    <div class="entry-image">
+                        <img class="gallery-entry"  ng-src ="{{hairtCategory.entry.url}}" ng-class="{ 'img-selected' : isSelected[$index], 'img-already-selected' : isAlreadySelected[alreadySelected(hairtCategory.entry.url)]}"  alt="{{hairtCategory.name}}" ng-click="entrySelected(hairtCategory.entry.url, hairtCategory.name, $index); isSelected[$index] =!isSelected[$index]" 
+                        ng-dblclick="unpublish(hairtCategory.entry.url)"/>
+                    </div>                                                         
+                </div>               
             </div>
+            <div>
+                <button ng-click = "saveSelectedEntries()"> Save </button> 
+            </div>             
         </div> <!-- .row -->
     </div><!-- .container -->    
 </section>

@@ -12,7 +12,7 @@ class HairdresserCatalogController {
 	    // local vars
     var deserializeData = function(){      
       var defered = self.$q.defer();      
-	  var promise = self.hairdresserResource.findHaircutCatalog(self.$stateParams.id);
+	    var promise = self.hairdresserResource.findHaircutCategoryById(self.$stateParams.id);
   	  defered.resolve(promise);      
       return defered.promise;
     };
@@ -25,9 +25,11 @@ class HairdresserCatalogController {
     	deserializeData()
     	.then((rep)=>{    		
     		self.category= rep;
+        console.log('passing catgories ', JSON.stringify(rep,null,6));
     		self.haircutCategory.addCategory(self.category._id);
     		self.hairdresserResource.findGaleryEntries(self.category._id)
     		.then((rep)=>{
+          console.log('galery entries', JSON.stringify(rep,null,6));
     			angular.forEach(rep, function(entry,ind){
     				if(entry.category === self.$stateParams.id){
     					self.galeryEntries.push(entry);             

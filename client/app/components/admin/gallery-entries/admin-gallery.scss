@@ -1,0 +1,23 @@
+@import "../../styles/sass/main"; 
+
+.gallery-entry{
+    max-width: 230px;
+    max-height: 230px;  
+    transform:scale(0.9);  
+    &:hover{
+        transform:scale(1);
+        cursor: pointer;
+    }
+}
+.entry-selected > input {
+    display: block;
+    position: relative;    
+    margin-left: 50px;
+}
+.img-already-selected{
+     border:2px solid red;
+}
+.img-selected{
+    border:2px solid $default-background-color;
+    padding:.06em;    
+}

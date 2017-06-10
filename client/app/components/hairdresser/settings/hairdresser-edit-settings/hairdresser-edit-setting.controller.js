@@ -13,6 +13,7 @@ class HairdressersettingsController {
 		 self.hairdresserMAnager = hairdresserMAnager;
 		 self.$http = $http;
 		 self.hairdresserResource = hairdresserResource;
+		 self.listOfAvailableCategories=[];
 		 self.listOfAvailableHaircut =["Vanilles",
 									"Tresses (Braids)",
 									"Crochet braids",
@@ -34,8 +35,10 @@ class HairdressersettingsController {
 			var init = ()=>{				
 				//Get the list of available Hairtcut categories defined by the administrator
 				self.hairdresserResource.getAvailableHaircutCategories()
-				.then((result) => {
-					self.listOfAvailableCategories.push(result.data.name);
+				.then((result) => {					
+					result.data.map((category) => {
+						self.listOfAvailableCategories.push(category.name);
+					});
 					console.log('List of available haircuts categories ', JSON.stringify(self.listOfAvailableCategories, null, 6));
 				}, (err) => {
 					console.error(err.toString());
