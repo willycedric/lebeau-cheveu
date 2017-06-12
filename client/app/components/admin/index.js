@@ -10,6 +10,7 @@ import {adminBlogCategoriesModule} from './blog-categories/index';
 import {adminBlogModule} from './blogs/index';
 import {adminCatalogsModule} from './catalogs/index';
 import {adminGalleyModule} from './gallery-entries/index';
+import {adminHaircutStyle} from './haircut-style/index';
 import {adminHaircutCategoryModule} from './haircut-category/index';
 export const  admin = angular.module('admin', [
   adminModule.name,
@@ -24,5 +25,6 @@ export const  admin = angular.module('admin', [
   adminBlogModule.name,
   adminCatalogsModule.name,
   adminGalleyModule.name,
-  adminHaircutCategoryModule.name
+  adminHaircutCategoryModule.name,
+  adminHaircutStyle.name
 ]);

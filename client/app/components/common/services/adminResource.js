@@ -15,11 +15,12 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
   var publicHairdressers = baseUrl+'/public/hairdressers';
   var haircutCategory = baseUrl+'/admin/haircut/categories';
   var homeGallery = baseUrl+'/admin/home/gallery';
+  var haircutStyle = baseUrl +'/admin/haircut/styles';
 
-  var processResponse = function(res){
+  var processResponse = function(res){    
     return res.data;
   };
-  var processError = function(e){
+  var processError = function(e){    
     console.error(e);
     var msg = [];
     if(e.status)         { msg.push(e.status); }
@@ -435,6 +436,34 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
 
   resource.createHomeGalleryEntry = function(data) {     
     return $http.post(homeGallery,data).then(processResponse, processError);
+  }
+
+
+  //---- haircut styles entries ---- 
+   
+  resource.deleteHaircutStylesEntry = function(id){
+    var url = haircutStyle+'/'+id;
+    return $http.delete(url).then(processResponse, processResponse);
+  }
+  resource.updateHaircutStylesEntry = function(_id){
+    var url = haircutStyle + '/' + _id;
+    return $http.put(url).then(processResponse, processError);
+  }
+
+  resource.getHaircutStylesEntry = function(filters){    
+      if(angular.equals({}, filters)){
+        filters = undefined;
+      }
+    return $http.get(haircutStyle, { params: filters }).then(processResponse, processError);
+     
+  }
+  resource.findHaircutStylesEntry= function(id) {    
+     var url = haircutStyle + '/' + id;          
+    return $http.get(url).then(processResponse, processError);
+  }
+
+  resource.createHaircutStylesEntry = function(data) {     
+    return $http.post(haircutStyle,data).then(processResponse, processError);
   }
   
   return resource;

@@ -81,8 +81,9 @@ export const servicesHairdresserResourceModule = angular.module('servicesHairdre
     return $http.get(baseUrl+'/hairdresser/galery/entries/'+id.toString()).then(processResponse,processError);
   };
 
-  resource.deleteGaleryEntries=function(id){
-     return $http.delete(baseUrl+'/hairdresser/galery/entries/'+id.toString()).then(processResponse,processError);
+  resource.deleteGaleryEntries=function(id, categoryId){
+     console.log("entry id", id, " category id ", categoryId);
+     return $http.delete(baseUrl+'/hairdresser/galery/entries/'+id.toString()+'/'+categoryId.toString()).then(processResponse,processError);
   }
 
   resource.getAvailableHaircutCategories = function () {

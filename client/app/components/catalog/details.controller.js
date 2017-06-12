@@ -17,9 +17,9 @@ class detailCtrl {
         };
 
         this.deletePicture=(content)=>{            
-           hairdresserResource.deleteGaleryEntries(content.content._id)
+           hairdresserResource.deleteGaleryEntries(content.content._id, content.content.category)
            .finally((rep)=>{
-                self.$window.location.reload();
+               self.$window.location.reload();
            });
     };
         deserializeData($location.path());    

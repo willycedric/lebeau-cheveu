@@ -1,0 +1,56 @@
+<section class="admin section-padding container">
+    <div class="row section-padding" id="admin-categories-index">
+        <div class="row">
+            <div class="col-md-6 page-header">                
+                <h1>Haircut styles</h1>
+            </div>      
+            <div class="col-md-offset-3 col-md-3">                                
+                <button type="button" class="btn btn-primary btn-add" ng-click="LaunchAddHaircutStyleForm()">Add New</button>                    
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Created at</th>
+                    <th class="stretch">Name</th>
+                    <th>Author</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="haircut in haircuts" ng-click="redirectToHaircutStyleDetails(haircut._id)">
+                    <td ng-bind="haircut.userCreated.time|date"></td>
+                    <td ng-bind="haircut.name"></td>
+                    <td class="nowrap" ng-bind="haircut.userCreated.name"></td>
+                </tr>
+                <tr ng-show="categories.length === 0">
+                    <td colspan="4">no documents matched</td>
+                </tr>
+                </tbody>
+            </table>            
+        </div>
+    </div>
+    <script type="text/ng-template" id="newHaircutStyle.html">
+        <div class="modal-header">
+                     <h3 class="center modal-title">New Haircut style</h3>
+        </div>
+        <div class="modal-body">
+            <form autocomplete="off" role="add"  id="add-form"  name="addPivotForm"  novalidate ng-submit="$ctrl.addHaircutStyle(name,state)">
+                <input name="name" type="text" placeholder="name" class="" ng-model="name" required>
+                <div class="checkbox">
+                    <label> <input name="name" type="checkbox" class="" ng-model="state">state</label>            
+                </div>              
+                <div class="container"> 
+                    <div class="row">
+                        <div class="col-sm-offset-1 col-sm-2">
+                            <button  type="submit"  name="update-submit" id="update-submit" tabindex="2" class="btn btn-confirm btn-primary">Add</button>
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-primary btn-cancel" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>  
+       </div>
+    </script>    
+</section>
