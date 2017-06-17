@@ -12,3 +12,4 @@ node_modules
 /nbproject/private/
 /nbporoject
 dist/bundle
+dist/bundle.js

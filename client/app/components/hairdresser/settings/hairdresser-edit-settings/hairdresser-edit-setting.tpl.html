@@ -62,17 +62,10 @@
 						</div><!-- end customer type -->
 						<div class="row section-edition">
 							<h5 class="section-edtion-second-title">Catégorie de coiffure</h5>
-							<div class="col-md-4 checkbox">
-								<label><input type="checkbox" ng-model="categpries.values1"  ng-checked="vm.isAlreadySelected(0, vm.haircutCategory,vm.listOfAvailableCategories)" ng-true-value="'Cheveux Afro'" ng-false-value="0" ng-change="vm.updateSelectionList(categpries,vm.haircutCategory, vm.listOfAvailableCategories)">Cheveux Afro</label>
+							<div class="col-md-4 checkbox" ng-repeat="category in vm.listOfAvailableCategories track by $index">
+								<label><input type="checkbox" ng-model="categpries.values"  ng-checked="vm.isAlreadySelected($index, vm.haircutCategory,vm.listOfAvailableCategories)" ng-true-value="'{{category}}'" ng-false-value="0" ng-change="vm.updateSelectionList(categpries,vm.haircutCategory, vm.listOfAvailableCategories)">{{category | lowercase}}</label>
 							</div>
-							<div class="col-md-4 checkbox">
-								<label><input type="checkbox" ng-model="categpries.values2"  ng-checked="vm.isAlreadySelected(1, vm.haircutCategory,vm.listOfAvailableCategories)" ng-true-value="'Cheveux Lisses'" ng-false-value="1" ng-change="vm.updateSelectionList(categpries,vm.haircutCategory, vm.listOfAvailableCategories)">Cheveux Lisses</label>
-							</div>
-							<div class="col-md-4 checkbox">
-								<label><input type="checkbox" ng-model="categpries.values3"  ng-checked="vm.isAlreadySelected(2, vm.haircutCategory,vm.listOfAvailableCategories)" ng-true-value="'Cheveux Bouclés'" ng-false-value="2" ng-change="vm.updateSelectionList(categpries,vm.haircutCategory, vm.listOfAvailableCategories)">Cheveux Bouclés</label>
-							</div>
-							{{vm.haircutCategory}}
-						</div><!-- end haircut category type -->
+						</div><!-- end haircut category type -->							
 						<div class="row section-edition">
 							<h5 class="section-edtion-second-title">Type de coiffure</h5>
 							<div class="col-md-4 checkbox" ng-repeat="haircut in vm.listOfAvailableHaircut track by $index">

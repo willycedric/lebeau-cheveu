@@ -97,7 +97,7 @@ export const adminHaircutCategoryDetailModule = angular.module('adminHaircutCate
     $scope.deleteHaircutCategory = function(){
       $scope.deleteAlerts =[];
       if(confirm('Are you sure?')){
-        adminResource.deleteHaircutCategory($scope.catalog._id).then(function(result){
+        adminResource.deleteHaircutCategory($scope.category._id).then(function(result){
           if(result.success){
             //redirect to admin catalogs index page
             $location.path('/admin/haircut/categories');

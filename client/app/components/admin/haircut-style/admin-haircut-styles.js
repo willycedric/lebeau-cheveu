@@ -46,10 +46,15 @@ angular.module('adminhaircutstyleIndexModule').config(['$stateProvider', functio
 export const adminhaircutstyleIndexModule = angular.module('adminhaircutstyleIndexModule').controller('HairtCutStyleIndexCtrl', ['$scope', '$route', '$location', '$log', 'adminResource', 'styles','ModalFactory','$window',
   function($scope, $route, $location, $log, adminResource, data, ModalFactory, $window){ 
 
+    $scope.avalaibleHaircutCategories = [];
     var deserializeData = function(data){      
-       $scope.haircuts = data.results.data;  
-       console.log("entries ",JSON.stringify($scope.haircuts, null, data));
-     
+       $scope.haircuts = data.results.data;       
+       adminResource.gethaircutCategories()
+       .then ( (results) => {           
+           $scope.avalaibleHaircutCategories = results.data.map( (category) => {
+              return category.name.toLowerCase();
+           });
+       });     
     };    
     
     $scope.redirectToHaircutStyleDetails = function(id){
@@ -63,7 +68,7 @@ export const adminhaircutstyleIndexModule = angular.module('adminhaircutstyleInd
     };  
 
     // $scope methods  
-    var addHaircutStyle = function(category){
+    var addHaircutStyle = function(category){     
       adminResource.createHaircutStylesEntry(category)
       .then(function(data){
            if(data.success){
@@ -85,10 +90,12 @@ export const adminhaircutstyleIndexModule = angular.module('adminhaircutstyleInd
       
     $scope.LaunchAddHaircutStyleForm = () => {
       ModalFactory.trigger(this, "newHaircutStyle.html","custom",function($uibModalInstance,topController){
-        this.addHaircutStyle = function(name,state){
+        this.avalaibleHaircutCategories =  $scope.avalaibleHaircutCategories;       
+        this.addHaircutStyle = function(name,state,categoryName){
           const controledName = name || '';
           const controledDescription = state ||'';
-          addHaircutStyle({name:controledName, state:controledDescription});
+          const controledCategoryName = categoryName||'';
+          addHaircutStyle({name:controledName, state:controledDescription, categoryName: controledCategoryName});
           $uibModalInstance.close('OK');
         };
 

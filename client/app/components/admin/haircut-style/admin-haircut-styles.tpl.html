@@ -13,6 +13,7 @@
                 <thead>
                 <tr>
                     <th>Created at</th>
+                    <th class="stretch">category</th>
                     <th class="stretch">Name</th>
                     <th>Author</th>
                 </tr>
@@ -20,7 +21,8 @@
                 <tbody>
                 <tr ng-repeat="haircut in haircuts" ng-click="redirectToHaircutStyleDetails(haircut._id)">
                     <td ng-bind="haircut.userCreated.time|date"></td>
-                    <td ng-bind="haircut.name"></td>
+                    <td ng-bind="haircut.categoryName"></td>
+                    <td ng-bind="haircut.name"></td>                    
                     <td class="nowrap" ng-bind="haircut.userCreated.name"></td>
                 </tr>
                 <tr ng-show="categories.length === 0">
@@ -35,7 +37,13 @@
                      <h3 class="center modal-title">New Haircut style</h3>
         </div>
         <div class="modal-body">
-            <form autocomplete="off" role="add"  id="add-form"  name="addPivotForm"  novalidate ng-submit="$ctrl.addHaircutStyle(name,state)">
+            <form autocomplete="off" role="add"  id="add-form"  name="addPivotForm"  novalidate ng-submit="$ctrl.addHaircutStyle(name,state,categoryName)">
+                <select  ng-model="categoryName" id="category-type" name="category" class="no-rounder">
+                    <optgroup label="categories">
+                        <option value="">Haircut category</option>
+                        <option ng-repeat = "category in $ctrl.avalaibleHaircutCategories"  value="{{category}}">{{category}}</option>
+                    </optgroup>
+                </select> 
                 <input name="name" type="text" placeholder="name" class="" ng-model="name" required>
                 <div class="checkbox">
                     <label> <input name="name" type="checkbox" class="" ng-model="state">state</label>            
