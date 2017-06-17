@@ -1,0 +1,22 @@
+<div class="row reset section-padding">
+    <div class="col-md-offset-3 col-md-5 panel">
+        <div class="page-header"><h2>Définir un nouveau mot de passe</h2></div>
+        <form name="resetForm" ng-submit="submit()">
+            <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+            <div class="form-group" ng-class="{'has-error': hasError(resetForm.password)}" ng-show="(id && username && !success)">
+                <label class="control-label" for="password">Nouveau mot de passe:</label>
+                <input type="password" name="password" id="password" class="form-control" ng-model="user.password" required>
+                <span class="help-block" ng-show="showError(resetForm.password, 'required')">Ce champ est requis.</span>
+            </div>
+            <div class="form-group" ng-class="{'has-error': hasError(resetForm.confirm)}" ng-show="(id && username && !success)">
+                <label class="control-label" for="confirm">Confirmation du mot de passe:</label>
+                <input type="password" name="confirm" id="confirm" class="form-control" ng-model="user.confirm" required>
+                <span class="help-block" ng-show="showError(resetForm.confirm, 'required')">Ce champ est requis.</span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn-default btn-lbc top-3" ng-show="(id && username && !success)" ng-disabled="!canSave(resetForm)">Envoyer</button>
+                &nbsp;
+            </div>
+        </form>
+    </div>
+</div>

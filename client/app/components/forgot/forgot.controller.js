@@ -32,10 +32,10 @@ class ForgotController {
      * [Function used to sent a reset password request to the server]
      * @param  {[user.email]} user.email [user's email]
      */
-    passwordReset(user){
+    passwordReset(email){
       var self=this;
       if(this.user.role === 2){ // in case of customer        
-        this.Auth.passwordForgot('/api/users/forgot',user.username)
+        this.Auth.passwordForgot('/api/login/forgot',email)
         .then( function forgotControllerSuccessCallbalck(response){
             console.log(response)
              //self.displayForgotConfirmationModal();

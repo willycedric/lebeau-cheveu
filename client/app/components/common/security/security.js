@@ -167,8 +167,8 @@ const baseUrl =`${API.dev.homeUrl}`;
       return $http.post(baseUrl+'/api/login/forgot', data).then(processResponse, processError);
     },
 
-    loginReset: function(id, email, data){
-      var url =baseUrl+'/api/login/reset/' + email + '/' + id;
+    loginReset: function(id, username, data){
+      var url =baseUrl+'/api/login/reset/' + username + '/' + id;
       return $http.put(url, data).then(processResponse, processError);
     },
 

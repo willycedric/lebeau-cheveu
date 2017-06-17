@@ -34,6 +34,7 @@ import {showhairdresserprofile} from './components/showhairdresserprofile/showha
 import {verificationaccount} from './components/verificationaccount/verification-account';
 import {rating} from './components/starrating/starrating';
 import {forgot} from './components/forgot/forgot';
+import {reset} from './components/reset/login-reset';
 import moment from 'moment';
 import './app.scss';
 
@@ -66,7 +67,8 @@ angular.module('app', [
   showhairdresserprofile.name,
   verificationaccount.name,
   rating.name,
-  forgot.name
+  forgot.name,
+  reset.name
 ])
 .provider(
         'csrfCD',
@@ -122,7 +124,7 @@ angular.module('app', [
 
   // add a listener to $routeChangeSuccess
   $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-    $rootScope.title = current.$$route && current.$$route.title? current.$$route.title: 'Drywall is Running';
+   // $rootScope.title = current.$$route && current.$$route.title? current.$$route.title: 'Lebeaucheveu is Running';
   });
 }])
 .directive('app', appDirective)

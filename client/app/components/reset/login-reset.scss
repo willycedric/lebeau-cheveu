@@ -1,0 +1,23 @@
+@import "../../styles/sass/main"; 
+.reset .btn-lbc {
+	background: $default-background-color;
+    border: 1px solid white;
+    color: white;
+    padding: 0.5em;
+    font-weight: lighter;
+    font-size: 1.2em;
+
+    &:hover{
+    	text-decoration:none;
+    	color:white;
+    	background:$default-background-color;
+        border:1px solid white;
+    }
+    &:focus{
+    	outline:none;
+        text-decoration:none;
+    	color:white;
+    	background:$default-background-color;
+        border:1px solid white;
+    }
+}
