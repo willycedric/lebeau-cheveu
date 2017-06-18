@@ -7,6 +7,7 @@ import {hairdressermessage} from './messages/hairdressermessage';
 import {hairdresserbooking} from './bookings/hairdresserbooking';
 import {hairdresserpicture} from './pictures/hairdresserpicture';
 import {hairdresseraccount} from './settings/hairdresseraccount';
+import {hairdresserVerificationModule} from './verification/hairdresser-verification';
 import {hairdresserdescription} from './settings/hairdresser-edit-description/hairdresser-edit-description';
 import {hairdresserarea} from './settings/hairdresser-edit-area/hairdresser-edit-area';
 import {hairdressersetting} from './settings/hairdresser-edit-settings/hairdresser-edit-setting';
@@ -19,20 +20,20 @@ import './hairdresser.css';
 import './hairdresser.scss';
 import './hairdresser-profile-card.css';
 export const hairdresser = angular.module('hairdresser', 
-  [
-    uiRouter,
-    securityAuthorizationModule.name,
-    hairdresserlogbook.name,
-    hairdressermessage.name,
-    hairdresserbooking.name,
-    hairdresserpicture.name,
-    hairdresseraccount.name,,
-    hairdresserdescription.name,
-    hairdresserarea.name,
-    hairdressersetting.name,
-    servicesHairdresserResourceModule.name
-
-  ]
+    [
+      uiRouter,
+      securityAuthorizationModule.name,
+      hairdresserlogbook.name,
+      hairdressermessage.name,
+      hairdresserbooking.name,
+      hairdresserpicture.name,
+      hairdresseraccount.name,
+      hairdresserdescription.name,
+      hairdresserarea.name,
+      hairdressersetting.name,
+      servicesHairdresserResourceModule.name,
+      hairdresserVerificationModule.name
+    ]
   )
   .config(($stateProvider,securityAuthorizationProvider) => {
     $stateProvider.state('hairdresser', {
@@ -40,19 +41,17 @@ export const hairdresser = angular.module('hairdresser',
       template,
       controller,
       resolve: {
-        summaries: ['$q', '$location', 'securityAuthorization', 'hairdresserResource',function($q, $location, securityAuthorization,hairdresserResource){
+        summaries: ['$q', '$window', 'securityAuthorization', 'hairdresserResource','$state',function($q, $window, securityAuthorization,hairdresserResource, $state){
           //get app stats only for admin-user, otherwise redirect to /account
-          var redirectUrl;
-          console.log("Je suis a ce niveau");
+          //var redirectUrl;          
           var promise = securityAuthorization.requireHairdresserUser()
             .then(hairdresserResource.getSettings, function(reason){
                 //rejected either user is unverified or un-authenticated               
-                redirectUrl = reason === 'unverified-client'? '/hairdresser/verification': '/login';
+               // redirectUrl = reason === 'unverified-client'?'/hairdresser/verification': '/login';                
                 return $q.reject();
               })
-              .catch(function(){
-                redirectUrl = redirectUrl || '/hairdresser';
-                $location.path(redirectUrl);
+              .finally(function(){               
+               $state.go('hairdresserverification');
                 return $q.reject();
               });
                 return promise;

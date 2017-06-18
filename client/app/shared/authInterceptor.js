@@ -29,13 +29,11 @@ const AuthInterceptor = (AuthToken,API,$q,$rootScope,$injector,$window,$log)=>{
 		 * @param  {[object]} config [request configuration object]
 		 * @return {[object]}        [request configuration object with the authorization header]
 		 */
-		request:function(config){
-			var token = AuthToken.getToken();
+		request:function(config){			
+			var token = AuthToken.getToken();			
 			if((config.url.indexOf(apiUrl+`${API.dev.customerRoute}`) === 0 || config.url.indexOf(apiUrl+`${API.dev.hairdresserRoute}`)===0 ) && token){
 				config.headers.Authorization='JWT '+token;
-
 			}
-
 			return config;
 		}
 		/**

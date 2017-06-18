@@ -83,7 +83,7 @@ export const securityAuthorizationModule = angular.module('securityAuthorization
       },
       // Require that there is an administrator logged in
       // (use this in a route resolve to prevent non-administrators from entering that route)
-      requireHairdresserUser: function() {
+      requireHairdresserUser: function() {        
         var promise = security.requestCurrentUser().then(function(userInfo) {
           if ( !security.isAuthenticated() ) {
             return queue.pushRetryFn('unauthenticated-client', service.requireHairdresserUser);
@@ -102,7 +102,7 @@ export const securityAuthorizationModule = angular.module('securityAuthorization
         var promise = security.requestCurrentUser().then(function(userInfo){
           if( !security.isAuthenticated() ){
             return queue.pushRetryFn('unauthenticated-client', service.requireVerifiedUser);
-          }
+          }          
           if(requireAccountVerification && userInfo && !userInfo.isVerified){
             return $q.reject('unverified-client');
           }
@@ -112,10 +112,11 @@ export const securityAuthorizationModule = angular.module('securityAuthorization
 
       requireUnverifiedUser: function(){
         var promise = security.requestCurrentUser().then(function(userInfo){
-          if( !security.isAuthenticated() ){
+          console.log('require account verification ',requireAccountVerification, 'userIinfo ', JSON.stringify(userInfo, null, 6),'isAUthenticated ',security.isAuthenticated());
+          if( !security.isAuthenticated() ){            
             return queue.pushRetryFn('unauthenticated-client', service.requireUnverifiedUser);
           }
-          if(requireAccountVerification && userInfo && userInfo.isVerified){
+          if(requireAccountVerification && userInfo && userInfo.isVerified){            
             return $q.reject('verified-client');
           }
         });

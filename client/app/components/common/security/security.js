@@ -10,7 +10,6 @@ export const securityServiceModule = angular.module('securityServiceModule', [
 ])
 
 .factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$uibModal', 'AuthToken','API','$window',function($http, $q, $location, queue, $uibModal,AuthToken,API,$window) {
-
   // Redirect to the given url (defaults to '/')
   function redirect(url) {
     url = url || '/';
