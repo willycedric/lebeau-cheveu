@@ -29,6 +29,9 @@ export const securityAuthorizationModule = angular.module('securityAuthorization
   requireVerifiedUser: [ 'securityAuthorization', function(securityAuthorization){
     return securityAuthorization.requireVerifiedUser();
   }],
+   requireVerifiedHairdresser: [ 'securityAuthorization', function(securityAuthorization){
+    return securityAuthorization.requireVerifiedHairdresser();
+  }],
 
   requireUnverifiedUser: [ 'securityAuthorization', function(securityAuthorization){
     return securityAuthorization.requireUnverifiedUser();
@@ -98,12 +101,23 @@ export const securityAuthorizationModule = angular.module('securityAuthorization
         return security.requestCurrentUser();
       },
 
-      requireVerifiedUser: function(){
+      requireVerifiedUser: function(){        
         var promise = security.requestCurrentUser().then(function(userInfo){
           if( !security.isAuthenticated() ){
             return queue.pushRetryFn('unauthenticated-client', service.requireVerifiedUser);
           }          
           if(requireAccountVerification && userInfo && !userInfo.isVerified){
+            return $q.reject('unverified-client');
+          }
+        });
+        return promise;
+      },
+      requireVerifiedHairdresser: function(){               
+        var promise = security.requestCurrentUser().then(function(userInfo){
+          if( !security.isAuthenticated() ){
+            return queue.pushRetryFn('unauthenticated-client', service.requireVerifiedUser);
+          }          
+          if(requireAccountVerification && userInfo && userInfo.isVerified){
             return $q.reject('unverified-client');
           }
         });

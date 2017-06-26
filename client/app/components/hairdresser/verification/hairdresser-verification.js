@@ -19,19 +19,20 @@ angular.module('hairdresserVerificationModule')
         upsertVerificationToken: ['$q', '$location', 'hairdresserResource', 'securityAuthorization', function($q, $location, restResource, securityAuthorization){
           //lazy upsert verification only for un-verified user, otherwise redirect to /account
           var redirectUrl;
-          var promise = securityAuthorization.requireHairdresserUser()
+          var promise = securityAuthorization.requireVerifiedHairdresser()
             .then(restResource.upsertVerification, function(reason){
               //rejected either user is verified already or isn't authenticated
-              redirectUrl = reason === 'verified-client'? '/account': '/login';
+              redirectUrl = reason === 'verified-client'? '/hairdresser': '/login';
+              console.log("reason ", reason);
               return $q.reject();
             })
-            .then(function(data){
+            .then(function(data){              
               if(!data.success){
                 return $q.reject();
               }
             })
             .catch(function(){
-              redirectUrl = redirectUrl || '/account';
+              redirectUrl = redirectUrl || '/hairdresser';
               $location.path(redirectUrl);
               return $q.reject();
             });
@@ -50,18 +51,22 @@ angular.module('hairdresserVerificationModule')
           var redirectUrl;
           var promise = securityAuthorization.requireUnverifiedUser()
             .then(function(){
-              return restResource.verifyAccount($stateParams.token);
-            }, function(){
+              console.log('inside the success function');
+              //debugger;
+              return hairdresserResource.verifyAccount($stateParams.token);
+            }, function(){            
               redirectUrl = '/account';
               return $q.reject();
             })
             .then(function(data){
+              console.log('i reach this first point');
               if(data.success) {
-                redirectUrl = '/account';
+                redirectUrl = '/hairdresser';
               }
               return $q.reject();
             })
             .catch(function(){
+              console.log('i reach this second point');
               redirectUrl = redirectUrl || '/hairdresser/verification';
               $location.path(redirectUrl);
               return $q.reject();

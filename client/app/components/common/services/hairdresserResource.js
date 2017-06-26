@@ -3,7 +3,7 @@ import {securityServiceModule} from './../security/security';
 export const servicesHairdresserResourceModule = angular.module('servicesHairdresserResourceModule', [securityServiceModule.name]).factory('hairdresserResource', ['$http', '$q', '$log', 'security','API', function ($http, $q, $log, security,API) {
   // local variable
  const baseUrl =`${API.dev.homeUrl}`+'/api';
-  var processResponse = function(res){
+  var processResponse = function(res){   
     return res.data;
   };
   var processError = function(e){
@@ -54,6 +54,8 @@ export const servicesHairdresserResourceModule = angular.module('servicesHairdre
   };
 
   resource.verifyAccount = function(token){
+    console.log('hairdresser token ', token);
+    debugger;
     return $http.get(baseUrl + '/hairdresser/verification/' + token)
       .then(processResponse, processError)
       .then(function(data){

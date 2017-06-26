@@ -44,14 +44,12 @@ export const hairdresser = angular.module('hairdresser',
         summaries: ['$q', '$window', 'securityAuthorization', 'hairdresserResource','$state',function($q, $window, securityAuthorization,hairdresserResource, $state){
           //get app stats only for admin-user, otherwise redirect to /account
           //var redirectUrl;          
-          var promise = securityAuthorization.requireHairdresserUser()
-            .then(hairdresserResource.getSettings, function(reason){
-                //rejected either user is unverified or un-authenticated               
-               // redirectUrl = reason === 'unverified-client'?'/hairdresser/verification': '/login';                
+          var promise = securityAuthorization.requireVerifiedHairdresser()
+            .then(hairdresserResource.getSettings, function(reason){                          
                 return $q.reject();
               })
-              .finally(function(){               
-               $state.go('hairdresserverification');
+              .catch(function(){    
+                 $state.go('hairdresserverification');
                 return $q.reject();
               });
                 return promise;
