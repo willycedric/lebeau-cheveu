@@ -89,22 +89,30 @@ class ModalInstanceCtrl {
     };
      var signupSuccess = (data)=>{
       if(data.success){
-        //account/user created, redirect...
-         this.$uibModalStack.dismissAll('closing');   
+        //account/user created, redirect...       
+        this.$uibModalStack.dismissAll('closing');
+        //display account creation confirmation message
+          this.displayInformationModal();
         var url = data.defaultReturnUrl || '/';
         return $location.path(url);
       }else{
         //error due to server side validation
         $scope.errfor = data.errfor;
         angular.forEach(data.errfor, function(err, field){
-          $scope.signupForm[field].$setValidity('server', false);
+          $scope.registerForm[field].$setValidity('server', false);
+        });
+        angular.forEach(data.errfor, function(err, field){
+          $scope.alerts.push({
+            type: 'danger',
+            msg: err
+          });
         });
       }
     };
     var signupError = ()=>{
       $scope.alerts.push({
         type: 'danger',
-        msg: 'Error creating account, Please try again'
+        msg: 'Erreur lors de la création d\'un compte, veuillez essayer à nouveau.'
       });
     };
     /**
@@ -115,14 +123,11 @@ class ModalInstanceCtrl {
      */
     
     this.registerNewAccount = (user,registerForm)=>{
-      // this.displayLoading('Registration in progress');
-        if(registerForm.$valid){ 
+      // this.displayLoading('Registration in progress');        
              this.security.signup(user).then(signupSuccess, signupError);
-             //remove the spining modal 
-                          
-
-        }
+             //remove the spining modal       
     }
+        
     /**
      * [description]
      * @param  {[type]} role [1 for hairdresser and 2 for customer, user to route password reset form to the correct model]
@@ -223,7 +228,7 @@ class ModalInstanceCtrl {
           var self = this;
         self.alerts.push({
           type: 'danger',
-          msg: 'Error logging you in, Please try again'
+          msg: 'Erreur lors de la connexion, veuillez réessayez.'
         });
       });
     };
@@ -262,7 +267,7 @@ class ModalInstanceCtrl {
       var self = this;
       self.alerts.push({
         type: 'danger',
-        msg: 'Error logging you in, Please try again'
+        msg: 'Erreur lors de la connexion, veuillez réessayez.'
       });
     }
 
@@ -273,9 +278,10 @@ class ModalInstanceCtrl {
   displayInformationModal(){
       var self = this;
       this.ModalFactory.trigger(this,'registration-information.html','custom',function($uibModalInstance,topController){
-          this.message ='Votre compte vient \'être créé avec succès. \nVeuillez vous connecter à l\'adresse mail que vous avez fourni lors de votre inscription pour activer votre compte ';
+          this.message ='Votre compte vient \'être créé avec succès. \nVeuillez vous connecter à l\'adresse mail que vous avez fourni lors de votre inscription pour activer votre compte. ';
           this.ok = ()=>{
               $uibModalInstance.close('OK');
+              
           }
       });
   }

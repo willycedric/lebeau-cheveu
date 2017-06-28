@@ -208,9 +208,11 @@ h5{
      btn-default-lbc{
           background:$warning-color;
      }
+    padding: 0.4em;
 }
 .modal-header-success {
-	background:$green;
+	//background:$green;
+    background:$default-background-color;
 	font-weight:$default-font-weight;
 	text-align: center;
 	text-transform:initial;
@@ -219,6 +221,7 @@ h5{
     border-top-left-radius: $default-border-radius;
     border-top-right-radius: $default-border-radius;
     border-bottom: 1px solid #e5e5e5;
+    padding: 0.4em;
 }
 
 .modal-header-error{
@@ -231,6 +234,7 @@ h5{
     border-top-left-radius: $default-border-radius;
     border-top-right-radius: $default-border-radius;
     border-bottom: 1px solid #e5e5e5;
+    padding: 0.4em;
 }
 /* Modal body */
 .modal-body{
@@ -481,6 +485,32 @@ h5{
   border-top:none;
   text-align:center;
    background-color:white;
+}
+.custom > .modal-dialog >.modal-content >.modal-footer> a.btn-success{
+    padding: 0.4em;
+    border: 1px solid white;
+    text-transform: lowercase;
+    border-radius: 4px;
+    background: $default-background-color;
+}
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  margin-top: -5em;
 }
 
 .blog >.modal-dialog>.modal-content>.modal-body select{

@@ -2,6 +2,8 @@ import {servicesUtilityModule} from './../../common/services/utility';
 import {servicesHairdresserResourceModule} from './../../common/services/hairdresserResource';
 import uiRouter from 'angular-ui-router';
 import template from './hairdresser-verification.tpl.html';
+import "./hairdresser-verification.scss";
+
 angular.module('hairdresserVerificationModule',
  [ 
   servicesUtilityModule.name,
@@ -19,7 +21,7 @@ angular.module('hairdresserVerificationModule')
         upsertVerificationToken: ['$q', '$location', 'hairdresserResource', 'securityAuthorization', function($q, $location, restResource, securityAuthorization){
           //lazy upsert verification only for un-verified user, otherwise redirect to /account
           var redirectUrl;
-          var promise = securityAuthorization.requireVerifiedHairdresser()
+          var promise = securityAuthorization.requireUnverifiedUser()
             .then(restResource.upsertVerification, function(reason){
               //rejected either user is verified already or isn't authenticated
               redirectUrl = reason === 'verified-client'? '/hairdresser': '/login';
@@ -46,15 +48,16 @@ angular.module('hairdresserVerificationModule')
        template,
       controller: 'HairdresserVerificationCtrl',
       resolve: {
-        verify: ['$q', '$location', '$stateParams', 'hairdresserResource', 'securityAuthorization', function($q, $location, $route, hairdresserResource, securityAuthorization){
+        verify: ['$q', '$location', '$stateParams', 'hairdresserResource', 'securityAuthorization', function($q, $location, $stateParams, hairdresserResource, securityAuthorization){
           //attemp to verify account only for un-verified user
           var redirectUrl;
           var promise = securityAuthorization.requireUnverifiedUser()
             .then(function(){
-              console.log('inside the success function');
+              console.log('inside the success function token => ', $stateParams.token);
               //debugger;
               return hairdresserResource.verifyAccount($stateParams.token);
-            }, function(){            
+            }, function(){ 
+              console.log('inside the reject function');           
               redirectUrl = '/account';
               return $q.reject();
             })
@@ -99,7 +102,7 @@ export const hairdresserVerificationModule = angular.module('hairdresserVerifica
         if (data.success) {
           $scope.alerts.push({
             type: 'success',
-            msg: 'Verification email successfully re-sent.'
+            msg: 'L\'émail de vérification a été renvoyé avec succès.'
           });
           $scope.formVisible = false;
           $scope.verificationForm.$setPristine();
@@ -113,7 +116,7 @@ export const hairdresserVerificationModule = angular.module('hairdresserVerifica
       }, function (x) {
         $scope.alerts.push({
           type: 'danger',
-          msg: 'Error sending verification email: ' + x
+          msg: 'Erreur lors de l\'envoi de l\'émail de vérification:' + x
         });
       });
     };

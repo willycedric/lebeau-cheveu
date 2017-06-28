@@ -94,7 +94,8 @@
                               <p class="background-line push--top push--bottom">
                                       <span> Connectez vous avec votre nom d utilisateur </span>
                               </p>               
-                              <form autocomplete="off"  role="login" name="hairdresserLoginForm" novalidate style="display: block;" ng-submit="vm.logHairdresser(vm.hairdresser,hairdresserLoginForm)">                                    
+                              <form autocomplete="off"  role="login" name="hairdresserLoginForm" novalidate style="display: block;" ng-submit="vm.logHairdresser(vm.hairdresser,hairdresserLoginForm)">
+                                <div uib-alert ng-repeat="alert in vm.alerts" class="{{'alert-'+alert.type}}"close="vm.closeAlert($index)">{{alert.msg}}</div>                                   
                                 <div  class="field-wrap" ng-class="{ 'has-error' : hairdresserLoginForm.username.$invalid && !hairdresserLoginForm.username.$pristine }">
                                   <label class="label-displayed" for="username"></label>
                                   <input type="text"  data-actor="hairdresser" name="username" id="username" autocomplete="false"  ng-model ="vm.hairdresser.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required >
@@ -146,6 +147,7 @@
                                   <span> Bienvenue sur LeBeauCheveu </span>
                               </p>
                               <!-- username -->
+                              <div uib-alert ng-repeat="alert in vm.alerts" class="{{'alert-'+alert.type}}"close="vm.closeAlert($index)">{{alert.msg}}</div>
                               <div class="field-wrap" ng-class="{ 'has-error' : registerForm.username.$invalid && !registerForm.username.$pristine }">
                                   <label class="label-displayed" for="username"></label>
                                   <input type="text" name="username" id="register-username"  ng-model ="vm.user.username" tabindex="1"  placeholder="nom d'utilisateur" value="" required >

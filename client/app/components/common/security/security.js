@@ -212,8 +212,7 @@ const baseUrl =`${API.dev.homeUrl}`;
     },
 
     //Is the current user an hairdresser
-    isHairdresser: function(){
-      console.log('inside security hairdresser');
+    isHairdresser: function(){      
       return !!(service.currentUser && service.currentUser.hairdresser);
     },
     //Is the current user is a customer account 

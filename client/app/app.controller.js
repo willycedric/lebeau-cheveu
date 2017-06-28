@@ -13,8 +13,7 @@ class AppController {
 		this.security.requestCurrentUser()
 		.then((rep)=>{
 			if(rep){
-				this.username = rep.username;
-				console.log(rep,rep.username);
+				this.username = rep.username;				
 			}
 				
 						
