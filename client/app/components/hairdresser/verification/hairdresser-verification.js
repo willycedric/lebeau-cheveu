@@ -3,6 +3,7 @@ import {servicesHairdresserResourceModule} from './../../common/services/hairdre
 import uiRouter from 'angular-ui-router';
 import template from './hairdresser-verification.tpl.html';
 import "./hairdresser-verification.scss";
+import verificationTokenTemplate from './hairdresser-verification-token.tpl.html';
 
 angular.module('hairdresserVerificationModule',
  [ 
@@ -45,31 +46,28 @@ angular.module('hairdresserVerificationModule')
     $stateProvider
     .state('hairdresserverificationtoken', {
       url:'/hairdresser/verification/:token',
-       template,
-      controller: 'HairdresserVerificationCtrl',
+       template:verificationTokenTemplate,
+      controller: 'HairdresserVerificationCtrlToken',
       resolve: {
         verify: ['$q', '$location', '$stateParams', 'hairdresserResource', 'securityAuthorization', function($q, $location, $stateParams, hairdresserResource, securityAuthorization){
           //attemp to verify account only for un-verified user
           var redirectUrl;
           var promise = securityAuthorization.requireUnverifiedUser()
-            .then(function(){
-              console.log('inside the success function token => ', $stateParams.token);
+            .then(function(){              
               //debugger;
               return hairdresserResource.verifyAccount($stateParams.token);
             }, function(){ 
-              console.log('inside the reject function');           
-              redirectUrl = '/account';
+                   debugger;
+              redirectUrl = '/hairdresser';
               return $q.reject();
             })
-            .then(function(data){
-              console.log('i reach this first point');
+            .then(function(data){              
               if(data.success) {
                 redirectUrl = '/hairdresser';
               }
               return $q.reject();
             })
-            .catch(function(){
-              console.log('i reach this second point');
+            .catch(function(){              
               redirectUrl = redirectUrl || '/hairdresser/verification';
               $location.path(redirectUrl);
               return $q.reject();
@@ -79,14 +77,14 @@ angular.module('hairdresserVerificationModule')
       }
     })
 });
-export const hairdresserVerificationModule = angular.module('hairdresserVerificationModule').controller('HairdresserVerificationCtrl', [ '$scope', '$location', '$log', 'hairdresserResource', 'security', 'utility',
+ angular.module('hairdresserVerificationModule').controller('HairdresserVerificationCtrl', [ '$scope', '$location', '$log', 'hairdresserResource', 'security', 'utility',
   function($scope, $location, $log, restResource, security, utility){
     //model def
     $scope.formVisible = false;
     $scope.email = security.currentUser.email;
     $scope.errfor = {}; //for email server-side validation
     $scope.alerts = [];
-
+    $scope.displaySpinner = false;
     // method def
     $scope.showForm = function(){
       $scope.formVisible = true;
@@ -122,3 +120,10 @@ export const hairdresserVerificationModule = angular.module('hairdresserVerifica
     };
   }
 ]);
+
+export const hairdresserVerificationModule = angular.module('hairdresserVerificationModule').controller('HairdresserVerificationCtrlToken', [ '$scope','$log', function($scope, $log){
+   $log.log("inside the verification token controller.");
+    $scope.displaySpinner = true;    
+  }
+]);
+

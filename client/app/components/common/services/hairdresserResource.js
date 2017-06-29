@@ -54,8 +54,7 @@ export const servicesHairdresserResourceModule = angular.module('servicesHairdre
   };
 
   resource.verifyAccount = function(token){
-    console.log('hairdresser token ', token);
-    debugger;
+    
     return $http.get(baseUrl + '/hairdresser/verification/' + token)
       .then(processResponse, processError)
       .then(function(data){
