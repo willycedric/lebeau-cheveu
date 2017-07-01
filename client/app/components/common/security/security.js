@@ -172,7 +172,7 @@ const baseUrl =`${API.dev.homeUrl}`;
     },
 
     // Ask the backend to see if a user is already authenticated - this may be from a previous session.
-    requestCurrentUser: function() {
+    requestCurrentUser: function() {      
       if ( service.isAuthenticated() ) {
         // local currentUser is available
         return $q.when(service.currentUser);

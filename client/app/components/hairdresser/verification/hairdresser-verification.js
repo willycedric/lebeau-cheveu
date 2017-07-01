@@ -25,8 +25,7 @@ angular.module('hairdresserVerificationModule')
           var promise = securityAuthorization.requireUnverifiedUser()
             .then(restResource.upsertVerification, function(reason){
               //rejected either user is verified already or isn't authenticated
-              redirectUrl = reason === 'verified-client'? '/hairdresser': '/login';
-              console.log("reason ", reason);
+              redirectUrl = reason === 'verified-client'? '/hairdresser': '/login';              
               return $q.reject();
             })
             .then(function(data){              
@@ -47,34 +46,7 @@ angular.module('hairdresserVerificationModule')
     .state('hairdresserverificationtoken', {
       url:'/hairdresser/verification/:token',
        template:verificationTokenTemplate,
-      controller: 'HairdresserVerificationCtrlToken',
-      resolve: {
-        verify: ['$q', '$location', '$stateParams', 'hairdresserResource', 'securityAuthorization', function($q, $location, $stateParams, hairdresserResource, securityAuthorization){
-          //attemp to verify account only for un-verified user
-          var redirectUrl;
-          var promise = securityAuthorization.requireUnverifiedUser()
-            .then(function(){              
-              //debugger;
-              return hairdresserResource.verifyAccount($stateParams.token);
-            }, function(){ 
-                   debugger;
-              redirectUrl = '/hairdresser';
-              return $q.reject();
-            })
-            .then(function(data){              
-              if(data.success) {
-                redirectUrl = '/hairdresser';
-              }
-              return $q.reject();
-            })
-            .catch(function(){              
-              redirectUrl = redirectUrl || '/hairdresser/verification';
-              $location.path(redirectUrl);
-              return $q.reject();
-            });
-          return promise; //promise never resolves, will always redirect
-        }]
-      }
+      controller: 'HairdresserVerificationCtrlToken'
     })
 });
  angular.module('hairdresserVerificationModule').controller('HairdresserVerificationCtrl', [ '$scope', '$location', '$log', 'hairdresserResource', 'security', 'utility',
@@ -120,10 +92,33 @@ angular.module('hairdresserVerificationModule')
     };
   }
 ]);
-
-export const hairdresserVerificationModule = angular.module('hairdresserVerificationModule').controller('HairdresserVerificationCtrlToken', [ '$scope','$log', function($scope, $log){
-   $log.log("inside the verification token controller.");
-    $scope.displaySpinner = true;    
+export const hairdresserVerificationModule = angular.module('hairdresserVerificationModule').controller('HairdresserVerificationCtrlToken', [ '$q', '$location', '$stateParams', 'hairdresserResource', 'securityAuthorization','$scope', '$log','$state', function($q, $location, $stateParams, hairdresserResource, securityAuthorization, $scope, $log, $state){
+      
+      $scope.displaySpinner = true;   
+      $scope.displayVerificationComplete = false;
+      $scope.displayVerificationError=false;
+      $scope.displayVerificationInComplete=false;
+      var init = function(){
+        hairdresserResource.verifyAccount($stateParams.token)
+        .then(function verificationSuccess (data){
+          if(data.success){
+            $scope.displaySpinner =false;
+            $scope.displayVerificationComplete=true;
+           //$state.go('home');
+          }else{
+            $scope.displaySpinner =false;
+            $scope.displayVerificationInComplete=true;
+            console.log('verification incomplete');
+            //$state.go('home');
+          }
+        }, function verificationError(err){
+          console.error('error during token verification ', err.toString());
+          $scope.displaySpinner =false;
+          $scope.displayVerificationError=true;
+          $state.go('home');
+        })
+      }
+      init();
   }
 ]);
 

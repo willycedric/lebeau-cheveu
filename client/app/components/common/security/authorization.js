@@ -36,6 +36,9 @@ export const securityAuthorizationModule = angular.module('securityAuthorization
   requireUnverifiedUser: [ 'securityAuthorization', function(securityAuthorization){
     return securityAuthorization.requireUnverifiedUser();
   }],
+  requireUnverifiedAndUnauthenticatedUser: [ 'securityAuthorization', function(securityAuthorization){
+    return securityAuthorization.requireUnverifiedAndUnauthenticatedUser();
+  }],
 
   $get: ['$log', '$q', '$location', 'security', 'securityRetryQueue', 'REQUIRE_ACCOUNT_VERIFICATION', function($log, $q, $location, security, queue, requireAccountVerification) {
     var service = {
@@ -125,11 +128,20 @@ export const securityAuthorizationModule = angular.module('securityAuthorization
       },
 
       requireUnverifiedUser: function(){
+        //debugger;
         var promise = security.requestCurrentUser().then(function(userInfo){
           //console.log('require account verification ',requireAccountVerification, 'userIinfo ', JSON.stringify(userInfo, null, 6),'isAUthenticated ',security.isAuthenticated());
           if( !security.isAuthenticated() ){            
             return queue.pushRetryFn('unauthenticated-client', service.requireUnverifiedUser);
           }
+          if(requireAccountVerification && userInfo && userInfo.isVerified){            
+            return $q.reject('verified-client');
+          }
+        });
+        return promise;
+      },
+      requireUnverifiedAndUnauthenticatedUser: function(){        
+        var promise = security.requestCurrentUser().then(function(userInfo){                 
           if(requireAccountVerification && userInfo && userInfo.isVerified){            
             return $q.reject('verified-client');
           }
