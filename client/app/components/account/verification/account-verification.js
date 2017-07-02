@@ -1,28 +1,34 @@
 import {servicesUtilityModule} from './../../common/services/utility';
 import {servicesAccountResourceModule} from './../../common/services/accountResource';
-//import {directivesServerErrorModule} from './../../common/directives/serverError';
+import uiRouter from 'angular-ui-router';
+import template from './account-verification.tpl.html';
+import "./account-verification.scss";
+import verificationTokenTemplate from './account-verification-token.tpl.html';
+
 angular.module('accountVerificationModule',
  [ 
- servicesUtilityModule.name,
-  servicesAccountResourceModule.name, 
-  'ui.bootstrap']);
-angular.module('accountVerificationModule').config(['$routeProvider', function($routeProvider){
-  $routeProvider
-    .when('/account/verification', {
-      templateUrl: 'account/verification/account-verification.tpl.html',
-      controller: 'AccountVerificationCtrl',
-      title: 'Verification Required',
+  servicesUtilityModule.name,
+  servicesAccountResourceModule.name,
+  uiRouter
+  ]);
+angular.module('accountVerificationModule')
+.config(($stateProvider) => {
+  $stateProvider
+    .state('accountverification', {
+      url:'/account/verification',
+      template,
+      controller: 'accountVerificationCtrl',      
       resolve: {
         upsertVerificationToken: ['$q', '$location', 'accountResource', 'securityAuthorization', function($q, $location, restResource, securityAuthorization){
           //lazy upsert verification only for un-verified user, otherwise redirect to /account
           var redirectUrl;
-          var promise = securityAuthorization.requireAccountUser()
+          var promise = securityAuthorization.requireUnverifiedUser()
             .then(restResource.upsertVerification, function(reason){
               //rejected either user is verified already or isn't authenticated
-              redirectUrl = reason === 'verified-client'? '/account': '/login';
+              redirectUrl = reason === 'verified-client'? '/account': '/login';              
               return $q.reject();
             })
-            .then(function(data){
+            .then(function(data){              
               if(!data.success){
                 return $q.reject();
               }
@@ -35,44 +41,22 @@ angular.module('accountVerificationModule').config(['$routeProvider', function($
           return promise; //promise resolved if data.success == true
         }]
       }
+    }),
+    $stateProvider
+    .state('accountverificationtoken', {
+      url:'/account/verification/:token',
+       template:verificationTokenTemplate,
+      controller: 'accountVerificationCtrlToken'
     })
-    .when('/account/verification/:token', {
-      resolve: {
-        verify: ['$q', '$location', '$route', 'accountResource', 'securityAuthorization', function($q, $location, $route, restResource, securityAuthorization){
-          //attemp to verify account only for un-verified user
-          var redirectUrl;
-          var promise = securityAuthorization.requireUnverifiedUser()
-            .then(function(){
-              return restResource.verifyAccount($route.current.params.token);
-            }, function(){
-              redirectUrl = '/account';
-              return $q.reject();
-            })
-            .then(function(data){
-              if(data.success) {
-                redirectUrl = '/account';
-              }
-              return $q.reject();
-            })
-            .catch(function(){
-              redirectUrl = redirectUrl || '/account/verification';
-              $location.path(redirectUrl);
-              return $q.reject();
-            });
-          return promise; //promise never resolves, will always redirect
-        }]
-      }
-    })
-  ;
-}]);
-export const accountVerificationModule = angular.module('accountVerificationModule').controller('AccountVerificationCtrl', [ '$scope', '$location', '$log', 'accountResource', 'security', 'utility',
+});
+ angular.module('accountVerificationModule').controller('accountVerificationCtrl', [ '$scope', '$location', '$log', 'accountResource', 'security', 'utility',
   function($scope, $location, $log, restResource, security, utility){
     //model def
     $scope.formVisible = false;
     $scope.email = security.currentUser.email;
     $scope.errfor = {}; //for email server-side validation
     $scope.alerts = [];
-
+    $scope.displaySpinner = false;
     // method def
     $scope.showForm = function(){
       $scope.formVisible = true;
@@ -88,7 +72,7 @@ export const accountVerificationModule = angular.module('accountVerificationModu
         if (data.success) {
           $scope.alerts.push({
             type: 'success',
-            msg: 'Verification email successfully re-sent.'
+            msg: 'L\'émail de vérification a été renvoyé avec succès.'
           });
           $scope.formVisible = false;
           $scope.verificationForm.$setPristine();
@@ -102,9 +86,38 @@ export const accountVerificationModule = angular.module('accountVerificationModu
       }, function (x) {
         $scope.alerts.push({
           type: 'danger',
-          msg: 'Error sending verification email: ' + x
+          msg: 'Erreur lors de l\'envoi de l\'émail de vérification:' + x
         });
       });
     };
   }
 ]);
+export const accountVerificationModule = angular.module('accountVerificationModule').controller('accountVerificationCtrlToken', [ '$q', '$location', '$stateParams', 'accountResource', 'securityAuthorization','$scope', '$log','$state', function($q, $location, $stateParams, accountResource, securityAuthorization, $scope, $log, $state){      
+      $scope.displaySpinner = true;   
+      $scope.displayVerificationComplete = false;
+      $scope.displayVerificationError=false;
+      $scope.displayVerificationInComplete=false;
+      var init = function(){
+        accountResource.verifyAccount($stateParams.token)
+        .then(function verificationSuccess (data){
+          if(data.success){
+            $scope.displaySpinner =false;
+            $scope.displayVerificationComplete=true;
+           //$state.go('home');
+          }else{
+            $scope.displaySpinner =false;
+            $scope.displayVerificationInComplete=true;
+            console.log('verification incomplete');
+            //$state.go('home');
+          }
+        }, function verificationError(err){
+          console.error('error during token verification ', err.toString());
+          $scope.displaySpinner =false;
+          $scope.displayVerificationError=true;
+          $state.go('home');
+        })
+      }
+      init();
+  }
+]);
+
