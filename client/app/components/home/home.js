@@ -59,7 +59,9 @@ export const home = angular.module('home', [uiRouter,carousel,datepickerPopup])
       scope:{
         url:'@',
         user:'@',
-        description:'@'
+        description:'@',
+        hairdresser:'@',
+        redirectTo:'&'
       },
       replace:true,
     };

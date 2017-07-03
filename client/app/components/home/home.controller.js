@@ -3,9 +3,10 @@ import images from '../../../../images.json';
 
 
 class HomeController {
-  constructor(Location,$state,$stateParams,AuthToken,$rootScope,$log,Auth,searchBar,Map,$scope) {
+  constructor(Location, $location, $state,$stateParams,AuthToken,$rootScope,$log,Auth,searchBar,Map,$scope, publicFactory) {
   	this.url ="http://res.cloudinary.com/hgtagghpz/image/upload/v1475226327/banner10_fdlxry.jpg";
   	this.nbImages = 3;//images.length;
+	this.homeGallery = [];
   		//labels
 	 this.labels=labels;
 	 //list of available haircuts categories obtained from the searchBar factory
@@ -13,10 +14,11 @@ class HomeController {
 	//customer selected category and location
 	this.selectedHaircutCategory = null;
 	this.selectedLocation = null;
-
+	this.publicFactory = publicFactory;
 	 this.$state = $state;
 	 this.$log =$log;
 	 this.$scope=$scope;
+	 this.$location=$location;
          this.selected =true;
          //Properties used to generate the map
 	 this.Map = Map;
@@ -90,7 +92,9 @@ class HomeController {
 			};
 			$rootScope.$broadcast('connectionStatechanged',{data:data.user});
 	    }
-
+	
+		//load the public gallery entries
+		this.init();
 	}; //End constructor 
 
 	/**
@@ -144,9 +148,25 @@ class HomeController {
          goToJoinState(){
          	this.$state.go("join");
          }
+
+		 init (){
+			var self=this;
+			self.publicFactory.GetHomeGalleryEntries()
+			.then( function fetchedHomeGalleryEntriesSuccess(res){				
+				self.homeGallery = res.data;
+			},function fetchedHomeGalleryEntriesError (err){
+				console.error(err.toString());
+			});
+		 }
+
+		//redirect to hairdresser public profile
+		 goToHairdresserProfile(id){
+			 this.$location.path('showhairdresserprofile/'+id.toString());
+		 }
+
 };
 
-HomeController.$inject=['Location','$state','$stateParams','AuthToken','$rootScope','$log','Auth','searchBar','Map','$scope'];
+HomeController.$inject=['Location','$location', '$state','$stateParams','AuthToken','$rootScope','$log','Auth','searchBar','Map','$scope', 'publicFactory'];
 export {HomeController};
 
 

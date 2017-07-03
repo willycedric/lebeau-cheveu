@@ -17,6 +17,7 @@ import {ZonePath} from './zonePath';
 import {Formulator} from './formulator';
 import {PhotoUploader} from './photoUploader';
 import {HaircutCategoryFactory} from './haircutCategory';
+import {publicFactory} from './publicFactory';
 import angular from 'angular';
 
 
@@ -40,6 +41,7 @@ export const shared = angular.module('shared', [])
   .factory('Formulator',Formulator)
   .factory('PhotoUploader',PhotoUploader)
   .factory('haircutCategory',HaircutCategoryFactory)
+  .factory('publicFactory', publicFactory)
   .config(function($httpProvider){
   	$httpProvider.interceptors.push(AuthInterceptor);
   });

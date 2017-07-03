@@ -423,6 +423,7 @@ h5{
     color: white;
     font-family: FuturaPT-Book;
     outline: none;
+    border-radius:$default-border-radius;
     &:hover,&:focus,&:focus:hover{
         background: $default-background-color-hover;
         color: white;

@@ -399,8 +399,7 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
     return $http.put(url, data).then(processResponse, processError);
   }
 
-  resource.gethaircutCategories = function(filters){
-    console.log("I am here too");
+  resource.gethaircutCategories = function(filters){    
       if(angular.equals({}, filters)){
         filters = undefined;
       }
@@ -434,7 +433,7 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
     return $http.get(url).then(processResponse, processError);
   }
 
-  resource.createHomeGalleryEntry = function(data) {     
+  resource.createHomeGalleryEntry = function(data) {   
     return $http.post(homeGallery,data).then(processResponse, processError);
   }
 

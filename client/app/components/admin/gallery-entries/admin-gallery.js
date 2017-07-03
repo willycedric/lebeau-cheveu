@@ -50,7 +50,7 @@ export const admingallerysIndexModule = angular.module('admingallerysIndexModule
     $scope.isSelected = []; // toggle to entry selected animation
     $scope.isAlreadySelected =[];
     var deserializeData = function(data){      
-       $scope.galleryEntries = data;      
+       $scope.galleryEntries = data;    
        for(var i=0; i< $scope.galleryEntries.length;i++){
           $scope.isSelected[i]=false;
            $scope.isAlreadySelected[i] = false
@@ -88,13 +88,14 @@ export const admingallerysIndexModule = angular.module('admingallerysIndexModule
       $scope.isSelected[index] =!$scope.isSelected[index];
     }
 
+
      $scope.selectedEntries = [];//array containing the entries selected by the admin user   
-    $scope.entrySelected = function(url, category, index) {       
+    $scope.entrySelected = function(url, category, hairdresserCreated, index) {       
       var data = {
         url,
-        category
+        category,
+        hairdresserCreated
       }   
-   
       //if the element selected is already contained in the array remove it 
       if(  $scope.selectedEntries.length > 0 ){
        if( $scope.selectedEntries.map(function(elt){
@@ -123,9 +124,10 @@ export const admingallerysIndexModule = angular.module('admingallerysIndexModule
 
     //Persist the selected entries in the database
     //TODO limit the selection to three items.
-    $scope.saveSelectedEntries = function(){         
+    $scope.saveSelectedEntries = function(){                
       var contents = $scope.selectedEntries.map((elt) => {
-          return elt.url;
+          return {url:elt.url,
+            hairdresserCreated:elt.hairdresserCreated};
       }); //return an array containing entry url
 
       adminResource.createHomeGalleryEntry(contents)

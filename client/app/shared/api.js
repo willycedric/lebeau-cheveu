@@ -5,7 +5,7 @@ export const api = {
 		error:'http://localhost:4500/#/error',
 		customerRoute:'/api/account',
 		hairdresserRoute:'/api/hairdresser',
-        openingHourList:["9h:00","12h:00","15h:00","18h:00","21h:00"]
+        openingHourList:["9h:00","12h:00","15h:00","18h:00","21h:00"]		
 	},
 	/*dev:{
 		homeUrl:'https://lebeaucheveu-api.herokuapp.com',

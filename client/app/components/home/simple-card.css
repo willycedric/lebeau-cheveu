@@ -42,6 +42,14 @@
   top: 10px;
   left: 10px;
 }
+.card-user:hover{
+  cursor:pointer;
+}
+.card-user .img-responsive {
+    display: block;
+    max-width: 50%;    
+    width: 8em;
+}
 .avatar {
   width: 30px;
   border-radius: 50%;

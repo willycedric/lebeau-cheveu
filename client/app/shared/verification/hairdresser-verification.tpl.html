@@ -1,0 +1,29 @@
+<div class="row section-padding">
+    <div class="col-md-offset-1 col-md-6">
+        <div class="page-header"><h1>Vérification Requis</h1></div>
+        <div class="alert alert-warning">Votre compte est presque prêt. Vérifiez votre boîte de réception pour les prochaines étapes.</div>
+        <div id="verify"></div>
+        <form name="verificationForm">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+            <div class="not-received" ng-show="!formVisible">
+                <a class="btn btn-link btn-resend" ng-click="showForm()">J'ai vérifié mes emails et mes emails indésirables, rien encore !</a>
+            </div>
+            <div class="verify-form" ng-show="formVisible"> 
+                <div class="form-group" ng-class="{'has-error': hasError(verificationForm.email)}">
+                    <label class="control-label" for="email">Votre Email:</label>
+                    <input type="email" name="email" id="email" class="form-control" ng-model="email" required server-error>
+                    <span class="help-block" ng-show="showError(verificationForm.email, 'required')">Ce Champ est requis</span>
+                    <span class="help-block" ng-show="showError(verificationForm.email, 'email')">S'il vous plaît veuillez saisir une adresse exacte.</span>
+                    <span class="help-block" ng-show="showError(verificationForm.email, 'server')">{{errfor.email}}</span>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary btn-verify" ng-click="submit()">Renvoyer la vérification</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-5 special">
+        <div class="page-header"><h1>Vous avez presque fini</h1></div>
+        <i class="fa fa-key super-awesome"></i>
+    </div>
+</div>

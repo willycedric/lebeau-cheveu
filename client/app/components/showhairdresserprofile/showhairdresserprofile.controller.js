@@ -360,16 +360,16 @@ class ShowhairdresserprofileController {
     self.Auth.getHairdresserById(id)
     .then((response)=>{      
          self.hairdresser = response;
-         self.rating = self.hairdresser.rating;
-         console.log(JSON.stringify(self.hairdresser.rating));
+         self.rating = self.hairdresser.rating;         
          var data ={
            categoryName:[],
            galeryEntries:[]
          };
+         
          angular.forEach(self.hairdresser.categories,(category, ind)=>{
             data.categoryName.push(category.name);
             angular.forEach(self.hairdresser.gallery_pictures, (elt)=>{          
-                if(angular.equals(elt.category.toString(), category._id.toString())&& elt.published){
+                if(elt.published){
                   data.galeryEntries.push({url:elt.url});
                 }
             });
