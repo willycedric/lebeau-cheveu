@@ -1,5 +1,5 @@
-const PhotoUploader = (securityAuthorization,$http)=>{
-		  const baseUrl = 'http://localhost:3500/api';
+const PhotoUploader = (securityAuthorization,$http, API)=>{
+		  const baseUrl = `${API.dev.homeUrl}`;
 		  const processResponse = function(res){
 		    return res.data;
 		  };
@@ -26,6 +26,6 @@ const PhotoUploader = (securityAuthorization,$http)=>{
 		};
 };
 
-PhotoUploader.$inject=['securityAuthorization','$http'];
+PhotoUploader.$inject=['securityAuthorization','$http', 'API'];
 
 export {PhotoUploader};
