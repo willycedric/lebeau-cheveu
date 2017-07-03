@@ -370,7 +370,7 @@ class ShowhairdresserprofileController {
             data.categoryName.push(category.name);
             angular.forEach(self.hairdresser.gallery_pictures, (elt)=>{          
                 if(elt.published){
-                  data.galeryEntries.push({url:elt.url});
+                  data.galeryEntries.push({url:elt.url}); 
                 }
             });
             if(!!self.listOfAvailableCategories[ind]){
