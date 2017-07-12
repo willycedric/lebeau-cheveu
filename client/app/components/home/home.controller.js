@@ -10,7 +10,7 @@ class HomeController {
   		//labels
 	 this.labels=labels;
 	 //list of available haircuts categories obtained from the searchBar factory
-	 this.listOfAvailableCategories = searchBar.getListOfavailableCategories();
+	 this.listOfAvailableCategories = [];
 	//customer selected category and location
 	this.selectedHaircutCategory = null;
 	this.selectedLocation = null;
@@ -151,10 +151,19 @@ class HomeController {
 
 		 init (){
 			var self=this;
+			//Fetch hairdresser categories entry
 			self.publicFactory.GetHomeGalleryEntries()
 			.then( function fetchedHomeGalleryEntriesSuccess(res){				
 				self.homeGallery = res.data;
 			},function fetchedHomeGalleryEntriesError (err){
+				console.error(err.toString());
+			});
+
+			//Fetch available haircut categories
+			self.publicFactory.GetListOfAvailableHaircutCatalogs()
+			.then(function haircutCatalogsSuccess(res){
+				self.listOfAvailableCategories = res.data.record;
+			}, function haircutCatalogsError (err){
 				console.error(err.toString());
 			});
 		 }

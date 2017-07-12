@@ -519,7 +519,7 @@ export const uiCalendar = angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                             ctrl.placeAllDayEvents(orderedAllDayEvents);
                         }
                     }
-                    console.log("rows",rows);
+                    
                     rows.splice(0,9);
                     $timeout(function () {
                         updateScrollGutter();

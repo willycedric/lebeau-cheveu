@@ -5,8 +5,13 @@ export const publicFactory = ($http, API) =>{
 
     }
 
+    const GetListOfAvailableHaircutCatalogs = () => {
+        return $http.get(apiUrl+'/api/public/haircut/catalogs');
+    }
+
     return {
-        GetHomeGalleryEntries
+        GetHomeGalleryEntries,
+        GetListOfAvailableHaircutCatalogs
     }
 };
 publicFactory.$inject =['$http','API'];

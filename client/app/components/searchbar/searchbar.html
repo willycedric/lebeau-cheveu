@@ -17,34 +17,21 @@
 		</div> <!-- .row .hidden-xs -->
 		<div class="row">
 			<div  ng-hide ="vm.disPlayNoResult">
-					<div class="search-hairdresser-form">
-						<!--<div class="row hidden-xs" >
-							<div>   
-								<div uib-alert ng-repeat="alert in vm.detailAlerts" type="{{alert.type}}" close="vm.closeDetailAlert($index)">{{alert.msg}}</div>
-								<form class="form-wrapper form-left cf"  name ="haircutStyleForm" ng-submit="vm.launchSearch(vm.selectedLocation,vm.selectedHaircut,longitude,latitude)"> 
-										<select  ng-model="vm.selectedHaircut" id="haircut-type" name="haircut" class="no-rounder">
-											<optgroup label="categories">
-												<option value="">Quelle catégorie de coiffure?</option>
-												<option ng-repeat = "haircut in vm.listOfavailableHaircuts" required  value="{{haircut}}">{{haircut}}</option>
-											</optgroup>
-										</select>														
-										<input uib-tooltip="code postale" name ="postCode" id="user_input_autocomplete_address"  ng-model="vm.selectedLocation" name="user_input_autocomplete_address" class="form-control" placeholder="Se coiffer où ?"/>											
-										<button type="submit">GO</button>
-								</form>
-							</div> 
-						</div>--> <!-- .row .hidden-xs -->	
+					<div class="search-hairdresser-form">						
 						<div class="row">
 							<h3 class="no-results"> Nous n'avons pas trouvé de professionnels correspondant exactement à vos critères. </h3>
 							<br/>					
-						</div>
-						
+						</div>						
 					</div>
 				</div>
 			</div>
 		</div> <!-- end .container -->
 		<div class="container result-container">	
-			<div class="row">
-				<div class="col-md-9 single-result">
+			<div class="row">				
+				<div class="col-md-12 single-result" ng-show="vm.isFive >0">
+						<div class="row">
+							<p> Nous avons trouvé {{vm.isFive}} résultat(s) à environ 5 kilomètres de l'adresse que vous avez saisie </P>
+						</div>
 						<div  class= "row " ng-show="vm.isAtLeastOneHairdresserFound" ng-repeat="hairdresser in vm.listOfSelectedHairdressers track by $index">				
 									<div class="single-result" ng-class="{'first-element':$index==0}">
 										<div class="col-md-5 hairdresser-sticker">
@@ -87,7 +74,154 @@
 												time-selected="onTimeSelected(selectedTime, events)">
 											</calendar>
 										</div> <!-- end .hairdresser-weekly-logbook-->										
-									</div> <!-- end .single-result -->							
+									</div> <!-- end .single-result -->									
+					</div> <!-- end ng-repeat -->
+				</div>	<!-- end .col-md-9 -->				
+				<div class="col-md-12 single-result" ng-show="vm.isNotDefaultPerimeter && vm.isTen >0">		
+						<div class="row">
+							<p> Nous avons trouvé {{vm.isTen} résultat(s) à environ 10 kilomètres de l'adresse que vous avez saisie </P>
+						</div>									
+						<div  class= "row " ng-show="vm.isAtLeastOneHairdresserFound" ng-repeat="hairdresser in vm.listOfSelectedHairdressers track by $index">													
+									<div class="single-result" ng-class="{'first-element':$index==0}">
+										<div class="col-md-5 hairdresser-sticker">
+											<div class="row hairdresser-buble">
+												<div class="col-md-4 hairdresser-profile">
+													<img  ng-src="{{hairdresser.profile_picture}}" alt="test"   ng-click="vm.takeAnAppointment(hairdresser._id)"/>
+												</div>
+												<div class="col-md-8">
+													<div class="row">
+														<h3 class="hairdresser-name" ng-click="vm.takeAnAppointment(hairdresser._id)">
+															{{hairdresser.username}}
+														</h3>
+													</div>
+													<div class="row hairdresser-info">
+														<div class="row">
+															<div class="col-md-6 right-block">
+																<p>{{hairdresser.location}}</p>
+															</div>
+															<div class="col-md-6 left-block">
+																<p>{{hairdresser.customer_type | customerTypeFilter}}</p>
+															</div>
+														</div>
+														<div class="row">
+															<div class="rating" star-rating ng-model="hairdresser.rating" max="5" readonly="true"></div>
+														</div>							
+													</div>
+													
+												</div>				
+											</div> <!-- end .row -->
+											<div class="row">
+												<button class="hairdresser-booking"  ng-click="vm.takeAnAppointment(hairdresser._id)">
+													Prendre RDV
+												</button>
+											</div>
+										</div><!-- end .hairdresser-sticker -->								
+										<div class="col-md-7 hairdresser-weekly-logbook">
+											<calendar ng-model="currentDate" calendar-mode="vm.mode" event-source="vm.events[$index]"
+												range-changed="reloadSource(startTime, endTime)"
+												event-selected="onEventSelected(event)"
+												time-selected="onTimeSelected(selectedTime, events)">
+											</calendar>
+										</div> <!-- end .hairdresser-weekly-logbook-->										
+									</div> <!-- end .single-result -->									
+					</div> <!-- end ng-repeat -->
+				</div>
+				<div class="col-md-12 single-result" ng-show="vm.isNotDefaultPerimeter && vm.isFifteen>0" >	
+					<div class="row" >
+						<p> Nous avons trouvé {{vm.isFifteen}} résultat(s) à environ 15 kilomètres de l'adresse que vous avez saisie </P>
+					</div>	
+					<div  class= "row " ng-show="vm.isAtLeastOneHairdresserFound" ng-repeat="hairdresser in vm.listOfSelectedHairdressers track by $index">														
+									<div class="single-result" ng-class="{'first-element':$index==0}">
+										<div class="col-md-5 hairdresser-sticker">
+											<div class="row hairdresser-buble">
+												<div class="col-md-4 hairdresser-profile">
+													<img  ng-src="{{hairdresser.profile_picture}}" alt="test"   ng-click="vm.takeAnAppointment(hairdresser._id)"/>
+												</div>
+												<div class="col-md-8">
+													<div class="row">
+														<h3 class="hairdresser-name" ng-click="vm.takeAnAppointment(hairdresser._id)">
+															{{hairdresser.username}}
+														</h3>
+													</div>
+													<div class="row hairdresser-info">
+														<div class="row">
+															<div class="col-md-6 right-block">
+																<p>{{hairdresser.location}}</p>
+															</div>
+															<div class="col-md-6 left-block">
+																<p>{{hairdresser.customer_type | customerTypeFilter}}</p>
+															</div>
+														</div>
+														<div class="row">
+															<div class="rating" star-rating ng-model="hairdresser.rating" max="5" readonly="true"></div>
+														</div>							
+													</div>
+													
+												</div>				
+											</div> <!-- end .row -->
+											<div class="row">
+												<button class="hairdresser-booking"  ng-click="vm.takeAnAppointment(hairdresser._id)">
+													Prendre RDV
+												</button>
+											</div>
+										</div><!-- end .hairdresser-sticker -->								
+										<div class="col-md-7 hairdresser-weekly-logbook">
+											<calendar ng-model="currentDate" calendar-mode="vm.mode" event-source="vm.events[$index]"
+												range-changed="reloadSource(startTime, endTime)"
+												event-selected="onEventSelected(event)"
+												time-selected="onTimeSelected(selectedTime, events)">
+											</calendar>
+										</div> <!-- end .hairdresser-weekly-logbook-->										
+									</div> <!-- end .single-result -->									
+					</div> <!-- end ng-repeat -->
+				</div>
+				<div class="col-md-12 single-result" ng-show="vm.isNotDefaultPerimeter &&  vm.isTwenty > 0" >	
+					<div class="row">
+						<p> Nous avons trouvé {{vm.isTwenty}} résultat(s) à environ 20 kilomètres de l'adresse que vous avez saisie </P>
+					</div>
+					<div  class= "row " ng-show="vm.isAtLeastOneHairdresserFound" ng-repeat="hairdresser in vm.listOfSelectedHairdressers track by $index">														
+									<div class="single-result" ng-class="{'first-element':$index==0}">
+										<div class="col-md-5 hairdresser-sticker">
+											<div class="row hairdresser-buble">
+												<div class="col-md-4 hairdresser-profile">
+													<img  ng-src="{{hairdresser.profile_picture}}" alt="test"   ng-click="vm.takeAnAppointment(hairdresser._id)"/>
+												</div>
+												<div class="col-md-8">
+													<div class="row">
+														<h3 class="hairdresser-name" ng-click="vm.takeAnAppointment(hairdresser._id)">
+															{{hairdresser.username}}
+														</h3>
+													</div>
+													<div class="row hairdresser-info">
+														<div class="row">
+															<div class="col-md-6 right-block">
+																<p>{{hairdresser.location}}</p>
+															</div>
+															<div class="col-md-6 left-block">
+																<p>{{hairdresser.customer_type | customerTypeFilter}}</p>
+															</div>
+														</div>
+														<div class="row">
+															<div class="rating" star-rating ng-model="hairdresser.rating" max="5" readonly="true"></div>
+														</div>							
+													</div>
+													
+												</div>				
+											</div> <!-- end .row -->
+											<div class="row">
+												<button class="hairdresser-booking"  ng-click="vm.takeAnAppointment(hairdresser._id)">
+													Prendre RDV
+												</button>
+											</div>
+										</div><!-- end .hairdresser-sticker -->								
+										<div class="col-md-7 hairdresser-weekly-logbook">
+											<calendar ng-model="currentDate" calendar-mode="vm.mode" event-source="vm.events[$index]"
+												range-changed="reloadSource(startTime, endTime)"
+												event-selected="onEventSelected(event)"
+												time-selected="onTimeSelected(selectedTime, events)">
+											</calendar>
+										</div> <!-- end .hairdresser-weekly-logbook-->										
+									</div> <!-- end .single-result -->									
 					</div> <!-- end ng-repeat -->
 				</div>	<!-- end .col-md-9 -->				
 				<div class="col-md-3 first-element" ng-hide ="vm.disPlayNoResult">
