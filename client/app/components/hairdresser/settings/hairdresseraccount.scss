@@ -34,12 +34,25 @@ $margin-bottom:3%;
 
 .hairdresser-account .section-contains{
 	margin-bottom:5%;
-	font-size:1.0em;
+	font-size:0.9em;
   margin-top: 0.3em;
+  font-family: Futura;
+  text-align: left;
 }
 
 .hairdresser-account .right{
 	margin-right:0;
+}
+
+.hairdresser-account .performance-details {
+    text-align: left;
+    text-transform: capitalize;
+    font-size: 1.2em;
+    font-family: FuturaPT-Medium;
+}
+
+.hairdresser-account .section-details {
+    
 }
 
 

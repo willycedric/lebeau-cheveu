@@ -1,12 +1,12 @@
 
 class HairdressersettingsController {
-  constructor(API,$log,$location,Auth,$stateParams,$q,$scope,ModalFactory,hairdresserMAnager,$http,hairdresserResource) {
-        var self=this;	 		 	 
-		 self.$location=$location;
+  constructor(API,$log,Auth,$stateParams,$q,$scope,ModalFactory,hairdresserMAnager,$http,hairdresserResource, AuthToken, $rootScope, $state) {
+         var self=this;	 		 
 		 self.Auth = Auth;	
 		 self.API= API; 
-		 self.$q = $q;
-		 self.$stateParams = $stateParams;		 
+		 self.$q = $q;		 
+		 self.$stateParams = $stateParams;	
+		 self.$state = $state;	 
 		 self.$log =$log;
 		 self.$scope =$scope;		 
 		 self.ModalFactory  = ModalFactory;
@@ -14,6 +14,7 @@ class HairdressersettingsController {
 		 self.$http = $http;
 		 self.hairdresserResource = hairdresserResource;
 		 self.listOfAvailableCategories=[];
+		self.AuthToken =AuthToken;
 		//  self.listOfAvailableHaircut =["Vanilles",
 		// 							"Tresses (Braids)",
 		// 							"Crochet braids",
@@ -34,7 +35,17 @@ class HairdressersettingsController {
 			self.customerType =[];//list of selected customer type
 			self.haircutCategory=[];//list of selected haircut category
 			self.haircutType = [];
-			var init = ()=>{				
+			var init = ()=>{
+				//store hairdresser details in the local storage
+				self.details = self.AuthToken.getObj('hairdresserDetails')==undefined?self.$stateParams.details:self.AuthToken.getObj('hairdresserDetails');			
+				if(self.details){
+					//check if a previous version of the hairdresserDetails are already save in the localStorage
+					if(self.AuthToken.getObj('hairdresserDetails')){
+						self.AuthToken.erase('hairdresserDetails');// delete the previous version
+					}
+					//store the new version
+					self.AuthToken.saveObj('hairdresserDetails', self.details);
+				}							
 				//Get the list of available Hairtcut categories defined by the administrator
 				self.hairdresserResource.getAvailableHaircutCategories()
 				.then((result) => {					
@@ -51,12 +62,11 @@ class HairdressersettingsController {
 						if(style.state){
 							return style.name;
 						}
-					});
-				console.log(JSON.stringify(self.listOfAvailableHaircut, null, 4));
+					});				
 				}, function getAvailableHaircutStylesError(err){
 					console.error(err.toString());
-				});
-				self.details =  self.$stateParams.details;//Object containing hairdresser customer type, haircuts category and performance list				
+				});				
+				
 				if(self.details.customer_type == 0){
 					self.customerType.push("Mixte");
 				}
@@ -78,12 +88,14 @@ class HairdressersettingsController {
 					});
 				 }				
 				self.haircutType = self.details.listOfPerformance;//list of selected haircut 
+				console.log("haircutType ",JSON.stringify(Object.keys(self.haircutType)));
 				var data = {
 					customerType:self.customerType,
 					haircutCategory:self.haircutCategory,
 					haircutType:self.haircutType
 				};				
 			};
+			
 			init();						
 			
   } //end constructor  	
@@ -92,7 +104,11 @@ class HairdressersettingsController {
 	 */		
   	goBackToHairdresserAccount(){
 		var self=this;
-		self.$location.path('/hairdresser/account');
+		if(self.AuthToken.getObj('hairdresserDetails')){
+			self.AuthToken.erase('hairdresserDetails');
+		}
+		self.$state.go('hairdresseraccount');
+		//self.$location.path('/hairdresser/account');
 	}
 
 	/**
@@ -189,5 +205,5 @@ class HairdressersettingsController {
 	}
 
 }//end class
-HairdressersettingsController.$inject =['API','$log','$location','Auth','$stateParams','$q','$scope','ModalFactory','hairdresserMAnager','$http','hairdresserResource'];
+HairdressersettingsController.$inject =['API','$log','Auth','$stateParams','$q','$scope','ModalFactory','hairdresserMAnager','$http','hairdresserResource', 'AuthToken', '$rootScope', '$state'];
 export {HairdressersettingsController};
