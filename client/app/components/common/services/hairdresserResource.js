@@ -95,6 +95,10 @@ export const servicesHairdresserResourceModule = angular.module('servicesHairdre
      var url = '/hairdresser/haircut/categories/'+id.toString();
      return $http.get(baseUrl+url).then(processResponse,processError);
   }
+
+  resource.getAvailableHaircutStyles = function () {
+     return $http.get(baseUrl+'/hairdresser/haircut/styles').then(processResponse,processError);
+  }
   
   return resource;
 }]);

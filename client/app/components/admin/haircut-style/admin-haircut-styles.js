@@ -1,5 +1,3 @@
-
-
 import {servicesAdminResourceModule} from './../../common/services/adminResource';
 import{securityAuthorizationModule} from './../../common/security/authorization';
 import {servicesUtilityModule} from './../../common/services/utility';
@@ -48,7 +46,8 @@ export const adminhaircutstyleIndexModule = angular.module('adminhaircutstyleInd
 
     $scope.avalaibleHaircutCategories = [];
     var deserializeData = function(data){      
-       $scope.haircuts = data.results.data;       
+       $scope.haircuts = data.results.data; 
+       console.log(JSON.stringify($scope.haircuts, null, 4));      
        adminResource.gethaircutCategories()
        .then ( (results) => {           
            $scope.avalaibleHaircutCategories = results.data.map( (category) => {
@@ -82,27 +81,21 @@ export const adminhaircutstyleIndexModule = angular.module('adminhaircutstyleInd
           $scope.add = {};
          $log.error(err);
       });     
-    };
-
-   
-
-     
+    };     
       
     $scope.LaunchAddHaircutStyleForm = () => {
       ModalFactory.trigger(this, "newHaircutStyle.html","custom",function($uibModalInstance,topController){
         this.avalaibleHaircutCategories =  $scope.avalaibleHaircutCategories;       
-        this.addHaircutStyle = function(name,state,categoryName){
+        this.addHaircutStyle = function(name,state,categoryName, price){
           const controledName = name || '';
           const controledDescription = state ||'';
           const controledCategoryName = categoryName||'';
-          addHaircutStyle({name:controledName, state:controledDescription, categoryName: controledCategoryName});
+          addHaircutStyle({name:controledName, state:controledDescription, categoryName: controledCategoryName, price:price});
           $uibModalInstance.close('OK');
         };
-
         this.cancel = function(){
           $uibModalInstance.dismiss('cancel');
         };
-
         this.canSave = function(ngFormCtrl){
           console.log('inside this function');
             return  ngFormCtrl.$dirty && ngFormCtrl.$valid;

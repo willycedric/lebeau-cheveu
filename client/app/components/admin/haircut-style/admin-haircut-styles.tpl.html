@@ -15,14 +15,17 @@
                     <th>Created at</th>
                     <th class="stretch">category</th>
                     <th class="stretch">Name</th>
+                    <th>Price</th>
                     <th>Author</th>
+                    
                 </tr>
                 </thead>
-                <tbody>
+                <tbody>                    
                 <tr ng-repeat="haircut in haircuts" ng-click="redirectToHaircutStyleDetails(haircut._id)">
                     <td ng-bind="haircut.userCreated.time|date"></td>
                     <td ng-bind="haircut.categoryName"></td>
-                    <td ng-bind="haircut.name"></td>                    
+                    <td ng-bind="haircut.name"></td>
+                    <td>[ {{haircut.price.min }} - {{haircut.price.max}}]</td>             
                     <td class="nowrap" ng-bind="haircut.userCreated.name"></td>
                 </tr>
                 <tr ng-show="categories.length === 0">
@@ -37,14 +40,20 @@
                      <h3 class="center modal-title">New Haircut style</h3>
         </div>
         <div class="modal-body">
-            <form autocomplete="off" role="add"  id="add-form"  name="addPivotForm"  novalidate ng-submit="$ctrl.addHaircutStyle(name,state,categoryName)">
-                <select  ng-model="categoryName" id="category-type" name="category" class="no-rounder">
+            <form autocomplete="off" role="add"  id="add-form"  name="addPivotForm"  novalidate ng-submit="$ctrl.addHaircutStyle(name,state,categoryName,price)">
+                <label for="category-lis">Select a haircut category </label>
+                <select id="category-list"  ng-model="categoryName" id="category-type" name="category" class="no-rounder">
                     <optgroup label="categories">
                         <option value="">Haircut category</option>
                         <option ng-repeat = "category in $ctrl.avalaibleHaircutCategories"  value="{{category}}">{{category}}</option>
                     </optgroup>
                 </select> 
-                <input name="name" type="text" placeholder="name" class="" ng-model="name" required>
+                <label for="name" > Haircut's name </label>
+                <input name="name" id="name" type="text" placeholder="name" class="" ng-model="name" required>
+                <label for="min-value">Lowest price </label>
+                <input name="min-value" id="min-value" type="text" placeholder="minimum value" class="" ng-model="price.min" required>
+                <label for="max-value">Highest price </label>
+                <input name="max-value" id="max-value" type="text" placeholder="maximum value" class="" ng-model="price.max" required>
                 <div class="checkbox">
                     <label> <input name="name" type="checkbox" class="" ng-model="state">state</label>            
                 </div>              

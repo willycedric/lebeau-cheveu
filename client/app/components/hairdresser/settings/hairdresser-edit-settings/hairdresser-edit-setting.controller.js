@@ -14,20 +14,22 @@ class HairdressersettingsController {
 		 self.$http = $http;
 		 self.hairdresserResource = hairdresserResource;
 		 self.listOfAvailableCategories=[];
-		 self.listOfAvailableHaircut =["Vanilles",
-									"Tresses (Braids)",
-									"Crochet braids",
-									"Tissages",
-									"Locks ",
-									"Coiffures sur cheveux naturels ",
-									"Lissages (Brushing, Défrisage)",
-									"Extensions de cheveux ",
-									"Colorations",
-									"Perruque / Lace wig",
-									"Shampoing",
-									"Nattes collées",
-									"Cornrows",
-									"Tresses enfants"];
+		//  self.listOfAvailableHaircut =["Vanilles",
+		// 							"Tresses (Braids)",
+		// 							"Crochet braids",
+		// 							"Tissages",
+		// 							"Locks ",
+		// 							"Coiffures sur cheveux naturels ",
+		// 							"Lissages (Brushing, Défrisage)",
+		// 							"Extensions de cheveux ",
+		// 							"Colorations",
+		// 							"Perruque / Lace wig",
+		// 							"Shampoing",
+		// 							"Nattes collées",
+		// 							"Cornrows",
+		// 							"Tresses enfants"];
+		 self.listOfAvailableHaircut =[];
+
 			self.listOfAvailableCustomerType = ["Homme", "Femme", "Mixte"];	
 			self.customerType =[];//list of selected customer type
 			self.haircutCategory=[];//list of selected haircut category
@@ -38,9 +40,20 @@ class HairdressersettingsController {
 				.then((result) => {					
 					result.data.map((category) => {
 						self.listOfAvailableCategories.push(category.name);
-					});
-					console.log('List of available haircuts categories ', JSON.stringify(self.listOfAvailableCategories, null, 6));
+					});					
 				}, (err) => {
+					console.error(err.toString());
+				});
+				//Get the list of available haircut styles
+				self.hairdresserResource.getAvailableHaircutStyles()
+				.then( function getAvailableHaircutStylesSuccess(result){
+					self.listOfAvailableHaircut = result.data.map((style)=>{
+						if(style.state){
+							return style.name;
+						}
+					});
+				console.log(JSON.stringify(self.listOfAvailableHaircut, null, 4));
+				}, function getAvailableHaircutStylesError(err){
 					console.error(err.toString());
 				});
 				self.details =  self.$stateParams.details;//Object containing hairdresser customer type, haircuts category and performance list				

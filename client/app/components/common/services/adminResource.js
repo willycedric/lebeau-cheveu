@@ -416,9 +416,9 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
     var url = homeGallery+'/'+id;
     return $http.delete(url).then(processResponse, processResponse);
   }
-  resource.updateHomeGalleryEntry = function(_id){
+  resource.updateHomeGalleryEntry = function(_id, data){
     var url = homeGallery + '/' + _id;
-    return $http.put(url).then(processResponse, processError);
+    return $http.put(url, data).then(processResponse, processError);
   }
 
   resource.getHomeGalleryEntry = function(filters){    
@@ -444,9 +444,9 @@ export const servicesAdminResourceModule = angular.module('servicesAdminResource
     var url = haircutStyle+'/'+id;
     return $http.delete(url).then(processResponse, processResponse);
   }
-  resource.updateHaircutStylesEntry = function(_id){
+  resource.updateHaircutStylesEntry = function(_id, data){
     var url = haircutStyle + '/' + _id;
-    return $http.put(url).then(processResponse, processError);
+    return $http.put(url, data).then(processResponse, processError);
   }
 
   resource.getHaircutStylesEntry = function(filters){    

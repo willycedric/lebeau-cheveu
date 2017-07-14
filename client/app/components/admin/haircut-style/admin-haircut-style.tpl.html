@@ -12,6 +12,16 @@
                     <input type="text" name="name" id="name" class="form-control" ng-model="haircut.name" required>
                     <span class="help-block" ng-show="showError(detailForm.name, 'required')">This field is required</span>
                 </div>
+                <div class="form-group" ng-class="{'has-error': hasError(detailForm.name)}">
+                    <label class="control-label" for="minimum">Minimum value:</label>
+                    <input type="text" name="minimum" id="minimum" class="form-control" ng-model="haircut.price.min" required>
+                    <span class="help-block" ng-show="showError(detailForm.minimum, 'required')">This field is required</span>
+                </div>
+                 <div class="form-group" ng-class="{'has-error': hasError(detailForm.name)}">
+                    <label class="control-label" for="maximum">Maximum value:</label>
+                    <input type="text" name="maximum" id="maximum" class="form-control" ng-model="haircut.price.max" required>
+                    <span class="help-block" ng-show="showError(detailForm.maximum, 'required')">This field is required</span>
+                </div>
                
                 <div class="checkbox-inline">
                    <label><input type="checkbox" name="isPublished" id="isPublished" class="" ng-model="haircut.state"/>is published?</label>

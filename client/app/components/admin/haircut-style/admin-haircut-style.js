@@ -68,16 +68,19 @@ export const adminHaircutStyleDetailModule = angular.module('adminHaircutStyleDe
       closeAlert($scope.deleteAlerts, ind);
     };
     $scope.update = function(content){
+      debugger;
       $scope.detailAlerts = [];
       if(content){
           var data = {
           name: $scope.haircut.name,
+          price:$scope.haircut.price,
           isPublished:$scope.haircut.state          
         };
       }else{
           var data = {
           name: $scope.haircut.name,          
-          isPublished:$scope.haircut.state         
+          isPublished:$scope.haircut.state,
+          price:$scope.haircut.price,         
         };
       }      
       adminResource.updateHaircutStylesEntry($scope.haircut._id, data).then(function(result){
