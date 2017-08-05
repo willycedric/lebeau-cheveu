@@ -98,7 +98,7 @@ export const servicesHairdresserResourceModule = angular.module('servicesHairdre
 
   resource.getAvailableHaircutStyles = function () {
      return $http.get(baseUrl+'/hairdresser/haircut/styles').then(processResponse,processError);
-  }
+  } 
   
   return resource;
 }]);

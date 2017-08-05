@@ -13,5 +13,18 @@ export const hairdressersetting = angular.module('hairdressersettingsedit', [uiR
       params:{details:null}
     })
   })
-  .directive('hairdressersettings',hairdressersettingsDirective); 
+  .directive('hairdressersettings',hairdressersettingsDirective)
+  .directive('rangeValidator', ()=>{
+    return{
+  		require:'ngModel',
+  		restrict:'A',
+  		link:function(scope,element, attrs, ngModel){				 
+  				ngModel.$validators.price = (value)=>{              
+              var value = attrs.max >= value && attrs.min <= value;  						
+              console.log("range-validator ", value);
+              return value;
+  				};
+  		}
+  	};
+  });
 

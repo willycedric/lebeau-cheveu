@@ -15,20 +15,18 @@ class HairdressersettingsController {
 		 self.hairdresserResource = hairdresserResource;
 		 self.listOfAvailableCategories=[];
 		self.AuthToken =AuthToken;
-		//  self.listOfAvailableHaircut =["Vanilles",
-		// 							"Tresses (Braids)",
-		// 							"Crochet braids",
-		// 							"Tissages",
-		// 							"Locks ",
-		// 							"Coiffures sur cheveux naturels ",
-		// 							"Lissages (Brushing, Défrisage)",
-		// 							"Extensions de cheveux ",
-		// 							"Colorations",
-		// 							"Perruque / Lace wig",
-		// 							"Shampoing",
-		// 							"Nattes collées",
-		// 							"Cornrows",
-		// 							"Tresses enfants"];
+		self.tempSeletectedHaircuts = [];//contains the list of selected haircuts
+		self.listOfAvailableHaircutPrices= [];
+		self.isHaircutSelected = false; // whether an haircut is selected by the hairdresser. 
+		self.formatedList=[];//
+		self.prices = [];
+		Array.prototype.indexOfObject = function (property, value) {
+			for (var i = 0, len = this.length; i < len; i++) {
+				if (this[i][property] === value) return i;
+			}
+				return -1;
+		}
+				
 		 self.listOfAvailableHaircut =[];
 
 			self.listOfAvailableCustomerType = ["Homme", "Femme", "Mixte"];	
@@ -57,16 +55,21 @@ class HairdressersettingsController {
 				});
 				//Get the list of available haircut styles
 				self.hairdresserResource.getAvailableHaircutStyles()
-				.then( function getAvailableHaircutStylesSuccess(result){
-					self.listOfAvailableHaircut = result.data.map((style)=>{
+				.then( function getAvailableHaircutStylesSuccess(results){					
+					self.listOfAvailableHaircut = results.data.map((style)=>{
 						if(style.state){
 							return style.name;
 						}
-					});				
+					});						
+					self.listOfAvailableHaircutPrices = results.data.map((style)=>{						
+						if(style.state){						
+							return style.price;
+						}					
+					});
 				}, function getAvailableHaircutStylesError(err){
 					console.error(err.toString());
 				});				
-				
+
 				if(self.details.customer_type == 0){
 					self.customerType.push("Mixte");
 				}
@@ -88,7 +91,7 @@ class HairdressersettingsController {
 					});
 				 }				
 				self.haircutType = self.details.listOfPerformance;//list of selected haircut 
-				console.log("haircutType ",JSON.stringify(Object.keys(self.haircutType)));
+			
 				var data = {
 					customerType:self.customerType,
 					haircutCategory:self.haircutCategory,
@@ -133,6 +136,28 @@ class HairdressersettingsController {
 	 */
 	updateSelectionList(values,selectionList,listOfAvailable){		
 		var self=this;			
+		var elt = undefined;
+		if(!!(parseInt(values.value)+1)){
+			var entry = self.listOfAvailableHaircut[parseInt(values.value)];
+			if(self.tempSeletectedHaircuts.indexOf(entry)<0){
+				self.tempSeletectedHaircuts.push(entry);
+				self.displayListOfAvailablePrices(self.tempSeletectedHaircuts,elt);
+			}else{
+				elt = self.tempSeletectedHaircuts[self.tempSeletectedHaircuts.indexOf(entry)];
+				self.tempSeletectedHaircuts.splice(self.tempSeletectedHaircuts.indexOf(entry),1);				
+				self.displayListOfAvailablePrices(self.tempSeletectedHaircuts, elt);
+			}
+		}else{
+			if(self.tempSeletectedHaircuts.indexOf(values.value)<0){
+				self.tempSeletectedHaircuts.push(values.value);
+				self.displayListOfAvailablePrices(self.tempSeletectedHaircuts,elt);
+			}else{
+				elt = self.tempSeletectedHaircuts[self.tempSeletectedHaircuts.indexOf(values.value)];
+				self.tempSeletectedHaircuts.splice(self.tempSeletectedHaircuts.indexOf(values.value),1);
+				self.displayListOfAvailablePrices(self.tempSeletectedHaircuts,elt);
+			}
+		}			
+		
 		for(var value in values){			
 			if(typeof values[value] == typeof("ABC")){
 				var index = selectionList.indexOf(values[value].toUpperCase());				
@@ -153,7 +178,7 @@ class HairdressersettingsController {
 	 * 
 	 */
 
-	updatePreference(){
+	updatePreference(prices, listOfSelectedHaircuts){
 		var self=this;
 		if(self.customerType.length !=0 || self.haircutCategory!=0 || self.haircutType.length!=0){			
 			var data = {};
@@ -173,6 +198,15 @@ class HairdressersettingsController {
 			if(self.haircutType.length!=0){
 				data.haircutType = self.haircutType;
 			}			
+			var temp =[];
+			angular.forEach(listOfSelectedHaircuts, function(haircut, index){
+				temp.push({
+					name:haircut.name,
+					price:prices[index]
+				});
+			});
+			data.prices = temp;
+			
 			self.$http.put(`${self.API.dev.homeUrl}`+`${self.API.dev.hairdresserRoute}`+'/setting/preference',{data})
 				.then((rep)=>{
 					//deserialize(rep.data);					
@@ -203,6 +237,37 @@ class HairdressersettingsController {
 		}				
 		return found;			
 	}
+	/**
+	 * 
+	 * @param {*} listOfSelectedHaircuts 
+	 */
+	displayListOfAvailablePrices(listOfSelectedHaircuts, elt){		
+		var self=this;						
+		if(listOfSelectedHaircuts.length > 0 && elt == undefined){
+			self.isHaircutSelected = true;	
+			angular.forEach(listOfSelectedHaircuts, function(haircut){							
+				var ind = self.listOfAvailableHaircut.indexOf(haircut);
+				if(ind>=0){
+					var obj = {
+						name:haircut,
+						price: self.listOfAvailableHaircutPrices[ind]
+					}				
+					if(self.formatedList.indexOfObject('name', haircut)<0){
+						self.formatedList.push(obj);
+					}
+				}
+			});
+		}else if(elt){
+			self.formatedList.splice(self.formatedList.indexOfObject('name', elt),1);
+			if(self.formatedList.length <= 0 || listOfSelectedHaircuts.length <=0){
+					self.isHaircutSelected =false;
+			}
+		}else{
+			self.isHaircutSelected =false;
+			self.formatedList=[];
+		}		
+	}
+	
 
 }//end class
 HairdressersettingsController.$inject =['API','$log','Auth','$stateParams','$q','$scope','ModalFactory','hairdresserMAnager','$http','hairdresserResource', 'AuthToken', '$rootScope', '$state'];

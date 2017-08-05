@@ -1,7 +1,7 @@
 <section class="hairdresser-account hairdresser section-padding">
 	<div class="container">
         <div class="row">
-           <form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="vm.updatePreference()">					
+           <form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="vm.updatePreference(vm.prices, vm.formatedList)">					
 					<div class="col-md-offset-2 col-md-8">
 						<div class="row">
 							<h4 class="section-edition-first-title">Préferences </h4>
@@ -28,11 +28,28 @@
 						</div><!-- end haircut category type -->							
 						<div class="row section-edition">
 							<h5 class="section-edtion-second-title">Type de coiffure</h5>
-							<div class="col-md-4 checkbox" ng-repeat="haircut in vm.listOfAvailableHaircut track by $index">
+							<div class="col-sm-6 checkbox" ng-repeat="haircut in vm.listOfAvailableHaircut track by $index">
 								<label><input type="checkbox" ng-model="hairctuts.value" ng-change="vm.updateSelectionList(hairctuts,vm.haircutType, vm.listOfAvailableHaircut)"  ng-checked="vm.isAlreadySelected($index, vm.haircutType, vm.listOfAvailableHaircut)" ng-true-value="'{{haircut}}'" ng-false-value="{{$index}}">{{haircut}}</label>
-							</div>	
-							{{vm.haircutType}}						
+							</div>													
 						</div><!-- end haircut category type -->
+						
+						<div class="row section-edition" ng-show="vm.isHaircutSelected">
+							<h5 class="section-edtion-second-title">prix des prestations choisies</h5>
+							<div class="col-sm-6" ng-repeat="details in vm.formatedList track by $index">
+								<div class="row">
+									<div class="col-md-5">
+										<span class="">{{details.name}}</span>
+									</div>
+									<div class="col-md-3">
+										<input type="text" placeholder="prix" name="price_{{$index}}" data-max="{{details.price.max}}" data-min="{{details.price.min}}" ng-model="vm.prices[$index]" range-validator/>
+										<span ng-show="updateForm.price_{{$index}}.$touched && updateForm.price_{{$index}}.$error.price" class="text-danger"> attention ! </span>
+									</div>									
+									<div class="col-md-4">
+										[{{details.price.min}} &euro; - {{details.price.max}} &euro;]
+									</div>
+								</div>							
+							</div>													
+						</div><!-- end haircut price entry -->
 						<div class="row">
 							<div class="col-md-offset-3">
 								<div class=" col-sm-3">

@@ -45,35 +45,13 @@ class HomeController {
 	 this.getLocation = Location.getLocation;
 	 this.asyncSelected=undefined;
 	 //selected town
-	 this.selected=undefined;
-	 //Carousel logic
-	  this.myInterval = 7000;
-	  this.noWrapSlides = false;
-	  this.active = 0;
+	 this.selected=undefined;	
+	this.active = 0;
           const avalaibleHairdresserDepartements =[67300,59000,82000,72100,26000,33800,33800,33800,33270,92380,83200,69100,38100,93000,31770,16000,59000,69100,95310,91350,91100,74100,92370,51100,37000,45000,51100,91280,75020,95700,44100,75012,40465,42390,62000,
               69009,81300,37300,28000,37300,37000,37320,37000,37000,45100,35000,35000,35001,35001,35001];
           
-           this.truncateTo2CharactersHairdresserDepartementList = this.truncateTo2(avalaibleHairdresserDepartements);
-	  const slides = this.slides = [];
-	  let currIndex = 0;
-	  this.text=['Un style toujours dans l\'air du temps à des coûts défiants toutes concurrences ...'
-	  			 ,'Pas besoin de vous déplacer ni de prévoir du temps  pour vos coiffures ...'
-	      		 ,'Lebeaucheveu est le choix gagnant de nombreuses femmes ...'
-	      		 ,'Nos coiffeuses vous donneront toujours le meilleur d\'elles mêmes ...'
-	      		 ];
-
-	  this.addSlide = function(i) {
-	  	const newWidth = 1280 + slides.length + 1;
-	    slides.push({
-	      image:images[i].url,
-	      text: this.text[i],
-	      id: currIndex++
-	    }); 
-	  };
-
-	  for (let i = 0; i < this.nbImages; i++) {
-	    this.addSlide(i);
-	  }
+	this.truncateTo2CharactersHairdresserDepartementList = this.truncateTo2(avalaibleHairdresserDepartements);
+	  
 
 	  this.onSlideChanged = function (nextSlide, direction, nextIndex) {
 		    //console.log("slide changed: ",nextIndex);

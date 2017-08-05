@@ -71,7 +71,7 @@ export const login = angular.module('login', [uiRouter,ngAnimate])
                 if(ngModel.$isEmpty(value)){
                   return $q.when();
                 }
-               
+                
                 attrs.$observe("hairdresser", function(name){
                  return  scope.name =name;
                 });
