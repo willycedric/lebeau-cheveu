@@ -331,13 +331,19 @@ class HairdresseraccountController {
 		})
 	}
 	/**
-	 * Redirect hairdresser to the description edition page.
-	 * @param {*ObjectId} id 
+	 * Redirect hairdresser to the haircut setting edition page.
 	 */
-	updateHairdresserInformations(information){
-		var self=this;		
-		//self.$location.path(information);		
+	updateHairdresserInformations(){
+		var self=this;				
 		self.$state.go("hairdressersettingsedit",{details:self.hairdresserDetails});
+		
+	}
+	/**
+	 * Redirect hairdresser to the description page.
+	 */
+	updateHairdresserDescription(){
+		var self=this;	
+		self.$state.go("hairdresserdescriptionedit",{description:self.hairdresser.description});
 	}
 
 	/**

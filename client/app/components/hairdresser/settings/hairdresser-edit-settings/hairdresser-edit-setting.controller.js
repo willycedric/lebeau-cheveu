@@ -1,4 +1,5 @@
 
+import _ from 'lodash';
 class HairdressersettingsController {
   constructor(API,$log,Auth,$stateParams,$q,$scope,ModalFactory,hairdresserMAnager,$http,hairdresserResource, AuthToken, $rootScope, $state) {
          var self=this;	 		 
@@ -20,6 +21,8 @@ class HairdressersettingsController {
 		self.isHaircutSelected = false; // whether an haircut is selected by the hairdresser. 
 		self.formatedList=[];//
 		self.prices = [];
+		self.listOfTemporarySelectedHaircuts = [];
+		self.listOfTemporarySelectedHaircutCategories = [];
 		Array.prototype.indexOfObject = function (property, value) {
 			for (var i = 0, len = this.length; i < len; i++) {
 				if (this[i][property] === value) return i;
@@ -29,7 +32,7 @@ class HairdressersettingsController {
 				
 		 self.listOfAvailableHaircut =[];
 
-			self.listOfAvailableCustomerType = ["Homme", "Femme", "Mixte"];	
+			self.listOfAvailableCustomerType = ["Mixte", "Femme", "Homme"];	
 			self.customerType =[];//list of selected customer type
 			self.haircutCategory=[];//list of selected haircut category
 			self.haircutType = [];
@@ -43,13 +46,13 @@ class HairdressersettingsController {
 					}
 					//store the new version
 					self.AuthToken.saveObj('hairdresserDetails', self.details);
-				}							
+				}			
 				//Get the list of available Hairtcut categories defined by the administrator
 				self.hairdresserResource.getAvailableHaircutCategories()
 				.then((result) => {					
-					result.data.map((category) => {
-						self.listOfAvailableCategories.push(category.name);
-					});					
+				self.listOfAvailableCategories =	result.data.map((category) => {
+						return category.name;
+					});	
 				}, (err) => {
 					console.error(err.toString());
 				});
@@ -60,7 +63,18 @@ class HairdressersettingsController {
 						if(style.state){
 							return style.name;
 						}
-					});						
+					});		
+					self.unsortedListOfAvailableHaircut = [];
+					angular.copy(self.listOfAvailableHaircut, self.unsortedListOfAvailableHaircut);										
+					self.listOfAvailableHaircut.sort(function(a, b){
+							var nameA=a.toLowerCase(), nameB=b.toLowerCase();
+							if (nameA < nameB) //sort string ascending
+								return -1;
+							if (nameA > nameB)
+								return 1;
+							return 0; 
+					});			
+					
 					self.listOfAvailableHaircutPrices = results.data.map((style)=>{						
 						if(style.state){						
 							return style.price;
@@ -71,27 +85,35 @@ class HairdressersettingsController {
 				});				
 
 				if(self.details.customer_type == 0){
-					self.customerType.push("Mixte");
+					self.customerType.push("MIXTE");
 				}
 				else if(self.details.customer_type==1){
-					self.customerType.push("Femme");
+					self.customerType.push("FEMME");
 				}
 				else if(self.details.customer_type==2){
-					self.customerType.push("Homme");
+					self.customerType.push("HOMME");
 				}
-				if(self.details.categories.length>0){
-					angular.forEach(self.details.categories,(category)=>{
-						angular.forEach(self.listOfAvailableCategories, (name)=>{
-							if(category.hasOwnProperty("name")){
-								if(category.name.toLowerCase() === name.toLowerCase()){
-								self.haircutCategory.push(name);
-								}
-							}			 			
-						});				
+				 
+				// if(self.details.categories.length>0){
+				// 	angular.forEach(self.details.categories,(category)=>{
+				// 		angular.forEach(self.listOfAvailableCategories, (name)=>{
+				// 			if(category.hasOwnProperty("name")){
+				// 				if(category.name.toLowerCase() === name.toLowerCase()){
+				// 				self.haircutCategory.push(name);
+				// 				}
+				// 			}			 			
+				// 		});				
+				// 	});
+				//  }	
+				if(self.details.categories.length>0){					
+					self.haircutCategory = self.details.categories.map(function(category){
+						return category.name;
 					});
 				 }				
-				self.haircutType = self.details.listOfPerformance;//list of selected haircut 
-			
+				
+				self.haircutType = self.details.listOfPerformance.map(function(elt){
+					return elt.name;
+					});//list of selected haircut 					
 				var data = {
 					customerType:self.customerType,
 					haircutCategory:self.haircutCategory,
@@ -134,34 +156,39 @@ class HairdressersettingsController {
 	 * 
 	 * @param {*} values 
 	 */
-	updateSelectionList(values,selectionList,listOfAvailable){		
+	updateSelectionList(values,selectionList,listOfAvailable){					
 		var self=this;			
-		var elt = undefined;
+		var elt = undefined;	
+		debugger;
 		if(!!(parseInt(values.value)+1)){
 			var entry = self.listOfAvailableHaircut[parseInt(values.value)];
 			if(self.tempSeletectedHaircuts.indexOf(entry)<0){
 				self.tempSeletectedHaircuts.push(entry);
 				self.displayListOfAvailablePrices(self.tempSeletectedHaircuts,elt);
-			}else{
+			}else{				
 				elt = self.tempSeletectedHaircuts[self.tempSeletectedHaircuts.indexOf(entry)];
 				self.tempSeletectedHaircuts.splice(self.tempSeletectedHaircuts.indexOf(entry),1);				
 				self.displayListOfAvailablePrices(self.tempSeletectedHaircuts, elt);
 			}
 		}else{
-			if(self.tempSeletectedHaircuts.indexOf(values.value)<0){
-				self.tempSeletectedHaircuts.push(values.value);
-				self.displayListOfAvailablePrices(self.tempSeletectedHaircuts,elt);
-			}else{
-				elt = self.tempSeletectedHaircuts[self.tempSeletectedHaircuts.indexOf(values.value)];
-				self.tempSeletectedHaircuts.splice(self.tempSeletectedHaircuts.indexOf(values.value),1);
-				self.displayListOfAvailablePrices(self.tempSeletectedHaircuts,elt);
-			}
+			if(values.value!=undefined){
+				if(self.tempSeletectedHaircuts.indexOf(values.value)<0){
+				self.tempSeletectedHaircuts.push(values.value);				
+					self.displayListOfAvailablePrices(self.tempSeletectedHaircuts,elt);
+				}else{
+					
+						elt = self.tempSeletectedHaircuts[self.tempSeletectedHaircuts.indexOf(values.value)];
+						self.tempSeletectedHaircuts.splice(self.tempSeletectedHaircuts.indexOf(values.value),1);				
+						self.displayListOfAvailablePrices(self.tempSeletectedHaircuts,elt);
+							
+				}
+			}			
 		}			
 		
 		for(var value in values){			
 			if(typeof values[value] == typeof("ABC")){
 				var index = selectionList.indexOf(values[value].toUpperCase());				
-				if(index==-1){
+				if(index==-1){					
 					selectionList.push(values[value].toUpperCase());
 				}
 			}else{
@@ -173,30 +200,33 @@ class HairdressersettingsController {
 				}				
 			}
 		}
+		console.log("Values", JSON.stringify(values, null, 6));
 	}	
 	/**
 	 * 
 	 */
 
-	updatePreference(prices, listOfSelectedHaircuts){
+	updatePreference(prices, listOfSelectedHaircuts, listOfActiveHaircuts){
 		var self=this;
+		self.listOfActiveHaircuts = listOfActiveHaircuts;
 		if(self.customerType.length !=0 || self.haircutCategory!=0 || self.haircutType.length!=0){			
-			var data = {};
+			var data = {};			
 			if(self.customerType.length!=0){				
 				//data.customerType = self.customerType;
-				if(self.customerType.indexOf("Mixte")>=0){					
+				if(self.customerType.indexOf("MIXTE")>=0 && self.customerType.indexOf("MIXTE")!=0){					
 					data.customer_type = 0;
-				}else if(self.customerType.indexOf("Homme")>=0){
+				}else if(self.customerType.indexOf("HOMME")>=0 && self.customerType.indexOf("HOMME")!=0){
 					data.customer_type=2;
-				}else if(self.customerType.indexOf("Femme")>=0){
-					data.customerType=1;
+				}else if(self.customerType.indexOf("FEMME")>=0 && self.customerType.indexOf("FEMME")!=0){
+					data.customer_type=1;
 				}
 			}
+			
 			if(self.haircutCategory.length!=0){
-				data.haircutCategory = self.haircutCategory;
+				data.haircutCategory =_.difference(self.haircutCategory, self.listOfTemporarySelectedHaircutCategories);
 			}
 			if(self.haircutType.length!=0){
-				data.haircutType = self.haircutType;
+				data.haircutType = _.difference(self.haircutType, self.listOfTemporarySelectedHaircuts);								
 			}			
 			var temp =[];
 			angular.forEach(listOfSelectedHaircuts, function(haircut, index){
@@ -205,8 +235,7 @@ class HairdressersettingsController {
 					price:prices[index]
 				});
 			});
-			data.prices = temp;
-			
+			data.prices = temp;									
 			self.$http.put(`${self.API.dev.homeUrl}`+`${self.API.dev.hairdresserRoute}`+'/setting/preference',{data})
 				.then((rep)=>{
 					//deserialize(rep.data);					
@@ -230,8 +259,11 @@ class HairdressersettingsController {
 	isAlreadySelected(index,selectedList,listOfAvailable){		
 		var self=this;
 		var found = false;
+		var tempSelectedList = selectedList.map(function(elt){
+			return elt.toUpperCase();
+		});
 		try{			
-			 found = selectedList.indexOf(listOfAvailable[index])>=0?true:false;
+			 found = tempSelectedList.indexOf(listOfAvailable[index].toUpperCase())>=0?true:false;
 		}catch(err){
 			throw new Error(err.toString());
 		}				
@@ -245,8 +277,8 @@ class HairdressersettingsController {
 		var self=this;						
 		if(listOfSelectedHaircuts.length > 0 && elt == undefined){
 			self.isHaircutSelected = true;	
-			angular.forEach(listOfSelectedHaircuts, function(haircut){							
-				var ind = self.listOfAvailableHaircut.indexOf(haircut);
+			angular.forEach(listOfSelectedHaircuts, function(haircut){
+				var ind = self.unsortedListOfAvailableHaircut.indexOf(haircut);				
 				if(ind>=0){
 					var obj = {
 						name:haircut,
@@ -266,6 +298,35 @@ class HairdressersettingsController {
 			self.isHaircutSelected =false;
 			self.formatedList=[];
 		}		
+	}
+
+	unselectHaircutEntry(index){
+		var self=this;				
+		if(self.isAlreadySelected(index, self.haircutType, self.listOfAvailableHaircut)){
+			var tempIndex = self.listOfTemporarySelectedHaircuts.indexOf(self.listOfAvailableHaircut[index]);			
+			if(tempIndex<0){
+				//add the element if not already contained in the list
+				self.listOfTemporarySelectedHaircuts.push(self.listOfAvailableHaircut[index]);
+			}else{
+				//remove the element if already contained in the list
+				self.listOfTemporarySelectedHaircuts.splice(tempIndex, 1);
+			}			
+		}
+		
+	}
+
+	unselectCategoryEntry(index){		
+		var self = this;
+		if(self.isAlreadySelected(index, self.haircutCategory, self.listOfAvailableCategories)){
+			var tempIndex = self.listOfTemporarySelectedHaircutCategories.indexOf(self.listOfAvailableCategories[index]);			
+			if(tempIndex<0){
+				//add the element if not already contained in the list
+				self.listOfTemporarySelectedHaircutCategories.push(self.listOfAvailableCategories[index]);
+			}else{
+				//remove the element if already contained in the list
+				self.listOfTemporarySelectedHaircutCategories.splice(tempIndex, 1);
+			}			
+		}
 	}
 	
 

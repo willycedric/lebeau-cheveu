@@ -7,8 +7,12 @@
     text-shadow: 1px 1px 2px #ddd;
     font-weight: bold;
     font-size: 1.6em;
+   
 }
-
+.hairdresser-account  h4{
+      color: #0da7a9;
+      text-transform: capitalize;
+}
 .section-edtion-second-title{
     margin-bottom: 2em;
     font-weight: bold;
@@ -26,4 +30,19 @@
     padding: 3em;
 }
 
+.checkbox{
+    text-align: left;
+    font-family: FuturaPT-Medium;
+    font-size: 1.2em;
+ 
+}
+.prestation{
+    margin-bottom: 0.1em;
+}
+.prestation-details{
+    text-align: left;
+}
 
+.prestation-price{
+    font-size:0.8em,
+}

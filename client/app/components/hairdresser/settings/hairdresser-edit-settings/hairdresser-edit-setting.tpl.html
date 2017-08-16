@@ -1,7 +1,7 @@
 <section class="hairdresser-account hairdresser section-padding">
 	<div class="container">
         <div class="row">
-           <form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="vm.updatePreference(vm.prices, vm.formatedList)">					
+           <form autocomplete="off" role="updapte"  id="update-form"  name="updateForm"  novalidate ng-submit="vm.updatePreference(vm.prices, vm.formatedList, hairctuts)">					
 					<div class="col-md-offset-2 col-md-8">
 						<div class="row">
 							<h4 class="section-edition-first-title">Préferences </h4>
@@ -9,39 +9,38 @@
 						<div class="row section-edition">
 							<h5 class="section-edtion-second-title">Type de client</h5>
 							<div class="col-md-4 checkbox ">
-								<label><input type="checkbox" ng-model="customer.type1" ng-true-value="'Femme'" ng-false-value="0" ng-checked="vm.isAlreadySelected(0, vm.customerType, vm.listOfAvailableCustomerType)" ng-change = "vm.updateSelectionList(customer,vm.customerType, vm.listOfAvailableCustomerType)"/>Femme</label>								
+								<label><input type="checkbox" ng-model="customer.type1" ng-true-value="'Femme'" ng-false-value="1" ng-checked="vm.isAlreadySelected(1, vm.customerType, vm.listOfAvailableCustomerType)" ng-change = "vm.updateSelectionList(customer,vm.customerType, vm.listOfAvailableCustomerType)"/>Femme</label>								
 								
 							</div>
 							<div class="col-md-4 checkbox">
-								<label><input type="checkbox" ng-model="customer.type2" ng-true-value="'Homme'" ng-false-value="1" ng-checked="vm.isAlreadySelected(1, vm.customerType, vm.listOfAvailableCustomerType)" ng-change = "vm.updateSelectionList(customer,vm.customerType, vm.listOfAvailableCustomerType)"/>Homme</label>
+								<label><input type="checkbox" ng-model="customer.type2" ng-true-value="'Homme'" ng-false-value="2" ng-checked="vm.isAlreadySelected(2, vm.customerType, vm.listOfAvailableCustomerType)" ng-change = "vm.updateSelectionList(customer,vm.customerType, vm.listOfAvailableCustomerType)"/>Homme</label>
 							</div>
 							<div class="col-md-4 checkbox">
-								<label><input type="checkbox" ng-model="customer.type3" ng-true-value="'Mixte'" ng-false-value="2" ng-checked="vm.isAlreadySelected(2, vm.customerType, vm.listOfAvailableCustomerType)" ng-change = "vm.updateSelectionList(customer,vm.customerType,vm.listOfAvailableCustomerType)"/>Mixte</label>
+								<label><input type="checkbox" ng-model="customer.type3" ng-true-value="'Mixte'" ng-false-value="0" ng-checked="vm.isAlreadySelected(0, vm.customerType, vm.listOfAvailableCustomerType)" ng-change = "vm.updateSelectionList(customer,vm.customerType,vm.listOfAvailableCustomerType)"/>Mixte</label>
 							</div>
-							{{vm.customerType}}
 						</div><!-- end customer type -->
 						<div class="row section-edition">
 							<h5 class="section-edtion-second-title">Catégorie de coiffure</h5>
 							<div class="col-md-4 checkbox" ng-repeat="category in vm.listOfAvailableCategories track by $index">
-								<label><input type="checkbox" ng-model="categpries.values"  ng-checked="vm.isAlreadySelected($index, vm.haircutCategory,vm.listOfAvailableCategories)" ng-true-value="'{{category}}'" ng-false-value="0" ng-change="vm.updateSelectionList(categpries,vm.haircutCategory, vm.listOfAvailableCategories)">{{category | lowercase}}</label>
+								<label><input type="checkbox" ng-model="categories.values"  ng-checked="vm.isAlreadySelected($index, vm.haircutCategory, vm.listOfAvailableCategories)" ng-true-value="'{{category}}'" ng-false-value="0" ng-click="vm.unselectCategoryEntry($index)" ng-change="vm.updateSelectionList(categories,vm.haircutCategory, vm.listOfAvailableCategories)">{{category | lowercase}}</label>
 							</div>
 						</div><!-- end haircut category type -->							
 						<div class="row section-edition">
 							<h5 class="section-edtion-second-title">Type de coiffure</h5>
-							<div class="col-sm-6 checkbox" ng-repeat="haircut in vm.listOfAvailableHaircut track by $index">
-								<label><input type="checkbox" ng-model="hairctuts.value" ng-change="vm.updateSelectionList(hairctuts,vm.haircutType, vm.listOfAvailableHaircut)"  ng-checked="vm.isAlreadySelected($index, vm.haircutType, vm.listOfAvailableHaircut)" ng-true-value="'{{haircut}}'" ng-false-value="{{$index}}">{{haircut}}</label>
+							<div class="col-sm-6 checkbox" ng-repeat="haircut in vm.listOfAvailableHaircut track by $index">								
+								<label><input type="checkbox" ng-model="haircuts.value" ng-click="vm.unselectHaircutEntry($index)" ng-change="vm.updateSelectionList(haircuts,vm.haircutType, vm.listOfAvailableHaircut)"  ng-checked="vm.isAlreadySelected($index, vm.haircutType, vm.listOfAvailableHaircut)" ng-true-value="'{{haircut}}'" ng-false-value="{{$index}}">{{haircut}}</label>
 							</div>													
 						</div><!-- end haircut category type -->
 						
 						<div class="row section-edition" ng-show="vm.isHaircutSelected">
 							<h5 class="section-edtion-second-title">prix des prestations choisies</h5>
-							<div class="col-sm-6" ng-repeat="details in vm.formatedList track by $index">
+							<div class="col-sm-6 prestation" ng-repeat="details in vm.formatedList track by $index">
 								<div class="row">
 									<div class="col-md-5">
-										<span class="">{{details.name}}</span>
+										<span class="prestation-details">{{details.name}}</span>
 									</div>
 									<div class="col-md-3">
-										<input type="text" placeholder="prix" name="price_{{$index}}" data-max="{{details.price.max}}" data-min="{{details.price.min}}" ng-model="vm.prices[$index]" range-validator/>
+										<input type="text" class="prestation-price" placeholder="prix" name="price_{{$index}}" data-max="{{details.price.max}}" data-min="{{details.price.min}}" ng-model="vm.prices[$index]" range-validator/>
 										<span ng-show="updateForm.price_{{$index}}.$touched && updateForm.price_{{$index}}.$error.price" class="text-danger"> attention ! </span>
 									</div>									
 									<div class="col-md-4">

@@ -78,6 +78,10 @@ export const servicesHairdresserResourceModule = angular.module('servicesHairdre
     return $http.put(baseUrl+'/hairdresser/upload/galery',data).then(processResponse,processError);    
   };
 
+  resource.updateHairdresserDescription=function(data){
+    
+    return $http.put(baseUrl+'/hairdresser/update/description',data).then(processResponse,processError);    
+  };
   resource.findGaleryEntries = function(id){
     return $http.get(baseUrl+'/hairdresser/galery/entries/'+id.toString()).then(processResponse,processError);
   };

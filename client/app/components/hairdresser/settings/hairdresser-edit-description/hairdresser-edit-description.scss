@@ -1,0 +1,8 @@
+form[name=description] > textarea{
+    background: white;
+    font-family: FuturaPT-Medium;
+}
+
+form[name=description] > label[for=hairdresser-description]{
+    font-size:1.3em;
+}

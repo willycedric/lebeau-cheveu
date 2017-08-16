@@ -9,6 +9,7 @@ export const hairdresserdescription = angular.module('hairdresserdescriptionedit
     $stateProvider.state('hairdresserdescriptionedit', {
       url: '/hairdresser/description/edit/',
       template:'<hairdresserdescription></hairdresserdescription>',
+       params:{description:null}
     })
   })
   .directive('hairdresserdescription',hairdresserdescriptionDirective);
