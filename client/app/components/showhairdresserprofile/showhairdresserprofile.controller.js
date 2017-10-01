@@ -31,6 +31,8 @@ class ShowhairdresserprofileController {
               categoryName:[],
               galeryEntries:[]             
             }];
+            //hairdresser list of performance
+            this.listOfPerformances = [];
             //current date for the calendar
             this.today = ()=>{
               this.currentDate = new Date();
@@ -360,7 +362,14 @@ class ShowhairdresserprofileController {
     self.Auth.getHairdresserById(id)
     .then((response)=>{      
          self.hairdresser = response;
-         self.rating = self.hairdresser.rating;         
+         self.rating = self.hairdresser.rating;                
+         self.listOfPerformances = self.hairdresser.listOfPerformances.map(function(performance){
+           if(performance.hasOwnProperty('_id') && performance.price!=null){
+             return performance;
+           }
+         });
+          console.log("list of performance",JSON.stringify(self.listOfPerformances, null, 7));
+
          var data ={
            categoryName:[],
            galeryEntries:[]

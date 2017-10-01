@@ -5,7 +5,8 @@ class HairdressersettingsController {
          var self=this;	 		 
 		 self.Auth = Auth;	
 		 self.API= API; 
-		 self.$q = $q;		 
+		 self.$q = $q;		
+		 self.actionType = false;//to check wether is a change (ng-change ) --> true or not --> false. 
 		 self.$stateParams = $stateParams;	
 		 self.$state = $state;	 
 		 self.$log =$log;
@@ -23,6 +24,7 @@ class HairdressersettingsController {
 		self.prices = [];
 		self.listOfTemporarySelectedHaircuts = [];
 		self.listOfTemporarySelectedHaircutCategories = [];
+		self.listOfTemporarySelectedCustomerType = [];
 		Array.prototype.indexOfObject = function (property, value) {
 			for (var i = 0, len = this.length; i < len; i++) {
 				if (this[i][property] === value) return i;
@@ -157,9 +159,11 @@ class HairdressersettingsController {
 	 * @param {*} values 
 	 */
 	updateSelectionList(values,selectionList,listOfAvailable){					
-		var self=this;			
-		var elt = undefined;	
+		var self=this;		
 		debugger;
+		self.actionType=true;	
+		var elt = undefined;		
+		
 		if(!!(parseInt(values.value)+1)){
 			var entry = self.listOfAvailableHaircut[parseInt(values.value)];
 			if(self.tempSeletectedHaircuts.indexOf(entry)<0){
@@ -207,26 +211,33 @@ class HairdressersettingsController {
 	 */
 
 	updatePreference(prices, listOfSelectedHaircuts, listOfActiveHaircuts){
-		var self=this;
+		var self=this;		
 		self.listOfActiveHaircuts = listOfActiveHaircuts;
 		if(self.customerType.length !=0 || self.haircutCategory!=0 || self.haircutType.length!=0){			
 			var data = {};			
-			if(self.customerType.length!=0){				
-				//data.customerType = self.customerType;
-				if(self.customerType.indexOf("MIXTE")>=0 && self.customerType.indexOf("MIXTE")!=0){					
+			if(self.customerType.length!=0){
+				debugger;
+				var tempArray=_.difference(self.customerType, self.listOfTemporarySelectedCustomerType);;
+				if(tempArray.indexOf("MIXTE")>=0){					
 					data.customer_type = 0;
-				}else if(self.customerType.indexOf("HOMME")>=0 && self.customerType.indexOf("HOMME")!=0){
+				}				
+				else if(tempArray.indexOf("HOMME")>=0 && self.customerType.indexOf("FEMME")>= 0){
+					data.customer_type = 0;
+				}							
+				else if(tempArray.indexOf("HOMME")>=0){
 					data.customer_type=2;
-				}else if(self.customerType.indexOf("FEMME")>=0 && self.customerType.indexOf("FEMME")!=0){
+				}else if(tempArray.indexOf("FEMME")>=0){
 					data.customer_type=1;
 				}
 			}
 			
-			if(self.haircutCategory.length!=0){
-				data.haircutCategory =_.difference(self.haircutCategory, self.listOfTemporarySelectedHaircutCategories);
+			if(self.haircutCategory.length!=0){				
+				var tempArray=_.difference(self.haircutCategory, self.listOfTemporarySelectedHaircutCategories);
+				data.haircutCategory = tempArray.length==0?self.haircutCategory:tempArray;				
 			}
 			if(self.haircutType.length!=0){
-				data.haircutType = _.difference(self.haircutType, self.listOfTemporarySelectedHaircuts);								
+				var tempArray =  _.difference(self.haircutType, self.listOfTemporarySelectedHaircuts);				
+				data.haircutType = tempArray.length == 0?self.haircutType:tempArray;				
 			}			
 			var temp =[];
 			angular.forEach(listOfSelectedHaircuts, function(haircut, index){
@@ -262,8 +273,11 @@ class HairdressersettingsController {
 		var tempSelectedList = selectedList.map(function(elt){
 			return elt.toUpperCase();
 		});
+		var tempListOfAvailable = listOfAvailable.map(function(elt){
+			return elt.toUpperCase();
+		});
 		try{			
-			 found = tempSelectedList.indexOf(listOfAvailable[index].toUpperCase())>=0?true:false;
+			 found = tempSelectedList.indexOf(tempListOfAvailable[index].toUpperCase())>=0?true:false;
 		}catch(err){
 			throw new Error(err.toString());
 		}				
@@ -301,8 +315,8 @@ class HairdressersettingsController {
 	}
 
 	unselectHaircutEntry(index){
-		var self=this;				
-		if(self.isAlreadySelected(index, self.haircutType, self.listOfAvailableHaircut)){
+		var self=this;		
+		if(self.isAlreadySelected(index, self.haircutType, self.listOfAvailableHaircut) && !self.actionType){
 			var tempIndex = self.listOfTemporarySelectedHaircuts.indexOf(self.listOfAvailableHaircut[index]);			
 			if(tempIndex<0){
 				//add the element if not already contained in the list
@@ -316,8 +330,8 @@ class HairdressersettingsController {
 	}
 
 	unselectCategoryEntry(index){		
-		var self = this;
-		if(self.isAlreadySelected(index, self.haircutCategory, self.listOfAvailableCategories)){
+		var self = this;		
+		if(self.isAlreadySelected(index, self.haircutCategory, self.listOfAvailableCategories) && !self.actionType){
 			var tempIndex = self.listOfTemporarySelectedHaircutCategories.indexOf(self.listOfAvailableCategories[index]);			
 			if(tempIndex<0){
 				//add the element if not already contained in the list
@@ -325,6 +339,22 @@ class HairdressersettingsController {
 			}else{
 				//remove the element if already contained in the list
 				self.listOfTemporarySelectedHaircutCategories.splice(tempIndex, 1);
+			}			
+		}
+	}
+
+	unselectCustomerType(index){		
+		var self = this;		
+		debugger;
+		var bo = self.actionType;
+		if(!self.actionType){
+			var tempIndex = self.listOfTemporarySelectedCustomerType.indexOf(self.listOfAvailableCustomerType[index]);			
+			if(tempIndex<0){
+				//add the element if not already contained in the list
+				self.listOfTemporarySelectedCustomerType.push(self.listOfAvailableCustomerType[index]);
+			}else{
+				//remove the element if already contained in the list
+				self.listOfTemporarySelectedCustomerType.splice(tempIndex, 1);
 			}			
 		}
 	}
