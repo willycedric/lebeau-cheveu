@@ -13,13 +13,13 @@ import {customerAccountManager} from './customerAccountManager';
 import {searchBar} from './searchBar';
 import {ModalFactory} from './modalFactory';
 import {DateHandler} from './simpleDateHandler';
-import {ZonePath} from './zonePath';
+//import {ZonePath} from './zonePath';
 import {Formulator} from './formulator';
 import {PhotoUploader} from './photoUploader';
 import {HaircutCategoryFactory} from './haircutCategory';
 import {publicFactory} from './publicFactory';
 import angular from 'angular';
-
+//remove the zonePath factory responsible of display of displaying the french map
 
 export const shared = angular.module('shared', [])
   .constant('API', api)
@@ -37,7 +37,6 @@ export const shared = angular.module('shared', [])
   .factory('searchBar',searchBar)
   .factory('ModalFactory',ModalFactory)
   .factory('DateHandler',DateHandler)
-  .factory('ZonePath',ZonePath)
   .factory('Formulator',Formulator)
   .factory('PhotoUploader',PhotoUploader)
   .factory('haircutCategory',HaircutCategoryFactory)
