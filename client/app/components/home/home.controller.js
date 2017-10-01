@@ -3,7 +3,7 @@ import images from '../../../../images.json';
 
 
 class HomeController {
-  constructor(Location, $location, $state,$stateParams,AuthToken,$rootScope,$log,Auth,searchBar,Map,$scope, publicFactory) {
+  constructor(Location, $location, $state,$stateParams,AuthToken,$rootScope,$log,Auth,searchBar,$scope, publicFactory) {
   	this.url ="http://res.cloudinary.com/hgtagghpz/image/upload/v1475226327/banner10_fdlxry.jpg";
   	this.nbImages = 3;//images.length;
 	this.homeGallery = [];
@@ -19,43 +19,8 @@ class HomeController {
 	 this.$log =$log;
 	 this.$scope=$scope;
 	 this.$location=$location;
-         this.selected =true;
-         //Properties used to generate the map
-	 this.Map = Map;
-         //css properties
-        this.mapstroke=this.Map.cssProperties.mapstroke;
-        this.mapstroke_width=this.Map.cssProperties.mapstroke_width;
-        this.mapWidth=this.Map.cssProperties.mapWidth;
-        this.mapHeight=this.Map.cssProperties.mapHeight;
-         //Map svg details
-        this.zonePaths = Map.paths;
-        //Object used to construct the map
-        this.obj = [];
-
-        //Bundle all the map properties in a unique array 
-        for(var zone in Map.zonePaths){
-                this.obj.push(Map.zonePaths[zone]);
-        }
-
-        this.displayRegionName = (name)=>{
-                this.name = name;
-        };
-	 //List of availables towns
-	 this.towns = Location.towns;
-	 this.getLocation = Location.getLocation;
-	 this.asyncSelected=undefined;
-	 //selected town
-	 this.selected=undefined;	
-	this.active = 0;
-          const avalaibleHairdresserDepartements =[67300,59000,82000,72100,26000,33800,33800,33800,33270,92380,83200,69100,38100,93000,31770,16000,59000,69100,95310,91350,91100,74100,92370,51100,37000,45000,51100,91280,75020,95700,44100,75012,40465,42390,62000,
-              69009,81300,37300,28000,37300,37000,37320,37000,37000,45100,35000,35000,35001,35001,35001];
-          
-	this.truncateTo2CharactersHairdresserDepartementList = this.truncateTo2(avalaibleHairdresserDepartements);
-	  
-
-	  this.onSlideChanged = function (nextSlide, direction, nextIndex) {
-		    //console.log("slide changed: ",nextIndex);
-	  };
+    this.selected =true;
+        
 
 
 	   //If a user is connected throught oauth, the token is retrieved from the url
@@ -153,7 +118,7 @@ class HomeController {
 
 };
 
-HomeController.$inject=['Location','$location', '$state','$stateParams','AuthToken','$rootScope','$log','Auth','searchBar','Map','$scope', 'publicFactory'];
+HomeController.$inject=['Location','$location', '$state','$stateParams','AuthToken','$rootScope','$log','Auth','searchBar','$scope', 'publicFactory'];
 export {HomeController};
 
 
